@@ -34,7 +34,8 @@ def mockbar(txt):
     return f'<div class="mockbar">MOCK-UP CADANGAN — bukan laman sebenar. Data &amp; gambar ASAL dari listing sedia ada. {txt}</div>'
 
 
-def head(title, desc, brand):
+def head(title, desc, brand, listing=None):
+    attr = f' data-listing="{listing}"' if listing else ""
     return f"""<!DOCTYPE html>
 <html lang="ms"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,7 +45,7 @@ def head(title, desc, brand):
 <link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/mockup.css">
 </head>
-<body class="brand-{brand}">
+<body class="brand-{brand}"{attr}>
 """
 
 
@@ -111,6 +112,7 @@ def footer(brand):
 </div>
 <div class="lb" id="lightbox"><button aria-label="Tutup">✕</button><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Pratonton gambar"></div>
 <script src="assets/mockup.js"></script>
+<script src="assets/ali-chat.js?v=1"></script>
 </body></html>"""
 
 
@@ -545,7 +547,8 @@ galm = f"""<div class="gal">
 ROW_ADA = lambda k, v: f'<tr><th>{k}</th><td>{v}</td></tr>'
 ROW_BARU = lambda k: f'<tr><th>{k}</th><td class="muted" style="font-weight:500">Belum ada dalam rekod — perlu diisi <span class="tg gold" style="margin-left:6px">medan baharu</span></td></tr>'
 
-mt_det = head(f"MOCK-UP · {t['title']} | Mr Tanah", "Cadangan halaman butiran tanah Mr Tanah.", "mt")
+mt_det = head(f"MOCK-UP · {t['title']} | Mr Tanah", "Cadangan halaman butiran tanah Mr Tanah.", "mt",
+              listing=f"{t['tracking']} | {t['title']} | {t.get('location','')} | {t.get('price_label','')}")
 mt_det += mockbar("Halaman: Butiran TANAH (contoh)") + switcher("mt-butiran-tanah.html")
 mt_det += header("mt", "")
 mt_det += f"""<div class="wrap"><div class="crumbs">Utama › Tanah › Lot Banglo › <span class="muted">{t['title']}</span></div></div>
