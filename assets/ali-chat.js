@@ -5,7 +5,7 @@
    Konfigurasi: ALI_API diisi oleh skrip start_poc.sh (URL tunnel).
    ========================================================================== */
 (function () {
-  var ALI_API = window.ALI_API || "https://cash-prime-buddy-which.trycloudflare.com/chat";
+  var ALI_API = window.ALI_API || "https://traditional-virgin-harold-switch.trycloudflare.com/chat";
   var MAKS_MSJ = 20;                       // had sesi (lindungi kos)
   var WA_DEFAULT = { zmp: "60122310119", mt: "60163119076" };
 
