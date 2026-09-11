@@ -128,6 +128,14 @@ def skor(l, kw):
     return s
 
 
+def ansuran(p):
+    """Ansuran anggaran: 4.00% p.a., 35 tahun, 90% pembiayaan (dikira pelayan)."""
+    if not p:
+        return None
+    loan, r, n = p * 0.90, 0.04 / 12, 35 * 12
+    return round(loan * r / (1 - (1 + r) ** -n))
+
+
 def konteks(z, m, kw, had=12):
     pool = [(skor(l, kw), l) for l in (m + z)]
     pool = [(s, l) for s, l in pool if s > 0]
@@ -147,6 +155,9 @@ def konteks(z, m, kw, had=12):
         if l.get("jenis"):
             j = l["jenis"]
             b += " | " + ("+".join(j) if isinstance(j, list) else str(j))
+        a = ansuran(l.get("price"))
+        if a:
+            b += f" | ansuran anggaran RM{a:,}/bln (4.00%, 35 thn, 90%)"
         baris.append(b)
     return pilih, "\n".join(baris)
 
@@ -169,8 +180,10 @@ GAYA: Bahasa Melayu Malaysia, ringkas (maksimum 110 patah), mesra, profesional.
 Jika menyenaraikan hartanah: MAKSIMUM 3 listing, satu baris setiap satu dalam format
 'KOD — lokasi — harga — keluasan — hakmilik'. Gunakan TAJUK/lokasi tepat seperti dalam data.
 Jangan guna jadual markdown. Mesti habiskan ayat terakhir (jangan berhenti separuh jalan).
-Sebut anggaran ansuran hanya jika ditanya atau jika harga disebut (kadar 4.00% p.a., 35 tahun,
-90% pembiayaan) dan nyatakan ia anggaran.
+Anggaran ansuran SUDAH dikira dalam data (setiap baris ada "ansuran anggaran RM…/bln").
+JANGAN kira sendiri — guna angka itu sahaja, dan nyatakan ia anggaran.
+NOMBOR WHATSAPP: guna nombor laman ini SAHAJA (lihat "nombor WhatsApp laman ini" di bawah).
+Jangan sebut nombor laman yang satu lagi.
 """
 
 FAQ = """INFO TETAP:
@@ -242,6 +255,19 @@ def tanya(soalan, sejarah, laman, listing_hint=None):
         except Exception:
             pass
     return ans, pilih, u, lat
+
+
+def betulkan(ans, laman):
+    """Pembetulan deterministik: nombor WhatsApp & jenama mesti ikut laman pelawat."""
+    if laman == "mt":
+        for a, b in (("012-2310119", "016-3119076"), ("012 2310 119", "016-3119076"),
+                     ("+60122310119", "+60163119076"), ("Zahir MJ Property", "Mr Tanah")):
+            ans = ans.replace(a, b)
+    else:
+        for a, b in (("016-3119076", "012-2310119"), ("016 3119 076", "012-2310119"),
+                     ("+60163119076", "+60122310119"), ("Mr Tanah", "Zahir MJ Property")):
+            ans = ans.replace(a, b)
+    return ans
 
 
 def kos(u):
@@ -339,6 +365,7 @@ class H(BaseHTTPRequestHandler):
             laman = d.get("laman") or "zmp"
             hint = d.get("listing") or None
             ans, pilih, u, lat = tanya(soalan, d.get("sejarah"), laman, hint)
+            ans = betulkan(ans, laman)
             wa = "60163119076" if laman == "mt" else "60122310119"
             kod = [l["tracking"] for l in pilih[:3]]
             ringkas = f"Salam, saya dari laman web ({laman.upper()}). Saya tanya Ali: \"{soalan[:120]}\""
