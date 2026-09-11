@@ -30,7 +30,36 @@ GitHub Pages (mock-up, statik)
 | `jaga_poc.sh` | Watchdog: pastikan hidup; jika URL berubah → kemas kini + push (cron `01de9cc6fe02`, tiap 20 min) |
 | `tangkap_skrin.py` | Tangkap skrin headless (guna venv hermes: `websocket-client`) |
 | `log.jsonl` | Log audit pertanyaan + kos (30 hari) |
-| `../assets/ali-chat.js` | Widget chat (butang + panel + kad listing + handover) |
+| `../assets/ali-chat.js` | Widget chat (butang + panel + kad listing + **butang borang** + handover) |
+| `../assets/ali-config.js` | URL endpoint (ditulis oleh `start_poc.sh`; `ALI_API_BASE`) |
+| `../temujanji.html` | **Borang lawatan tapak** (berfungsi, hantar ke `/temujanji`) |
+| `temujanji.jsonl` | Rekod permohonan lawatan tapak |
+
+## Butang borang boleh klik (permintaan Zahir 12/9)
+
+AI tidak hanya bercakap — ia memberi **butang borang** di bawah jawapan supaya pelawat boleh terus isi:
+
+| Niat pelawat | Butang yang muncul |
+|---|---|
+| Nak lawatan tapak / viewing / "nak tengok" | 📅 **Isi borang lawatan tapak** → `temujanji.html?laman=..&kod=<kod listing>&tajuk=..` (kod & tajuk diisi automatik) |
+| Tanya kelayakan / DSR / pinjaman | ✅ Semak kelayakan & DSR (percuma) → zahirmjproperty.com/semak-kelayakan.html |
+| Tanya ansuran / kalkulator | 🧮 Kira ansuran → zahirmjproperty.com/kalkulator.html |
+| Pemilik nak jual/sewa (ZMP) | 📤 Serah listing → zahirmjproperty.com/jual-sewa-develop.html |
+| Pemilik tanah nak jual (MT) | 📤 Serah listing tanah → mrtanah.com/jual-sewa-develop.html |
+| Serah dokumen urus niaga | 📁 Serah dokumen → (ZMP/MT) |
+| Aduan kerosakan (MT) | 🛠 Aduan → mrtanah.com/portal/lapor-kerosakan.html |
+| Ladang (MT) | 🌴 Portal ladang → mrtanah.com/portal/ladang/ |
+
+Logik: `cta_untuk()` dalam `server.py` (padanan kata kunci, maksimum 2 butang, temujanji diberi keutamaan).
+Prompt melarang AI mencetak URL mentah — butang dihasilkan oleh sistem (jadi pautan sentiasa sah & boleh dijejak).
+
+**Borang lawatan tapak (`temujanji.html`) benar-benar berfungsi:** medan nama, WhatsApp, tarikh (min esok),
+masa, nota, persetujuan PDPA, honeypot anti-spam. Hantar → `POST /temujanji` → rekod `temujanji.jsonl`
++ **notifikasi Telegram kepada Zahir** (via `tg_baha_send.py`, sebagai Baha). Jika API gagal → borang
+menawarkan tempahan melalui WhatsApp (lead tidak hilang).
+
+> Untuk PRODUCTION: tukar sasaran borang kepada Google Sheet/Apps Script (corak Serah Listing sedia ada)
+> supaya rekod masuk ke sistem sebenar, bukan fail POC.
 
 ## Guardrail (dikuatkuasa dalam prompt sistem)
 
