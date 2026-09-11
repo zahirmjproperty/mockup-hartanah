@@ -67,14 +67,6 @@
     if(harga){harga.addEventListener('input',hitung);hitung();}
   });
 
-  // Bar bawah mudah alih muncul selepas skrol
-  var mb=document.querySelector('.mbar');
-  if(mb){
-    function chk(){ mb.style.transform = (window.scrollY>380)?'translateY(0)':'translateY(120%)'; }
-    mb.style.transition='transform .25s'; chk();
-    window.addEventListener('scroll',chk,{passive:true});
-  }
-
   // Menu mudah alih
   var tg=document.getElementById('navToggle'), nv=document.getElementById('nav');
   if(tg&&nv){tg.addEventListener('click',function(){
