@@ -31,9 +31,9 @@ OLD="$(cat "$URLF" 2>/dev/null)"
 if [ "$NEW" != "$OLD" ]; then
   cp /dev/null "$LOG.old" 2>/dev/null || true
   cd "$ROOT" || exit 1
-  if git diff --quiet -- assets/ali-chat.js; then :; else
+  if git diff --quiet -- assets/ali-config.js; then :; else
     set -a; . /home/ubuntu/.hermes/.env; set +a
-    git add assets/ali-chat.js
+    git add assets/ali-config.js
     git -c user.name="Zahir" -c user.email="zahir@zahirproperty.my" commit -q -m "POC Ali: URL terowong dikemas kini ($NEW)"
     git push -q "https://x-access-token:$GITHUB_TOKEN@github.com/zahirmjproperty/mockup-hartanah.git" main \
       && echo "[jaga_poc] push OK → $NEW" || echo "[jaga_poc] push GAGAL"

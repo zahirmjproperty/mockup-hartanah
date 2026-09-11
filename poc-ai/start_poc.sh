@@ -18,13 +18,11 @@ done
 [ -z "$URL" ] && { echo "GAGAL dapat URL terowong"; exit 1; }
 echo "URL: $URL"
 python3 - "$URL" <<'PY'
-import re, sys
-url = sys.argv[1].rstrip('/') + '/chat'
-p = '/home/ubuntu/mockup-hartanah/assets/ali-chat.js'
-s = open(p).read()
-s = re.sub(r'var ALI_API = window\.ALI_API \|\| "[^"]*"',
-           f'var ALI_API = window.ALI_API || "{url}"', s)
-open(p, 'w').write(s)
-print('ali-chat.js ->', url)
+import sys
+base = sys.argv[1].rstrip('/')
+p = '/home/ubuntu/mockup-hartanah/assets/ali-config.js'
+open(p, 'w').write('/* ditulis oleh poc-ai/start_poc.sh */\n'
+                   f'window.ALI_API_BASE = "{base}";\n')
+print('ali-config.js ->', base)
 PY
 echo "Selesai. Ingat: push repo mockup-hartanah supaya URL baharu diterbitkan."

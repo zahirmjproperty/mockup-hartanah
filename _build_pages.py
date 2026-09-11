@@ -22,7 +22,8 @@ ZP_IDS = ["COA-0001", "COA-0002", "COA-0003", "COA-0007", "COA-0008", "COA-0009"
 MT_IDS = ["MT-0001", "MT-0004", "MT-0010", "MT-0018", "MT-0019", "MT-0002"]
 
 PAGES = [("index.html", "Hub"), ("zmp-utama.html", "ZMP · Utama"), ("zmp-butiran.html", "ZMP · Butiran"),
-         ("mt-utama.html", "MT · Utama"), ("mt-butiran-tanah.html", "MT · Butiran Tanah")]
+         ("mt-utama.html", "MT · Utama"), ("mt-butiran-tanah.html", "MT · Butiran Tanah"),
+         ("temujanji.html", "Borang Temujanji")]
 
 
 def switcher(cur):
@@ -112,7 +113,8 @@ def footer(brand):
 </div>
 <div class="lb" id="lightbox"><button aria-label="Tutup">✕</button><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Pratonton gambar"></div>
 <script src="assets/mockup.js"></script>
-<script src="assets/ali-chat.js?v=1"></script>
+<script src="assets/ali-config.js?v=1"></script>
+<script src="assets/ali-chat.js?v=2"></script>
 </body></html>"""
 
 
@@ -282,7 +284,8 @@ hub += mockbar("Klik kad di bawah untuk buka setiap halaman.") + switcher("index
       <li>Imej WebP (kad ≤ ~120 KB) + width/height (elak CLS)</li>
       <li>Testimoni &amp; borang temujanji (tempat dinyatakan — perlu data sebenar)</li>
     </ul>
-    <p class="note" style="margin-top:14px">Belum disambung dalam mock-up ini (Fasa 2): GA4 + Meta Pixel, carian berfungsi, peta interaktif, halaman kawasan, borang temujanji ke sistem.</p>
+    <p class="note" style="margin-top:14px">Belum disambung dalam mock-up ini (Fasa 2): GA4 + Meta Pixel, carian berfungsi, peta interaktif, halaman kawasan.</p>
+    <p style="margin-top:14px"><b>Borang berfungsi:</b> <a href="temujanji.html">borang tempahan lawatan tapak</a> — diisi oleh pelawat, terus rekod + notifikasi WhatsApp/Telegram kepada Zahir. AI "Tanya Ali" akan beri <b>butang borang</b> secara automatik apabila pelawat menyebut lawatan tapak, kelayakan pinjaman, atau nak serah listing.</p>
   </div>
 </div></body></html>"""
 open(os.path.join(BASE, "index.html"), "w").write(hub)
@@ -513,7 +516,7 @@ z_det += f"""<div class="wrap"><div class="crumbs">Utama › Rumah Subsale › <
        <div class="fld"><label>Nama</label><input type="text" placeholder="Nama penuh"></div>
        <div class="fld"><label>No. WhatsApp</label><input type="text" placeholder="01x-xxx xxxx"></div>
        <div class="fld full"><label>Tarikh &amp; masa cadangan</label><input type="text" placeholder="cth: Sabtu pagi / Ahad 3 ptg"></div>
-       <div class="full"><button class="btn btn-accent" type="button">📅 Minta temujanji lawatan</button></div>
+       <div class="full"><a class="btn btn-accent" href="temujanji.html?laman=zmp&amp;kod={l['tracking']}&amp;tajuk={quote(l['title'])}" target="_blank" rel="noopener">📅 Isi borang lawatan tapak</a></div>
      </div>
      <p class="note">Mock-up: borang belum disambung. Fasa 2 akan hantar ke Google Sheet + notifikasi WhatsApp.</p></div>
   </div>
@@ -599,7 +602,7 @@ mt_det += f"""<div class="wrap"><div class="crumbs">Utama › Tanah › Lot Bang
      <p class="muted" style="font-size:14.5px">Kami boleh atur lawatan tapak dan tunjukkan sempadan lot serta akses jalan sebenar.</p>
      <div class="cta2" style="margin-top:12px">
        <a class="btn btn-accent" href="{wa_link('60163119076', f"Salam, saya berminat dengan {t['title']} ({t['tracking']}) — {t['location']}. Boleh saya dapatkan maklumat lanjut dan set tarikh lawatan tapak?")}" target="_blank" rel="noopener">💬 Tanya lot ini di WhatsApp</a>
-       <button class="btn btn-ghost" type="button">📅 Minta temujanji lawatan</button>
+       <a class="btn btn-ghost" href="temujanji.html?laman=mt&amp;kod={t['tracking']}&amp;tajuk={quote(t['title'])}" target="_blank" rel="noopener">📅 Isi borang lawatan tapak</a>
      </div>
      <div class="form" style="margin-top:14px">
        <div class="fld"><label>Nama</label><input type="text" placeholder="Nama penuh"></div>

@@ -8,7 +8,7 @@ Jalankan: python3 server.py   (lalai 127.0.0.1:8795)
 Guardrail: AI hanya menjawab berdasarkan data listing sebenar (data/listings.js)
 + FAQ terkawal. Tiada angka rekaan. Tiada data peribadi pelanggan dihantar ke LLM.
 """
-import json, os, re, time, hashlib, threading, urllib.request, urllib.error
+import json, os, re, time, hashlib, threading, subprocess, urllib.request, urllib.error
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 
 HOME = os.path.expanduser("~")
@@ -16,6 +16,7 @@ ZMP_JS = "/home/ubuntu/zahir-web/data/listings.js"
 MT_JS = "/home/ubuntu/mrtanah-site/data/listings.js"
 IMG_DIR = "/home/ubuntu/mockup-hartanah/img"
 LOG = "/home/ubuntu/mockup-hartanah/poc-ai/log.jsonl"
+TEMUJANJI_LOG = "/home/ubuntu/mockup-hartanah/poc-ai/temujanji.jsonl"
 RATES = os.path.join(HOME, ".hermes/ai_rates.json")
 
 ENV = {}
@@ -192,8 +193,89 @@ FAQ = """INFO TETAP:
 - Semua hartanah melalui semakan status pemilikan. Pelan & geran penuh diberi kepada pembeli serius.
 - Ejen berdaftar: PEA 2684. Pejabat: DNA Workspace, Seksyen 9, Bandar Baru Bangi.
 - Ada kalkulator pinjaman dan semak kelayakan (DSR) di laman Zahir MJ Property.
-- Lawatan tapak boleh diatur (borang temujanji / WhatsApp).
+- Lawatan tapak boleh diatur melalui BORANG temujanji (butang disediakan oleh sistem).
+
+BORANG YANG ADA (jangan cetak URL — sistem akan tunjuk butang boleh klik):
+- Borang temujanji lawatan tapak (nama, WhatsApp, tarikh) — untuk atur lawatan apa-apa hartanah.
+- Semak kelayakan pinjaman & DSR (percuma) — laman Zahir MJ Property.
+- Kalkulator ansuran bulanan — laman Zahir MJ Property.
+- Serah listing (pemilik ejen nak jual/sewa/develop hartanah).
+- Serah dokumen urus niaga · Mohon sewa · Aduan kerosakan (portal).
+Apabila pelanggan menyebut lawatan tapak / temujanji / nak jumpa / nak isi borang, sebut bahawa
+anda akan sediakan BUTANG BORANG di bawah jawapan (jangan cetak pautan mentah).
 """
+
+# ---------------------------------------------------------------- borang boleh klik
+BASE_TEMUJANJI = os.environ.get("ALI_BASE_TEMUJANJI",
+                                "https://zahirmjproperty.github.io/mockup-hartanah/temujanji.html")
+BORANG = {
+    "temujanji": {"label": "📅 Isi borang lawatan tapak", "jenis": "borang",
+                  "kata": ["lawatan", "tapak", "temujanji", "viewing", "tengok", "lihat rumah",
+                           "lihat tanah", "jumpa", "visit", "tur"]},
+    "kelayakan": {"label": "✅ Semak kelayakan & DSR (percuma)", "jenis": "borang",
+                  "url": "https://zahirmjproperty.com/semak-kelayakan.html",
+                  "kata": ["kelayakan", "dsr", "layak", "pinjaman", "loan", "bank", "gaji",
+                           "komitmen", "lulus"]},
+    "kalkulator": {"label": "🧮 Kira ansuran (kalkulator)", "jenis": "borang",
+                   "url": "https://zahirmjproperty.com/kalkulator.html",
+                   "kata": ["kalkulator", "ansuran", "bulanan", "installment", "faedah", "interest"]},
+    "serah_listing": {"label": "📤 Serah listing (nak jual/sewa)", "jenis": "borang",
+                      "kata": ["nak jual", "hendak jual", "nak sewa", "hendak sewa", "serah listing",
+                               "senaraikan", "list kan", "develop", "pasarkan", "jual rumah saya",
+                               "jual tanah saya"]},
+    "serah_dokumen": {"label": "📁 Serah dokumen urus niaga", "jenis": "borang",
+                      "kata": ["serah dokumen", "hantar dokumen", "ic", "salinan", "geran asal"]},
+}
+BORANG_MT = {
+    "serah_listing": {"label": "📤 Serah listing tanah (nak jual)", "jenis": "borang",
+                      "url": "https://mrtanah.com/jual-sewa-develop.html",
+                      "kata": ["nak jual", "hendak jual", "nak sewa", "hendak sewa", "serah listing",
+                               "senaraikan", "list kan", "jual tanah saya", "jual tanah", "nak develop",
+                               "pasarkan tanah", "ada tanah nak jual", "ada lot nak jual"]},
+    "serah_dokumen": {"label": "📁 Serah dokumen urus niaga", "jenis": "borang",
+                      "url": "https://mrtanah.com/serah-dokumen.html",
+                      "kata": ["serah dokumen", "hantar dokumen", "salinan ic", "geran asal"]},
+    "aduan": {"label": "🛠 Aduan kerosakan (penyewa/pemilik)", "jenis": "borang",
+              "url": "https://mrtanah.com/portal/lapor-kerosakan.html",
+              "kata": ["aduan", "kerosakan", "rosak", "bocor", "baiki", "maintenance", "repair"]},
+    "ladang": {"label": "🌴 Portal ladang (SAT)", "jenis": "borang",
+               "url": "https://mrtanah.com/portal/ladang/index.html",
+               "kata": ["ladang", "kebun", "sawit", "pertanian", "tanam"]},
+    "kelayakan": {"label": "✅ Semak kelayakan & DSR (percuma)", "jenis": "borang",
+                  "url": "https://zahirmjproperty.com/semak-kelayakan.html",
+                  "kata": ["kelayakan", "dsr", "pinjaman", "loan", "bank", "gaji", "layak"]},
+    "kalkulator": {"label": "🧮 Kira ansuran (kalkulator)", "jenis": "borang",
+                   "url": "https://zahirmjproperty.com/kalkulator.html",
+                   "kata": ["kalkulator", "ansuran", "bulanan", "faedah", "interest"]},
+}
+
+
+def cta_untuk(soalan, laman, kod=None, tajuk=None):
+    """Pulangkan senarai butang (maks 2) ikut niat soalan."""
+    ql = (soalan or "").lower()
+    reg = dict(BORANG)
+    if laman == "mt":
+        reg.update(BORANG_MT)
+    pilih = []
+    for nama, b in reg.items():
+        if any(k in ql for k in b.get("kata", [])):
+            pilih.append(nama)
+    # temujanji diberi keutamaan bila disebut
+    if "temujanji" in pilih:
+        pilih.remove("temujanji")
+        pilih.insert(0, "temujanji")
+    butang = []
+    for nama in pilih[:2]:
+        b = reg[nama]
+        if nama == "temujanji":
+            from urllib.parse import quote
+            url = (f"{BASE_TEMUJANJI}?laman={laman}"
+                   + (f"&kod={quote(kod)}&tajuk={quote((tajuk or '')[:80])}" if kod else ""))
+        else:
+            url = b["url"]
+        butang.append({"label": b["label"], "url": url, "jenis": b["jenis"]})
+    return butang
+
 
 
 def _panggil(msgs, thinking_off=True, max_tokens=700):
@@ -346,10 +428,67 @@ class H(BaseHTTPRequestHandler):
             z, m = listings()
             self._json({"ok": True, "model": MODEL, "zmp": len(z), "mt": len(m),
                         "masa": time.strftime("%Y-%m-%d %H:%M:%S")})
+        elif self.path.startswith("/temujanji-kira"):
+            n = sum(1 for _ in open(TEMUJANJI_LOG)) if os.path.exists(TEMUJANJI_LOG) else 0
+            self._json({"ok": True, "jumlah_permohonan": n})
         else:
             self._json({"ok": False, "ralat": "not found"}, 404)
 
+    def temujanji(self):
+        """Borang lawatan tapak — simpan + beritahu Zahir (Baha)."""
+        ip = self.headers.get("CF-Connecting-IP") or self.headers.get("X-Forwarded-For") or self.client_address[0]
+        ip = ip.split(",")[0].strip()
+        if not benarkan(ip):
+            return self._json({"ok": False, "ralat": "Terlalu banyak permohonan. Cuba sebentar."}, 429)
+        try:
+            n = int(self.headers.get("Content-Length") or 0)
+            d = json.loads(self.rfile.read(n) or b"{}")
+        except Exception:
+            return self._json({"ok": False, "ralat": "Data tidak sah."}, 400)
+
+        nama = str(d.get("nama") or "").strip()[:80]
+        wa = re.sub(r"[^\d+]", "", str(d.get("wa") or ""))[:20]
+        tarikh = str(d.get("tarikh") or "").strip()[:40]
+        masa = str(d.get("masa") or "").strip()[:20]
+        kod = str(d.get("kod") or "").strip()[:20]
+        tajuk = str(d.get("tajuk") or "").strip()[:120]
+        nota = str(d.get("nota") or "").strip()[:400]
+        setuju = bool(d.get("setuju"))
+        if len(nama) < 2 or len(wa) < 9:
+            return self._json({"ok": False, "ralat": "Sila isi nama dan nombor WhatsApp yang sah."}, 400)
+        if not setuju:
+            return self._json({"ok": False, "ralat": "Sila tanda persetujuan penggunaan maklumat."}, 400)
+
+        rekod = {"t": time.strftime("%Y-%m-%dT%H:%M:%S"), "nama": nama, "wa": wa, "tarikh": tarikh,
+                 "masa": masa, "kod": kod, "tajuk": tajuk, "nota": nota,
+                 "laman": d.get("laman") or "zmp",
+                 "ip_hash": hashlib.sha256(ip.encode()).hexdigest()[:12]}
+        try:
+            with open(TEMUJANJI_LOG, "a") as f:
+                f.write(json.dumps(rekod, ensure_ascii=False) + "\n")
+        except Exception as e:
+            return self._json({"ok": False, "ralat": f"Gagal simpan: {e}"}, 500)
+
+        # beritahu Zahir (Baha) — tidak menggagalkan permohonan jika notifikasi gagal
+        try:
+            tg = os.path.expanduser("~/.hermes/scripts/tg_baha_send.py")
+            if os.path.exists(tg):
+                teks = ("📅 PERMOHONAN LAWATAN TAPAK (POC web)\n"
+                        f"Nama: {nama}\nWhatsApp: {wa}\n"
+                        f"Hartana: {kod or '-'} {('· ' + tajuk) if tajuk else ''}\n"
+                        f"Cadangan: {tarikh or '-'} {masa or ''}\n"
+                        f"Nota: {nota or '-'}\nLaman: {rekod['laman']}")
+                subprocess.Popen(["python3", tg, teks], stdout=subprocess.DEVNULL,
+                                 stderr=subprocess.DEVNULL)
+        except Exception:
+            pass
+        return self._json({"ok": True,
+                           "mesej": "Terima kasih! Permohonan diterima. Kami akan WhatsApp anda untuk konfirmasi tarikh.",
+                           "kod": kod})
+
     def do_POST(self):
+        if self.path.startswith("/temujanji"):
+            return self.temujanji()
         if not self.path.startswith("/chat"):
             return self._json({"ok": False, "ralat": "not found"}, 404)
         ip = self.headers.get("CF-Connecting-IP") or self.headers.get("X-Forwarded-For") or self.client_address[0]
@@ -377,6 +516,8 @@ class H(BaseHTTPRequestHandler):
                                 "harga": l.get("price_label") or "", "imej": imej(l["tracking"])}
                                for l in pilih[:3]],
                    "wa": f"https://wa.me/{wa}?text={quote(ringkas)}",
+                   "cta": cta_untuk(soalan, laman, kod[0] if kod else None,
+                                    pilih[0]["title"] if pilih else None),
                    "kos_myr": kos(u)[0], "waktu": kos(u)[1], "latency_s": lat,
                    "model": MODEL}
             try:

@@ -5,7 +5,8 @@
    Konfigurasi: ALI_API diisi oleh skrip start_poc.sh (URL tunnel).
    ========================================================================== */
 (function () {
-  var ALI_API = window.ALI_API || "https://traditional-virgin-harold-switch.trycloudflare.com/chat";
+  var BASE = window.ALI_API_BASE || "";
+  var ALI_API = (window.ALI_API || (BASE ? BASE + "/chat" : ""));
   var MAKS_MSJ = 20;                       // had sesi (lindungi kos)
   var WA_DEFAULT = { zmp: "60122310119", mt: "60163119076" };
 
@@ -48,6 +49,11 @@
   .ali-card .p{font-size:12.5px;color:#0C7A4B;font-weight:700}
   body.brand-mt .ali-card .p{color:#059669}
   .ali-card .l{font-size:11.5px;color:#64748B}
+  .ali-cta{display:flex;flex-direction:column;gap:7px;margin-top:2px}
+  .ali-form-btn{display:block;text-align:center;background:#fff;border:1.5px solid #0C7A4B;color:#0C7A4B;
+    padding:11px 13px;border-radius:11px;font-weight:700;font-size:13.5px}
+  body.brand-mt .ali-form-btn{border-color:#059669;color:#059669}
+  .ali-form-btn:hover{background:#E8F5EF}
   .ali-wa{margin-top:2px;display:inline-flex;align-items:center;gap:7px;background:#0C7A4B;color:#fff;
     padding:10px 13px;border-radius:11px;font-weight:600;font-size:13.5px;align-self:flex-start}
   body.brand-mt .ali-wa{background:#059669}
@@ -94,10 +100,16 @@
 
   function esc(s) { return String(s).replace(/[<>&]/g, function (c) { return ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" })[c]; }); }
 
+  /* elak teks bertukar HTML, tetapi pautan http(s) jadi boleh klik */
+  function rich(s) {
+    return esc(s).replace(/(https?:\/\/[^\s<]+)/g,
+      function (u) { return '<a href="' + u + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">' + u + "</a>"; });
+  }
+
   function bubble(text, cls, disc) {
     var d = document.createElement("div");
     d.className = "ali-m " + cls;
-    d.innerHTML = esc(text) + (disc ? '<small class="disc">' + esc(disc) + "</small>" : "");
+    d.innerHTML = rich(text) + (disc ? '<small class="disc">' + esc(disc) + "</small>" : "");
     body.appendChild(d); body.scrollTop = body.scrollHeight;
     return d;
   }
@@ -114,6 +126,21 @@
         '<span><span class="t">' + esc(l.tajuk) + '</span><br><span class="p">' + esc(l.harga) +
         '</span> <span class="l">· ' + esc(l.lokasi) + " · " + esc(l.kod) + "</span></span>";
       wrap.appendChild(c);
+    });
+    body.appendChild(wrap); body.scrollTop = body.scrollHeight;
+  }
+
+  function butangBorang(cta) {
+    if (!cta || !cta.length) return;
+    var wrap = document.createElement("div");
+    wrap.className = "ali-cta";
+    cta.forEach(function (c) {
+      var a = document.createElement("a");
+      a.className = "ali-form-btn";
+      a.href = c.url; a.target = "_blank"; a.rel = "noopener";
+      a.textContent = c.label;
+      a.onclick = function () { if (window.gtag) gtag("event", "ali_borang", { borang: c.label }); };
+      wrap.appendChild(a);
     });
     body.appendChild(wrap); body.scrollTop = body.scrollHeight;
   }
@@ -168,6 +195,7 @@
       if (!d.ok) { bubble(d.ralat || "Maaf, ada masalah teknikal.", "ai"); return; }
       bubble(d.jawapan, "ai");
       kad(d.listing);
+      butangBorang(d.cta);
       hosWa(d.wa, "Bercakap dengan " + (laman === "mt" ? "Mr Tanah" : "Zahir MJ Property"));
       setChips(["Ada lagi pilihan?", "Berapa ansuran bulanan?", "Nak lawatan tapak"]);
       sejarah.push({ role: "user", content: teks }, { role: "assistant", content: d.jawapan });

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ms"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Borang Tempahan Lawatan Tapak | Zahir MJ Property / Mr Tanah</title>
+<meta name="description" content="Isi borang untuk tempah lawatan tapak — kami akan WhatsApp anda untuk konfirmasi tarikh.">
+<link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/mockup.css">
+<style>
+  .bok{max-width:640px;margin:0 auto;padding:26px 18px 60px}
+  .card-f{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;box-shadow:var(--sh1)}
+  .f-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .f-grid .full{grid-column:1/-1}
+  .chk{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--navy-2);margin-top:4px}
+  .chk input{min-height:auto;width:20px;height:20px;margin-top:2px}
+  .hp{position:absolute;left:-9999px}
+  .ok{background:var(--accent-soft);border:1px solid #BFE6D5;color:var(--accent-2);border-radius:var(--r);
+      padding:16px;font-size:14.5px;font-weight:600;display:none}
+  .ok.on{display:block}
+  .err{color:var(--red);font-size:13.5px;font-weight:600;margin-top:10px;display:none}
+  .err.on{display:block}
+  .kod-box{background:var(--navy);color:#fff;border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:14px}
+  .kod-box b{font-family:var(--font-h)}
+  @media(max-width:640px){ .f-grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body class="brand-zmp">
+<div class="mockbar">MOCK-UP POC — borang ini berfungsi (data dihantar ke sistem ujian &amp; notifikasi Zahir).</div>
+
+<header class="site-header"><div class="wrap hdr">
+  <a class="brand" href="index.html"><span class="mark" id="mark">Z</span>
+    <span><strong id="brandName">Zahir MJ Property</strong><small id="brandSub">Tempahan lawatan tapak</small></span></a>
+  <a class="btn btn-accent btn-sm" id="waTop" href="https://wa.me/60122310119" target="_blank" rel="noopener">📲 WhatsApp</a>
+</div></header>
+
+<div class="bok">
+  <h1 style="font-size:clamp(22px,3vw,30px);margin-bottom:8px">Tempah Lawatan Tapak</h1>
+  <p class="muted" style="font-size:15px;margin-bottom:18px">Isi maklumat ringkas — kami akan WhatsApp anda untuk konfirmasi tarikh dan masa. Percuma, tiada komitmen.</p>
+
+  <div class="card-f">
+    <div class="kod-box" id="kodBox" style="display:none">Hartanah: <b id="kodTxt"></b></div>
+
+    <div class="f-grid">
+      <div class="fld full"><label for="nama">Nama penuh *</label>
+        <input id="nama" type="text" placeholder="Nama seperti dalam IC" autocomplete="name" autocapitalize="words"></div>
+      <div class="fld full"><label for="wa">Nombor WhatsApp *</label>
+        <input id="wa" type="tel" inputmode="numeric" placeholder="cth: 0123456789" autocomplete="tel"></div>
+      <div class="fld"><label for="tarikh">Tarikh cadangan</label><input id="tarikh" type="date"></div>
+      <div class="fld"><label for="masa">Masa</label>
+        <select id="masa">
+          <option value="">Pilih masa</option>
+          <option>Pagi (9am – 12pm)</option>
+          <option>Tengah hari (12pm – 3pm)</option>
+          <option>Petang (3pm – 6pm)</option>
+          <option>Hujung minggu</option>
+          <option>Bila-bila masa</option>
+        </select></div>
+      <div class="fld full"><label for="nota">Nota (pilihan)</label>
+        <input id="nota" type="text" placeholder="cth: nak tengok sempadan lot &amp; akses jalan"></div>
+      <div class="hp"><label for="syarikat">Syarikat</label><input id="syarikat" type="text" tabindex="-1" autocomplete="off"></div>
+      <div class="full chk">
+        <input id="setuju" type="checkbox">
+        <label for="setuju">Saya bersetuju maklumat ini digunakan untuk menghubungi saya berkenaan lawatan tapak.
+          (Kami tidak berkongsi maklumat anda dengan pihak lain.)</label>
+      </div>
+      <div class="full">
+        <button class="btn btn-accent" id="hantar" type="button" style="width:100%">📅 Hantar permohonan lawatan</button>
+        <p class="note" id="notaRujuk">Borang ini untuk lawatan tapak sahaja. Untuk harga/rundingan/dokumen, gunakan WhatsApp.</p>
+      </div>
+    </div>
+    <div class="err" id="err"></div>
+    <div class="ok" id="ok"><span id="okTxt"></span>
+      <p style="margin-top:12px"><a class="btn btn-accent btn-sm" id="waOk" href="#" target="_blank" rel="noopener">💬 WhatsApp kami sekarang</a></p>
+    </div>
+  </div>
+
+  <p class="note" style="margin-top:16px"><a href="index.html">← Kembali ke laman utama mock-up</a></p>
+</div>
+
+<script src="assets/ali-config.js?v=1"></script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var laman = (q.get("laman") || "zmp").toLowerCase() === "mt" ? "mt" : "zmp";
+  var kod = q.get("kod") || "", tajuk = q.get("tajuk") || "";
+  var WA = laman === "mt" ? "60163119076" : "60122310119";
+  if (laman === "mt") {
+    document.body.className = "brand-mt";
+    document.getElementById("mark").textContent = "MT";
+    document.getElementById("brandName").textContent = "Mr Tanah";
+    document.getElementById("brandSub").textContent = "Tempahan lawatan tapak";
+    document.getElementById("waTop").href = "https://wa.me/" + WA;
+  }
+  if (kod) {
+    document.getElementById("kodBox").style.display = "block";
+    document.getElementById("kodTxt").textContent = kod + (tajuk ? " · " + tajuk : "");
+  }
+  // tarikh minimum = esok
+  var d = new Date(Date.now() + 86400000);
+  document.getElementById("tarikh").min = d.toISOString().slice(0, 10);
+
+  var btn = document.getElementById("hantar");
+  btn.onclick = function () {
+    var err = document.getElementById("err"), ok = document.getElementById("ok");
+    err.classList.remove("on"); ok.classList.remove("on");
+    var nama = document.getElementById("nama").value.trim();
+    var wa = document.getElementById("wa").value.trim();
+    var setuju = document.getElementById("setuju").checked;
+    if (document.getElementById("syarikat").value) return;               // honeypot
+    if (nama.length < 2) { err.textContent = "Sila isi nama penuh."; err.classList.add("on"); return; }
+    if (wa.replace(/\D/g, "").length < 9) { err.textContent = "Sila isi nombor WhatsApp yang sah (cth 0123456789)."; err.classList.add("on"); return; }
+    if (!setuju) { err.textContent = "Sila tanda persetujuan penggunaan maklumat."; err.classList.add("on"); return; }
+
+    btn.disabled = true; btn.textContent = "Menghantar…";
+    var base = window.ALI_API_BASE || "";
+    fetch(base + "/temujanji", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nama: nama, wa: wa, tarikh: document.getElementById("tarikh").value,
+        masa: document.getElementById("masa").value, nota: document.getElementById("nota").value,
+        kod: kod, tajuk: tajuk, laman: laman, setuju: true
+      })
+    }).then(function (r) { return r.json(); }).then(function (d2) {
+      btn.disabled = false; btn.textContent = "📅 Hantar permohonan lawatan";
+      if (!d2.ok) { err.textContent = d2.ralat || "Maaf, ada masalah. Cuba lagi."; err.classList.add("on"); return; }
+      ok.classList.add("on");
+      document.getElementById("okTxt").textContent = d2.mesej || "Permohonan diterima!";
+      document.getElementById("waOk").href = "https://wa.me/" + WA +
+        "?text=" + encodeURIComponent("Salam, saya baru isi borang lawatan tapak" + (kod ? " untuk " + kod : "") + ". Nama: " + nama + ".");
+      ok.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (window.gtag) gtag("event", "borang_temujanji", { laman: laman, kod: kod });
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = "📅 Hantar permohonan lawatan";
+      err.innerHTML = 'Maaf, talian terganggu. Boleh <a href="https://wa.me/' + WA +
+        '" target="_blank" rel="noopener"><b>tempah melalui WhatsApp</b></a> pula.';
+      err.classList.add("on");
+    });
+  };
+})();
+</script>
+</body></html>
