@@ -73,6 +73,7 @@ body.brand-mt .brand .mark{background:var(--accent)}
 .btn-ghost:hover{border-color:var(--navy);}
 .btn-navy{background:var(--navy);color:#fff}
 .btn-sm{padding:9px 13px;min-height:40px;font-size:14px}
+.hdr .btn-accent{white-space:nowrap}
 .navtoggle{display:none;font-size:22px;background:none;border:0;cursor:pointer}
 
 /* ---------- HERO ---------- */
@@ -302,6 +303,8 @@ footer a:hover{color:#fff}
   .hubgrid{grid-template-columns:1fr}
 }
 @media(max-width:640px){
+  .brand small{display:none}
+  .hdr .btn-accent{font-size:13px;padding:9px 11px}
   .grid,.tms{grid-template-columns:1fr}
   .sgrid{grid-template-columns:1fr}
   .mbar{display:flex}
