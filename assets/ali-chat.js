@@ -110,8 +110,7 @@
       var c = document.createElement("a");
       c.className = "ali-card";
       c.href = "listing-" + l.kod.toLowerCase() + ".html";
-      c.innerHTML = (l.imej ? '<img src="' + l.imej + '" alt="' + esc(l.tajuk) + '">' :
-        '<img alt="" style="background:#E9EEF3">') +
+      c.innerHTML = (l.imej ? '<img src="' + l.imej + '" alt="' + esc(l.tajuk) + '" loading="lazy">' : '') +
         '<span><span class="t">' + esc(l.tajuk) + '</span><br><span class="p">' + esc(l.harga) +
         '</span> <span class="l">· ' + esc(l.lokasi) + " · " + esc(l.kod) + "</span></span>";
       wrap.appendChild(c);
