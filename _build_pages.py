@@ -44,7 +44,7 @@ def head(title, desc, brand, listing=None):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/mockup.css">
+<link rel="stylesheet" href="assets/mockup.css?v=2">
 </head>
 <body class="brand-{brand}"{attr}>
 """
@@ -112,7 +112,7 @@ def footer(brand):
   <a class="btn btn-accent" href="https://wa.me/{wa}" target="_blank" rel="noopener">📲 WhatsApp</a>
 </div>
 <div class="lb" id="lightbox"><button aria-label="Tutup">✕</button><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Pratonton gambar"></div>
-<script src="assets/mockup.js"></script>
+<script src="assets/mockup.js?v=2"></script>
 <script src="assets/ali-config.js?v=1"></script>
 <script src="assets/ali-chat.js?v=2"></script>
 </body></html>"""

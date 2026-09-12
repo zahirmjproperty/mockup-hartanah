@@ -39,14 +39,21 @@
     document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('on');});
   }
 
-  // Thumbnail galeri
+  // Thumbnail galeri + pengendalian imej kecil (elak nampak pecah bila dibesarkan)
   var main=document.getElementById('galMain');
   if(main){
+    var tandaKecil=function(){
+      var box=main.parentElement.clientWidth||0;
+      main.classList.toggle('kecil', !!(main.naturalWidth && box && main.naturalWidth < box));
+    };
+    if(main.complete) tandaKecil(); else main.addEventListener('load',tandaKecil);
+    window.addEventListener('resize',tandaKecil);
     document.querySelectorAll('.thumbs img').forEach(function(t){
       t.addEventListener('click',function(){
         main.src=t.dataset.big||t.src;
         document.querySelectorAll('.thumbs img').forEach(function(x){x.classList.remove('on')});
         t.classList.add('on');
+        main.complete ? tandaKecil() : main.addEventListener('load',tandaKecil,{once:true});
       });
     });
   }

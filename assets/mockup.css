@@ -239,10 +239,11 @@ footer a:hover{color:#fff}
 .crumbs{font-size:13px;color:var(--muted);padding:14px 0}
 .detail{display:grid;grid-template-columns:1.65fr 1fr;gap:26px;align-items:start;padding-bottom:30px}
 .gal{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);background:#fff}
-.gal .main{position:relative;aspect-ratio:16/10;overflow:hidden;background:#E9EEF3}
-.gal .main img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
-.gal .thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:8px}
-.gal .thumbs img{aspect-ratio:1;object-fit:cover;border-radius:9px;cursor:pointer;border:2px solid transparent}
+.gal .main{position:relative;aspect-ratio:4/3;overflow:hidden;background:#E9EEF3}
+.gal .main img{width:100%;height:100%;object-fit:cover;object-position:center;cursor:zoom-in}
+.gal .main img.kecil{object-fit:contain}   /* imej sumber kecil: jangan besarkan sampai pecah */
+.gal .thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:8px;align-items:start}
+.gal .thumbs img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:9px;cursor:pointer;border:2px solid transparent}
 .gal .thumbs img.on{border-color:var(--accent)}
 .dhead{margin:18px 0 6px}
 .dhead h1{font-size:clamp(22px,3vw,32px)}
