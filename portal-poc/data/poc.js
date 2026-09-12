@@ -11,13 +11,13 @@ window.POC = {
     baki: "Belum Bayar"
   },
   invois: [
-    { id:"INV-2026-08-0002", unit:"U-0002", tempoh:"2026-08", sewa:420, elektrik:41.20, air:6.80, lain:0,
+    { id:"INV-0002", unit:"U-0002", tempoh:"2026-08", sewa:420, elektrik:41.20, air:6.80, lain:0,
       jana:"2026-09-07", due:"2026-09-17", status:"Belum Bayar", pdf:"#", billplz:"", resit:"" },
-    { id:"INV-2026-07-0002", unit:"U-0002", tempoh:"2026-07", sewa:420, elektrik:38.50, air:5.90, lain:0,
+    { id:"INV-0003", unit:"U-0002", tempoh:"2026-07", sewa:420, elektrik:38.50, air:5.90, lain:0,
       jana:"2026-08-07", due:"2026-08-17", status:"Dibayar", tarikh_bayar:"2026-08-14", pdf:"#", resit:"#" },
-    { id:"INV-2026-06-0002", unit:"U-0002", tempoh:"2026-06", sewa:420, elektrik:44.10, air:7.20, lain:0,
+    { id:"INV-0004", unit:"U-0002", tempoh:"2026-06", sewa:420, elektrik:44.10, air:7.20, lain:0,
       jana:"2026-07-07", due:"2026-07-17", status:"Dibayar", tarikh_bayar:"2026-07-15", pdf:"#", resit:"#" },
-    { id:"INV-2026-05-0002", unit:"U-0002", tempoh:"2026-05", sewa:420, elektrik:36.90, air:5.40, lain:0,
+    { id:"INV-0005", unit:"U-0002", tempoh:"2026-05", sewa:420, elektrik:36.90, air:5.40, lain:0,
       jana:"2026-06-07", due:"2026-06-17", status:"Dibayar", tarikh_bayar:"2026-06-12", pdf:"#", resit:"#" }
   ],
   tiket_penyewa: [
@@ -41,7 +41,7 @@ window.POC = {
   ],
   notis: [
     { tarikh:"10/09/2026", teks:"Pemotongan air SYABAS dijalankan 14/09 (9:00 pg–1:00 tgh). Sila simpan air secukupnya." },
-    { tarikh:"01/09/2026", teks:"Bil sewa September (INV-2026-08-0002) telah dijana — bayar sebelum 17/09 untuk elak caj lewat." }
+    { tarikh:"01/09/2026", teks:"Bil sewa September (INV-0002) telah dijana — bayar sebelum 17/09 untuk elak caj lewat." }
   ],
   kontraktor: [
     { id:"MT-CK-0001", nama:"Rizal Plumbing & Renovation", kategori:"Plumbing", rating:4.6, kerja:8, kualiti:92, telefon:"013-6XX 8844" },

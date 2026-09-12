@@ -40,7 +40,7 @@ Sistem kerosakan MT sudah **hidup** (`ZMPKerja.gs v18`): halaman `aduan-pemilik.
 
 1. **Portal Penyewa** — tekan "Bayar Sekarang" → pilih kaedah → "Simulasi pembayaran berjaya" → lihat resit. Kemudian lihat tiket `MT-K-2026-0014` (paip bocor): patut nampak timeline 6 langkah + status "DALAM KERJA".
 2. **Kanban** — tekan tapisan "SLA — Lewat" (patut tinggal kes P1 siling bocor). Klik kad `MT-K-2026-0014` → patut nampak perbandingan 3 sebut harga + WO + jadual bayaran 30/40/30.
-3. **Bayar** — semak rujukan `BS-2026-08-0002` jelas dan sebab ia penting (padanan automatik).
+3. **Bayar** — semak rujukan `BS-INV-0002` jelas dan sebab ia penting (padanan automatik).
 4. **Ladang** — sahkan bentuk lejar (blok/tan/ha/harga MPOB/kos/lesen) sebelum dibina pada Fasa 2.
 5. **Maklum balas** — apa perlu ditambah/dibuang sebelum sambung ke sistem sebenar?
 
