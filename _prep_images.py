@@ -136,7 +136,7 @@ def galeri(tracking, src, n=6):
     return out
 
 GAL_Z = galeri("COA-0001", [x for x in z if x["tracking"] == "COA-0001"][0]["images"], 6)
-GAL_M = galeri("MT-0023", [x for x in m if x["tracking"] == "MT-0023"][0]["images"], 6)
+GAL_M = galeri("MT-0003", [x for x in m if x["tracking"] == "MT-0003"][0]["images"], 6)
 
 json.dump({"assets": assets, "hero_z": hero_z, "hero_m": hero_m}, open(os.path.join(BASE, "img-map.json"), "w"))
 print("imej siap. jumlah fail:", len(os.listdir(IMG)))

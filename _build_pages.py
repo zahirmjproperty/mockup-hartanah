@@ -268,7 +268,7 @@ hub += mockbar("Klik kad di bawah untuk buka setiap halaman.") + switcher("index
       <a class="btn btn-navy" href="zmp-butiran.html">Buka mock-up →</a></div>
     <div class="hubcard"><h3>📐 Mr Tanah — Butiran TANAH (utama)</h3>
       <p class="muted" style="font-size:14px">Halaman butiran tanah baharu dengan <b>Jadual Data Teknikal Tanah</b> — memaparkan data yang sudah ada dalam rekod (keluasan, pegangan, kategori guna tanah, sekatan, zoning) + medan baharu yang perlu diisi.</p>
-      <ul><li>Contoh: MT-0023 (Bungalow Land Presint 10, RM2.6 juta, Freehold)</li><li>Medan belum ada data ditanda jujur "perlu diisi"</li></ul>
+      <ul><li>Contoh: MT-0003 (Tanah Janda Baik 1.64 ekar, RM2.4 juta, Freehold · Melayu Reserved)</li><li>Medan belum ada data ditanda jujur "perlu diisi"</li></ul>
       <a class="btn btn-navy" href="mt-butiran-tanah.html">Buka mock-up →</a></div>
   </div>
   <div class="hubcard" style="margin-top:18px">
@@ -538,9 +538,9 @@ z_det += f"""<div class="wrap"><div class="crumbs">Utama › Rumah Subsale › <
 open(os.path.join(BASE, "zmp-butiran.html"), "w").write(z_det)
 
 # ============================================================ MT BUTIRAN TANAH
-t = by(MT, "MT-0023")
+t = by(MT, "MT-0003")
 tt, tl = t["title"], t["location"]
-GM = [f"mt-0023-g{i}" for i in range(1, 7)]
+GM = [f"mt-0003-g{i}" for i in range(1, 7)]
 galm = f"""<div class="gal">
  <div class="main"><img id="galMain" src="img/{GM[0]}-big.webp" width="1200" height="750" fetchpriority="high"
    data-zoom="img/{GM[0]}-big.webp" alt="{tt} — {tl}"></div>
