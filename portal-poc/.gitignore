@@ -1,0 +1,3 @@
+# Jangan hantar data mentah yang dibaca dari Sheets sebenar
+data/nyata.json
+__pycache__/

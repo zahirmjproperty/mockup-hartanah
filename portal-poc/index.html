@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>POC · Portal Mr Tanah — Sistem Pengurusan Hartanah (Pratonton)</title>
+<link rel="stylesheet" href="poc.css">
+</head>
+<body>
+<div class="topbar"><div class="tt">
+  <div><h1>🧪 POC Portal Mr Tanah — Sistem Pengurusan Hartanah</h1>
+    <p>Sewa · Kerosakan · Ladang — pratonton untuk penilaian Zahir &amp; Fadilah</p></div>
+  <span class="brand">Mr Tanah · ZMJ Solutions</span>
+</div></div>
+<nav class="pocnav"><div class="in">
+  <a href="index.html" class="on">🏠 Hub POC</a>
+  <a href="penyewa.html">👤 Portal Penyewa</a>
+  <a href="kanban.html">🗂️ Papan Kanban + SLA</a>
+  <a href="bayar.html">💳 Bayar Sewa</a>
+  <a href="ladang.html">🌴 Modul Ladang (rangka)</a>
+</div></nav>
+
+<div class="wrap">
+  <div class="banner">🧪 <b>POC / MOCK-UP — bukan sistem hidup.</b> Struktur data meniru sistem sebenar (ref <b>MT-K-####</b>, <b>MT-CK-####</b>, <b>INV-####</b>, sewa RM420/bulan, tempoh <b>2026-08</b>, due <b>17/09</b>). Nama &amp; alamat <b>ditopengkan</b>. Halaman ini <b>noindex</b> dan <b>tidak</b> menyentuh production (mrtanah.com).</div>
+
+  <div class="kpi">
+    <div class="k green"><b>3</b><span>BAHARU dalam POC</span></div>
+    <div class="k"><b>4</b><span>Halaman sedia ada (live)</span></div>
+    <div class="k gold"><b>3</b><span>Jurang dikenal pasti</span></div>
+    <div class="k"><b>RM0</b><span>Kos infra tambahan</span></div>
+  </div>
+
+  <div class="card">
+    <h2>🆕 Tiga perkara BAHARU dalam POC ini <span class="tag">untuk dinilai</span></h2>
+    <div class="grid g3">
+      <div class="meta"><b>1. Portal Penyewa</b><div class="sub" style="margin-top:6px">Penyewa nampak baki sewa, tarikh akhir, resit, status aduan &amp; dokumen kontrak — tanpa perlu tanya WhatsApp.</div><div class="btnrow" style="margin-top:10px"><a class="btn navy" href="penyewa.html">Buka portal penyewa →</a></div></div>
+      <div class="meta"><b>2. Papan Kanban + SLA</b><div class="sub" style="margin-top:6px">Semua kes mengikut lajur kerja, warna SLA (hijau/kuning/merah), sebut harga, work order &amp; jadual bayaran dalam satu skrin.</div><div class="btnrow" style="margin-top:10px"><a class="btn navy" href="kanban.html">Buka papan kanban →</a></div></div>
+      <div class="meta"><b>3. Bayar Sewa online</b><div class="sub" style="margin-top:6px">Pautan bayar per invois (DuitNow QR / FPX) + resit automatik + rujukan <b>BS-####</b> masuk terus ke lejer.</div><div class="btnrow" style="margin-top:10px"><a class="btn navy" href="bayar.html">Buka halaman bayar →</a></div></div>
+    </div>
+    <div class="hint">Keutamaan: perkara <b>1</b> dan <b>3</b> mengurangkan pertanyaan WhatsApp ("berapa baki?", "dah bayar ke?") — beban terbesar hari ini.</div>
+  </div>
+
+  <div class="card">
+    <h2>✅ Sudah ada &amp; HIDUP (jangan bina semula)</h2>
+    <table>
+      <tr><th>Peranan</th><th>Halaman hidup</th><th>Apa ada</th><th>Status</th></tr>
+      <tr><td><b>Pemilik</b></td><td>mrtanah.com/portal/aduan-pemilik.html</td><td>Timeline kemajuan, gambar bukti, pihak terlibat, ringkasan bayaran, butang Lulus/Tolak sebut harga</td><td><span class="st s-done">LIVE</span></td></tr>
+      <tr><td><b>Kontraktor</b></td><td>mrtanah.com/portal/aduan-kontraktor.html</td><td>Tugasan bertoken, alamat &amp; telefon pemilik, rating, pautan bukti per tahap</td><td><span class="st s-done">LIVE</span></td></tr>
+      <tr><td><b>Papan MT</b></td><td>mrtanah.com/portal/aduan-mt.html</td><td>Semua kes, kontraktor dipilih, ejen rujukan, kos pengurusan &amp; referral (dalaman)</td><td><span class="st s-done">LIVE</span></td></tr>
+      <tr><td><b>Ejen</b></td><td>mrtanah.com/portal/aduan-ejen.html</td><td>Kes yang dirujuk sahaja (tanpa amaun dalaman MT)</td><td><span class="st s-done">LIVE</span></td></tr>
+      <tr><td><b>Ladang (SAT)</b></td><td>mrtanah.com/portal/ladang/</td><td>Borang pendaftaran &amp; hantar maklumat ladang</td><td><span class="st s-wait">Sebahagian</span></td></tr>
+    </table>
+    <div class="note" style="margin-top:11px">⚠️ Sebab itu POC ini <b>tidak</b> membina semula aliran kerosakan — ia hanya menambah <b>paparan Kanban + SLA</b> di atas data yang sudah wujud (tab <b>Tickets / Sebutharga / Work Order / Jadual Bayaran</b>).</div>
+  </div>
+
+  <div class="card">
+    <h2>🧭 Apa yang BELUM ada (cadangan Fasa seterusnya)</h2>
+    <table>
+      <tr><th>#</th><th>Jurang</th><th>Cadangan</th><th>Fasa</th></tr>
+      <tr><td>1</td><td>Portal penyewa (baki, resit, status aduan)</td><td>Pautan bertoken per unit + lejar invois sedia ada</td><td><span class="st s-triage">Fasa 1 — POC ini</span></td></tr>
+      <tr><td>2</td><td>Papan Kanban + SLA (tiada paparan masa nyata)</td><td>Paparan atas tab Tickets/Work Order + penunjuk SLA berwarna</td><td><span class="st s-triage">Fasa 1 — POC ini</span></td></tr>
+      <tr><td>3</td><td>Bayar sewa online (Billplz untuk sewa belum diaktifkan)</td><td>DuitNow QR + FPX per invois, resit auto, rujukan <b>BS-####</b></td><td><span class="st s-triage">Fasa 1 — POC ini</span></td></tr>
+      <tr><td>4</td><td>Lejar hasil ladang (tuaian, tan/ha, harga BTS, lesen MPOB)</td><td>Modul ladang: tuaian per blok + harga rujukan MPOB + kos per ha</td><td><span class="st s-appr">Fasa 2</span></td></tr>
+      <tr><td>5</td><td>Penyata &amp; P&amp;L per unit/pemilik</td><td>Jana dari lejer Unit &amp; Bil + billing hub</td><td><span class="st s-appr">Fasa 2</span></td></tr>
+      <tr><td>6</td><td>Notifikasi WhatsApp automatik dari nombor MT</td><td>Queue <b>WA Notis</b> sudah ada — tunggu pengesahan sesi WA Web MT</td><td><span class="st s-appr">Fasa 2</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>🧪 Cara uji (10 minit)</h2>
+    <div class="tl">
+      <div class="ev done"><b>1. Portal Penyewa</b><i>Lihat baki, tekan "Bayar Sekarang", muat turun resit, lihat status aduan paip bocor.</i></div>
+      <div class="ev done"><b>2. Papan Kanban</b><i>Cuba tapis "SLA — Lewat" (kes P1 siling bocor). Klik kad untuk lihat sebut harga, work order &amp; jadual bayaran 30/40/30.</i></div>
+      <div class="ev done"><b>3. Bayar Sewa</b><i>Pilih kaedah, tekan "Simulasi berjaya" → lihat resit + rujukan yang masuk ke lejer.</i></div>
+      <div class="ev now"><b>4. Beri maklum balas</b><i>Apa perlu ditambah/dibuang sebelum kita sambung ke sistem sebenar?</i></div>
+    </div>
+  </div>
+
+  <div class="foot">POC disediakan oleh Ali (Hermes) · 12 Sep 2026 · Data ditopengkan · noindex · Production tidak disentuh</div>
+</div>
+</body>
+</html>

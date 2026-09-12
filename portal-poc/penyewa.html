@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>POC · Portal Penyewa — Mr Tanah</title>
+<link rel="stylesheet" href="poc.css">
+</head>
+<body>
+<div class="topbar"><div class="tt">
+  <div><h1>👤 Portal Penyewa</h1><p id="unithead">—</p></div>
+  <span class="brand">Mr Tanah · ZMJ Solutions</span>
+</div></div>
+<nav class="pocnav"><div class="in">
+  <a href="index.html">🏠 Hub POC</a>
+  <a href="penyewa.html" class="on">👤 Portal Penyewa</a>
+  <a href="kanban.html">🗂️ Papan Kanban + SLA</a>
+  <a href="bayar.html">💳 Bayar Sewa</a>
+  <a href="ladang.html">🌴 Modul Ladang (rangka)</a>
+</div></nav>
+
+<div class="wrap">
+  <div class="banner">🧪 <b>POC</b> — portal penyewa. Data invois/unit meniru sistem sebenar; nama &amp; alamat ditopengkan. Tiada bayaran sebenar dijalankan.</div>
+
+  <div class="card">
+    <h2>💳 Ringkasan Akaun <span class="tag">paling atas</span></h2>
+    <div class="grid g2">
+      <div>
+        <div class="sub">Jumlah perlu dibayar (tempoh <b id="tempoh">—</b>)</div>
+        <div class="big" id="jumlah">RM 0.00</div>
+        <div class="sub" id="pecahan">—</div>
+        <div class="meta" style="margin-top:10px">
+          <div class="row"><span>Tarikh akhir</span><b id="due">—</b></div>
+          <div class="row"><span>Status</span><span class="st s-late" id="status">Belum Bayar</span></div>
+          <div class="row"><span>Invois</span><b id="inv">—</b></div>
+          <div class="row"><span>Caj lewat</span><b>RM10 selepas 7 hari</b></div>
+        </div>
+        <div class="btnrow" style="margin-top:12px">
+          <a class="btn" href="bayar.html">Bayar Sekarang</a>
+          <button class="btn ghost" onclick="alert('POC: PDF invois akan dibuka (fail sebenar wujud dalam Drive: Bil Unit/).')">Muat turun invois (PDF)</button>
+        </div>
+        <div class="hint">Rujukan bayaran anda: <b>BS-2026-08-0002</b> — sila masukkan dalam medan rujukan supaya padanan automatik.</div>
+      </div>
+      <div>
+        <div class="meta">
+          <b>📍 Unit &amp; kontrak</b>
+          <div class="row"><span>Unit</span><b id="unit">—</b></div>
+          <div class="row"><span>Sewa bulanan</span><b id="sewa">—</b></div>
+          <div class="row"><span>Deposit (dipegang pemilik)</span><b id="deposit">—</b></div>
+          <div class="row"><span>Tempoh sewa</span><b id="tempoh2">—</b></div>
+          <div class="row"><span>Baki tempoh</span><b id="bakiTempoh">—</b></div>
+        </div>
+        <div class="note" style="margin-top:10px">Deposit <b>tidak</b> dipegang oleh Mr Tanah — ia dipegang oleh pemilik dan direkod dengan bukti inventori serahan masuk/keluar.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🧾 Sejarah Bil &amp; Resit</h2>
+    <table>
+      <thead><tr><th>Invois</th><th>Tempoh</th><th class="num">Sewa</th><th class="num">Utiliti</th><th class="num">Jumlah</th><th>Due</th><th>Status</th><th>Resit</th></tr></thead>
+      <tbody id="tbinv"></tbody>
+    </table>
+    <div class="hint">Utiliti (TNB/Air) adalah <b>pass-through</b> — dibayar pendahuluan oleh ZMJ dan dituntut semula dalam invois bulanan.</div>
+  </div>
+
+  <div class="card">
+    <h2>🔧 Kerosakan &amp; Pembaikan <span class="tag">status masa nyata</span></h2>
+    <div class="btnrow" style="margin-bottom:12px">
+      <button class="btn" onclick="buka()">+ Lapor Kerosakan Baharu</button>
+      <span class="sub">Muat naik gambar (maks 5) · pilih kategori · tandakan kecemasan</span>
+    </div>
+    <div id="formAduan" style="display:none">
+      <div class="meta">
+        <label class="f">Kategori kerosakan</label>
+        <select><option>Paip / air bocor</option><option>Elektrik / lampu</option><option>Aircond</option><option>Bumbung / siling bocor</option><option>Pintu / tingkap</option><option>Lain-lain</option></select>
+        <label class="f">Keterangan ringkas</label>
+        <textarea rows="3" placeholder="Contoh: paip bawah sinki bocor, air meresap ke dinding sejak pagi tadi"></textarea>
+        <label class="f">Tahap kecemasan</label>
+        <select><option>Rutin (Boleh tunggu 3–5 hari)</option><option>Urgent (Perlu dalam 24 jam)</option><option>Kecemasan (Bahaya / air membanjir / elektrik)</option></select>
+        <label class="f">Gambar bukti</label>
+        <input type="file" multiple accept="image/*">
+        <div class="hint">Bila dihantar: sistem jana <b>MT-K-2026-####</b>, hantar emel + WhatsApp pengesahan, dan MT akan triage dalam <b>1 jam perniagaan</b>.</div>
+        <div class="btnrow" style="margin-top:12px">
+          <button class="btn" onclick="alert('POC: aduan akan dihantar ke webhook ZMPKerja (tab Tickets) dan tiket MT-K-2026-0015 dijana.');buka()">Hantar aduan</button>
+          <button class="btn ghost" onclick="buka()">Batal</button>
+        </div>
+      </div>
+    </div>
+    <div id="tiket"></div>
+  </div>
+
+  <div class="card">
+    <h2>📁 Dokumen &amp; Kontrak</h2>
+    <table><tbody id="tbdok"></tbody></table>
+    <div class="hint">Semua dokumen diakses melalui pautan peribadi anda sahaja (tiada pada carian Google).</div>
+  </div>
+
+  <div class="card">
+    <h2>📢 Papan Notis</h2>
+    <div id="notis"></div>
+  </div>
+
+  <div class="card">
+    <h2>💬 Perlukan bantuan?</h2>
+    <div class="btnrow">
+      <a class="btn" href="#">WhatsApp Mr Tanah (016-311 9076)</a>
+      <a class="btn ghost" href="#">Emel mrtanahmy@gmail.com</a>
+    </div>
+    <div class="hint">Waktu pejabat: Isnin–Jumaat 9:00 pg–6:00 ptg · Kecemasan (air/elektrik): 24 jam.</div>
+  </div>
+
+  <div class="foot">POC · Portal Penyewa · data ditopengkan · noindex · Production tidak disentuh</div>
+</div>
+
+<script src="data/poc.js"></script>
+<script>
+const P = window.POC, S = P.penyewa;
+const rm = n => "RM " + Number(n).toLocaleString("ms-MY", {minimumFractionDigits:2, maximumFractionDigits:2});
+document.getElementById("unithead").textContent = "Mr Tanah · " + S.unit + " · Penyewa: " + S.nama;
+const inv0 = P.invois[0];
+const jum = inv0.sewa + inv0.elektrik + inv0.air + inv0.lain;
+document.getElementById("tempoh").textContent = inv0.tempoh;
+document.getElementById("jumlah").textContent = rm(jum);
+document.getElementById("pecahan").textContent = "Sewa " + rm(inv0.sewa) + " · Elektrik " + rm(inv0.elektrik) + " · Air " + rm(inv0.air) + " · Lain " + rm(inv0.lain);
+document.getElementById("due").textContent = "17 September 2026";
+document.getElementById("inv").textContent = inv0.id;
+document.getElementById("unit").textContent = S.unit;
+document.getElementById("sewa").textContent = rm(S.sewa) + " / bulan";
+document.getElementById("deposit").textContent = rm(S.deposit) + " (2 bulan)";
+document.getElementById("tempoh2").textContent = "01/03/2026 – 28/02/2027";
+document.getElementById("bakiTempoh").textContent = "≈ 5 bulan lagi";
+
+const st = s => s === "Dibayar" ? '<span class="st s-done">DIBAYAR</span>' :
+  (s === "Belum Bayar" ? '<span class="st s-late">BELUM BAYAR</span>' : '<span class="st s-wait">'+s+'</span>');
+
+document.getElementById("tbinv").innerHTML = P.invois.map(i => {
+  const u = i.elektrik + i.air + i.lain, j = i.sewa + u;
+  return `<tr><td><b>${i.id}</b></td><td>${i.tempoh}</td><td class="num">${rm(i.sewa)}</td><td class="num">${rm(u)}</td>
+    <td class="num"><b>${rm(j)}</b></td><td>${i.due.split("-").reverse().join("/")}</td><td>${st(i.status)}</td>
+    <td>${i.status === "Dibayar" ? '<a href="#" onclick="alert(\'POC: resit PDF INV '+i.id+' (fail sebenar dalam Drive Bil Unit).\');return false">Resit ↗</a>' : '<span class="sub">—</span>'}</td></tr>`;
+}).join("");
+
+document.getElementById("tiket").innerHTML = P.tiket_penyewa.map(t => `
+  <div class="meta" style="margin-top:6px">
+    <div class="row"><span>${t.dilapor} · ${t.kategori}</span><span class="st s-work">${t.status}</span></div>
+    <div style="margin:8px 0 4px"><b>${t.ref}</b> — ${t.tajuk}</div>
+    <div class="row"><span>Keutamaan</span><b>${t.keutamaan}</b></div>
+    <div class="row"><span>Kontraktor</span><b>${t.kontraktor}</b></div>
+    <div class="row"><span>SLA tindak balas</span><b>${t.sla} · ${t.sla_baki}</b></div>
+    <div class="tl" style="margin-top:10px">${t.timeline.map(e => `
+      <div class="ev ${e.s}"><b>${e.a}</b><i>${e.t} — ${e.d}</i></div>`).join("")}</div>
+    <div class="okbox" style="margin-top:6px">Bukti gambar "sebelum" telah dimuat naik oleh kontraktor. Anda akan diminta <b>sahkan</b> sebelum kes ditutup, dan boleh memberi <b>penilaian 1–5</b> (menjadi rating kontraktor).</div>
+  </div>`).join("");
+
+document.getElementById("tbdok").innerHTML = P.dokumen.map(d =>
+  `<tr><td><b>${d.nama}</b><div class="sub">${d.nota}</div></td><td class="num"><a href="#" onclick="alert('POC: buka dokumen (pautan peribadi bertoken).');return false">Buka ↗</a></td></tr>`).join("");
+
+document.getElementById("notis").innerHTML = P.notis.map(n =>
+  `<div class="meta" style="margin-bottom:8px"><b>${n.tarikh}</b><div style="margin-top:3px">${n.teks}</div></div>`).join("");
+
+function buka(){ const f = document.getElementById("formAduan"); f.style.display = f.style.display === "none" ? "block" : "none"; }
+</script>
+</body>
+</html>

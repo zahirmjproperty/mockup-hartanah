@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>POC · Modul Ladang (rangka) — Mr Tanah / SAT</title>
+<link rel="stylesheet" href="poc.css">
+</head>
+<body>
+<div class="topbar"><div class="tt">
+  <div><h1>🌴 Modul Ladang — Rangka (Fasa 2, belum dibina)</h1><p>Lejar tuaian · hasil tan/ha · harga BTS MPOB · lesen &amp; kos — brand Mr Tanah, pengendali SAT</p></div>
+  <span class="brand">Mr Tanah · SAT</span>
+</div></div>
+<nav class="pocnav"><div class="in">
+  <a href="index.html">🏠 Hub POC</a>
+  <a href="penyewa.html">👤 Portal Penyewa</a>
+  <a href="kanban.html">🗂️ Papan Kanban + SLA</a>
+  <a href="bayar.html">💳 Bayar Sewa</a>
+  <a href="ladang.html" class="on">🌴 Modul Ladang (rangka)</a>
+</div></nav>
+
+<div class="wrap">
+  <div class="banner">🧪 <b>RANGKA (wireframe)</b> — <b>belum</b> dibina. Semua angka di bawah adalah <b>contoh</b> untuk menunjukkan bentuk lejar yang dicadangkan. Sumber harga sebenar: <b>MPOB BEPI</b> (harga BTS harian ikut wilayah).</div>
+
+  <div class="kpi">
+    <div class="k"><b>3</b><span>Blok Berdaftar</span></div>
+    <div class="k green"><b>12.4</b><span>Tan/ha (purata)</span></div>
+    <div class="k"><b>RM 3 210</b><span>Kos per tan</span></div>
+    <div class="k gold"><b>1</b><span>Lesen hampir luput</span></div>
+  </div>
+
+  <div class="card">
+    <h2>📋 Lejar Blok &amp; Tuaian <span class="tag">cadangan</span></h2>
+    <table>
+      <tr><th>Blok</th><th>Luas (ha)</th><th>Tahun tanam</th><th class="num">Pokok</th><th class="num">Tuaian (tan)</th><th class="num">Hasil tan/ha</th><th>Status</th></tr>
+      <tr><td><b>BLK-01</b> · Ladang A</td><td>4.0</td><td>2014</td><td class="num">512</td><td class="num">58.0</td><td class="num"><b>14.5</b></td><td><span class="st s-done">MENGHASILKAN</span></td></tr>
+      <tr><td><b>BLK-02</b> · Ladang A</td><td>3.2</td><td>2016</td><td class="num">410</td><td class="num">32.0</td><td class="num"><b>10.0</b></td><td><span class="st s-appr">PERLU PERHATIAN</span></td></tr>
+      <tr><td><b>BLK-03</b> · Ladang B</td><td>5.5</td><td>2021</td><td class="num">700</td><td class="num">0</td><td class="num">—</td><td><span class="st s-wait">BELUM MENGHASILKAN</span></td></tr>
+    </table>
+    <div class="hint">Penanda aras industri: pekebun kecil purata <b>≈10.6 tan/ha</b>; ladang estet boleh 25–30 tan/ha. Blok yang jatuh bawah purata = isyarat baja/penuaian/perosak perlu disemak.</div>
+  </div>
+
+  <div class="card">
+    <h2>💰 Harga Rujukan BTS (MPOB) vs Harga Kilang</h2>
+    <div class="grid g2">
+      <div class="meta">
+        <div class="row"><span>Wilayah</span><b>Pahang / Kuantan (pintu kilang)</b></div>
+        <div class="row"><span>Harga rujukan MPOB (contoh)</span><b>RM 3 120 / tan</b></div>
+        <div class="row"><span>Harga kilang diterima</span><b>RM 2 980 / tan</b></div>
+        <div class="row"><span>Beza</span><b style="color:#B45309">− RM 140 / tan (−4.5%)</b></div>
+      </div>
+      <div>
+        <div class="note">
+          <b>Kenapa ini bernilai:</b> harga BTS rasmi diterbitkan <b>setiap hari</b> oleh MPOB ikut wilayah (sumber: BEPI/MPOB). Sistem membandingkan harga yang anda terima dengan rujukan rasmi — jadi tuan ladang <b>tahu</b> bila pemborong memberi harga rendah.
+        </div>
+        <div class="hint">Data harga dimasukkan secara automatik (snapshot bertarikh) — bukan taip manual setiap bulan.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🧾 Kos Operasi per Blok (bulan semasa)</h2>
+    <table>
+      <tr><th>Item</th><th>Blok</th><th class="num">Amaun</th><th>Bukti</th></tr>
+      <tr><td>Baja (NPK 12-12-17)</td><td>BLK-01</td><td class="num">RM 1 840</td><td><a href="#" onclick="alert('POC: resit/DO dipautkan dari Drive (OCR auto-isi lejer).');return false">Resit ↗</a></td></tr>
+      <tr><td>Upah potong buah</td><td>BLK-01 + BLK-02</td><td class="num">RM 2 260</td><td><a href="#" onclick="alert('POC: slip upah / pengiraan tandan.');return false">Slip ↗</a></td></tr>
+      <tr><td>Racun rumpai</td><td>BLK-02</td><td class="num">RM 320</td><td><a href="#" onclick="alert('POC: resit.');return false">Resit ↗</a></td></tr>
+      <tr><td>Penyelenggaraan jalan &amp; parit</td><td>Ladang A</td><td class="num">RM 450</td><td><a href="#" onclick="alert('POC: resit kontraktor.');return false">Resit ↗</a></td></tr>
+    </table>
+    <div class="hint">Cadangan utama: <b>foto resit/DO → OCR sedia ada → auto-isi lejar kos</b> (kurangkan kerja taip pengurus ladang).</div>
+  </div>
+
+  <div class="card">
+    <h2>📜 Lesen &amp; Pematuhan</h2>
+    <table>
+      <tr><th>Perkara</th><th>No.</th><th>Luput</th><th>Status</th><th>Tindakan</th></tr>
+      <tr><td><b>Lesen Pekebun Kecil MPOB</b> (e-LesenPK)</td><td>PK/2024/xxxx</td><td>31/12/2026</td><td><span class="st s-appr">AKTIF — perhatian</span></td><td>Permohonan pembaharuan 60 hari awal</td></tr>
+      <tr><td><b>MyGAP</b> (pensijilan amalan pertanian baik, DOA)</td><td>—</td><td>—</td><td><span class="st s-wait">BELUM</span></td><td>Pertimbang untuk akses pasaran premium</td></tr>
+      <tr><td>Pengesahan tanaman sawit ≥ 2 tahun</td><td>Borang MPOB PK</td><td>—</td><td><span class="st s-done">ADA</span></td><td>Syarat permohonan lesen</td></tr>
+    </table>
+    <div class="hint">Syarat lesen pekebun kecil MPOB: kebun &lt; 100 ekar (40.46 ha), entiti sah, bukti pemilikan/pajakan tanah, sawit ditanam ≥ 2 tahun, mohon melalui <b>e-lesenpk.mpob.gov.my</b>.</div>
+  </div>
+
+  <div class="card">
+    <h2>📱 Realiti lapangan (reka bentuk mesti ikut ini)</h2>
+    <div class="tl">
+      <div class="ev done"><b>Mod luar talian</b><i>Talian lemah di kebun — rekod tuaian &amp; gambar disimpan dalam telefon dahulu, sync bila ada internet.</i></div>
+      <div class="ev done"><b>Borang ringkas 4 medan</b><i>Tarikh · blok · bilangan tandan/berat · (pilihan) gambar DO — siap dalam 30 saat di tepi kebun.</i></div>
+      <div class="ev now"><b>Laporan bulanan automatik</b><i>Hasil tan, tan/ha, kos per tan, margin per blok — sedia untuk pembentangan/kemukiman atau pembiayaan bank.</i></div>
+    </div>
+  </div>
+
+  <div class="foot">POC · rangka modul ladang (Fasa 2) · bukan data sebenar · noindex · Production tidak disentuh</div>
+</div>
+</body>
+</html>

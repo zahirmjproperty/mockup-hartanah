@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>POC · Bayar Sewa — Mr Tanah</title>
+<link rel="stylesheet" href="poc.css">
+</head>
+<body>
+<div class="topbar"><div class="tt">
+  <div><h1>💳 Bayar Sewa</h1><p>Proses bayaran sewa + utiliti untuk unit anda</p></div>
+  <span class="brand">Mr Tanah · ZMJ Solutions</span>
+</div></div>
+<nav class="pocnav"><div class="in">
+  <a href="index.html">🏠 Hub POC</a>
+  <a href="penyewa.html">👤 Portal Penyewa</a>
+  <a href="kanban.html">🗂️ Papan Kanban + SLA</a>
+  <a href="bayar.html" class="on">💳 Bayar Sewa</a>
+  <a href="ladang.html">🌴 Modul Ladang (rangka)</a>
+</div></nav>
+
+<div class="wrap">
+  <div class="banner">🧪 <b>POC</b> — tiada transaksi sebenar dijalankan. QR di bawah ialah <b>QR contoh</b> (bukan akaun sebenar). Ini untuk menguji <b>aliran &amp; skrin</b> sahaja.</div>
+
+  <div class="card">
+    <h2>🧾 Invois yang perlu dibayar</h2>
+    <div class="grid g2">
+      <div class="meta">
+        <div class="row"><span>Invois</span><b>INV-2026-08-0002</b></div>
+        <div class="row"><span>Unit</span><b>U-0002 · Lot 102B</b></div>
+        <div class="row"><span>Tempoh</span><b>Ogos 2026</b></div>
+        <div class="row"><span>Sewa</span><b>RM 420.00</b></div>
+        <div class="row"><span>Elektrik (TNB)</span><b>RM 41.20</b></div>
+        <div class="row"><span>Air (SYABAS)</span><b>RM 6.80</b></div>
+        <div class="row"><span>Tarikh akhir</span><b>17/09/2026</b></div>
+        <div class="row"><span><b>Jumlah perlu bayar</b></span><b style="font-size:16px;color:#0C7A4B">RM 468.00</b></div>
+      </div>
+      <div>
+        <div class="note">
+          <b>Rujukan bayaran: BS-2026-08-0002</b><br>
+          Masukkan rujukan ini dalam medan rujukan/nota supaya sistem boleh <b>padankan bayaran secara automatik</b> dengan invois dan jana resit.
+        </div>
+        <div class="okbox" style="margin-top:10px">
+          <b>Kenapa ini penting?</b> Padanan automatik menghapuskan kerja manual menyemak penyata bank setiap bulan, dan terus mengemas kini <b>lejer sewa</b> + laporan tunggakan.
+        </div>
+        <div class="warnbox" style="margin-top:10px">
+          Deposit / wang cagaran <b>tidak</b> dibayar ke Mr Tanah — ia dipegang oleh pemilik dan direkod dalam sistem dengan bukti inventori.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Pilih kaedah bayaran</h2>
+    <div class="btnrow" style="margin-bottom:12px">
+      <span class="pill on" id="p-dn" onclick="pilih('dn')">DuitNow QR</span>
+      <span class="pill" id="p-fpx" onclick="pilih('fpx')">FPX (online banking)</span>
+      <span class="pill" id="p-bank" onclick="pilih('bank')">Pindahan bank</span>
+    </div>
+
+    <div id="kaedah-dn">
+      <div class="grid g2">
+        <div style="text-align:center">
+          <img class="qr" src="data/qr-contoh.svg" alt="QR contoh POC">
+          <div class="hint">QR contoh (POC) — dalam sistem sebenar: QR DuitNow rasmi akaun ZMJ Solutions (acquirer Billplz/DuitNow), nombor rujukan dimasukkan dalam medan rujukan.</div>
+        </div>
+        <div>
+          <div class="meta">
+            <b>Langkah</b>
+            <div class="row"><span>1</span><b>Buka app bank / e-wallet (MAE, TNG, GrabPay, Boost)</b></div>
+            <div class="row"><span>2</span><b>Imbas QR atau pindah ke akaun yang dipaparkan</b></div>
+            <div class="row"><span>3</span><b>Letak rujukan <i>BS-2026-08-0002</i></b></div>
+            <div class="row"><span>4</span><b>Simpan bukti — resit dijana selepas disahkan</b></div>
+          </div>
+          <div class="hint">Boleh bayar sebahagian? Sistem merekod bayaran berperingkat dan baki dipaparkan pada portal anda.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="kaedah-fpx" style="display:none">
+      <div class="meta">
+        <b>FPX melalui gerbang bayaran (Billplz)</b>
+        <div class="sub" style="margin-top:6px">Kad/akaun bank terus ditolak, resit automatik serta-merta.</div>
+        <div class="warnbox" style="margin-top:9px">⚠️ <b>Billplz untuk invois sewa belum diaktifkan</b> (koleksi PROD sedia ada = invois perkhidmatan ZMJ <b>BAYARZMJ</b>; kolum <i>Billplz URL</i> dalam tab <b>Invois</b> masih kosong). Ini keputusan Zahir: sama ada (a) aktifkan Billplz untuk sewa, atau (b) kekal DuitNow QR/pindahan (fi transaksi rendah).</div>
+        <div class="btnrow" style="margin-top:11px"><button class="btn" disabled>Bayar dengan FPX (belum diaktifkan)</button></div>
+      </div>
+    </div>
+
+    <div id="kaedah-bank" style="display:none">
+      <div class="meta">
+        <b>Pindahan bank</b>
+        <div class="row"><span>Nama akaun</span><b>ZMJ Solutions</b></div>
+        <div class="row"><span>Bank</span><b>Maybank</b></div>
+        <div class="row"><span>No. akaun</span><b>5628 XXXX 6759 <span class="sub">(nombor penuh dalam invois PDF)</span></b></div>
+        <div class="row"><span>Rujukan</span><b>BS-2026-08-0002</b></div>
+      </div>
+      <div class="hint">Selepas pindahan, hantar bukti melalui WhatsApp/portal — MT akan sahkan dan jana resit.</div>
+    </div>
+
+    <div class="btnrow" style="margin-top:14px">
+      <button class="btn" onclick="simulasi()">Simulasi pembayaran berjaya</button>
+      <button class="btn ghost" onclick="alert('POC: memuat naik bukti bayaran (gambar/PDF) → masuk ke folder Drive Bukti.')">Muat naik bukti bayaran</button>
+    </div>
+  </div>
+
+  <div id="hasil"></div>
+
+  <div class="card">
+    <h2>🔄 Apa jadi selepas bayaran (dalam sistem sebenar)</h2>
+    <div class="tl">
+      <div class="ev done"><b>1 · Bayaran dikesan/pengesahan</b><i>Padanan automatik menggunakan rujukan <b>BS-####</b> (atau pengesahan manual Zahir/Fadilah).</i></div>
+      <div class="ev done"><b>2 · Lejer dikemas kini</b><i>Tab <b>Bil</b> → Status Bayar = Dibayar + Tarikh Bayar; Notion disegerakkan.</i></div>
+      <div class="ev done"><b>3 · Resit dijana &amp; dihantar</b><i>Resit PDF ke emel/WhatsApp anda + tersedia dalam portal (INV-2026-08-0002).</i></div>
+      <div class="ev now"><b>4 · Peringatan automatik</b><i>Jika belum bayar: H-7, H-3, D+1, D+7 (pada hari ke-7 caj lewat RM10 + eskalasi).</i></div>
+    </div>
+  </div>
+
+  <div class="foot">POC · Bayar Sewa · tiada transaksi sebenar · noindex · Production tidak disentuh</div>
+</div>
+
+<script>
+function pilih(k){
+  ["dn","fpx","bank"].forEach(x => {
+    document.getElementById("kaedah-" + x).style.display = x === k ? "block" : "none";
+    document.getElementById("p-" + x).classList.toggle("on", x === k);
+  });
+}
+function simulasi(){
+  document.getElementById("hasil").innerHTML = `
+    <div class="card">
+      <h2>✅ Bayaran berjaya (SIMULASI)</h2>
+      <div class="okbox">
+        <div class="row" style="display:flex;justify-content:space-between"><span>Rujukan</span><b>BS-2026-08-0002</b></div>
+        <div class="row" style="display:flex;justify-content:space-between"><span>Amaun</span><b>RM 468.00</b></div>
+        <div class="row" style="display:flex;justify-content:space-between"><span>Tarikh</span><b>12/09/2026 21:40</b></div>
+        <div class="row" style="display:flex;justify-content:space-between"><span>Status invois</span><b style="color:#0C7A4B">DIBAYAR</b></div>
+      </div>
+      <div class="btnrow" style="margin-top:11px">
+        <button class="btn" onclick="alert('POC: resit PDF RES-2026-08-0002 akan dimuat turun (fail sebenar: Drive Bil Unit).')">Muat turun resit (PDF)</button>
+        <a class="btn ghost" href="penyewa.html">Balik ke portal penyewa</a>
+      </div>
+      <div class="hint">Dalam sistem sebenar: lejer <b>Bil</b> dikemas kini, resit dihantar ke emel/WhatsApp, dan penyata bulanan pemilik dikemas kini pada masa sama.</div>
+    </div>`;
+  document.getElementById("hasil").scrollIntoView({behavior:"smooth", block:"start"});
+}
+</script>
+</body>
+</html>
