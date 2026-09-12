@@ -30,7 +30,9 @@ BASE = ENV.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
 MODEL = os.environ.get("ALI_MODEL", "deepseek-flash")
 PORT = int(os.environ.get("ALI_PORT", "8795"))
 ALLOWED_ORIGINS = ("https://zahirmjproperty.github.io", "https://mrtanah.com",
-                   "https://zahirmjproperty.com", "http://127.0.0.1:8099", "http://localhost:8099")
+                   "https://zahirmjproperty.com", "https://www.mrtanah.com",
+                   "https://www.zahirmjproperty.com",
+                   "http://127.0.0.1:8099", "http://localhost:8099", "http://127.0.0.1:8000")
 
 # ---------------------------------------------------------------- data listing
 _cache = {"t": 0, "z": [], "m": []}
@@ -300,7 +302,7 @@ def _terpotong(a):
     return len(a) < 160 and not re.search(r"[.!?)\]]\s*$", a)
 
 
-def tanya(soalan, sejarah, laman, listing_hint=None):
+def tanya(soalan, sejarah, laman, listing_hint=None, nama=None, bil=1):
     z, m = listings()
     kw = parse_q(soalan + " " + (listing_hint or ""))
     pilih, ctx = konteks(z, m, kw)
@@ -317,12 +319,20 @@ def tanya(soalan, sejarah, laman, listing_hint=None):
         kekangan.append("mesti leasehold")
     if kw[5]:
         kekangan.append("keluasan: " + ", ".join(f"{e:g} ekar" for e in kw[5]))
+    arahan_nama = ""
+    if nama:
+        arahan_nama = ("\nPelawat ini sudah memperkenalkan diri sebagai " + nama +
+                       ". Panggil dengan hormat (Encik/Puan " + nama + ") sekali-sekala sahaja.")
+    elif bil >= 2:
+        arahan_nama = ("\nSapaan: tanya nama pelawat dengan sopan SATU kali sahaja dalam jawapan ini "
+                       "(cth: \"Boleh saya tahu nama encik/puan?\"), lepas itu jangan tanya lagi.")
     msgs = [{"role": "system", "content": SISTEM + "\n" + FAQ +
              "\nDATA LISTING (sumber tunggal kebenaran):\n" + ctx +
              ("\nKekangan yang dikesan daripada soalan: " + "; ".join(kekangan) if kekangan else "") +
              ("\nKonteks halaman: pelawat sedang melihat " + listing_hint if listing_hint else
               "\nKonteks halaman: laman " + ("Mr Tanah (tanah/pertanian/lot banglo)" if laman == "mt"
-                                             else "Zahir MJ Property (rumah/komersial)"))}]
+                                             else "Zahir MJ Property (rumah/komersial)")) +
+             arahan_nama}]
     for t in (sejarah or [])[-6:]:
         if t.get("role") in ("user", "assistant") and t.get("content"):
             msgs.append({"role": t["role"], "content": str(t["content"])[:600]})
@@ -369,9 +379,281 @@ def kos(u):
         return None, None
 
 
-def imej(tracking):
-    p = os.path.join(IMG_DIR, tracking.lower() + "-card.webp")
-    return f"img/{tracking.lower()}-card.webp" if os.path.exists(p) else None
+def imej(l):
+    """Gambar kecil untuk kad dalam chat — guna URL gambar listing SEBENAR (=w200)."""
+    try:
+        u = (l.get("images") or [None])[0]
+        if not u:
+            return None
+        if "googleusercontent.com" in u:                 # Drive/lh3 → minta saiz kecil
+            return re.sub(r"=w\d+$", "=w200", u) if re.search(r"=w\d+$", u) else u + "=w200"
+        return u
+    except Exception:
+        return None
+
+
+# =========================================================== v2: rekod + analitik
+# Ditambah 2026-09-12 (kelulusan Zahir): rekod perbualan penuh, identiti (nama/WA),
+# geo percuma, halaman analitik ber-token. Semua kos RM0 (tiada API berbayar).
+import urllib.parse
+import html as _html
+import mimetypes
+
+LOG_DIR = os.environ.get("ALI_LOG_DIR", os.path.join(HOME, "ali-logs"))
+GEO_CACHE = os.path.join(LOG_DIR, "geo-cache.json")
+SESI_STORE = os.path.join(LOG_DIR, "sesi.json")
+TOKEN_FILE = os.path.join(HOME, ".hermes/state/ali_analitik_token.txt")
+# Mod pratonton (POC): hidangkan salinan laman sebenar dari folder ini.
+# Kosongkan pada produksi supaya tiada fail tempatan terdedah.
+PREVIEW_DIR = os.environ.get("ALI_PREVIEW_DIR", "")
+_geo_lock = threading.Lock()
+_sesi_lock = threading.Lock()
+SETEMPAT = ("127.", "10.", "192.168.", "172.16.", "172.17.", "172.18.", "172.19.",
+            "::1", "localhost")
+
+
+def analitik_token():
+    """Token akses halaman analitik (fail tempatan, 24 aksara)."""
+    try:
+        t = open(TOKEN_FILE).read().strip()
+        if t:
+            return t
+    except Exception:
+        pass
+    t = hashlib.sha256(os.urandom(32)).hexdigest()[:24]
+    os.makedirs(os.path.dirname(TOKEN_FILE), exist_ok=True)
+    with open(TOKEN_FILE, "w") as f:
+        f.write(t + "\n")
+    return t
+
+
+def sesi_id(ip, ua):
+    """Kumpulkan mesej dalam satu perbualan tanpa simpan IP berulang."""
+    return hashlib.sha256((ip + "|" + ua + "|" + time.strftime("%Y-%m-%d")).encode()).hexdigest()[:10]
+
+
+def _baca(path, lalai):
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except Exception:
+        return lalai
+
+
+def _tulis(path, obj):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    tmp = path + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(obj, f, ensure_ascii=False)
+    os.replace(tmp, path)
+
+
+def _geo(ip):
+    """Geo percuma ip-api.com (45 req/min) + cache fail. Miss → cari di latar (tak lewatkan chat)."""
+    if not ip or ip.startswith(SETEMPAT):
+        return {"negara": "Setempat", "bandar": "-", "isp": "-", "asn": ""}
+    c = _baca(GEO_CACHE, {})
+    if ip in c:
+        return c[ip]
+    threading.Thread(target=_geo_cari, args=(ip,), daemon=True).start()
+    return {}
+
+
+def _geo_cari(ip):
+    try:
+        u = "http://ip-api.com/json/" + urllib.parse.quote(ip) + \
+            "?fields=status,country,countryCode,city,isp,as"
+        with urllib.request.urlopen(u, timeout=4) as r:
+            d = json.loads(r.read())
+        if d.get("status") == "success":
+            g = {"negara": d.get("country") or "-", "kod": d.get("countryCode") or "",
+                 "bandar": d.get("city") or "-", "isp": d.get("isp") or "", "asn": d.get("as") or ""}
+            with _geo_lock:
+                c = _baca(GEO_CACHE, {})
+                c[ip] = g
+                _tulis(GEO_CACHE, c)
+            return g
+    except Exception:
+        pass
+    return {}
+
+
+def semua_sesi():
+    return _baca(SESI_STORE, {})
+
+
+def sesi(sid):
+    return semua_sesi().get(sid) or {}
+
+
+def sesi_kemas(sid, tambah):
+    """Kemas kini indeks ringkas satu sesi (untuk halaman analitik + Sheet)."""
+    with _sesi_lock:
+        s = _baca(SESI_STORE, {})
+        v = s.get(sid) or {"mula": tambah.get("t")}
+        v.update({k: x for k, x in tambah.items() if x is not None})
+        v["ts"] = time.time()
+        v["kod"] = sorted(set((v.get("kod") or []) + (tambah.get("kod") or [])))
+        s[sid] = v
+        had = time.time() - 400 * 86400
+        s = {k: x for k, x in s.items() if x.get("ts", 0) >= had}
+        _tulis(SESI_STORE, s)
+    return v
+
+
+def rekod_chat(rec):
+    """Tulis rekod penuh (soalan + jawapan) ke fail harian JSONL."""
+    os.makedirs(LOG_DIR, exist_ok=True)
+    p = os.path.join(LOG_DIR, (rec.get("t") or time.strftime("%Y-%m-%dT%H:%M:%S"))[:10] + ".jsonl")
+    with open(p, "a") as f:
+        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+
+
+def data_analitik(hari=7):
+    hari = max(1, min(int(hari or 7), 90))
+    had = time.time() - hari * 86400
+    senarai = [dict(v, sesi=k) for k, v in semua_sesi().items() if v.get("ts", 0) >= had]
+    senarai.sort(key=lambda v: v.get("ts", 0), reverse=True)
+    ids = {v["sesi"] for v in senarai}
+    skrip = {}
+    if os.path.isdir(LOG_DIR):
+        for fn in sorted(os.listdir(LOG_DIR)):
+            if not fn.endswith(".jsonl"):
+                continue
+            try:
+                if time.mktime(time.strptime(fn[:-6], "%Y-%m-%d")) < had - 86400:
+                    continue
+            except Exception:
+                continue
+            for line in open(os.path.join(LOG_DIR, fn)):
+                try:
+                    r = json.loads(line)
+                except Exception:
+                    continue
+                if r.get("sesi") in ids:
+                    skrip.setdefault(r["sesi"], []).append(r)
+    for k in skrip:
+        skrip[k].sort(key=lambda r: r.get("t", ""))
+    stat = {"sesi": len(senarai), "mesej": 0, "pelawat": 0, "lead": 0, "negara": {}, "kos": 0.0,
+            "handover": 0, "soalan": 0}
+    ip_set = set()
+    for v in senarai:
+        stat["mesej"] += v.get("bil", 0)
+        if v.get("ip"):
+            ip_set.add(v["ip"])
+        if v.get("wa"):
+            stat["lead"] += 1
+        if v.get("handover"):
+            stat["handover"] += 1
+        n = v.get("negara") or "-"
+        stat["negara"][n] = stat["negara"].get(n, 0) + 1
+    stat["pelawat"] = len(ip_set)
+    for rows in skrip.values():
+        for r in rows:
+            stat["kos"] += (r.get("kos_myr") or 0)
+            stat["soalan"] += 1
+    return {"hari": hari, "stat": stat, "sesi": senarai, "skrip": skrip,
+            "masa": time.strftime("%Y-%m-%d %H:%M:%S")}
+
+
+def halaman_analitik(hari=7, k="", uji=False):
+    d = data_analitik(hari)
+    s = d["stat"]
+    def e(x):
+        return _html.escape(str(x if x is not None else "-"))
+    kad = "".join(
+        f'<div class="kad"><b>{e(v)}</b><span>{e(l)}</span></div>' for v, l in
+        ((s["sesi"], "Sesi perbualan"), (s["soalan"], "Mesej dikirim"), (s["pelawat"], "Pelawat unik"),
+         (s["lead"], "Ada nombor WA"), (f"RM{s['kos']:.3f}", "Kos AI (anggaran)")))
+    negara = " · ".join(f"{e(n)} ({v})" for n, v in sorted(s["negara"].items(), key=lambda x: -x[1]))
+
+    baris = []
+    for v in d["sesi"]:
+        sid = v["sesi"]
+        rows = d["skrip"].get(sid, [])
+        qa = "".join(
+            f'<div class="q">👤 {e(r.get("soalan"))}</div><div class="a">🤖 {e(r.get("jawapan"))}</div>'
+            for r in rows) or '<div class="a">(tiada transkrip lagi)</div>'
+        tanda = []
+        if v.get("ujian"):
+            tanda.append('<span class="tag uji">UJIAN</span>')
+        if v.get("handover"):
+            tanda.append('<span class="tag ho">Minta manusia</span>')
+        if v.get("wa"):
+            tanda.append('<span class="tag lead">Ada WA</span>')
+        baris.append(
+            f'<tr><td>{e((v.get("mula") or "").replace("T"," "))}</td>'
+            f'<td><b>{e(v.get("nama") or "(tiada nama)")}</b>{"".join(tanda)}'
+            f'<br><small>{e(v.get("wa") or "")}</small></td>'
+            f'<td>{e(v.get("bandar"))}, {e(v.get("negara"))}<br><small>{e(v.get("isp"))}</small></td>'
+            f'<td><code>{e(v.get("ip"))}</code></td>'
+            f'<td>{e((v.get("laman") or "").upper())}</td>'
+            f'<td style="text-align:center">{e(v.get("bil"))}</td>'
+            f'<td>{e(", ".join(v.get("kod") or []) or "-")}</td>'
+            f'<td><details><summary>Lihat</summary><div class="trans">{qa}</div></details></td></tr>')
+
+    uji_box = ""
+    if uji:
+        uji_box = """
+  <div class="kotak">
+    <b>Ujian chat di sini</b> (rekod ditanda UJIAN)
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+      <input id="un" placeholder="Nama anda" style="flex:1;min-width:130px;padding:9px;border:1px solid #CBD5E1;border-radius:9px">
+      <input id="uq" placeholder="Soalan… cth: rumah teres bawah RM600k di Bangi" style="flex:3;min-width:220px;padding:9px;border:1px solid #CBD5E1;border-radius:9px">
+      <button onclick="ujiHantar()" style="background:#0C7A4B;color:#fff;border:0;border-radius:9px;padding:9px 16px;cursor:pointer">Hantar</button>
+    </div>
+    <pre id="uj" style="white-space:pre-wrap;margin-top:10px;font-size:12.5px;color:#334155"></pre>
+  </div>
+  <script>
+  async function ujiHantar(){
+    var n=document.getElementById('un').value, q=document.getElementById('uq').value;
+    if(!q) return;
+    document.getElementById('uj').textContent='Menunggu jawapan Ali…';
+    try{
+      var r=await fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json','X-Ujian':'1'},
+        body:JSON.stringify({soalan:q,nama:n,laman:document.body.dataset.laman||'zmp',halaman:'analitik'})});
+      var j=await r.json();
+      document.getElementById('uj').textContent=j.ok?('Ali: '+j.jawapan):('Ralat: '+(j.ralat||''));
+    }catch(e){document.getElementById('uj').textContent='Ralat rangkaian';}
+  }
+  </script>"""
+
+    return f"""<!doctype html><html lang="ms"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Rekod Perbualan Tanya Ali</title>
+<style>
+ body{{margin:0;font:14px/1.5 -apple-system,'Segoe UI',Inter,system-ui,sans-serif;background:#F1F5F9;color:#0F172A}}
+ header{{background:#0F172A;color:#fff;padding:16px 20px}}
+ header h1{{margin:0;font-size:18px}} header small{{color:#93A9C0;font-size:12.5px}}
+ .wrap{{padding:16px 20px 40px;max-width:1400px;margin:0 auto}}
+ .kad{{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:12px 14px;min-width:130px;flex:1}}
+ .kad b{{display:block;font-size:20px}} .kad span{{font-size:12px;color:#64748B}}
+ .kads{{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}}
+ .kotak{{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:14px;margin-bottom:14px}}
+ table{{width:100%;border-collapse:collapse;background:#fff;border:1px solid #E2E8F0;border-radius:12px;overflow:hidden}}
+ th,td{{padding:9px 10px;border-bottom:1px solid #EEF2F6;text-align:left;vertical-align:top;font-size:13px}}
+ th{{background:#F8FAFC;font-size:12px;color:#475569;text-transform:uppercase;letter-spacing:.03em}}
+ tr:last-child td{{border-bottom:0}}
+ code{{font-size:12px;background:#F1F5F9;padding:2px 5px;border-radius:5px}}
+ .tag{{display:inline-block;font-size:10.5px;padding:2px 6px;border-radius:999px;margin-left:5px;vertical-align:middle}}
+ .tag.uji{{background:#FEF3C7;color:#92400E}} .tag.lead{{background:#DCFCE7;color:#166534}}
+ .tag.ho{{background:#FFE4E6;color:#9F1239}}
+ .trans{{max-width:640px;max-height:420px;overflow:auto;background:#F8FAFC;border-radius:9px;padding:9px;margin-top:6px}}
+ .q{{color:#0F172A;font-weight:600;margin-top:6px}} .a{{color:#334155;white-space:pre-wrap;margin-bottom:8px}}
+ summary{{cursor:pointer;color:#0C7A4B;font-weight:600}}
+</style></head><body data-laman="zmp">
+<header><h1>Rekod Perbualan “Tanya Ali”</h1>
+<small>Tempoh: {d['hari']} hari terakhir · dikemas kini {e(d['masa'])} (MYT) · negara: {negara or '-'}</small></header>
+<div class="wrap">
+ <div class="kads">{kad}</div>
+ {uji_box}
+ <table><thead><tr><th>Mula (MYT)</th><th>Nama / WhatsApp</th><th>Lokasi · ISP</th><th>IP</th>
+ <th>Laman</th><th>Msg</th><th>Minat</th><th>Transkrip</th></tr></thead>
+ <tbody>{''.join(baris) or '<tr><td colspan="8">Tiada rekod dalam tempoh ini.</td></tr>'}</tbody></table>
+ <p style="color:#64748B;font-size:12px">Fail mentah: <code>{e(LOG_DIR)}/YYYY-MM-DD.jsonl</code> ·
+ Senarai: {e(SESI_STORE)} · Tanpa token: 403</p>
+</div></body></html>"""
 
 
 # ---------------------------------------------------------------- had kadar
@@ -428,16 +710,41 @@ class H(BaseHTTPRequestHandler):
             z, m = listings()
             self._json({"ok": True, "model": MODEL, "zmp": len(z), "mt": len(m),
                         "masa": time.strftime("%Y-%m-%d %H:%M:%S")})
+        elif self.path.startswith("/analitik.json"):
+            return self.analitik(True)
+        elif self.path.startswith("/analitik"):
+            return self.analitik(False)
         elif self.path.startswith("/temujanji-kira"):
             n = sum(1 for _ in open(TEMUJANJI_LOG)) if os.path.exists(TEMUJANJI_LOG) else 0
             self._json({"ok": True, "jumlah_permohonan": n})
-        else:
+        elif not (PREVIEW_DIR and self.serve_preview()):
             self._json({"ok": False, "ralat": "not found"}, 404)
+
+    def serve_preview(self):
+        """Hidangkan pratonton (POC) — halang path traversal."""
+        p = urllib.parse.urlparse(self.path).path or "/"
+        if p.endswith("/"):
+            p += "index.html"
+        akar = os.path.normpath(PREVIEW_DIR)
+        f = os.path.normpath(os.path.join(akar, p.lstrip("/")))
+        if not (f == akar or f.startswith(akar + os.sep)) or not os.path.isfile(f):
+            return False
+        try:
+            with open(f, "rb") as fh:
+                b = fh.read()
+        except Exception:
+            return False
+        self.send_response(200)
+        self.send_header("Content-Type", mimetypes.guess_type(f)[0] or "application/octet-stream")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Content-Length", str(len(b)))
+        self.end_headers()
+        self.wfile.write(b)
+        return True
 
     def temujanji(self):
         """Borang lawatan tapak — simpan + beritahu Zahir (Baha)."""
-        ip = self.headers.get("CF-Connecting-IP") or self.headers.get("X-Forwarded-For") or self.client_address[0]
-        ip = ip.split(",")[0].strip()
+        ip = self.ip_pelawat()
         if not benarkan(ip):
             return self._json({"ok": False, "ralat": "Terlalu banyak permohonan. Cuba sebentar."}, 429)
         try:
@@ -486,13 +793,45 @@ class H(BaseHTTPRequestHandler):
                            "mesej": "Terima kasih! Permohonan diterima. Kami akan WhatsApp anda untuk konfirmasi tarikh.",
                            "kod": kod})
 
+    def ip_pelawat(self):
+        """IP dipercayai: Caddy (produksi) menetapkan X-Real-IP & membuang header klien.
+        Laluan terowong cloudflared setempat (127.0.0.1) → guna CF-Connecting-IP."""
+        xr = self.headers.get("X-Real-IP")
+        if xr:
+            return xr.split(",")[0].strip()
+        if self.client_address[0] in ("127.0.0.1", "::1"):
+            cf = self.headers.get("CF-Connecting-IP")
+            if cf:
+                return cf.split(",")[0].strip()
+        return self.client_address[0]
+
+    def analitik(self, json_aja=False):
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+        if (q.get("k") or [""])[0] != analitik_token():
+            return self._json({"ok": False, "ralat": "token tidak sah"}, 403)
+        try:
+            hari = int((q.get("hari") or ["7"])[0])
+        except Exception:
+            hari = 7
+        if json_aja:
+            return self._json(data_analitik(hari))
+        uji = (q.get("uji") or [""])[0] == "1"
+        b = halaman_analitik(hari, (q.get("k") or [""])[0], uji=uji).encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Robots-Tag", "noindex, nofollow")
+        self._cors()
+        self.send_header("Content-Length", str(len(b)))
+        self.end_headers()
+        self.wfile.write(b)
+
     def do_POST(self):
         if self.path.startswith("/temujanji"):
             return self.temujanji()
         if not self.path.startswith("/chat"):
             return self._json({"ok": False, "ralat": "not found"}, 404)
-        ip = self.headers.get("CF-Connecting-IP") or self.headers.get("X-Forwarded-For") or self.client_address[0]
-        ip = ip.split(",")[0].strip()
+        ip = self.ip_pelawat()
         if not benarkan(ip):
             return self._json({"ok": False, "ralat": "Had kadar dicapai. Cuba sebentar atau WhatsApp kami."}, 429)
         try:
@@ -503,7 +842,14 @@ class H(BaseHTTPRequestHandler):
                 return self._json({"ok": False, "ralat": "Soalan kosong."}, 400)
             laman = d.get("laman") or "zmp"
             hint = d.get("listing") or None
-            ans, pilih, u, lat = tanya(soalan, d.get("sejarah"), laman, hint)
+            ua = (self.headers.get("User-Agent") or "")[:200]
+            ujian = self.headers.get("X-Ujian") == "1"
+            sid = sesi_id(ip, ua)
+            s0 = sesi(sid)
+            nama = str(d.get("nama") or "").strip()[:60] or (s0.get("nama") or "")
+            bil = int(s0.get("bil") or 0) + 1
+            _geo(ip)            # cari geo di latar (selari dgn panggilan model)
+            ans, pilih, u, lat = tanya(soalan, d.get("sejarah"), laman, hint, nama, bil)
             ans = betulkan(ans, laman)
             wa = "60163119076" if laman == "mt" else "60122310119"
             kod = [l["tracking"] for l in pilih[:3]]
@@ -513,16 +859,39 @@ class H(BaseHTTPRequestHandler):
             from urllib.parse import quote
             out = {"ok": True, "jawapan": ans,
                    "listing": [{"kod": l["tracking"], "tajuk": l["title"], "lokasi": l.get("location", ""),
-                                "harga": l.get("price_label") or "", "imej": imej(l["tracking"])}
+                                "harga": l.get("price_label") or "", "imej": imej(l)}
                                for l in pilih[:3]],
                    "wa": f"https://wa.me/{wa}?text={quote(ringkas)}",
                    "cta": cta_untuk(soalan, laman, kod[0] if kod else None,
                                     pilih[0]["title"] if pilih else None),
                    "kos_myr": kos(u)[0], "waktu": kos(u)[1], "latency_s": lat,
                    "model": MODEL}
+            g = _geo(ip) or {}          # geo biasanya sedia selepas panggilan model
+            handover = bool(re.search(r"whatsapp|hubungi pasukan|012-2310119|016-3119076", ans, re.I))
+            rekod = {"t": time.strftime("%Y-%m-%dT%H:%M:%S"), "sesi": sid, "msj": bil,
+                     "nama": nama, "wa": re.sub(r"[^0-9+]", "", str(d.get("wa") or ""))[:20],
+                     "ip": ip, "negara": g.get("negara", "-"), "bandar": g.get("bandar", "-"),
+                     "isp": g.get("isp", ""), "asn": g.get("asn", ""),
+                     "laman": laman, "halaman": str(d.get("halaman") or "")[:300], "ua": ua,
+                     "soalan": soalan[:1500], "jawapan": ans[:6000], "kod": kod,
+                     "handover": handover, "ujian": ujian,
+                     "kos_myr": out["kos_myr"], "latency_s": lat, "model": MODEL}
             try:
+                rekod_chat(rekod)
+            except Exception:
+                pass
+            try:
+                sesi_kemas(sid, {"t": rekod["t"], "mula": s0.get("mula") or rekod["t"], "bil": bil,
+                                 "nama": nama, "wa": rekod["wa"], "ip": ip,
+                                 "negara": rekod["negara"], "bandar": rekod["bandar"],
+                                 "isp": rekod["isp"], "laman": laman, "kod": kod,
+                                 "handover": handover, "ujian": ujian,
+                                 "soalan_pertama": s0.get("soalan_pertama") or soalan[:200]})
+            except Exception:
+                pass
+            try:            # keserasian: log lama (skrip sedia ada membacanya)
                 with open(LOG, "a") as f:
-                    f.write(json.dumps({"t": time.strftime("%Y-%m-%dT%H:%M:%S"),
+                    f.write(json.dumps({"t": rekod["t"],
                                         "ip_hash": hashlib.sha256(ip.encode()).hexdigest()[:12],
                                         "laman": laman, "soalan": soalan[:300],
                                         "kod": kod, "usage": u, "latency": lat,
@@ -538,6 +907,8 @@ class H(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     os.makedirs(os.path.dirname(LOG), exist_ok=True)
+    os.makedirs(LOG_DIR, exist_ok=True)
+    print(f"[ali-v2] analitik: token={analitik_token()[:6]}…  log={LOG_DIR}")
     z, m = listings()
     print(f"[ali-poc] sedia · model={MODEL} · ZMP={len(z)} MT={len(m)} · port={PORT}")
     ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()

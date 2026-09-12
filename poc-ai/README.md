@@ -71,6 +71,14 @@ menawarkan tempahan melalui WhatsApp (lead tidak hilang).
 6. Had kadar: 40/jam & 200/hari setiap IP; had sesi widget 20 mesej.
 7. Log: soalan + kod listing + token + kos. **Tiada data peribadi** dihantar ke LLM.
 
+## 🚀 PRODUCTION (12/9/2026)
+
+- **Endpoint kekal:** https://api.zahirmjproperty.com (Porkbun A → 43.156.105.56 → Caddy → `127.0.0.1:8795`)
+- **Servis:** `systemd ali-ai.service` — `sudo systemctl status|restart ali-ai.service`; log `/var/log/ali-ai.log`
+- **Cron jaga:** `~/.hermes/scripts/jaga_poc_ali.sh` (tiap 20 min) → mula semula jika gagal
+- **Dipasang pada:** zahirmjproperty.com & mrtanah.com (semua halaman awam; `invoice/`, `portal/` MT dikecualikan mengikut kesesuaian)
+- Widget membaca tetapan laman dari `assets/ali-config.js` (ALI_API_BASE, ALI_LAMAN, ALI_LISTING_BASE)
+
 ## Jalankan semula (jika terowong mati)
 
 ```bash

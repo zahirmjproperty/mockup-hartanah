@@ -1,28 +1,16 @@
 #!/usr/bin/env bash
-# Mula POC "Tanya Ali": pelayan AI + terowong awam, kemudian kunci URL ke widget.
-# Guna: bash poc-ai/start_poc.sh   (kemudian push mock-up supaya URL baharu terpakai)
-set -e
-DIR="$(cd "$(dirname "$0")" && pwd)"
-LOG=/tmp/ali-poc-tunnel.log
-pkill -f "poc-ai/server.py" 2>/dev/null || true
-pkill -f "cloudflared tunnel --url http://127.0.0.1:8795" 2>/dev/null || true
-sleep 1
-nohup python3 "$DIR/server.py" >/tmp/ali-poc-server.log 2>&1 &
-sleep 2
-nohup cloudflared tunnel --url http://127.0.0.1:8795 --no-autoupdate >"$LOG" 2>&1 &
-for i in $(seq 1 30); do
-  URL=$(grep -oE "https://[a-z0-9-]+\.trycloudflare\.com" "$LOG" | head -1 || true)
-  [ -n "$URL" ] && break
-  sleep 2
-done
-[ -z "$URL" ] && { echo "GAGAL dapat URL terowong"; exit 1; }
-echo "URL: $URL"
-python3 - "$URL" <<'PY'
-import sys
-base = sys.argv[1].rstrip('/')
-p = '/home/ubuntu/mockup-hartanah/assets/ali-config.js'
-open(p, 'w').write('/* ditulis oleh poc-ai/start_poc.sh */\n'
-                   f'window.ALI_API_BASE = "{base}";\n')
-print('ali-config.js ->', base)
-PY
-echo "Selesai. Ingat: push repo mockup-hartanah supaya URL baharu diterbitkan."
+# (LAPUK sejak 2026-09-12) POC dahulu memulakan pelayan sendiri + terowong.
+# Produksi kini = systemd ali-ai.service (127.0.0.1:8795) di belakang Caddy.
+# Skrip ini TIDAK lagi memulakan pelayan (dulu ia boleh MEMBUNUH servis produksi
+# kerana pkill -f "poc-ai/server.py"). Kini ia hanya memastikan servis hidup.
+# Pratonton: guna /home/ubuntu/ali-preview/mula_pratonton.sh
+set -u
+if curl -s -m 10 http://127.0.0.1:8795/health | grep -q '"ok": true'; then
+  echo "Servis produksi sihat (127.0.0.1:8795). Tiada tindakan."
+  exit 0
+fi
+echo "Servis tidak sihat — mula semula melalui systemd (bukan nohup)."
+sudo systemctl restart ali-ai.service
+sleep 6
+curl -s -m 15 https://api.zahirmjproperty.com/health | grep -q '"ok": true' \
+  && echo "pulih OK" || { echo "MASIH GAGAL"; exit 1; }

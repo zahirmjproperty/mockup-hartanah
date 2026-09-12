@@ -1,2 +1,2 @@
-/* Konfigurasi endpoint POC "Tanya Ali" — ditulis semula oleh poc-ai/start_poc.sh */
-window.ALI_API_BASE = "https://traditional-virgin-harold-switch.trycloudflare.com";
+/* Endpoint AI Tanya Ali — PRODUCTION (Caddy → 127.0.0.1:8795) */
+window.ALI_API_BASE = "https://api.zahirmjproperty.com";
