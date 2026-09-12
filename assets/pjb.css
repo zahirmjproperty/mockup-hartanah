@@ -1,0 +1,104 @@
+/* CSS halaman Projek Baharu Mr Tanah (POC) — guna bersama assets/mockup.css */
+:root{
+  --pjb-navy:#0F172A; --pjb-navy2:#16233B; --pjb-line:#E2E8F0; --pjb-ink:#334155; --pjb-mut:#64748B;
+}
+.pj-wrap{max-width:var(--wrap);margin:0 auto;padding:0 18px}
+.pj-sec{padding:38px 0}
+.pj-sec.alt{background:var(--bg)}
+
+/* ---------- kad senarai projek ---------- */
+.pjc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.pjc{background:var(--card);border:1px solid var(--pjb-line);border-radius:18px;overflow:hidden;box-shadow:var(--sh1);display:flex;flex-direction:column;transition:.18s}
+.pjc:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
+.pjc .ph{position:relative;aspect-ratio:16/10;background:#0F172A;overflow:hidden}
+.pjc .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.pjc .ph .badges{position:absolute;left:10px;top:10px;display:flex;gap:6px;flex-wrap:wrap}
+.pjc .ph .loc{position:absolute;right:10px;bottom:10px;background:rgba(15,23,42,.72);color:#fff;font-size:12px;padding:3px 9px;border-radius:999px}
+.pjc .bd{padding:15px 16px 17px;display:flex;flex-direction:column;gap:8px;flex:1}
+.pjc h3{font-family:var(--font-h);font-size:18.5px;margin:0;line-height:1.25}
+.pjc .dev{font-size:13px;color:var(--pjb-mut)}
+.pjc .price{font-family:var(--font-h);font-weight:800;color:var(--navy);font-size:20px}
+.pjc .price small{font-weight:600;color:var(--pjb-mut);font-size:12.5px}
+.pjc .tags{display:flex;gap:6px;flex-wrap:wrap}
+.pjc .tags span{font-size:11.5px;background:var(--bg);border:1px solid var(--pjb-line);color:var(--pjb-ink);padding:2px 8px;border-radius:999px}
+.pjc .tags span.g{background:var(--accent-soft);border-color:#BFE7D8;color:var(--accent-2);font-weight:700}
+.pjc .note{font-size:11.5px;color:var(--pjb-mut);line-height:1.45;border-top:1px dashed var(--pjb-line);padding-top:8px;margin-top:auto}
+.pjc .acts{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- filter ---------- */
+.pj-filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.pj-filters button{font:inherit;font-size:13.5px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--pjb-line);background:#fff;cursor:pointer}
+.pj-filters button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ---------- hero butiran ---------- */
+.pj-hero{position:relative;background:var(--pjb-navy);color:#fff;min-height:420px;display:flex;align-items:flex-end}
+.pj-hero .bgimg{position:absolute;inset:0}
+.pj-hero .bgimg img{width:100%;height:100%;object-fit:cover}
+.pj-hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,17,32,.35) 0%,rgba(10,17,32,.55) 45%,rgba(10,17,32,.92) 100%)}
+.pj-hero .in{position:relative;padding:34px 0 30px;width:100%}
+.pj-hero h1{font-family:var(--font-h);font-size:clamp(26px,4vw,44px);line-height:1.1;margin:10px 0 8px}
+.pj-hero .sub{color:#C7D2DE;font-size:15px}
+.pj-hero .imp{position:absolute;left:18px;bottom:8px;font-size:11px;color:#94A3B8;letter-spacing:.03em}
+.pj-quick{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 18px}
+.pj-quick div{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:8px 13px;font-size:13px}
+.pj-quick b{display:block;font-size:15px;font-family:var(--font-h)}
+.pj-cta-row{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ---------- fakta ---------- */
+.pj-facts{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border:1px solid var(--pjb-line);border-radius:14px;overflow:hidden}
+.pj-facts th,.pj-facts td{border-bottom:1px solid var(--pjb-line);padding:10px 13px;text-align:left;vertical-align:top}
+.pj-facts th{background:var(--bg);width:38%;font-weight:600;color:var(--pjb-ink)}
+.pj-facts tr:last-child th,.pj-facts tr:last-child td{border-bottom:0}
+.pj-two{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+
+/* ---------- panel permit ---------- */
+.pj-permit{background:var(--pjb-navy);color:#fff;border-radius:18px;padding:22px 22px 18px;box-shadow:var(--sh2)}
+.pj-permit h2{font-family:var(--font-h);font-size:20px;margin:0 0 4px;color:#fff}
+.pj-permit p.lead{color:#AFC0D4;font-size:13.5px;margin:0 0 14px}
+.pj-permit table{width:100%;border-collapse:collapse;font-size:13.8px}
+.pj-permit td{border:1px solid rgba(255,255,255,.16);padding:9px 12px;vertical-align:top}
+.pj-permit td:first-child{color:#AFC0D4;width:42%}
+.pj-permit td:last-child{font-weight:600}
+.pj-permit td.todo{color:#FCA5A5;font-weight:600}
+.pj-permit .foot{margin-top:12px;font-size:12.4px;color:#93A6BC}
+
+/* ---------- jadual unit ---------- */
+.pj-units{width:100%;border-collapse:collapse;font-size:14px}
+.pj-units th,.pj-units td{border:1px solid var(--pjb-line);padding:10px 12px;text-align:left;vertical-align:top}
+.pj-units th{background:var(--pjb-navy);color:#fff;font-size:13px;font-weight:600}
+.pj-units tbody tr:nth-child(even){background:var(--bg)}
+
+/* ---------- pelan & galeri ---------- */
+.pj-plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.pj-plans figure{margin:0;background:#fff;border:1px solid var(--pjb-line);border-radius:14px;overflow:hidden}
+.pj-plans img{width:100%;height:auto;display:block;background:#fff}
+.pj-plans figcaption{font-size:12.5px;color:var(--pjb-ink);padding:8px 11px;border-top:1px solid var(--pjb-line)}
+.pj-gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.pj-gal img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:12px;border:1px solid var(--pjb-line);display:block}
+
+/* ---------- jarak, faq, timeline ---------- */
+.pj-dist{width:100%;border-collapse:collapse;font-size:14px}
+.pj-dist td{border-bottom:1px solid var(--pjb-line);padding:9px 4px}
+.pj-dist td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.pj-faq details{background:#fff;border:1px solid var(--pjb-line);border-radius:12px;padding:12px 15px;margin-bottom:9px}
+.pj-faq summary{font-family:var(--font-h);font-weight:600;cursor:pointer;font-size:15px}
+.pj-faq p{margin:9px 0 0;font-size:14px;color:var(--pjb-ink)}
+.pj-tl{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.pj-tl div{background:#fff;border:1px solid var(--pjb-line);border-left:4px solid var(--accent);border-radius:12px;padding:11px 13px;font-size:13.5px}
+.pj-tl b{display:block;font-family:var(--font-h);font-size:14.5px;margin-bottom:3px}
+
+/* ---------- amaran medan kosong ---------- */
+.pj-todo{background:#FFFBEB;border:1px solid #FDE68A;color:#7C2D12;border-radius:14px;padding:14px 16px;font-size:13.8px;line-height:1.6}
+.pj-todo b{color:#92400E}
+.pj-note{background:#EFF6FF;border:1px solid #C7DBFE;color:#1E3A8A;border-radius:14px;padding:13px 16px;font-size:13.6px;line-height:1.6}
+
+/* ---------- butang WhatsApp terapung + CTA akhir ---------- */
+.wa-float{position:fixed;right:18px;bottom:22px;z-index:40;background:#059669;color:#fff;font-weight:700;font-size:14px;padding:12px 16px;border-radius:999px;box-shadow:var(--sh2);text-decoration:none}
+.pj-cta{background:var(--pjb-navy);color:#fff;border-radius:18px;padding:22px}
+.pj-cta h2{color:#fff;font-family:var(--font-h);margin:0 0 6px}
+.pj-cta p{color:#C7D2DE;font-size:14px}
+.pj-foot{font-size:12.6px;color:var(--pjb-mut);line-height:1.65}
+.bdg-pjb{background:#0F172A;color:#fff}
+.bdg-status{background:#B45309;color:#fff}
+.bdg-done{background:#0C7A4B;color:#fff}
+@media(max-width:900px){.pj-two{grid-template-columns:1fr}.wa-float{bottom:74px}}
