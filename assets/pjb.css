@@ -133,3 +133,10 @@
 .bdg-pjb.done{background:linear-gradient(135deg,#0EA5E9,#0369A1)}
 .bdg-pjb.teaser{background:linear-gradient(135deg,#64748B,#1E293B)}
 .bdg-pjb.plain{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);box-shadow:none}
+
+/* kemas susun atur kad (koreksi 12/9 v3) */
+.pjc h3{font-size:17.5px}
+.pjc .dev{font-size:12.5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pjc .price{font-size:18.5px}
+.pjc .tags span{white-space:nowrap}
+.pjc .note{font-size:11px}
