@@ -102,3 +102,34 @@
 .bdg-status{background:#B45309;color:#fff}
 .bdg-done{background:#0C7A4B;color:#fff}
 @media(max-width:900px){.pj-two{grid-template-columns:1fr}.wa-float{bottom:74px}}
+
+/* ===== KOREKSI ZAHIR 12/9 (v2): hero kecil, butang jelas, status menarik ===== */
+.pj-hero,.pj-hero-prod{min-height:clamp(230px,30vh,330px)!important;max-height:420px}
+.pj-hero .bgimg img,.pj-hero-prod .bgimg img{object-position:center 45%}
+.pj-hero-prod .pj-hero-in{padding:26px 0 22px!important}
+.pj-hero-prod h1{font-size:clamp(22px,3.2vw,34px)!important;margin:8px 0 6px!important}
+.pj-hero-prod .lead{font-size:14.5px}
+.pj-quick{margin:12px 0 14px;gap:8px}
+.pj-quick div{padding:7px 11px;font-size:12.5px}
+.pj-quick b{font-size:14px}
+/* butang */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-weight:700;text-decoration:none;border-radius:10px;padding:12px 18px;font-size:14.5px;line-height:1;border:1px solid transparent;cursor:pointer;transition:.15s}
+.btn-sm{padding:10px 14px;font-size:13.5px;border-radius:9px}
+.btn-navy{background:#123a7a;color:#fff!important;border-color:#123a7a;box-shadow:0 3px 10px rgba(18,58,122,.28)}
+.btn-navy:hover{background:#0a1f44;transform:translateY(-1px)}
+.btn-accent{background:#059669;color:#fff!important;border-color:#059669}
+.btn-accent:hover{background:#047857}
+.btn-ghost{background:#fff;color:#123a7a!important;border-color:#cbd5e1}
+.btn-ghost:hover{background:#f1f5f9}
+.pjc .acts{gap:8px}
+.pjc .acts .btn{flex:1 1 130px}
+.pj-cta-row .btn{min-height:44px}
+/* badge status menarik */
+.bdg-pjb{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:.05em;
+  text-transform:uppercase;padding:6px 12px;border-radius:999px;color:#fff;border:0;
+  box-shadow:0 3px 10px rgba(15,23,42,.22);text-shadow:0 1px 1px rgba(0,0,0,.15)}
+.bdg-pjb.new{background:linear-gradient(135deg,#10B981,#047857)}
+.bdg-pjb.wip{background:linear-gradient(135deg,#F59E0B,#B45309)}
+.bdg-pjb.done{background:linear-gradient(135deg,#0EA5E9,#0369A1)}
+.bdg-pjb.teaser{background:linear-gradient(135deg,#64748B,#1E293B)}
+.bdg-pjb.plain{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);box-shadow:none}

@@ -247,7 +247,8 @@
   if (konteksListing) {
     setTimeout(function () {
       if (!panel.classList.contains("on")) {
-        btn.innerHTML = '<span class="dot"></span> Tanya tentang lot ini';
+        var labelBtn = (konteksListing && konteksListing.indexOf("PROJEK") === 0) ? "Tanya tentang projek ini" : "Tanya tentang lot ini";
+    btn.innerHTML = '<span class="dot"></span> ' + labelBtn;
       }
     }, 1200);
   }
