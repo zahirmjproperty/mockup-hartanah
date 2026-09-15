@@ -95,39 +95,38 @@ const rm=n=>'RM '+(Math.round(n*100)/100).toLocaleString('en-MY',{minimumFractio
 const k=n=>'RM '+(Math.round(n)).toLocaleString('en-MY');
 
 const agents=[
- {n:'Zahiruddin bin Mat Jailaini',r:'Agency Head',ref:'&mdash;',lv:'Agency Head',p:18400,g:412600,comm:6146.40},
- {n:'Nadia Rahman',r:'Team Leader',ref:'Zahiruddin',lv:'Level 3',p:148200,g:148200,comm:12597.00},
- {n:'Faizal Omar',r:'Negotiator',ref:'Nadia Rahman',lv:'Level 2',p:96500,g:0,comm:8202.50},
- {n:'Aisy Karim',r:'Negotiator',ref:'Nadia Rahman',lv:'Level 1',p:72400,g:0,comm:6154.00},
- {n:'Ameer Haziq',r:'Negotiator',ref:'Zahiruddin',lv:'Level 2',p:64300,g:0,comm:5465.50},
- {n:'Siti Nurhaliza',r:'Negotiator (inactive 45d)',ref:'Faizal Omar',lv:'Level 1',p:31100,g:0,comm:2643.50}
+ {n:'Zahiruddin bin Mat Jailaini',r:'Agency Head',ref:'&mdash;',lv:'Agency Head',p:18400,g:412600,comm:18400.00},
+ {n:'Nadia Rahman',r:'Team Leader',ref:'Zahiruddin',lv:'Level 3',p:148200,g:148200,comm:148200.00},
+ {n:'Faizal Omar',r:'Negotiator',ref:'Nadia Rahman',lv:'Level 2',p:96500,g:0,comm:96500.00},
+ {n:'Aisy Karim',r:'Negotiator',ref:'Nadia Rahman',lv:'Level 1',p:72400,g:0,comm:72400.00},
+ {n:'Ameer Haziq',r:'Negotiator',ref:'Zahiruddin',lv:'Level 2',p:64300,g:0,comm:64300.00},
+ {n:'Siti Nurhaliza',r:'Negotiator (inactive 45d)',ref:'Faizal Omar',lv:'Level 1',p:31100,g:0,comm:31100.00}
 ];
-const months=[
- {m:'Jan',c:4210,d:1684,p:3578.50,doc:9,st:100,ex:0},
- {m:'Feb',c:6890,d:2756,p:5856.50,doc:14,st:100,ex:0},
- {m:'Mar',c:12340,d:4936,p:10489.00,doc:21,st:96,ex:1},
- {m:'Apr',c:9870,d:3948,p:8389.50,doc:17,st:100,ex:0},
- {m:'May',c:15420,d:6168,p:13107.00,doc:24,st:92,ex:2},
- {m:'Jun',c:21980,d:8792,p:18683.00,doc:31,st:100,ex:0},
- {m:'Jul',c:18340,d:7336,p:15589.00,doc:27,st:100,ex:0},
- {m:'Aug',c:26110,d:10444,p:22193.50,doc:38,st:89,ex:3},
- {m:'Sep',c:19200,d:7680,p:16320.00,doc:26,st:100,ex:0}
-];
+const MON=[['Jan',4210,9,100,0],['Feb',6890,14,100,0],['Mar',12340,21,96,1],['Apr',9870,17,100,0],
+           ['May',15420,24,92,2],['Jun',21980,31,100,0],['Jul',18340,27,100,0],['Aug',26110,38,89,3]];
+const TARGET=agents.reduce((a,x)=>a+x.comm,0); const SCALE=TARGET*0.85/MON.reduce((a,x)=>a+x[1],0);
+const rows=MON.map(x=>({m:x[0],c:x[1]*SCALE,doc:x[2],st:x[3],ex:x[4]}));
+const used=rows.reduce((a,x)=>a+x.c,0);
+rows.push({m:'Sep',c:agents.reduce((a,x)=>a+x.comm,0)-used,doc:26,st:100,ex:0});
+const months=rows.map(x=>({m:x.m,c:x.c,d:x.c*0.40,p:x.c*0.85,doc:x.doc,st:x.st,ex:x.ex}));
 const YTD=months.reduce((a,x)=>({c:a.c+x.c,d:a.d+x.d,p:a.p+x.p,doc:a.doc+x.doc}),{c:0,d:0,p:0,doc:0});
-const teamSales=agents.reduce((a,x)=>a+x.p,0)*8.4;
+const AGENT_COMM=agents.reduce((a,x)=>a+x.comm,0);          /* 3% of each agent's sales value */
+const salesOf=a=>a.comm/0.03;
+const teamSales=agents.reduce((a,x)=>a+salesOf(x),0);
 
-$('k1').textContent=k(teamSales); $('k1s').textContent='6 agents &middot; personal production';
+$('k1').textContent=k(teamSales); $('k1s').textContent='6 agents &middot; total sales value (referrer chain)';
 $('k2').textContent=k(YTD.c); $('k2s').textContent='declared '+ (YTD.d/YTD.c*100).toFixed(1)+'% &middot; paid out '+(YTD.p/YTD.c*100).toFixed(1)+'%';
 $('k3').textContent='7'; $('k3s').textContent='2 landlord &middot; 3 tenant &middot; 2 buyer';
 $('k4').textContent='2'; $('k4s').textContent='oldest due in 3 days';
 
-$('tblAgent').innerHTML='<thead><tr><th>Agent</th><th>Role</th><th>Referrer</th><th>Level</th><th style="text-align:right">Personal sales</th><th style="text-align:right">Group sales</th><th style="text-align:right">Commission earned</th></tr></thead><tbody>'+
- agents.map(a=>'<tr><td><b>'+a.n+'</b></td><td>'+a.r+'</td><td>'+(a.ref==='&mdash;'?'&mdash;':a.ref)+'</td><td>'+a.lv+'</td><td style="text-align:right">'+k(a.p)+'</td><td style="text-align:right">'+k(a.g)+'</td><td style="text-align:right">'+rm(a.comm)+'</td></tr>').join('')+'</tbody>';
+$('tblAgent').innerHTML='<thead><tr><th>Agent</th><th>Role</th><th>Referrer</th><th>Level</th><th style="text-align:right">Personal sales</th><th style="text-align:right">Group sales</th><th style="text-align:right">Agency commission</th></tr></thead><tbody>'+
+ agents.map(a=>'<tr><td><b>'+a.n+'</b></td><td>'+a.r+'</td><td>'+(a.ref==='&mdash;'?'&mdash;':a.ref)+'</td><td>'+a.lv+'</td><td style="text-align:right">'+k(salesOf(a))+'</td><td style="text-align:right">'+k(a.g)+'</td><td style="text-align:right">'+rm(a.comm)+'</td></tr>').join('')+'</tbody>';
 
 const mx=Math.max(...months.map(x=>x.c));
 $('bars').innerHTML=months.map(x=>'<div class="b'+(x.c===mx?' hi':'')+'" style="height:'+(x.c/mx*100)+'%"><i>'+Math.round(x.c/1000)+'k</i><span>'+x.m+'</span></div>').join('');
 
-const lv=[['Nadia Rahman','Level 3 &rarr; 4',148200,200000],['Faizal Omar','Level 2 &rarr; 3',96500,120000],['Aisy Karim','Level 1 &rarr; 2',72400,80000]];
+const lvT=[['Nadia Rahman','Level 3 &rarr; 4',6000000],['Faizal Omar','Level 2 &rarr; 3',4000000],['Aisy Karim','Level 1 &rarr; 2',3000000]];
+const lv=lvT.map(([n,t,tgt])=>{const a=agents.find(x=>x.n===n);return [n,t,salesOf(a),tgt];});
 $('levels').innerHTML=lv.map(([n,t,cur,tgt])=>'<div style="margin-bottom:12px"><div class="small"><b>'+n+'</b> &middot; '+t+' <span class="muted" style="float:right">'+k(cur)+' / '+k(tgt)+' &middot; '+(cur/tgt*100).toFixed(0)+'%</span></div><div class="prog"><i style="width:'+Math.min(100,cur/tgt*100)+'%"></i></div></div>').join('')+
  '<p class="small muted">Level is earned on <b>production</b>, not on how many people you recruit. No joining fee, no reward for signing people up &mdash; that is the line the Anti-Pyramid Act draws.</p>';
 
