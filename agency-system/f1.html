@@ -301,7 +301,8 @@ $('signBtn').onclick=()=>{ $('modal').classList.remove('on'); location.href='f2.
 $('modal').addEventListener('click',e=>{ if(e.target.id==='modal') $('modal').classList.remove('on'); });
 window.addEventListener('keydown',e=>{ if(e.key==='Escape') $('modal').classList.remove('on'); });
 swapLabels(); addParty('o',{n:'Noraini binti Hassan',ic:'781102085566',hp:'60123456789',em:'noraini@example.com'}); refreshFee(); renderArc();
-if(new URLSearchParams(location.search).get('demo')) sample();
+const QP=new URLSearchParams(location.search);
+if(QP.get('demo')){ sample(); generate(); if(QP.get('nomodal')) $('modal').classList.remove('on'); }
 </script>
 <script src="assets/notif.js"></script>
 <script src="assets/nav.js"></script>
