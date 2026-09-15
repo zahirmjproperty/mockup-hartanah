@@ -12,9 +12,13 @@
  .steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
  .st{flex:1;min-width:120px;padding:10px 12px;border-radius:12px;border:1px solid var(--line-2);background:#fff;font-size:12px;color:var(--ink-3)}
  .st b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
- .st.on{border-color:#bfe0cf;background:#f3faf6;color:var(--navy);box-shadow:var(--sh-1)}
+ .st.on{border-color:var(--navy);background:#e9f4ef;color:var(--navy);box-shadow:0 0 0 2px rgba(12,68,55,.14)}
+ .st.on b{color:var(--navy)}
+ .st.on b::after{content:" ●";color:var(--gold)}
  .st.done{border-color:#cfe8da;background:#eef8f2;color:#0b6b3a}
- .st.done b::after{content:" ✓"}
+ .st.done b::after{content:" \2713";color:#0b6b3a}
+ .st{cursor:pointer}
+ .st:hover{border-color:#bfe0cf}
  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
  @media (max-width:820px){.grid2{grid-template-columns:1fr}}
  .note2{font-size:11.5px;color:var(--ink-3);margin-top:4px}
@@ -74,7 +78,8 @@ const STEPS=[
 function save(){ localStorage.setItem(KEY, JSON.stringify(D)); }
 function done(i){
   const s=STEPS[i];
-  if(i===2) return D.pi && D.agr==='yes' && D.pdpa==='yes';
+  if(i===2) return !!(D.pi && D.agr!=='no' && D.pdpa==='yes');
+  if(i===3) return D.agr==='yes' || D.agr==='wet';
   if(i===5) return D.access==='yes' && D.training==='yes';
   return s.need.every(k=>String(D[k]).trim()!=='');
 }
@@ -106,12 +111,15 @@ function paint(){
     ${sel('Training completed','training',[['no','Not yet'],['yes','Yes — orientation + document module']])}</div>
     <p class="note2">Training is short on purpose: create a letter, send it for signature, read the payout statement. If an agent cannot do those three things, the system will not be used.</p>`
   ];
+  el('steps').querySelectorAll('.st').forEach((n,i)=>n.onclick=()=>{step=i;paint();});
   el('pane').innerHTML=panes[step];
   el('pane').querySelectorAll('input,select').forEach(i=>{
     i.oninput=i.onchange=()=>{ D[i.id]=i.value; save(); };
   });
   const left=STEPS.map((s,i)=>done(i)?null:(i+1)).filter(Boolean);
-  el('warn').innerHTML = left.length? `<b>Still outstanding:</b> step ${left.join(', ')}. ${step===2||step===2?'Registration and insurance are the two the law cares about most.':''}` : '<b>All six steps complete.</b> The agent is ready to create a letter and claim a commission.';
+  el('warn').innerHTML = left.length
+    ? `<b>Still outstanding:</b> step ${left.join(', ')} of 6. Registration, insurance and the signed agreement are the three the law cares about most &mdash; no registration and no insurance means no commission claim.`
+    : '<b>All six steps complete.</b> The agent can now create a letter, send it for signature and claim a commission.';
 }
 el('next').onclick=()=>{ if(step<5){step++;paint();} else alert('Checklist complete. In production this creates the agent record and issues the login.'); };
 el('back').onclick=()=>{ if(step>0){step--;paint();} };
