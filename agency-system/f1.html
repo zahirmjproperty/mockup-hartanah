@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>F1 · Document generator | Zentra Hub</title>
+<link rel="stylesheet" href="assets/agency.css">
+<style>
+  @media print{.sb,.nav,.top,.actions,.no-print,.formwrap{display:none!important}#sheet{display:block!important}.paper{box-shadow:none;border:0}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sb">
+    <div class="brand"><div class="mark">ZH</div><div><b>Zentra Hub</b><small>Zentra Property Group</small></div></div>
+    <nav class="nav">
+      <div class="sec">Operations</div>
+      <a href="index.html"><span class="ic">&#9638;</span> Overview</a>
+      <a href="documents.html"><span class="ic">&#9993;</span> Documents &amp; e-sign</a>
+      <a href="f1.html" class="on"><span class="ic">&#9881;</span> F1 document generator</a>
+      <a href="team.html"><span class="ic">&#9737;</span> Team &amp; referrers</a>
+      <a href="agents.html"><span class="ic">&#9823;</span> Agent registry</a>
+      <a href="hierarchy.html"><span class="ic">&#9776;</span> Levels &amp; hierarchy</a>
+      <div class="sec">Money</div>
+      <a href="commission.html"><span class="ic">&#8721;</span> Commission engine</a>
+      <a href="claims.html"><span class="ic">&#10003;</span> Claims &amp; vouchers</a>
+      <a href="payouts.html"><span class="ic">&#8644;</span> Payout runs</a>
+      <div class="sec">Governance</div>
+      <a href="compliance.html"><span class="ic">&#9878;</span> Compliance guard</a>
+      <a href="modules.html"><span class="ic">&#9635;</span> Module map</a>
+    </nav>
+    <div class="foot">Prototype · sample data only<br>Zentra Property Group &copy; 2026</div>
+  </aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>F1 &middot; Document generator</h1>
+        <p>Enter the deal once. The system numbers it, fills the letter, and files the PDF. <b>This screen runs entirely in your browser &mdash; nothing is uploaded, nothing is saved on a server.</b></p>
+      </div>
+      <span class="badge-demo">PHASE 1 DEMO &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="flag no-print"><b>What this demo proves:</b> (1) the letter is generated from data, not typed by hand; (2) every document gets its own ID; (3) the fee is computed from the statutory scale &mdash; the agent cannot key in a wrong amount; (4) the archive keeps every letter the agency ever issued.</div>
+
+    <div class="grid g2" style="align-items:start">
+      <div class="card formwrap">
+        <h2 class="sec" style="margin-top:0"><span class="num">1</span> Deal details</h2>
+        <div class="field"><label>Document type</label>
+          <select id="dtype" class="i">
+            <option value="rent">Letter of Appointment &mdash; Rent (ZTH-LOAR)</option>
+            <option value="sale">Letter of Appointment &mdash; Sale (ZTH-LOAS)</option>
+          </select></div>
+        <div class="field"><label>Negotiator</label>
+          <select id="agent" class="i">
+            <option>Zahiruddin (Agency Head)</option>
+            <option>Nadia Rahman</option>
+            <option>Faizal Omar</option>
+            <option>Aisy Karim</option>
+          </select></div>
+        <div class="field"><label id="lparty">Landlord name</label><input id="party" class="i" placeholder="e.g. Noraini binti Hassan"></div>
+        <div class="field"><label>NRIC / Passport of client</label><input id="nric" class="i" placeholder="e.g. 800101-14-5566"></div>
+        <div class="field"><label>Property address</label><input id="addr" class="i" placeholder="e.g. 18-3, Jalan Seri Harmoni 2/5, 43200 Kajang, Selangor"></div>
+        <div class="field"><label id="lamount">Monthly rent (RM)</label><input id="amount" class="i" type="number" value="1300"></div>
+        <div class="field" id="wrapTenure"><label>Tenure (years) &middot; option to renew (years)</label>
+          <div style="display:flex;gap:8px"><input id="tYears" class="i" type="number" value="1" style="max-width:110px"><input id="tOpt" class="i" type="number" value="1" style="max-width:110px"></div></div>
+        <div class="field"><label id="lcond">Condition / furnishing</label><input id="cond" class="i" value="Fully furnished, as is basis"></div>
+        <div class="field"><label>Mandate basis</label>
+          <select id="basis" class="i"><option>Non-Exclusive</option><option>Exclusive</option><option>Joint</option><option>Adhoc</option></select></div>
+        <div class="field" id="wrapDep"><label>Deposits &mdash; advanced rent (months) &middot; security (months) &middot; utility (months)</label>
+          <div style="display:flex;gap:8px">
+            <input id="dAdv" class="i" type="number" value="1" step="0.5" style="max-width:92px">
+            <input id="dSec" class="i" type="number" value="1" step="0.5" style="max-width:92px">
+            <input id="dUti" class="i" type="number" value="0.5" step="0.5" style="max-width:92px"></div></div>
+        <hr>
+        <h2 class="sec" style="margin-top:6px"><span class="num">2</span> Fee (computed by the system)</h2>
+        <div class="grid g3" style="gap:10px">
+          <div class="kpi"><div class="lab">Professional fee</div><div class="val" id="kV" style="font-size:20px">RM 0</div><div class="sub" id="kRule">statutory scale</div></div>
+          <div class="kpi"><div class="lab">SST 8%</div><div class="val" id="kS" style="font-size:20px">RM 0</div><div class="sub">collected for LHDN</div></div>
+          <div class="kpi blue"><div class="lab">Total payable</div><div class="val" id="kT" style="font-size:20px">RM 0</div><div class="sub">fee + SST</div></div>
+        </div>
+        <div class="actions">
+          <button class="btn" id="gen">Generate letter</button>
+          <button class="btn ghost" id="sample">Load sample</button>
+          <button class="btn ghost" id="reset">Reset</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="sec" style="margin-top:0"><span class="num">3</span> Archive &mdash; every letter issued</h2>
+        <p class="small muted">Stored in this browser for the demo. In production this is a database row plus a PDF in the agency archive, searchable by deal ID.</p>
+        <table class="tbl"><thead><tr><th>Document ID</th><th>Type</th><th>Client</th><th>Fee (RM)</th><th>Created</th><th></th></tr></thead>
+        <tbody id="arc"></tbody></table>
+        <div class="actions"><button class="btn ghost sm" id="clearArc">Clear demo archive</button></div>
+        <hr>
+        <h2 class="sec"><span class="num">4</span> What comes next</h2>
+        <table class="tbl"><thead><tr><th>Phase</th><th>Adds</th><th>Status</th></tr></thead><tbody>
+          <tr><td>F1</td><td>Numbered letters, fee computed, archive <b>(this screen)</b></td><td><span class="pill ok">In demo</span></td></tr>
+          <tr><td>F2</td><td>Send for e-signature, OTP, completion certificate, soft copy to the client, stamping tracker</td><td><span class="pill warn">Needs SigningCloud account</span></td></tr>
+          <tr><td>F3</td><td>Invoice, receipt, commission claim, payout voucher</td><td><span class="pill info">Planned</span></td></tr>
+          <tr><td>F4</td><td>Dashboard, ranking, compliance report</td><td><span class="pill info">Planned</span></td></tr>
+        </tbody></table>
+      </div>
+    </div>
+
+    <div id="sheet" style="display:none"></div>
+  </main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="inner">
+    <div class="bar">
+      <div><b id="mTitle">Letter preview</b> <span class="small muted" id="mId"></span></div>
+      <div class="actions" style="margin:0">
+        <button class="btn sm" id="saveBtn">Save to archive</button>
+        <button class="btn ghost sm" id="printBtn">Print / Save as PDF</button>
+        <button class="btn ghost sm" id="signBtn" disabled title="Available in phase F2">Send for e-signature (F2)</button>
+        <button class="btn ghost sm" id="closeBtn">Close</button>
+      </div>
+    </div>
+    <div id="paperHost"></div>
+  </div>
+</div>
+<script>
+const S = {
+  docs: JSON.parse(localStorage.getItem('zth_docs') || '[]'),
+  seq: +(localStorage.getItem('zth_seq') || 101)
+};
+const $ = id => document.getElementById(id);
+const rm = n => 'RM ' + (Math.round(n * 100) / 100).toLocaleString('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const tgl = dt => dt.toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
+const pad = n => String(n).padStart(6, '0');
+
+function isRent(){ return $('dtype').value === 'rent'; }
+function calcFee(){
+  const amt = parseFloat($('amount').value) || 0;
+  let fee = 0, rule = '';
+  if (isRent()){
+    const yr = parseFloat($('tYears').value) || 1;
+    let mult = 1.25;
+    if (yr > 5) mult = 1.75; else if (yr > 4) mult = 1.75; else if (yr > 3) mult = 1.5;
+    fee = amt * mult;
+    rule = 'Schedule 7(C)(2) \u2014 ' + mult.toFixed(2) + ' month(s) gross rental';
+  } else {
+    fee = amt * 0.03;
+    rule = 'Schedule 7(C)(1) \u2014 3.0% of price';
+  }
+  return {fee: fee, sst: fee * 0.08, total: fee * 1.08, rule: rule};
+}
+function refreshFee(){
+  const c = calcFee();
+  $('kV').textContent = rm(c.fee); $('kS').textContent = rm(c.sst); $('kT').textContent = rm(c.total); $('kRule').textContent = c.rule;
+}
+function swapLabels(){
+  const r = isRent();
+  $('lparty').textContent = r ? 'Landlord name' : 'Vendor name';
+  $('lamount').textContent = r ? 'Monthly rent (RM)' : 'Sale price (RM)';
+  $('lcond').textContent = r ? 'Condition / furnishing' : 'Condition of property';
+  $('wrapTenure').style.display = r ? '' : 'none';
+  $('wrapDep').style.display = r ? '' : 'none';
+  if (!r) { $('amount').value = 640000; $('cond').value = 'As is where is basis'; }
+  else { $('amount').value = 1300; $('tYears').value = 1; $('tOpt').value = 1; $('cond').value = 'Fully furnished, as is basis'; }
+  refreshFee();
+}
+function feeWords(fee){
+  return rm(fee).replace('RM ', '') + ' only';
+}
+function buildLetter(id){
+  const r = isRent(), c = calcFee();
+  const party = $('party').value || (r ? '[Landlord name]' : '[Vendor name]');
+  const nric = $('nric').value || '[NRIC]';
+  const agent = $('agent').value;
+  const addr = $('addr').value || '[Property address]';
+  const amt = parseFloat($('amount').value) || 0;
+  const cond = $('cond').value;
+  const basis = $('basis').value;
+  const today = new Date();
+  const head = '<div class="paper"><h3>ZENTRA PROPERTY GROUP</h3><div class="sub">Registered estate agency: [REGISTERED FIRM NAME] ([E(##)####]) &middot; SST No.: [ ] &middot; [office address] &middot; [tel] &middot; [email]</div>' +
+    '<h3>' + (r ? 'APPOINTMENT TO ACT AS AN ESTATE AGENT (TO SECURE A TENANT)' : 'APPOINTMENT TO ACT AS AN ESTATE AGENT (TO SECURE A PURCHASER)') + '</h3>' +
+    '<div class="sub">Document No.: <b>' + id + '</b> &middot; Date: ' + tgl(today) + '</div>' +
+    '<p>I/We, <b>' + party + '</b> (NRIC No.: ' + nric + ') the registered/beneficial owner of the address: ' + (r ? '[owner address]' : addr) +
+    ' hereby appoint <b>ZENTRA PROPERTY GROUP</b> to secure a ' + (r ? 'tenant' : 'purchaser') + ' for the Property mentioned below: <b>' + addr + '</b>' +
+    ' whereby the firm is permitted to display a signboard, record a 360-degree video, conduct a virtual tour, and advertise in any media or in any form to promote the ' + (r ? 'rental' : 'sale') + ' of the Property, subject to the following terms and conditions:</p><ol>';
+  let items = '';
+  if (r){
+    const adv = (parseFloat($('dAdv').value)||0) * amt, sec = (parseFloat($('dSec').value)||0) * amt, uti = (parseFloat($('dUti').value)||0) * amt;
+    items += '<li>The monthly rental for the Property shall be <b>' + rm(amt) + '</b> or the nearest offer.</li>';
+    items += '<li>Intended tenure of the tenancy is <b>' + ($('tYears').value||1) + ' year(s)</b> with an option to renew for a further <b>' + ($('tOpt').value||1) + ' year(s)</b>.</li>';
+    items += '<li>Payments are as follows: (a) Advanced Rental equivalent to ' + $('dAdv').value + ' month(s): ' + rm(adv) + '; (b) Refundable Security Deposit equivalent to ' + $('dSec').value + ' month(s): ' + rm(sec) + '; (c) Refundable Utility Deposit (Electricity, Water and Sewerage): ' + rm(uti) + '.</li>';
+    items += '<li>Condition: ' + cond + '</li>';
+  } else {
+    items += '<li>The total consideration price for the Property shall be <b>' + rm(amt) + '</b> or the nearest offer.</li>';
+    items += '<li>Payments: (a) Earnest Deposit on acceptance: 3.24% (' + rm(amt*0.0324) + '); (b) on signing the SPA: 6.76% (' + rm(amt*0.0676) + '); (c) balance 90% within 90 days, extendable by up to 30 days at 8.0% per annum on daily rests.</li>';
+    items += '<li>Condition of the Property: ' + cond + '</li>';
+  }
+  items += '<li>I/We agree to pay the firm a professional fee of <b>' + rm(c.fee) + ' + ' + rm(c.sst) + ' (8.0% SST) = ' + rm(c.total) + ' only</b>, computed under ' + (r ? 'Schedule 7(C)(2)' : 'Schedule 7(C)(1)') + ' under Rule 48(a) of the Valuers, Appraisers and Estate Agents Rules 1986 &mdash; ' + c.rule + '.</li>';
+  items += '<li>The Professional Fee is payable in full ' + (r ? 'upon the signing of the Tenancy Agreement or upon delivery of vacant possession, whichever is earlier' : 'upon the signing of the Sale and Purchase Agreement') + '.</li>';
+  items += '<li>If the earnest deposit is paid but the transaction is aborted, I/We agree to pay 50% of the forfeited earnest deposit or 50% of the agreed Professional Fee, whichever is lower.</li>';
+  items += '<li>This appointment is on a <b>' + basis + '</b> basis, valid from ' + tgl(today) + ' to ' + tgl(new Date(today.getTime() + 90*864e5)) + ', and deemed renewed for an equivalent period unless either party gives written notice. The firm is entitled to the Professional Fee if any introduction made during this period leads to a completed ' + (r ? 'letting' : 'sale') + ', even if this appointment has expired.</li>';
+  items += '<li>I/We authorize the firm to act as <b>stakeholder</b> and to accept the earnest deposit on my/our behalf, and irrevocably instruct the firm to deduct the agreed Professional Fee from it and release the balance to me/us and/or our appointed lawyer once the ' + (r ? 'Tenancy Agreement is signed' : 'SPA is signed and stamped') + '.</li>';
+  items += '<li>I/We fully indemnify the firm against all claims by the ' + (r ? 'Tenant(s)' : 'Purchaser') + ' if I/We do not proceed to execute the agreement after the earnest deposit is collected.</li>';
+  items += '<li>All signatories agree to comply with the Malaysian Anti-Corruption Commission Act 2009 and Section 17A, the AML/ATF and Proceeds of Unlawful Activities Act 2001 (AML/CFT) and the Personal Data Protection Act 2010, and authorize the firm and/or its group companies to disclose their information to third parties as necessary, including at the request of regulatory authorities.</li></ol>';
+  const sig = '<div class="sig"><div class="box"><div class="who">' + party + '</div>' + (r ? 'Landlord' : 'Vendor') + '<br>NRIC: ' + nric + '<br><span class="es">Signed by e-signing &mdash; [pending]</span></div>' +
+    '<div class="box"><div class="who">' + agent + '</div>Negotiator &middot; PEA / REN No.: [ ]<br><span class="es">Signed by e-signing &mdash; [pending]</span></div></div>';
+  const foot = '<div class="foot"><span>' + id + ' &middot; ' + (r ? 'Appointment to Act as an Estate Agent (To Secure a Tenant)' : 'Appointment to Act as an Estate Agent (To Secure a Purchaser)') + '</span><span>Page 1 of 1</span></div>';
+  return head + items + sig + foot + '</div>';
+}
+let current = null;
+function generate(){
+  const r = isRent();
+  const id = (r ? 'ZTH-LOAR-' : 'ZTH-LOAS-') + pad(S.seq);
+  const c = calcFee();
+  current = {id: id, type: r ? 'Appointment letter (rent)' : 'Appointment letter (sale)',
+             client: $('party').value || '(no name)', agent: $('agent').value,
+             addr: $('addr').value, fee: c.fee, sst: c.sst, total: c.total,
+             created: new Date().toISOString(), html: buildLetter(id)};
+  $('paperHost').innerHTML = current.html;
+  $('mTitle').textContent = current.type;
+  $('mId').textContent = current.id + ' \u00b7 ' + rm(c.total) + ' incl. SST';
+  $('modal').classList.add('on');
+}
+function saveDoc(){
+  if (!current) return;
+  S.docs.unshift({id:current.id,type:current.type,client:current.client,fee:current.fee,created:current.created});
+  S.seq++; localStorage.setItem('zth_docs', JSON.stringify(S.docs)); localStorage.setItem('zth_seq', S.seq);
+  $('modal').classList.remove('on'); renderArc();
+}
+function renderArc(){
+  const tb = $('arc'); tb.innerHTML = '';
+  if (!S.docs.length){ tb.innerHTML = '<tr><td colspan="6" class="small muted">No letters yet &mdash; generate one to see it here.</td></tr>'; return; }
+  S.docs.forEach((d, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td class="mono">' + d.id + '</td><td>' + d.type + '</td><td>' + d.client + '</td><td>' + rm(d.fee) + '</td><td>' + tgl(new Date(d.created)) +
+      '</td><td><button class="btn ghost sm" data-i="' + i + '">Remove</button></td>';
+    tb.appendChild(tr);
+  });
+  tb.querySelectorAll('button[data-i]').forEach(b => b.onclick = e => { S.docs.splice(+e.target.dataset.i,1); localStorage.setItem('zth_docs', JSON.stringify(S.docs)); renderArc(); });
+}
+function sample(){
+  $('dtype').value = 'rent'; swapLabels();
+  $('party').value = 'Noraini binti Hassan'; $('nric').value = '800101-14-5566';
+  $('addr').value = '18-3, Jalan Seri Harmoni 2/5, 43200 Kajang, Selangor';
+  $('amount').value = 1300; $('tYears').value = 1; $('tOpt').value = 1; $('cond').value = 'Fully furnished, as is basis';
+  refreshFee();
+}
+$('dtype').onchange = swapLabels;
+['amount','tYears','dAdv','dSec','dUti'].forEach(id => $(id).oninput = refreshFee);
+$('gen').onclick = generate;
+$('sample').onclick = sample;
+$('reset').onclick = () => { $('party').value=''; $('nric').value=''; $('addr').value=''; sample(); };
+$('saveBtn').onclick = saveDoc;
+$('closeBtn').onclick = () => $('modal').classList.remove('on');
+$('printBtn').onclick = () => { $('sheet').innerHTML = current.html; $('sheet').style.display='block'; window.print(); setTimeout(()=>{$('sheet').style.display='none';},600); };
+$('clearArc').onclick = () => { S.docs = []; localStorage.setItem('zth_docs','[]'); renderArc(); };
+renderArc(); refreshFee();
+if (location.search.indexOf('demo=1') > -1){ sample(); generate(); }
+</script>
+</body>
+</html>

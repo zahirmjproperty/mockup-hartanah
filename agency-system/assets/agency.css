@@ -182,3 +182,31 @@ a.card.link:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(15,23,4
 .brand b{font-size:13px;line-height:1.15;display:block}
 .brand small{font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:#cbe0d6;line-height:1.25}
 .brand .mark{width:34px;height:34px;flex:0 0 34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+
+/* --- F1 demo: butang, modal, kertas surat --- */
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--navy);background:var(--navy);color:#fff;font:inherit;font-size:13px;font-weight:600;padding:9px 15px;border-radius:9px;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--navy-2);border-color:var(--navy-2)}
+.btn.ghost{background:#fff;color:var(--navy);border-color:#cfd8d3}
+.btn.ghost:hover{background:#f4f8f6}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#3a2c00}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.sm{font-size:12px;padding:6px 11px;border-radius:7px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.paper{background:#fff;border:1px solid #e3e8e5;border-radius:8px;padding:34px 38px;max-width:820px;margin:0 auto;font-family:Georgia,"Times New Roman",serif;font-size:12.5px;line-height:1.62;color:#16211d;box-shadow:0 6px 24px rgba(12,68,55,.07)}
+.paper h3{font-family:inherit;font-size:16px;text-align:center;margin:0 0 4px;letter-spacing:.02em}
+.paper .sub{text-align:center;font-size:11.5px;color:#4b5752;margin-bottom:14px}
+.paper .foot{font-size:10.5px;color:#7a857f;border-top:1px dashed #d8ded9;margin-top:16px;padding-top:7px;display:flex;justify-content:space-between}
+.paper ol{margin:6px 0 6px 18px;padding:0}
+.paper li{margin-bottom:5px}
+.paper table{width:100%;border-collapse:collapse;font-size:11.5px;margin:8px 0;font-family:Segoe UI,Arial,sans-serif}
+.paper th,.paper td{border:1px solid #dfe5e1;padding:5px 7px;text-align:left}
+.paper th{background:#f4f8f6;font-weight:600}
+.sig{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px}
+.sig .box{border-top:1px solid #b9c4be;padding-top:6px;font-size:11.5px}
+.sig .who{font-weight:700}
+.sig .es{color:var(--navy-3);font-style:italic}
+.modal{position:fixed;inset:0;background:rgba(9,32,26,.55);display:none;align-items:flex-start;justify-content:center;padding:26px;overflow:auto;z-index:60}
+.modal.on{display:flex}
+.modal .inner{background:#fff;border-radius:12px;padding:18px;max-width:900px;width:100%}
+.modal .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.flag{background:var(--gold-soft);border:1px solid #ecd9a3;color:#6a5200;border-radius:9px;padding:11px 14px;font-size:12.5px;margin-bottom:14px}
