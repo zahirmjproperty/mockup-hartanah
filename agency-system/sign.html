@@ -61,8 +61,9 @@
       <p class="step">Step 2 of 4 &middot; Verify it is you</p>
       <div class="card">
         <p class="small">For your protection we send a one-time code to the mobile number registered with the agency: <b>+60 12-***&nbsp;0119</b>.</p>
-        <div class="actions"><button class="btn ghost" onclick="sendOtp()">Send my code</button><span class="small muted" id="otpNote"></span></div>
-        <div class="otpbox" id="otpBox">
+        <div class="actions"><button class="btn ghost" id="otpResend" onclick="sendOtp()">Send my code</button><span class="small muted" id="otpNote"></span></div>
+        <div class="emsg on" id="otpErr" style="display:block;margin-top:-4px"></div>
+    <div class="otpbox" id="otpBox">
           <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
         </div>
         <p class="small muted">Demo code: <b>483216</b> (in production this is sent by SMS and expires in 5 minutes).</p>
@@ -112,13 +113,32 @@ function go(n){
   $('bar').style.display = (n === 4) ? 'none' : 'flex';
   window.scrollTo(0,0);
 }
-function sendOtp(){ $('otpNote').textContent = 'Code sent \u2014 check your SMS (demo code 483216).'; }
+const DEMO = new URLSearchParams(location.search).has('demo');
+let tries = 0, locked = false, cdLeft = 0, cdTimer = null;
+function sendOtp(){
+  if (locked) return;
+  $('otpNote').innerHTML = 'A 6-digit code has been sent to <b>+60 12-345 6789</b>. It expires in 5 minutes.' + (DEMO ? ' <span class="pill lead">demo code 483216</span>' : '');
+  const rb = $('otpResend'); if (rb) { rb.disabled = true; }
+  cdLeft = 30; clearInterval(cdTimer);
+  cdTimer = setInterval(() => { cdLeft--; if (rb) rb.textContent = 'Resend in ' + cdLeft + 's';
+    if (cdLeft <= 0) { clearInterval(cdTimer); if (rb) { rb.disabled = false; rb.textContent = 'Resend code'; } } }, 1000);
+  $('otpErr').textContent = '';
+}
+function lockLink(){
+  locked = true; $('otpBox').style.opacity = .4; $('otpNext').disabled = true;
+  $('otpErr').innerHTML = 'Too many incorrect codes. For your security this link is locked for 30 minutes and the attempt has been logged. Contact your negotiator if you still need to sign.' + (DEMO ? ' <button class="btn ghost sm" onclick="unlockLink()">Unlock (demo)</button>' : '');
+}
+function unlockLink(){ locked = false; tries = 0; $('otpBox').style.opacity = 1; $('otpErr').textContent = 'Unlocked (demo) \u2014 attempts reset.'; check(); }
 const boxes = [].slice.call($('otpBox').querySelectorAll('input'));
 boxes.forEach((b,i) => { b.oninput = () => { if (b.value && boxes[i+1]) boxes[i+1].focus(); check(); }; b.onkeydown = e => { if (e.key === 'Backspace' && !b.value && boxes[i-1]) boxes[i-1].focus(); }; });
-function check(){ $('otpNext').disabled = boxes.map(b => b.value).join('').length !== 6; }
+function check(){ $('otpNext').disabled = locked || boxes.map(b => b.value).join('').length !== 6; }
 function checkOtp(){
-  if (boxes.map(b => b.value).join('') === OTP){ go(3); }
-  else { alert('That code does not match. In production the client gets another attempt and the agency sees the failed attempt in the audit log.'); }
+  if (locked) return;
+  const code = boxes.map(b => b.value).join('');
+  if (code === OTP) { go(3); return; }
+  tries++; boxes.forEach(b => b.value = '');
+  if (tries >= 3) { lockLink(); } else { $('otpErr').textContent = 'That code does not match. ' + (3 - tries) + ' attempt(s) left before the link locks.'; }
+  check();
 }
 ['c1','c2','c3'].forEach(id => $(id).onchange = () => { $('consNext').disabled = !($('c1').checked && $('c2').checked && $('c3').checked); });
 const pad = $('pad'), ctx = pad.getContext('2d');
