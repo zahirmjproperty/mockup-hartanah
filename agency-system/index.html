@@ -9,30 +9,7 @@
 </head>
 <body>
 <div class="shell">
-  <aside class="side">
-    <div class="brand"><div class="mark">ZH</div><div><b>Zentra Hub</b><small>Zentra Property Group</small></div></div>
-    <nav class="nav">
-      <div class="sec">Operations</div>
-      <a href="index.html"><span class="ic">▦</span> Overview</a>
-      <a href="platform.html"><span class="ic">&#9635;</span> Platform map</a>
-      <a href="documents.html"><span class="ic">✍</span> Documents &amp; e-sign</a>
-      <a href="f4.html"><span class="ic">&#9783;</span> F4 monitoring board</a>
-      <a href="f3.html"><span class="ic">&#8721;</span> F3 reward engine</a>
-      <a href="f1.html"><span class="ic">&#9881;</span> F1 document generator</a>
-      <a href="f2.html"><span class="ic">&#9993;</span> F2 send &amp; track</a>
-      <a href="team.html"><span class="ic">👥</span> Team &amp; referrers</a>
-      <a href="agents.html"><span class="ic">👤</span> Agent registry</a>
-      <a href="hierarchy.html"><span class="ic">🌳</span> Levels &amp; hierarchy</a>
-      <div class="sec">Money</div>
-      <a href="commission.html"><span class="ic">🧮</span> Commission engine</a>
-      <a href="claims.html"><span class="ic">🧾</span> Claims &amp; vouchers</a>
-      <a href="payouts.html"><span class="ic">💸</span> Payout runs</a>
-      <div class="sec">Governance</div>
-      <a href="compliance.html"><span class="ic">🛡</span> Compliance guard</a>
-      <a href="modules.html"><span class="ic">🗺</span> Module map</a>
-    </nav>
-    <div class="foot">Click-through prototype.<br>System provided by <b>Zentra Property Group</b> · English (US)<br>Internal prototype — sample data only.</div>
-  </aside>
+  <aside class="side" id="znav"></aside>
 
   <main class="main">
     <div class="top">
@@ -43,39 +20,49 @@
       <span class="badge-demo">PROTOTYPE · SAMPLE DATA</span>
     </div>
 
-    <h2 class="sec"><span class="num">0</span> Pages in this prototype</h2>
+    <h2 class="sec"><span class="num">1</span> Pages in this prototype</h2>
     <div class="grid g2">
-      <a class="card link" href="platform.html"><h3 style="margin-top:0">Platform map</h3><p class="small muted" style="margin-bottom:0">One platform, three modules &mdash; what is shared and what must stay apart.</p></a>
-      <a class="card link" href="f2.html"><h3 style="margin-top:0">F2 &middot; Send &amp; track signatures <span class="pill ok">WORKING DEMO</span></h3><p class="small muted" style="margin-bottom:0">Links per party, status board, reminders, and the stamping clock that starts by itself.</p></a>
-      <a class="card link" href="f3.html"><h3 style="margin-top:0">F3 &middot; Reward engine</h3><p class="small muted" style="margin-bottom:0">Claim, invoice, receipt and payout voucher generated from one completed transaction.</p></a>
-      <a class="card link" href="f4.html"><h3 style="margin-top:0">F4 &middot; Monitoring board</h3><p class="small muted" style="margin-bottom:0">Production by agent, sales by month, and the monthly compliance report in one screen.</p></a>
-      <a class="card link" href="f1.html"><h3 style="margin-top:0">F1 &middot; Document generator <span class="pill ok">WORKING DEMO</span></h3><p class="small muted" style="margin-bottom:0">Type the deal once &mdash; the system numbers the letter, computes the statutory fee, and files the PDF. Try it.</p></a>
-      <a class="card link" href="documents.html"><h3 style="margin-top:0">Documents &amp; e-sign</h3><p class="small muted" style="margin-bottom:0">Agents create the letter, clients sign on their phone — soft copy for both sides.</p></a>
-      <a class="card link" href="team.html"><h3 style="margin-top:0">Team &amp; referrers</h3><p class="small muted" style="margin-bottom:0">The referrer chain the override engine walks — personal vs group sales.</p></a>
-      <a class="card link" href="agents.html"><h3 style="margin-top:0">Agent registry</h3><p class="small muted" style="margin-bottom:0">REN tag, insurance, level and payout gates for every negotiator.</p></a>
-      <a class="card link" href="hierarchy.html"><h3 style="margin-top:0">Levels &amp; hierarchy</h3><p class="small muted" style="margin-bottom:0">Level ladder, promotion rules and how the agency share is split.</p></a>
-      <a class="card link" href="commission.html"><h3 style="margin-top:0">Commission engine</h3><p class="small muted" style="margin-bottom:0">Type a fee and a level — get the two vouchers, computed live.</p></a>
-      <a class="card link" href="claims.html"><h3 style="margin-top:0">Claims &amp; vouchers</h3><p class="small muted" style="margin-bottom:0">Submission → approval → paid, with the real 30/06/2026 vouchers.</p></a>
-      <a class="card link" href="payouts.html"><h3 style="margin-top:0">Payout runs</h3><p class="small muted" style="margin-bottom:0">Runs, gates, milestone release and self-billed e-invoices.</p></a>
-      <a class="card link" href="compliance.html"><h3 style="margin-top:0">Compliance guard</h3><p class="small muted" style="margin-bottom:0">Declared 40% vs total paid, plus the monthly audit report.</p></a>
-      <a class="card link" href="modules.html"><h3 style="margin-top:0">Module map</h3><p class="small muted" style="margin-bottom:0">What we copy from IQI Atlas, what we change, what we leave out.</p></a>
+      <a class="card link" href="platform.html"><h3 style="margin-top:0">Platform map <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">One platform, three modules &mdash; what is shared and what must stay apart.</p></a>
+      <a class="card link" href="f2.html"><h3 style="margin-top:0">F2 &middot; Send &amp; track signatures <span class="pill ok">LIVE DEMO</span></h3><p class="small muted" style="margin-bottom:0">Links per party, status board, reminders, and the stamping clock that starts by itself.</p></a>
+      <a class="card link" href="f3.html"><h3 style="margin-top:0">F3 &middot; Reward engine <span class="pill ok">LIVE DEMO</span></h3><p class="small muted" style="margin-bottom:0">Claim, invoice, receipt and payout voucher generated from one completed transaction.</p></a>
+      <a class="card link" href="f4.html"><h3 style="margin-top:0">F4 &middot; Monitoring board <span class="pill ok">LIVE DEMO</span></h3><p class="small muted" style="margin-bottom:0">Production by agent, sales by month, and the monthly compliance report in one screen.</p></a>
+      <a class="card link" href="f1.html"><h3 style="margin-top:0">F1 &middot; Document generator <span class="pill ok">LIVE DEMO</span></h3><p class="small muted" style="margin-bottom:0">Type the deal once &mdash; the system numbers the letter, computes the statutory fee, and files the PDF. Try it.</p></a>
+      <a class="card link" href="documents.html"><h3 style="margin-top:0">Documents &amp; e-sign <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Agents create the letter, clients sign on their phone — soft copy for both sides.</p></a>
+      <a class="card link" href="team.html"><h3 style="margin-top:0">Team &amp; referrers <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">The referrer chain the override engine walks — personal vs group sales.</p></a>
+      <a class="card link" href="agents.html"><h3 style="margin-top:0">Agent registry <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">REN tag, insurance, level and payout gates for every negotiator.</p></a>
+      <a class="card link" href="hierarchy.html"><h3 style="margin-top:0">Levels &amp; hierarchy <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Level ladder, promotion rules and how the agency share is split.</p></a>
+      <a class="card link" href="commission.html"><h3 style="margin-top:0">Commission engine <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Type a fee and a level — get the two vouchers, computed live.</p></a>
+      <a class="card link" href="claims.html"><h3 style="margin-top:0">Claims &amp; vouchers <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Submission → approval → paid, with the real 30/06/2026 vouchers.</p></a>
+      <a class="card link" href="payouts.html"><h3 style="margin-top:0">Payout runs <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Runs, gates, milestone release and self-billed e-invoices.</p></a>
+      <a class="card link" href="compliance.html"><h3 style="margin-top:0">Compliance guard <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Declared 40% vs total paid, plus the monthly audit report.</p></a>
+      <a class="card link" href="modules.html"><h3 style="margin-top:0">Module map <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">What we copy from IQI Atlas, what we change, what we leave out.</p></a>
     </div>
 
     <div class="grid g4">
-      <div class="kpi"><div class="lab">Active negotiators</div><div class="val">12</div><div class="sub">+3 in onboarding</div></div>
-      <div class="kpi"><div class="lab">Team leaders</div><div class="val">4</div><div class="sub">2 group leaders above them</div></div>
-      <div class="kpi blue"><div class="lab">Deals this month</div><div class="val">9</div><div class="sub">6 subsale · 3 project</div></div>
-      <div class="kpi warn"><div class="lab">Payout pipeline</div><div class="val">RM41,820</div><div class="sub">4 vouchers awaiting release</div></div>
+      <a class="kpi link" href="agents.html"><div class="lab">Active negotiators</div><div class="val">12</div><div class="sub"><span class="up">+3</span> in onboarding</div></a>
+      <a class="kpi link" href="hierarchy.html"><div class="lab">Team leaders</div><div class="val">4</div><div class="sub">2 group leaders above them</div></a>
+      <a class="kpi link blue" href="f4.html"><div class="lab">Deals this month</div><div class="val">9</div><div class="sub"><span class="up">+2</span> vs last month &middot; 6 subsale &middot; 3 project</div></a>
+      <a class="kpi link warn" href="payouts.html"><div class="lab">Payout pipeline</div><div class="val">RM41,820.00</div><div class="sub">4 vouchers awaiting release</div></a>
     </div>
 
-    <h2 class="sec"><span class="num">1</span> How a payout splits</h2>
+    <h2 class="sec"><span class="num">2</span> How a payout splits</h2>
     <div class="grid g2">
       <div class="card">
         <p class="small muted" style="margin-top:0">Sample: rental at Seri Harmoni, Kajang · professional fee <b>RM1,018.52</b> · negotiator level <b>85%</b> · leader <b>15%</b> — the exact shape of the vouchers issued on 30 Jun 2026.</p>
-        <div class="wf">
-          <div class="a" style="width:40%">Commission 40%</div>
-          <div class="b" style="width:45%">Bonus 45%</div>
-          <div class="c" style="width:15%">Leader 15%</div>
+        <div class="split">
+          <div class="donut" role="img" aria-label="85% to negotiator, 15% to leader"><span>85%<small>to negotiator</small></span></div>
+          <div class="split-right">
+            <div class="wf">
+              <div class="a" style="width:40%">Commission 40%</div>
+              <div class="b" style="width:45%">Bonus 45%</div>
+              <div class="c" style="width:15%">Leader 15%</div>
+            </div>
+            <div class="legend">
+              <span><i style="background:#2563eb"></i>Declared commission &mdash; RM407.41</span>
+              <span><i style="background:#7c3aed"></i>Marketing Bonus (agent) &mdash; RM458.33</span>
+              <span><i style="background:#0ea5a4"></i>Marketing Bonus (leader) &mdash; RM152.79</span>
+            </div>
+          </div>
         </div>
         <div class="legend">
           <span><i style="background:#2563eb"></i>Declared commission — RM407.41</span>
@@ -101,11 +88,11 @@
           <li><span class="ok">✓</span><div><b>Transaction-based.</b> Every ringgit traces to a real deal — fee, invoice, voucher, unit reference.</div></li>
           <li><span class="ok">✓</span><div><b>Audit-ready.</b> The system prints "declared commission vs total paid" every month, so nothing is discovered late.</div></li>
         </ul>
-        <div class="note warn" style="margin-top:12px"><b>Design note:</b> this mirrors a market practice (a gap in how the 40% ceiling is worded). The engine keeps rates as configuration, so the agency can move to a strict ≤40% model without rebuilding the system.</div>
+        <div class="note warn" style="margin-top:12px"><b>Internal note (pending legal review).</b> The negotiator&rsquo;s <b>declared commission</b> stays within the ceiling; the level reward and the leader share are paid by the agency from its own share as a <b>marketing reward</b> on a completed transaction, on separate documents and with a full money trail. Whether a regulator would accept that separation is a question for our lawyers &mdash; the control panel lets the agency switch the whole engine to a single-line payout inside the ceiling if the answer is no.</div>
       </div>
     </div>
 
-    <h2 class="sec"><span class="num">2</span> What the system manages</h2>
+    <h2 class="sec"><span class="num">3</span> What the system manages</h2>
     <div class="grid g3">
       <div class="card"><h3 style="margin-top:0">Agent registry</h3><p class="small muted">REN tags and expiry, PI insurance, contracts, level assignment, team history, onboarding checklist.</p><a class="small" href="agents.html">Open registry →</a></div>
       <div class="card"><h3 style="margin-top:0">Levels &amp; hierarchy</h3><p class="small muted">Agency → group leader → team leader → negotiator. Promotion is production-based (qualifying agents), never recruitment-fee based.</p><a class="small" href="hierarchy.html">Open hierarchy →</a></div>
@@ -119,5 +106,6 @@
   </main>
 </div>
 <script src="assets/agency.js"></script>
+<script src="assets/nav.js"></script>
 </body>
 </html>
