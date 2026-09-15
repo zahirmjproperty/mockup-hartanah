@@ -6,13 +6,15 @@ Output: ~/mockup-hartanah/zafa-sales-suite/  (noindex preview)
 """
 import os
 
-OUT = "/home/ubuntu/mockup-hartanah/zafa-sales-suite"
+OUT = "/home/ubuntu/mockup-hartanah/sales-suite-poc"
 os.makedirs(OUT, exist_ok=True)
 
-BRAND = "ZAFA Property Group"
-SUITE = "ZAFA Sales Suite"
-BANNER = ("PROOF OF CONCEPT / PREVIEW — not the live system. Sample structure where noted; "
-          "project facts are real (Avalon @ Cybersouth). Noindex.")
+# ── Jenama = TETAPAN (nama muktamad belum dikonfirmasi Zahir; ZAFA ditolak 15/9 — sudah ada syarikat guna nama itu)
+BRAND = "«Brand Pending»"
+SUITE = "Sales Suite"
+BANNER = ("PROOF OF CONCEPT / PREVIEW — not the live system. "
+          "BRAND NAME PENDING CONFIRMATION (placeholder shown; final name is a one-line change). "
+          "Sample structure where noted; project facts are real (Avalon @ Cybersouth). Noindex.")
 
 NAV = [
     ("index.html", "Overview"),
@@ -22,7 +24,7 @@ NAV = [
     ("billing-commission.html", "D · Billing &amp; Commission"),
     ("compliance.html", "E · Compliance &amp; Audit"),
     ("agent.html", "F · Agent Dashboard"),
-    ("branding.html", "G · Branding (ZAFA)"),
+    ("branding.html", "G · Branding (pending)"),
     ("design.html", "Design &amp; Roadmap"),
 ]
 
@@ -108,6 +110,10 @@ def page(fname, title, subtitle, body, active=None):
             '<div class="foot"><b>%s</b> — Prepared for Zahir MJ by Mr Tanah (internal admin). '
             'Client-facing brand: <b>%s</b>. This preview is a design proposal, not a live system.</div>'
             '</div></body></html>') % (title, SUITE, CSS, BANNER, nav, title, subtitle, body, SUITE, BRAND)
+    # Normalisasi jenama: semua token ZAFA ditukar ke nilai TETAPAN (tukar nama = tukar BRAND/SUITE di atas)
+    html = (html.replace("ZAFA Property Group", BRAND)
+                .replace("ZAFA Sales Suite", SUITE)
+                .replace("ZAFA", BRAND))
     open(os.path.join(OUT, fname), 'w', encoding='utf-8').write(html)
     return fname
 
@@ -539,9 +545,11 @@ page("agent.html", "F · Agent Dashboard", "What an agent sees: leads, locks, bo
 branding = (
     '<div class="note"><b>Zahir\'s instruction (15 Sep 2026):</b> the system carries a different name — not “Mr Tanah”. '
     '<b>Admin = Mr Tanah</b> (internal operations, never shown to clients). '
-    '<b>Clients see: “System provided by ZAFA Property Group”.</b> '
-    'Confirmed: brand = <b>ZAFA Property Group</b>; suite name = <b>ZAFA Sales Suite</b>; '
-    'brand operated as a trade name under the registered entity <b>ZMJ Solutions</b> (switch to a new group company later).</div>'
+    '<b>Clients see: “System provided by «brand to be confirmed»”.</b></div>'
+    '<div class="warn"><b>NAME ON HOLD (15/9/2026, later instruction):</b> the brand “ZAFA …” is <b>dropped</b> — a company already '
+    'uses that name (see §4). <b>All naming work is paused</b> pending Zahir\'s new name. '
+    'The brand is a <b>configuration value</b> (one line) — every client surface, document and email re-brands on regeneration. '
+    'No naming is published, no domain is bought, and Phase 1 is on hold until the name is confirmed.</div>'
 
     '<h2>1. Two-layer branding architecture</h2>' +
     table(["Item", "CLIENT layer — ZAFA Property Group", "ADMIN layer — Mr Tanah (internal)"], [
@@ -603,8 +611,21 @@ branding = (
         ["Client-facing separation", "No Mr Tanah name or links on client surfaces (except legally required documents)", pill("Design rule", 'p-ok')],
         ["Email deliverability", "Branded sending domain with SPF/DKIM before any client campaign", pill("Pending domain", 'p-info')],
     ]) +
-    '<h2>6. Open decisions</h2><ol>'
-    '<li>Register <b>zafapropertygroup.com</b> (and optionally .my / defensive .com) — by card at the registrar checkout, or by adding account credit so the API can register it.</li>'
+    '<h2>6. New-name screening — ready to run</h2>'
+    '<div class="note">Send any candidate name and this is screened end-to-end (target: under 5 minutes per name):</div>' +
+    table(["Check", "How", "What makes it fail"], [
+        ["Name collision (companies)", "Web search + SSM records for identical/near names", "Identical or confusingly similar registered name"],
+        ["Domain availability", "Registrar lookup for .com / .my / .com.my / .net", "“.com” taken by an active same-sector site"],
+        ["Existing web presence", "Search the exact name and its variants", "Same sector already holds the name"],
+        ["Sector confusion", "Look for other property firms using the initials/cadence", "Buyers may mistake it for another agency"],
+        ["Licensing fit", "Check whether the name implies an agency (needs PEA) or reads as a platform", "Implied licensing without registration"],
+        ["Brand mechanics", "Pronounceability, spelling over the phone, length, logo/monogram options", "Hard to spell after hearing it once"],
+    ]) +
+    '<div class="tip"><b>Then, in one step:</b> the confirmed name is set once — every screen, document, email, footer and the domain plan re-brand automatically. Nothing else in the build changes.</div>'
+
+    '<h2>7. Open decisions</h2><ol>'
+    '<li><b>Confirm the new brand name</b> (ZAFA dropped) — then the suite name follows the same word.</li>'
+    '<li>Register the domain <b>after</b> the name is confirmed (path: registrar checkout with a card, or add account credit for API).</li>'
     '<li>Confirm the <b>issuing entity + TIN</b> for e-invoices now (ZMJ Solutions) and the migration path to the new group company.</li>'
     '<li>Confirm whether the brand will itself market property to the public (licensing implications) or remain a platform identity.</li>'
     '<li>Provide brand assets: logo, palette, typography, email addresses.</li></ol>'
@@ -702,15 +723,19 @@ design = (
 
 page("design.html", "Design &amp; Roadmap", "Architecture, data model, roles, buy-vs-build, risks and open decisions", design)
 
-# ------------------------------------------------------------------ redirect stub (old path)
-os.makedirs("/home/ubuntu/mockup-hartanah/sjpb-poc", exist_ok=True)
-open("/home/ubuntu/mockup-hartanah/sjpb-poc/index.html", 'w', encoding='utf-8').write(
-    '<!doctype html><html lang="en-US"><head><meta charset="utf-8">'
-    '<meta name="robots" content="noindex,nofollow">'
-    '<meta http-equiv="refresh" content="0;url=../zafa-sales-suite/index.html">'
-    '<title>Moved — ZAFA Sales Suite</title></head><body style="font-family:system-ui;padding:40px">'
-    '<p>This preview has moved (system language changed to English (US), brand finalised as ZAFA Property Group).</p>'
-    '<p><a href="../zafa-sales-suite/index.html">Continue to ZAFA Sales Suite →</a></p></body></html>')
+# ------------------------------------------------------------------ redirect stubs (old paths)
+def stub(dirpath, target, label):
+    os.makedirs(dirpath, exist_ok=True)
+    open(os.path.join(dirpath, "index.html"), 'w', encoding='utf-8').write(
+        '<!doctype html><html lang="en-US"><head><meta charset="utf-8">'
+        '<meta name="robots" content="noindex,nofollow">'
+        '<meta http-equiv="refresh" content="0;url=%s">' % target +
+        '<title>Moved — %s</title></head><body style="font-family:system-ui;padding:40px">' % label +
+        '<p>This preview has moved.</p>'
+        '<p><a href="%s">Continue →</a></p></body></html>' % target)
 
-open(os.path.join(OUT, "zafa.css"), 'w', encoding='utf-8').write(CSS)
+stub("/home/ubuntu/mockup-hartanah/sjpb-poc", "../sales-suite-poc/index.html", "Sales Suite preview")
+stub("/home/ubuntu/mockup-hartanah/zafa-sales-suite", "../sales-suite-poc/index.html", "Sales Suite preview")
+
+open(os.path.join(OUT, "suite.css"), 'w', encoding='utf-8').write(CSS)
 print("Done:", sorted(os.listdir(OUT)))
