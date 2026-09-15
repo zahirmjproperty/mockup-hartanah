@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>F4 · Monitoring board | Zentra Hub</title>
+<link rel="stylesheet" href="assets/agency.css">
+<style>
+ .bars{display:flex;align-items:flex-end;gap:6px;height:120px;padding:6px 2px;border-bottom:1px solid var(--line)}
+ .bars .b{flex:1;background:var(--navy-3);border-radius:4px 4px 0 0;position:relative;min-height:3px}
+ .bars .b span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:10px;color:var(--ink-3)}
+ .bars .b i{position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:9.5px;color:var(--ink-2);font-style:normal}
+ .bars .b.hi{background:var(--gold)}
+ .prog{height:10px;border-radius:6px;background:#e8eeeb;overflow:hidden}
+ .prog>i{display:block;height:100%;background:linear-gradient(90deg,var(--navy),var(--navy-3))}
+ .flag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+ .flag.g{background:var(--green-soft);color:#0b6b3a}.flag.a{background:var(--amber-soft);color:#8a5300}.flag.r{background:var(--red-soft);color:#8f2318}
+ .mini{font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side">
+    <div class="brand"><div class="mark">ZH</div><div><b>Zentra Hub</b><small>Zentra Property Group</small></div></div>
+    <nav class="nav">
+      <div class="sec">Operations</div>
+      <a href="index.html"><span class="ic">&#9638;</span> Overview</a>
+      <a href="platform.html"><span class="ic">&#9635;</span> Platform map</a>
+      <a href="documents.html"><span class="ic">&#9993;</span> Documents &amp; e-sign</a>
+      <a href="f1.html"><span class="ic">&#9881;</span> F1 document generator</a>
+      <a href="f2.html"><span class="ic">&#9993;</span> F2 send &amp; track</a>
+      <a href="team.html"><span class="ic">&#9737;</span> Team &amp; referrers</a>
+      <a href="agents.html"><span class="ic">&#9823;</span> Agent registry</a>
+      <a href="hierarchy.html"><span class="ic">&#9776;</span> Levels &amp; hierarchy</a>
+      <div class="sec">Money</div>
+      <a href="f3.html"><span class="ic">&#8721;</span> F3 reward engine</a>
+      <a href="commission.html"><span class="ic">&#8721;</span> Commission engine</a>
+      <a href="claims.html"><span class="ic">&#10003;</span> Claims &amp; vouchers</a>
+      <a href="payouts.html"><span class="ic">&#8644;</span> Payout runs</a>
+      <div class="sec">Governance</div>
+      <a href="f4.html" class="on"><span class="ic">&#9783;</span> F4 monitoring board</a>
+      <a href="compliance.html"><span class="ic">&#9878;</span> Compliance guard</a>
+      <a href="modules.html"><span class="ic">&#9635;</span> Module map</a>
+    </nav>
+    <div class="foot">Prototype &middot; sample data only<br>Zentra Property Group &copy; 2026</div>
+  </aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>F4 &middot; Monitoring board</h1>
+        <p>What the Agency Head opens in the morning: <b>who is producing, what is stuck, and whether every ringgit paid out can be defended</b>.</p>
+      </div>
+      <span class="badge-demo">PHASE 4 DEMO &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Team sales YTD</div><div class="val" id="k1">—</div><div class="sub" id="k1s"></div></div>
+      <div class="kpi blue"><div class="lab">Agency commission YTD</div><div class="val" id="k2">—</div><div class="sub" id="k2s"></div></div>
+      <div class="kpi warn"><div class="lab">Documents awaiting signature</div><div class="val" id="k3">—</div><div class="sub" id="k3s"></div></div>
+      <div class="kpi"><div class="lab">Stamping due &le; 7 days</div><div class="val" id="k4">—</div><div class="sub" id="k4s"></div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Production by agent</h2>
+    <div class="card">
+      <table class="tbl" id="tblAgent"></table>
+      <p class="small muted">Group sales include the agents below them (referrer chain). Documents and commission follow the same chain &mdash; one payout point, the agency.</p>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Sales, month by month</h2>
+    <div class="grid g2">
+      <div class="card"><h3 style="margin-top:0;font-size:14.5px">Agency commission collected (RM)</h3><div class="bars" id="bars"></div><div style="height:22px"></div></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14.5px">Progress to next level</h3><div id="levels"></div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Monthly compliance report</h2>
+    <div class="card">
+      <div class="actions" style="margin-bottom:10px">
+        <label class="small muted">Month</label>
+        <select id="month" class="i" style="width:auto"></select>
+        <button class="btn ghost sm" onclick="exportCsv()">Export CSV</button>
+      </div>
+      <table class="tbl" id="tblComp"></table>
+      <div id="compNote" style="margin-top:10px"></div>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Needs attention today</h2>
+    <div class="card"><table class="tbl" id="tblAlert"></table></div>
+  </main>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const rm=n=>'RM '+(Math.round(n*100)/100).toLocaleString('en-MY',{minimumFractionDigits:2,maximumFractionDigits:2});
+const k=n=>'RM '+(Math.round(n)).toLocaleString('en-MY');
+
+const agents=[
+ {n:'Zahiruddin bin Mat Jailaini',r:'Agency Head',ref:'&mdash;',lv:'Agency Head',p:18400,g:412600,comm:6146.40},
+ {n:'Nadia Rahman',r:'Team Leader',ref:'Zahiruddin',lv:'Level 3',p:148200,g:148200,comm:12597.00},
+ {n:'Faizal Omar',r:'Negotiator',ref:'Nadia Rahman',lv:'Level 2',p:96500,g:0,comm:8202.50},
+ {n:'Aisy Karim',r:'Negotiator',ref:'Nadia Rahman',lv:'Level 1',p:72400,g:0,comm:6154.00},
+ {n:'Ameer Haziq',r:'Negotiator',ref:'Zahiruddin',lv:'Level 2',p:64300,g:0,comm:5465.50},
+ {n:'Siti Nurhaliza',r:'Negotiator (inactive 45d)',ref:'Faizal Omar',lv:'Level 1',p:31100,g:0,comm:2643.50}
+];
+const months=[
+ {m:'Jan',c:4210,d:1684,p:3578.50,doc:9,st:100,ex:0},
+ {m:'Feb',c:6890,d:2756,p:5856.50,doc:14,st:100,ex:0},
+ {m:'Mar',c:12340,d:4936,p:10489.00,doc:21,st:96,ex:1},
+ {m:'Apr',c:9870,d:3948,p:8389.50,doc:17,st:100,ex:0},
+ {m:'May',c:15420,d:6168,p:13107.00,doc:24,st:92,ex:2},
+ {m:'Jun',c:21980,d:8792,p:18683.00,doc:31,st:100,ex:0},
+ {m:'Jul',c:18340,d:7336,p:15589.00,doc:27,st:100,ex:0},
+ {m:'Aug',c:26110,d:10444,p:22193.50,doc:38,st:89,ex:3},
+ {m:'Sep',c:19200,d:7680,p:16320.00,doc:26,st:100,ex:0}
+];
+const YTD=months.reduce((a,x)=>({c:a.c+x.c,d:a.d+x.d,p:a.p+x.p,doc:a.doc+x.doc}),{c:0,d:0,p:0,doc:0});
+const teamSales=agents.reduce((a,x)=>a+x.p,0)*8.4;
+
+$('k1').textContent=k(teamSales); $('k1s').textContent='6 agents &middot; personal production';
+$('k2').textContent=k(YTD.c); $('k2s').textContent='declared '+ (YTD.d/YTD.c*100).toFixed(1)+'% &middot; paid out '+(YTD.p/YTD.c*100).toFixed(1)+'%';
+$('k3').textContent='7'; $('k3s').textContent='2 landlord &middot; 3 tenant &middot; 2 buyer';
+$('k4').textContent='2'; $('k4s').textContent='oldest due in 3 days';
+
+$('tblAgent').innerHTML='<thead><tr><th>Agent</th><th>Role</th><th>Referrer</th><th>Level</th><th style="text-align:right">Personal sales</th><th style="text-align:right">Group sales</th><th style="text-align:right">Commission earned</th></tr></thead><tbody>'+
+ agents.map(a=>'<tr><td><b>'+a.n+'</b></td><td>'+a.r+'</td><td>'+(a.ref==='&mdash;'?'&mdash;':a.ref)+'</td><td>'+a.lv+'</td><td style="text-align:right">'+k(a.p)+'</td><td style="text-align:right">'+k(a.g)+'</td><td style="text-align:right">'+rm(a.comm)+'</td></tr>').join('')+'</tbody>';
+
+const mx=Math.max(...months.map(x=>x.c));
+$('bars').innerHTML=months.map(x=>'<div class="b'+(x.c===mx?' hi':'')+'" style="height:'+(x.c/mx*100)+'%"><i>'+Math.round(x.c/1000)+'k</i><span>'+x.m+'</span></div>').join('');
+
+const lv=[['Nadia Rahman','Level 3 &rarr; 4',148200,200000],['Faizal Omar','Level 2 &rarr; 3',96500,120000],['Aisy Karim','Level 1 &rarr; 2',72400,80000]];
+$('levels').innerHTML=lv.map(([n,t,cur,tgt])=>'<div style="margin-bottom:12px"><div class="small"><b>'+n+'</b> &middot; '+t+' <span class="muted" style="float:right">'+k(cur)+' / '+k(tgt)+' &middot; '+(cur/tgt*100).toFixed(0)+'%</span></div><div class="prog"><i style="width:'+Math.min(100,cur/tgt*100)+'%"></i></div></div>').join('')+
+ '<p class="small muted">Level is earned on <b>production</b>, not on how many people you recruit. No joining fee, no reward for signing people up &mdash; that is the line the Anti-Pyramid Act draws.</p>';
+
+function compRow(x){ const gap=(x.p-x.d)/x.c*100; const fl=x.ex>0?'<span class="flag a">review</span>':'<span class="flag g">clean</span>';
+  return '<tr><td>'+x.m+' 2026</td><td style="text-align:right">'+rm(x.c)+'</td><td style="text-align:right">'+rm(x.d)+'</td><td style="text-align:right">'+rm(x.p)+'</td><td style="text-align:right">'+gap.toFixed(1)+'%</td><td style="text-align:right">'+x.doc+'</td><td style="text-align:right">'+x.st+'%</td><td>'+fl+'</td></tr>'; }
+function renderComp(){
+  const m=$('month').value;
+  const rows = m==='ytd' ? months : months.filter(x=>x.m===m);
+  $('tblComp').innerHTML='<thead><tr><th>Month</th><th style="text-align:right">Agency commission</th><th style="text-align:right">Named commission (40%)</th><th style="text-align:right">Total payout</th><th style="text-align:right">Gap</th><th style="text-align:right">Docs signed</th><th style="text-align:right">Stamping on time</th><th>Exceptions</th></tr></thead><tbody>'+
+    rows.map(compRow).join('')+
+    (m==='ytd'?('<tr style="font-weight:700;background:#f7faf8"><td>YTD 2026</td><td style="text-align:right">'+rm(YTD.c)+'</td><td style="text-align:right">'+rm(YTD.d)+'</td><td style="text-align:right">'+rm(YTD.p)+'</td><td style="text-align:right">'+((YTD.p-YTD.d)/YTD.c*100).toFixed(1)+'%</td><td style="text-align:right">'+YTD.doc+'</td><td style="text-align:right">&mdash;</td><td></td></tr>'):'')+'</tbody>';
+  $('compNote').innerHTML='<div class="warnbox"><b>How to read this:</b> the <b>named commission</b> column stays at or below the ceiling. The <b>gap</b> between named commission and total payout is paid from the agency&rsquo;s own share as a documented marketing reward on real transactions. If a regulator ever reads that gap as commission, this report is the evidence pack &mdash; and one switch in the settings moves the whole engine to the strict 40% model.</div>';
+}
+$('month').innerHTML='<option value="ytd">Year to date (all months)</option>'+months.map(x=>'<option value="'+x.m+'">'+x.m+' 2026</option>').join('');
+$('month').onchange=renderComp; renderComp();
+
+$('tblAlert').innerHTML='<thead><tr><th>Item</th><th>What</th><th>Due</th><th>Owner</th><th>Action</th></tr></thead><tbody>'+
+ [['Stamping','ZTH-LOCR-000101 &mdash; tenancy stamped at LHDN','in 3 days','Operations','Stamp now'],
+  ['Stamping','ZTH-LOCR-000104 &mdash; tenancy stamped at LHDN','in 6 days','Operations','Stamp now'],
+  ['Signature','ZTH-LOAR-000102 &mdash; landlord not signed (6 days)','today','Nadia Rahman','Send reminder'],
+  ['Signature','ZTH-LOCS-000107 &mdash; buyer not signed (4 days)','today','Ameer Haziq','Send reminder'],
+  ['Compliance','August gap 45.0% &mdash; above the 40% line','review','Agency Head','Open report'],
+  ['Agent','Siti Nurhaliza &mdash; no production 45 days','&mdash;','Team Leader','Check in']]
+ .map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td><span class="flag a">'+r[4]+'</span></td></tr>').join('')+'</tbody>';
+
+function exportCsv(){
+  const head=['Month','Agency commission','Named commission 40%','Total payout','Gap %','Docs signed','Stamping on time %','Exceptions'];
+  const rows=months.map(x=>[x.m+' 2026',x.c.toFixed(2),x.d.toFixed(2),x.p.toFixed(2),((x.p-x.d)/x.c*100).toFixed(1),x.doc,x.st,x.ex]);
+  const csv=[head].concat(rows).map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='zentra-hub-compliance-2026.csv'; a.click();
+}
+</script>
+</body>
+</html>
