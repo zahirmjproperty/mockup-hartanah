@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>F2 · Send &amp; track signatures | Zentra Hub</title>
-<link rel="stylesheet" href="assets/agency.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/agency.css">
 <style>
  .who{display:grid;grid-template-columns:1.4fr .9fr 1fr 1.2fr auto;gap:8px;align-items:center}
  .who input,.who select{width:100%}
@@ -167,5 +170,6 @@ render();
 if (location.search.indexOf('demo=done') > -1){ sendAll(); S.signers.forEach((s,i) => signed(i)); }
 </script>
 <script src="assets/nav.js"></script>
+  <script src="assets/ui.js"></script>
 </body>
 </html>

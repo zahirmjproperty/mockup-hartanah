@@ -248,3 +248,102 @@ a.card.link:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(15,23,4
 .ctxbar{position:sticky;top:0;z-index:20;margin:-6px -26px 14px;padding:8px 26px;background:var(--navy);color:#dfeee7;font-size:11.5px;letter-spacing:.01em}
 .ctxbar b{color:#fff}
 @media (max-width:1080px){ .ctxbar{margin:-6px -14px 12px;padding:8px 14px} }
+
+/* ============================================================
+   DESIGN SYSTEM v2 — Pakej A (15/9/2026)
+   Font: Plus Jakarta Sans · token jarak/warna · bayang berlapis · animasi halus
+   ============================================================ */
+:root{
+  --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:22px; --s6:30px; --s7:40px;
+  --r-sm:9px; --r-md:12px; --r-lg:16px; --r-xl:20px;
+  --sh-1:0 1px 2px rgba(12,68,55,.06);
+  --sh-2:0 2px 6px rgba(12,68,55,.05),0 10px 24px rgba(12,68,55,.06);
+  --sh-3:0 12px 34px rgba(12,68,55,.13);
+  --sh-in:inset 0 1px 0 rgba(255,255,255,.6);
+  --fs-xs:11.5px; --fs-sm:12.5px; --fs-md:14px; --fs-lg:16px; --fs-xl:21px; --fs-2xl:28px; --fs-3xl:34px;
+  --t:180ms cubic-bezier(.2,.7,.3,1);
+  --line-2:#eef2f0;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;background:
+  radial-gradient(1200px 500px at 100% -10%,#eef5f1 0%,transparent 60%),var(--bg)}
+h1{font-size:var(--fs-2xl);letter-spacing:-.025em;font-weight:800;line-height:1.15}
+.top p{font-size:var(--fs-md);line-height:1.55}
+h2.sec{font-size:var(--fs-xl);letter-spacing:-.015em;font-weight:750;margin:var(--s6) 0 var(--s3)}
+h3{letter-spacing:-.01em}
+.small{font-size:var(--fs-sm)}
+.muted{color:var(--ink-3)}
+
+/* ---------- sidebar ---------- */
+.side{background:linear-gradient(178deg,#0C4437 0%,#0a3b30 62%,#09342a 100%);
+  box-shadow:1px 0 0 rgba(255,255,255,.06) inset,-1px 0 24px rgba(9,52,42,.18)}
+.brand{padding:var(--s5) var(--s4) var(--s4);border-bottom:1px solid rgba(255,255,255,.09)}
+.brand .mark{background:linear-gradient(150deg,var(--gold),#e2c258);color:#2a2000;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.22)}
+.brand b{font-size:15px;letter-spacing:-.01em}
+.brand small{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;opacity:.72}
+.nav{padding:var(--s3) var(--s2)}
+.nav .sec{font-size:9.5px;letter-spacing:.12em;color:rgba(255,255,255,.5);margin:var(--s4) var(--s3) var(--s2)}
+.nav a{font-size:var(--fs-sm);border-radius:var(--r-sm);padding:8px var(--s3);transition:background var(--t),transform var(--t)}
+.nav a:hover{background:rgba(255,255,255,.09);transform:translateX(1px)}
+.nav a.on{background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,.09));color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.10)}
+.nav a.on::before{content:"";position:absolute;left:0;top:7px;bottom:7px;width:3px;border-radius:0 3px 3px 0;background:var(--gold)}
+.nav a{position:relative}
+.nav a .pill-live{background:linear-gradient(160deg,var(--gold),#e6c85f);box-shadow:0 1px 4px rgba(0,0,0,.2)}
+
+/* ---------- kad & permukaan ---------- */
+.card{box-shadow:var(--sh-2);border-color:var(--line-2);border-radius:var(--r-lg);transition:transform var(--t),box-shadow var(--t),border-color var(--t)}
+.card:hover{box-shadow:var(--sh-2);border-color:#dfe8e3}
+.card.link:hover{transform:translateY(-2px);box-shadow:var(--sh-3);border-color:#bfe0cf}
+.card h3{font-size:15px;font-weight:700}
+.tbl{font-size:var(--fs-sm)}
+.tbl th{font-size:var(--fs-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:650}
+.tbl tbody tr{transition:background var(--t)}
+.tbl tbody tr:hover{background:#f8fbf9}
+.dotnum{font-variant-numeric:tabular-nums}
+
+/* ---------- KPI ---------- */
+.kpi{border-radius:var(--r-lg);box-shadow:var(--sh-2);border:1px solid var(--line-2);position:relative;overflow:hidden}
+.kpi::after{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(180deg,var(--navy-3),var(--navy))}
+.kpi.blue::after{background:linear-gradient(180deg,#4f7ff5,var(--blue))}
+.kpi.warn::after{background:linear-gradient(180deg,#e0a33c,var(--amber))}
+.kpi .lab{font-size:var(--fs-xs);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:650}
+.kpi .val{font-size:var(--fs-3xl);font-weight:800;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
+.kpi .sub{font-size:var(--fs-xs);color:var(--ink-3)}
+.kpi .ki{position:absolute;right:var(--s4);top:var(--s4);width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--green-soft);color:var(--navy)}
+.kpi.blue .ki{background:var(--blue-soft);color:var(--blue)}
+.kpi.warn .ki{background:var(--amber-soft);color:var(--amber)}
+.kpi .ki svg{width:17px;height:17px}
+.up::before{content:"\2197 ";font-size:10px}
+
+/* ---------- butang ---------- */
+.btn{border-radius:10px;font-weight:650;font-size:var(--fs-sm);padding:9px 15px;transition:transform var(--t),box-shadow var(--t),background var(--t)}
+.btn:hover{transform:translateY(-1px);box-shadow:var(--sh-2)}
+.btn:active{transform:none;box-shadow:var(--sh-1)}
+.btn.ghost:hover{background:#f2f7f4}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:8px}
+.pill{font-weight:700;letter-spacing:.03em;font-size:10px;text-transform:uppercase;padding:3px 8px;border-radius:20px}
+
+/* ---------- badge demo ---------- */
+.badge-demo{background:linear-gradient(150deg,var(--gold),#e6c85f);color:#332600;font-weight:780;letter-spacing:.06em;
+  box-shadow:0 2px 10px rgba(201,162,39,.35);border-radius:20px;padding:6px 13px;font-size:10.5px}
+
+/* ---------- visual pecahan ---------- */
+.wf{border-radius:10px;overflow:hidden;box-shadow:var(--sh-in)}
+.wf>div{font-weight:650;font-size:11.5px;transition:filter var(--t)}
+.wf>div:hover{filter:saturate(1.15) brightness(1.04)}
+.donut{animation:donutIn 700ms cubic-bezier(.2,.7,.3,1) both}
+@keyframes donutIn{from{transform:rotate(-28deg) scale(.86);opacity:0}to{transform:none;opacity:1}}
+.bars .b{transition:height 700ms cubic-bezier(.2,.7,.3,1)}
+.prog>i{transition:width 700ms cubic-bezier(.2,.7,.3,1)}
+
+/* ---------- masuk kad (reveal) ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(8px);animation:rev 420ms cubic-bezier(.2,.7,.3,1) forwards}
+  @keyframes rev{to{opacity:1;transform:none}}
+}
+
+/* ---------- jadual & modal ---------- */
+.modal .inner{box-shadow:0 30px 80px rgba(6,32,25,.35);border-radius:var(--r-xl)}
+.paper{border-radius:var(--r-md)}
+.ctxbar{backdrop-filter:saturate(140%) blur(6px);box-shadow:0 2px 12px rgba(9,52,42,.18)}
