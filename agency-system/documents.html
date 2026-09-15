@@ -33,14 +33,14 @@
     <div class="top">
       <div>
         <h1>Documents &amp; e-sign</h1>
-        <p>Agents create the letter, clients sign it — <b>no printing, no meeting, no courier</b>. The system generates the PDF, collects signatures with an OTP, and keeps a soft copy both sides can download or print later.</p>
+        <p>Agents create the letter, clients sign it — <b>no printing, no meeting, no courier</b> — built on the same document family the industry already accepts (appointment letter &rarr; letter of confirmation &rarr; agreement &rarr; invoice &rarr; receipt &rarr; claim &rarr; payment voucher). The system generates the PDF, collects signatures with an OTP, and keeps a soft copy both sides can download or print later.</p>
       </div>
       <span class="badge-demo">FLAGSHIP MODULE · SAMPLE DATA</span>
     </div>
 <p class="small muted" style="margin-top:10px"><b>Phase 1 scope:</b> Letter of Appointment · <b>Engine:</b> SigningCloud (Malaysia) · <b>Mode:</b> the client chooses — digital signature (default) or PKI digital certificate for tenancy / high-value documents.</p>
 
     <div class="grid g4">
-      <div class="kpi"><div class="lab">Letters this month</div><div class="val">42</div><div class="sub">31 appointment · 11 offer/confirmation</div></div>
+      <div class="kpi"><div class="lab">Letters this month</div><div class="val">42</div><div class="sub">31 appointment · 11 confirmation · 9 receipt/invoice</div></div>
       <div class="kpi warn"><div class="lab">Awaiting signature</div><div class="val">7</div><div class="sub">2 landlord · 3 tenant · 2 buyer</div></div>
       <div class="kpi"><div class="lab">Signed digitally</div><div class="val">87%</div><div class="sub">13% chose print &amp; upload</div></div>
       <div class="kpi blue"><div class="lab">Stamping due ≤ 7 days</div><div class="val">2</div><div class="sub">tenancy · LHDN 30-day rule</div></div>
@@ -56,7 +56,32 @@
       </div>
     </div>
 
-    <h2 class="sec"><span class="num">2</span> Document board</h2>
+    <h2 class="sec"><span class="num">2</span> Document family — one transaction, one chain</h2>
+      <p class="small muted">Every deal produces a numbered chain. All documents share a single transaction ID, which is how the agency, the client, the lawyer and the auditor trace money back to a real property (the anti-pyramid guardrail).</p>
+      <div class="chain">
+        <span class="chip-doc">ZTH-LOAR-000123<br><small>Appointment letter (rent)</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-LOCR-000125<br><small>Letter of confirmation</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-TA-000127<br><small>Tenancy agreement</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-IVS-2026-00045<br><small>Invoice (8% SST)</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-OR-2026-00088<br><small>Official receipt</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-CLAIM-000201<br><small>Commission claim</small></span><span class="arrow">&rarr;</span>
+        <span class="chip-doc">ZTH-PVS-000512<br><small>Payment voucher</small></span>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Type</th><th>Prefix</th><th>Who creates it</th><th>Trigger</th><th>Needs e-sign?</th></tr></thead>
+        <tbody>
+          <tr><td>Appointment letter — rent</td><td class="mono">ZTH-LOAR-######</td><td>Agent</td><td>Owner appoints the agency</td><td><span class="pill ok">Yes — owner + agent</span></td></tr>
+          <tr><td>Appointment letter — sale</td><td class="mono">ZTH-LOAS-######</td><td>Agent</td><td>Vendor appoints the agency</td><td><span class="pill ok">Yes — vendor + agent</span></td></tr>
+          <tr><td>Letter of confirmation — rent</td><td class="mono">ZTH-LOCR-######</td><td>Tenant (agent prepares)</td><td>Tenant offers to rent</td><td><span class="pill ok">Yes — tenant + landlord</span></td></tr>
+          <tr><td>Letter of confirmation — sale</td><td class="mono">ZTH-LOCS-######</td><td>Buyer (agent prepares)</td><td>Buyer offers to buy</td><td><span class="pill ok">Yes — buyer + vendor</span></td></tr>
+          <tr><td>Tenancy / sale agreement</td><td class="mono">ZTH-TA-######</td><td>Agent (template) / lawyer</td><td>After confirmation is signed</td><td><span class="pill warn">PKI recommended</span></td></tr>
+          <tr><td>Invoice</td><td class="mono">ZTH-IVS-YYYY-#####</td><td>System</td><td>Agreement signed</td><td><span class="pill info">No — computer generated</span></td></tr>
+          <tr><td>Temporary / official receipt</td><td class="mono">ZTH-RCPT-DDMMYYYY-N · ZTH-OR-YYYY-#####</td><td>System</td><td>Deposit received · funds cleared</td><td><span class="pill info">No</span></td></tr>
+          <tr><td>Commission claim</td><td class="mono">ZTH-CLAIM-######</td><td>Agent</td><td>Deal completed + fee due</td><td><span class="pill bad">Internal approval</span></td></tr>
+          <tr><td>Payment voucher</td><td class="mono">ZTH-PVS-######</td><td>System (after approval)</td><td>Claim approved</td><td><span class="pill bad">Two documents: commission + marketing bonus</span></td></tr>
+        </tbody>
+      </table>
+      <h2 class="sec"><span class="num">4</span> Document board</h2>
     <div class="card" style="padding:0;overflow:hidden">
       <table class="tbl">
         <tr><th>Document ID</th><th>Type</th><th>Property</th><th>Parties</th><th>Signatures</th><th>Execution date</th><th>Soft copy</th></tr>
@@ -83,7 +108,7 @@
       </table>
     </div>
 
-    <h2 class="sec"><span class="num">3</span> Inside a letter</h2>
+    <h2 class="sec"><span class="num">4</span> Inside a letter</h2>
     <div class="grid g2">
       <div class="voucher">
         <h4>Letter of Appointment — ZTH-LOAR-000123</h4>
@@ -113,7 +138,7 @@
       </div>
     </div>
 
-    <h2 class="sec"><span class="num">4</span> Evidence pack (what protects the agency)</h2>
+    <h2 class="sec"><span class="num">5</span> Evidence pack (what protects the agency)</h2>
     <div class="grid g2">
       <div class="card">
         <table class="tbl">
@@ -139,7 +164,7 @@
       </div>
     </div>
 
-    <h2 class="sec"><span class="num">5</span> Stamping tracker (tenancy)</h2>
+    <h2 class="sec"><span class="num">6</span> Stamping tracker (tenancy)</h2>
     <div class="card" style="padding:0;overflow:hidden">
       <table class="tbl">
         <tr><th>Agreement</th><th>Executed</th><th>Deadline (30 days)</th><th>Days left</th><th>Duty (est.)</th><th>Status</th></tr>
@@ -151,7 +176,7 @@
     </div>
     <p class="small muted">The 30-day clock starts on the date the <b>last party signs</b> — the system reads that timestamp from the signing log, so nobody has to remember it. Late stamping costs RM50/10% then RM100/20%.</p>
 
-    <h2 class="sec"><span class="num">6</span> What the system refuses to e-sign</h2>
+    <h2 class="sec"><span class="num">7</span> What the system refuses to e-sign</h2>
     <div class="card" style="border-color:#fecaca;background:#fef2f2">
       <ul class="check">
         <li><b>Blocked by law:</b> power of attorney · wills and codicils · trusts · negotiable instruments</li>
