@@ -42,6 +42,8 @@
     {sec:'Governance'},
     {h:'f4.html', t:'F4 monitoring board', i:'board', d:1},
     {h:'compliance.html', t:'Compliance guard', i:'shield'},
+    {h:'audit.html', t:'Audit trail', i:'list'},
+    {h:'structure.html', t:'Why the payout (agents)', i:'sig'},
     {h:'notifications.html', t:'Notification centre', i:'bell', d:1},
     {h:'modules.html', t:'Module map', i:'grid'}
   ];

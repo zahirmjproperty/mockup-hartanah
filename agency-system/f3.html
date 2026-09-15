@@ -147,7 +147,7 @@ function docClaim(f){
   '<tr><th>Marketing reward claimed</th><td>'+rm(f.bonus)+'</td><th>Leader share</th><td>'+rm(f.lead)+' &rarr; '+f.lead_name+'</td></tr></table>'+
   '<p class="small"><b>Attachments:</b> signed appointment letter &middot; signed confirmation form &middot; earnest deposit slip &middot; invoice to client &middot; stamp certificate (tenancy).</p>'+
   '<div class="sig"><div class="box">Prepared by &mdash; '+f.neg+'<br><span class="es">e-signed</span></div><div class="box">Verified by &mdash; Operations<br>Approved by &mdash; Agency Head<br><span class="es">pending</span></div></div>'+
-  '<div class="foot"><span>'+id+' &middot; Commission claim</span><span>Computer generated</span></div>';
+  '<div class="foot"><span>'+id+' &middot; Commission claim</span><span>Computer generated</span></div>'+'<div class="dc"><div><b>Internal document.</b> Prepared from the system records of the deal referenced above &mdash; it is not issued to the client.</div>'+'<div>Every attachment listed above must be present before approval. Nothing on this claim is payable until the Agency Head approves it.</div>'+'<div>Compiled by Zentra Hub on '+new Date().toLocaleString('en-MY')+'. Amounts are computed from the professional fee on the confirmation form; no figure here is keyed in by hand.</div></div>';
 }
 function docInv(f){
   const id='ZTH-INV-2026-000101'; const total=f.base+f.sst;
@@ -159,7 +159,7 @@ function docInv(f){
   '<tr class="tot"><td>Total payable</td><td>'+rm(total)+'</td></tr></table>'+
   '<p class="small">Amount in words: <b>'+moneyWords(total)+'</b></p>'+
   '<p class="small"><b>Payment terms:</b> C.O.D. &middot; Payable to: ZENTRA PROPERTY GROUP &middot; [bank] [account no.] &middot; Reference: '+id+'</p>'+
-  '<div class="foot"><span>This is a computer generated invoice, no signature is required.</span><span>'+id+'</span></div>';
+  '<div class="foot"><span>This is a computer generated invoice, no signature is required.</span><span>'+id+'</span></div>'+'<div class="dc"><div><b>Tax invoice.</b> Service tax at 8% is charged under code SV. Issued by Zentra Property Group, registered estate agency (E(1)1584).</div>'+'<div>Submitted to LHDN MyInvois as an e-invoice. A validated e-invoice and this PDF are the same tax document.</div>'+'<div>Payment terms C.O.D. Queries within 7 days of the invoice date, quoting the invoice number.</div></div>';
 }
 function docRcp(f){
   const id='ZTH-OR-2026-000101'; const total=f.base+f.sst;
@@ -169,7 +169,7 @@ function docRcp(f){
   '<tr><th>Being payment of</th><td>'+moneyWords(total)+'</td><th>Knock off</th><td>Invoice ZTH-INV-2026-000101</td></tr></table>'+
   '<p class="small">Validity is subject to clearance of funds. Cheque / transfer amounts are credited to the company account upon clearance.</p>'+
   '<div class="sig"><div class="box">For and on behalf of<br><b>ZENTRA PROPERTY GROUP</b><br><span class="es">e-signed by Operations</span></div><div class="box">Client copy<br>Available any time in the client portal</div></div>'+
-  '<div class="foot"><span>Computer generated official receipt</span><span>'+id+'</span></div>';
+  '<div class="foot"><span>Computer generated official receipt</span><span>'+id+'</span></div>'+'<div class="dc"><div><b>Validity subject to clearance of funds.</b> This receipt is issued against the invoice shown above and does not discharge any other outstanding amount.</div>'+'<div>Keep this receipt &mdash; it is your proof of payment for the tenancy agreement, stamping and any deposit held by the landlord.</div></div>';
 }
 function docPvs(f){
   const id='ZTH-PVS-000101';
@@ -187,7 +187,7 @@ function docPvs(f){
   '<p class="small"><b>Bank:</b> [bank] &middot; [account no.] &middot; [holder] &middot; Payment mode: bank transfer (bulk)</p>'+
   '<p class="small"><b>Every ringgit is tied to:</b> ZTH-LOAR-000101 &rarr; ZTH-LOCR-000101 &rarr; deal DEAL-2026-0915-01. Nothing is paid on recruitment or on fees paid by agents.</p>'+
   '<div class="sig"><div class="box">Prepared by &mdash; Operations<br><span class="es">e-signed</span></div><div class="box">Approved by &mdash; Agency Head<br><span class="es">pending</span></div></div>'+
-  '<div class="foot"><span>'+id+' &middot; Payout voucher</span><span>Page 1 of 1</span></div>';
+  '<div class="foot"><span>'+id+' &middot; Payout voucher</span><span>Page 1 of 1</span></div>'+'<div class="dc"><div><b>Internal payout voucher.</b> Posted to the account codes shown above. The commission line stays at or below the ceiling applied to a negotiator&rsquo;s commission.</div>'+'<div>The balance is a <b>marketing reward</b> paid by the agency out of its own share of the professional fee on the completed transaction referenced above. It is not a fee, a joining payment or a reward for recruitment, and no part of it is funded by another negotiator&rsquo;s commission.</div>'+'<div>Payout prepared from system records on '+new Date().toLocaleString('en-MY')+'. Any correction to this voucher is logged in the audit trail.</div></div>';
 }
 function prev(k){
   const f=figures();
