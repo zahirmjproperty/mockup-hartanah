@@ -15,6 +15,9 @@
     board:'<path d="M3 4h18v12H3z"/><path d="M8 20h8M12 16v4"/>',
     shield:'<path d="M12 3 5 6v5.5c0 4.4 3 8 7 9.5 4-1.5 7-5.1 7-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/>',
     grid:'<circle cx="7.5" cy="7.5" r="2.2"/><circle cx="16.5" cy="7.5" r="2.2"/><circle cx="7.5" cy="16.5" r="2.2"/><circle cx="16.5" cy="16.5" r="2.2"/>',
+    sitemap:'<rect x="9" y="3" width="6" height="4" rx="1"/><rect x="3" y="14" width="6" height="4" rx="1"/><rect x="15" y="14" width="6" height="4" rx="1"/><path d="M12 7v4M12 11H6v3M12 11h6v3"/>',
+    search:'<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/>',
+    bell:'<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
     sig:'<path d="M3 17c3-6 5-9 6.5-9 2 0-1.5 6.5.5 6.5S14 6 15.5 6c1.2 0 .5 3.5 2 3.5.9 0 1.6-.9 2.5-2"/><path d="M3 21h18"/>'
   };
   const N = [
@@ -22,11 +25,14 @@
     {h:'index.html', t:'Overview', i:'home'},
     {h:'platform.html', t:'Platform map', i:'map'},
     {h:'documents.html', t:'Documents & e-sign', i:'file'},
+    {h:'search.html', t:'Deals & documents', i:'search'},
     {h:'f1.html', t:'F1 document generator', i:'cog', d:1},
     {h:'f2.html', t:'F2 send & track', i:'mail', d:1},
     {h:'sign.html', t:'F2 client signing view', i:'sig', d:1},
     {h:'team.html', t:'Team & referrers', i:'users'},
+    {h:'tree.html', t:'Team tree', i:'sitemap'},
     {h:'agents.html', t:'Agent registry', i:'user'},
+    {h:'onboard.html', t:'Agent onboarding', i:'list'},
     {h:'hierarchy.html', t:'Levels & hierarchy', i:'list'},
     {sec:'Money'},
     {h:'f3.html', t:'F3 reward engine', i:'sum', d:1},
@@ -36,6 +42,7 @@
     {sec:'Governance'},
     {h:'f4.html', t:'F4 monitoring board', i:'board', d:1},
     {h:'compliance.html', t:'Compliance guard', i:'shield'},
+    {h:'notifications.html', t:'Notification centre', i:'bell', d:1},
     {h:'modules.html', t:'Module map', i:'grid'}
   ];
   const here=(location.pathname.split('/').pop()||'index.html');
@@ -50,6 +57,36 @@
   html+='</nav><div class="foot">Prototype &middot; sample data only<br>Zentra Property Group &copy; 2026</div>';
   host.innerHTML=html;
   /* bar konteks berterusan (Claude #6) */
+
+  /* ---------- pusat notifikasi (Pakej B) ---------- */
+  function bell(){
+    if(!document.querySelector('.bellwrap')){
+      const w=document.createElement('div'); w.className='bellwrap';
+      w.innerHTML='<button class="bell" id="bellBtn" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="dot" id="bellDot"></span></button>';
+      document.body.appendChild(w);
+      const d=document.createElement('div'); d.className='drawer'; d.id='notifDrawer';
+      d.innerHTML='<div class="dhead"><b>Notifications</b><button class="btn ghost small" id="ndAll">Mark all read</button></div><div id="ndList"></div><a class="dfoot" href="notifications.html">Open the notification centre &rarr;</a>';
+      document.body.appendChild(d);
+      document.getElementById('bellBtn').onclick=()=>{ paint(); d.classList.toggle('open'); };
+      document.getElementById('ndAll').onclick=()=>{ ZTH.markAllRead(); paint(); };
+    }
+    paint();
+  }
+  function paint(){
+    const cn=ZTH.unread().length;
+    const dot=document.getElementById('bellDot'); if(dot) dot.style.display = cn? 'block':'none';
+    const list=document.getElementById('ndList'); if(!list) return;
+    const read=ZTH.loadRead();
+    list.innerHTML = ZTH.notif.slice().sort((a,b)=>(b.pri||0)-(a.pri||0)).map(x=>`
+      <a class="nitem ${read.includes(x.id)?'read':''}" href="${x.href}" data-id="${x.id}">
+        <span class="nbar ${x.t}"></span>
+        <span class="nbody"><span class="ntop"><b>${x.ti}</b></span>
+        <span class="nmeta">${x.mt}</span>
+        <span class="nrow"><span class="pill ${x.t}">${x.s}</span><span class="nw">${x.w}</span></span></span>
+      </a>`).join('');
+    list.querySelectorAll('.nitem').forEach(a=>a.onclick=()=>{ ZTH.markRead(a.dataset.id); });
+  }
+  if(window.ZTH && ZTH.notif){ bell(); }
   if(here!=='index.html'){
     const main=document.querySelector('main.main');
     if(main && !document.querySelector('.ctxbar')){
