@@ -9,11 +9,10 @@ import os
 OUT = "/home/ubuntu/mockup-hartanah/sales-suite-poc"
 os.makedirs(OUT, exist_ok=True)
 
-# ── Jenama = TETAPAN (nama muktamad belum dikonfirmasi Zahir; ZAFA ditolak 15/9 — sudah ada syarikat guna nama itu)
-BRAND = "«Brand Pending»"
-SUITE = "Sales Suite"
+# ── Jenama = TETAPAN (dikonfirmasi Zahir 15/9/2026: Zentra Property Group)
+BRAND = "Zentra Property Group"
+SUITE = "Zentra Sales Suite"
 BANNER = ("PROOF OF CONCEPT / PREVIEW — not the live system. "
-          "BRAND NAME PENDING CONFIRMATION (placeholder shown; final name is a one-line change). "
           "Sample structure where noted; project facts are real (Avalon @ Cybersouth). Noindex.")
 
 NAV = [
@@ -545,11 +544,11 @@ page("agent.html", "F · Agent Dashboard", "What an agent sees: leads, locks, bo
 branding = (
     '<div class="note"><b>Zahir\'s instruction (15 Sep 2026):</b> the system carries a different name — not “Mr Tanah”. '
     '<b>Admin = Mr Tanah</b> (internal operations, never shown to clients). '
-    '<b>Clients see: “System provided by «brand to be confirmed»”.</b></div>'
-    '<div class="warn"><b>NAME ON HOLD (15/9/2026, later instruction):</b> the brand “ZAFA …” is <b>dropped</b> — a company already '
-    'uses that name (see §4). <b>All naming work is paused</b> pending Zahir\'s new name. '
-    'The brand is a <b>configuration value</b> (one line) — every client surface, document and email re-brands on regeneration. '
-    'No naming is published, no domain is bought, and Phase 1 is on hold until the name is confirmed.</div>'
+    '<b>Clients see: “System provided by Zentra Property Group”.</b></div>'
+    '<div class="tip"><b>NAME CONFIRMED 15/9/2026 → Zentra Property Group</b> (suite: <b>Zentra Sales Suite</b>). '
+    'History: “ZAFA” was dropped the same day (an existing company used that name). The brand is held as a '
+    '<b>configuration value</b> — every client surface, document, email and the domain plan re-brand from one setting; no code, schema or workflow changes. '
+    'Screening results and mitigations: §4.</div>'
 
     '<h2>1. Two-layer branding architecture</h2>' +
     table(["Item", "CLIENT layer — ZAFA Property Group", "ADMIN layer — Mr Tanah (internal)"], [
@@ -590,18 +589,27 @@ branding = (
     '“ZAFA Property Group” as the trade brand; the suite must support switching the issuing entity — including its TIN — '
     'when a new group company is registered.</div>'
 
-    '<h2>4. Name and domain checks (15/9/2026)</h2>' +
-    table(["Check", "Finding", "Recommended action"], [
-        ["“ZAFAS Properties Sdn. Bhd.”", "Exists — G7 contractor, Selangor", "Distinct enough as “ZAFA Property Group”, but avoid logos/typefaces that look alike"],
-        ["“ZAFA Property” (Melaka)", "Exists — lodging business", "Different industry; register defensively and keep search terms branded"],
-        ["zafapropertygroup.com", "Available — USD 11.08/year (Porkbun)", "Register when approved"],
-        ["zafaproperties.com / .net / .asia", "Available — USD 11.08/year", "Optional defensive registrations"],
-        ["zafapropertygroup.my", "Availability to confirm at the registrar", "Check MYNIC/registrar; .my has no WHOIS privacy"],
-        ["SSM company/business name", "Not yet applied", "Confirm entity form before printing or publishing the brand"],
+    '<h2>4. Name &amp; domain screening — Zentra Property Group (15/9/2026)</h2>' +
+    table(["Check", "Finding", "Verdict / action"], [
+        ["zentrapropertygroup.com", "<b>Available</b> — USD 11.08/yr (exact-match .com)", pill("Register", 'p-ok')],
+        ["zentrapropertygroup.my / .net / .asia", "<b>Available</b> — USD 2.37 (promo) / 12.52 / 11.84", pill("Register .my + .net defensive", 'p-ok')],
+        ["zentra.com · zentra.my · zentragroup.com · zentraproperties.com · zentraproperty.com", "<b>All taken</b>", pill("Exact-match name is the only route", 'p-warn')],
+        ["ZENTARA GROUP SDN. BHD. (SSM 1552884H)", "Exists in Malaysia — <b>one letter</b> from “Zentra” (pubs/bars sector)", pill("Highest risk — SSM name search first", 'p-bad')],
+        ["Zentra Group plc (UK-listed)", "Residential developer &amp; property manager, “Zentra Group” + same sector", pill("Never use “Zentra Group” alone", 'p-warn')],
+        ["Zentra Real Estate (California) · zentra.inc (proptech, Spain/Dubai)", "Agents/proptech use the name abroad", pill("Fine locally; avoid global-only “Zentra”", 'p-info')],
+        ["Zentra Industries Sdn. Bhd. (MY, construction materials)", "Exists — construction sector", pill("Different sector; keep full name", 'p-info')],
+        ["“ZENTRA” — Forest Heights, Seremban (Sunrise MCL Land)", "<b>An active Malaysian new-launch project brand</b> (shop offices)", pill("Buyer-search confusion in MY property", 'p-warn')],
+        ["MyIPO trademark (Class 36 real estate)", "Not retrievable via public search here", pill("Verify before printing", 'p-warn')],
+        ["SSM name availability (ezBiz/MyCoID)", "Not yet applied", pill("Check before incorporation", 'p-warn')],
     ]) +
-    '<div class="warn"><b>Domain purchase status:</b> registering through the API is blocked by the registrar with '
-    '<code>INSUFFICIENT_FUNDS</code> (API registrations bill prepaid account credit; the account is empty). '
-    'Buying in the registrar\'s web checkout with a card bypasses that gate — then DNS and hosting can be configured from here.</div>'
+    '<div class="warn"><b>Screening verdict:</b> the name is <b>usable</b> — the exact-match .com is free, which is the strongest asset — '
+    'but three collisions must be managed: (1) <b>ZENTARA GROUP Sdn Bhd</b> (one-letter difference) can block or draw an objection at SSM; '
+    '(2) <b>Zentra Group plc</b> is a listed UK residential property company, so never shorten the brand to “Zentra Group”; '
+    '(3) “<b>Zentra</b>” is already a live Malaysian property project (Seremban), so always market as the full three words — '
+    '<b>Zentra Property Group</b> — with the full name in titles, listings, OG tags and domain.</div>'
+    '<div class="tip"><b>Mitigations to apply:</b> (a) run the SSM name search and a MyIPO Class 35/36 check before any printing or incorporation; '
+    '(b) register zentrapropertygroup.com <b>and</b> .my, plus .net defensively; (c) lock the wordmark/typography so it cannot be confused with Zentara/Zentra Group plc; '
+    '(d) keep the brand as a trade name under the registered entity until the new group company is incorporated — invoices always carry the registered name + TIN.</div>'
 
     '<h2>5. Branding compliance checklist</h2>' + table(["Item", "Requirement", "State"], [
         ["Trade name vs registered name", "Invoices, receipts and e-invoices must use the registered name and TIN", pill("Rule enforced", 'p-ok')],
@@ -624,14 +632,15 @@ branding = (
     '<div class="tip"><b>Then, in one step:</b> the confirmed name is set once — every screen, document, email, footer and the domain plan re-brand automatically. Nothing else in the build changes.</div>'
 
     '<h2>7. Open decisions</h2><ol>'
-    '<li><b>Confirm the new brand name</b> (ZAFA dropped) — then the suite name follows the same word.</li>'
-    '<li>Register the domain <b>after</b> the name is confirmed (path: registrar checkout with a card, or add account credit for API).</li>'
+    '<li><b>Register zentrapropertygroup.com</b> (+ .my, and .net defensively) — by card at the registrar checkout, or add account credit so the API can register it.</li>'
+    '<li><b>Verify the name before printing:</b> SSM name search (against ZENTARA GROUP Sdn Bhd) and MyIPO Class 35/36 trademark check.</li>'
     '<li>Confirm the <b>issuing entity + TIN</b> for e-invoices now (ZMJ Solutions) and the migration path to the new group company.</li>'
     '<li>Confirm whether the brand will itself market property to the public (licensing implications) or remain a platform identity.</li>'
-    '<li>Provide brand assets: logo, palette, typography, email addresses.</li></ol>'
+    '<li>Provide brand assets: wordmark, palette, typography, email addresses.</li>'
+    '<li><b>Phase 1 go-ahead</b> — project register + microsite v3 + RM0 EOI + permit gate on the six existing projects.</li></ol>'
 )
 
-page("branding.html", "G · Branding — ZAFA Property Group (client) vs Mr Tanah (admin)",
+page("branding.html", "G · Branding — Zentra Property Group (client) vs Mr Tanah (admin)",
      "One system, two brand layers — clients see ZAFA; Mr Tanah operates the platform", branding)
 
 # ------------------------------------------------------------------ 9. DESIGN & ROADMAP
@@ -717,7 +726,7 @@ design = (
     '<li><b>Phase 1 start</b> — approve F1 (project register + microsite v3 + RM0 EOI + permit gate) for the six existing projects.</li>'
     '<li><b>Commission release schedule</b> — 10 / 25 / 25 / 40 (recommended) or gated on developer payment.</li>'
     '<li><b>Data request to developers</b> — unit schedules, DL and APDL copies, price lists per phase.</li>'
-    '<li><b>Branding</b> — domain purchase path and brand assets (see screen G).</li>'
+    '<li><b>Branding</b> — register the domain and provide brand assets; run the SSM + MyIPO checks (see screen G).</li>'
     '<li><b>PDPA</b> — appoint a DPO and confirm the privacy notice wording for both brand layers.</li></ol>'
 )
 
