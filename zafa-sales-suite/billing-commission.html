@@ -1,0 +1,57 @@
+<!doctype html><html lang="en-US"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>D · Billing &amp; Commission — ZAFA Sales Suite</title><style>
+:root{--ink:#12241F;--muted:#5D6F69;--line:#DCE5E0;--bg:#F5F8F6;--card:#fff;
+--green:#0C4437;--green2:#12604E;--gold:#C9A227;--ok:#1E7A4B;--warn:#B7791F;--bad:#B23A34;--info:#1F5F8B}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+a{color:var(--green2)}
+.mockbar{background:#0C4437;color:#fff;font-size:12.5px;padding:8px 16px;letter-spacing:.01em}
+.switch{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:9}
+.switch a{font-size:12.5px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:#33463F}
+.switch a.on{background:var(--green);color:#fff;border-color:var(--green)}
+.wrap{max-width:1120px;margin:0 auto;padding:26px 18px 70px}
+h1{font-size:clamp(23px,3.2vw,32px);line-height:1.25;margin:0 0 6px}
+h2{font-size:19px;margin:30px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+h3{font-size:15.5px;margin:0 0 6px}
+.sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#EFF4F1;font-size:12.5px;text-transform:uppercase;letter-spacing:.03em;color:#3B4F49}
+tr:last-child td{border-bottom:none}
+.muted{color:var(--muted)}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+.p-ok{background:#E4F4EA;color:#166B41;border-color:#BFE3CC}
+.p-warn{background:#FBF0DC;color:#8A5A0B;border-color:#EFD9AE}
+.p-bad{background:#FBE7E5;color:#8E2C27;border-color:#EFC5C0}
+.p-info{background:#E6F0F7;color:#1B4F73;border-color:#C3DAEA}
+.p-grey{background:#EDF0EE;color:#4C5A55;border-color:#D8DFDB}
+.note{background:#EAF4EF;border-left:4px solid var(--green2);padding:12px 14px;border-radius:8px;font-size:14px}
+.warn{background:#FCF3E2;border-left:4px solid var(--warn);padding:12px 14px;border-radius:8px;font-size:14px}
+.danger{background:#FBEDEB;border-left:4px solid var(--bad);padding:12px 14px;border-radius:8px;font-size:14px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi b{display:block;font-size:26px;line-height:1.1;color:var(--green)}
+.kpi span{font-size:12.5px;color:var(--muted)}
+.grid-units{display:grid;grid-template-columns:120px repeat(10,minmax(0,1fr));gap:5px;font-size:12px}
+.grid-units .blk{font-weight:700;color:#33463F;align-self:center}
+.u{border:1px solid var(--line);border-radius:7px;padding:6px 3px;text-align:center;background:#fff}
+.u small{display:block;font-size:9.5px;color:var(--muted)}
+.u.av{background:#E9F6EE;border-color:#BFE3CC}
+.u.lk{background:#FCF3E2;border-color:#EFD9AE}
+.u.bk{background:#E6EFF8;border-color:#C3DAEA}
+.u.sold{background:#F2F4F3;color:#8A9691}
+.u.buf{background:#FBE7E5;border-color:#EFC5C0}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12.5px;margin-top:10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:1px solid var(--line)}
+input,select,textarea{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;width:100%;background:#fff}
+label{font-size:12.5px;font-weight:600;color:#3B4F49;display:block;margin:10px 0 4px}
+.btn{display:inline-block;background:var(--green);color:#fff;text-decoration:none;padding:10px 16px;border-radius:9px;font-weight:700;font-size:14px;border:none;cursor:pointer}
+.btn.sec{background:#fff;color:var(--green);border:1px solid var(--green)}
+.bar{height:9px;border-radius:6px;background:#E7EDEA;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--green2)}
+code{background:#EDF1EF;padding:1px 5px;border-radius:5px;font-size:12.5px}
+.foot{color:var(--muted);font-size:12.5px;margin-top:34px;border-top:1px solid var(--line);padding-top:14px}
+</style></head><body><div class="mockbar">PROOF OF CONCEPT / PREVIEW — not the live system. Sample structure where noted; project facts are real (Avalon @ Cybersouth). Noindex.</div><div class="switch"><a href="index.html" class="">Overview</a><a href="project-microsite.html" class="">A · Project Microsite</a><a href="unit-lock.html" class="">B · Unit Lock Board</a><a href="sales-board.html" class="">C · Sales Board</a><a href="billing-commission.html" class="on">D · Billing &amp; Commission</a><a href="compliance.html" class="">E · Compliance &amp; Audit</a><a href="agent.html" class="">F · Agent Dashboard</a><a href="branding.html" class="">G · Branding (ZAFA)</a><a href="design.html" class="">Design &amp; Roadmap</a></div><div class="wrap"><h1>D · Billing &amp; Commission</h1><p class="sub">Statutory milestone billing plus event-based commission release</p><div class="note">Schedule G (landed) and Schedule H (strata) agreements under the Housing Development (Control &amp; Licensing) Act 1966 dictate when money may be collected. Below is the statutory payment schedule for a Schedule G agreement — the billing engine follows it exactly and refuses early billing.</div><h2>Statutory payment schedule (Schedule G, Third Schedule)</h2><table><thead><tr><th>Milestone</th><th>%</th><th>Gate before invoicing</th><th>Typical evidence</th></tr></thead><tbody><tr><td>On signing the SPA</td><td>10%</td><td>Signed agreement (eSPA)</td><td>eSPA reference + e-stamp certificate</td></tr><tr><td>Foundation works</td><td>10%</td><td>Architect certificate</td><td>Form/certificate (architect or engineer)</td></tr><tr><td>Reinforced concrete framework</td><td>15%</td><td>Architect certificate</td><td>Certificate + site photos</td></tr><tr><td>Walls with door &amp; window frames fixed</td><td>10%</td><td>Architect certificate</td><td>Certificate</td></tr><tr><td>Roof, wiring, plumbing, gas and telephone cables</td><td>10%</td><td>Architect certificate</td><td>Certificate</td></tr><tr><td>Internal &amp; external plastering</td><td>10%</td><td>Architect certificate</td><td>Certificate</td></tr><tr><td>Sewerage works</td><td>5%</td><td>Architect certificate</td><td>Certificate</td></tr><tr><td>Drains</td><td>5%</td><td>Architect certificate</td><td>Certificate</td></tr><tr><td>Roads</td><td>5%</td><td>Architect certificate</td><td>Certificate</td></tr><tr><td>Vacant possession (water &amp; electricity ready)</td><td>12.5%</td><td>Handover notice</td><td>VP notice + key handover record</td></tr><tr><td>After title documents &amp; Memorandum of Transfer served (or VP, whichever later)</td><td>2.5%</td><td>21 working days after service</td><td>Document service record</td></tr><tr><td>Retained by developer's solicitor as stakeholder</td><td>5%</td><td>6 months (2.5%) and 18 months (2.5%) after VP</td><td>Stakeholder release instruction</td></tr></tbody></table><div class="warn"><b>Late-payment interest:</b> typical agreements allow 10% p.a. on overdue instalments after 21 working days' notice. The billing engine therefore calculates the notice date, the grace period and any interest automatically — and never sends a demand without the architect certificate attached.</div><h2>Billing status (sample)</h2><table><thead><tr><th>Unit</th><th>Milestone</th><th>Amount</th><th>Invoiced</th><th>e-Invoice</th><th>Payment</th></tr></thead><tbody><tr><td>B-02-06</td><td>On signing SPA (10%)</td><td>RM 102,300</td><td>12/09/2026</td><td><span class="pill p-ok">Validated</span></td><td><span class="pill p-ok">Paid</span></td></tr><tr><td>A-01-05</td><td>Foundation (10%)</td><td>RM 118,900</td><td>08/09/2026</td><td><span class="pill p-ok">Validated</span></td><td><span class="pill p-ok">Paid</span></td></tr><tr><td>C-03-08</td><td>Framework (15%)</td><td>RM 214,600</td><td>10/09/2026</td><td><span class="pill p-warn">Pending TIN</span></td><td><span class="pill p-info">Due 40 days</span></td></tr><tr><td>B-02-09</td><td>Plastering (10%)</td><td>RM 131,750</td><td>01/09/2026</td><td><span class="pill p-ok">Validated</span></td><td><span class="pill p-bad">Overdue</span></td></tr></tbody></table><div class="note"><b>e-Invoice rule:</b> the issuing entity's <b>registered legal name and TIN</b> must appear on every invoice — a trade name such as “ZAFA Property Group” may be displayed as a brand but cannot replace the registered name. Current instruction: issue under <b>ZMJ Solutions</b>, with the ability to switch to a new group company once registered.</div><h2>Commission engine — event-based release</h2><div class="warn" style="margin-bottom:10px"><b>Proposed release schedule (awaiting Zahir's decision):</b> 10% on booking · 25% on SPA signed · 25% on loan approval · 40% on vacant possession. Alternative: gate the final tranche on commission actually received from the developer.</div><table><thead><tr><th>Event</th><th>Trigger</th><th>Release</th><th>Evidence required</th></tr></thead><tbody><tr><td>Booking</td><td>Booking accepted by developer</td><td>10%</td><td>Signed booking form + developer acknowledgement</td></tr><tr><td>SPA signed</td><td>eSPA executed in HIMS</td><td>25%</td><td>eSPA reference + e-stamp</td></tr><tr><td>Loan approved</td><td>Letter of Offer accepted</td><td>25%</td><td>LOO + acceptance</td></tr><tr><td>Vacant possession</td><td>VP delivered</td><td>40%</td><td>VP notice + key handover</td></tr></tbody></table><table><thead><tr><th>Agent</th><th>Project</th><th>Units</th><th>Accrued</th><th>Released</th><th>Held</th><th>Next release</th></tr></thead><tbody><tr><td>Siti</td><td>Avalon @ Cybersouth</td><td>3</td><td>RM 12,240</td><td>RM 3,060</td><td>RM 9,180</td><td>SPA signed (25%)</td></tr><tr><td>Danial (co-agency)</td><td>Avalon @ Cybersouth</td><td>1</td><td>RM 4,080</td><td>RM 408</td><td>RM 3,672</td><td>Loan approved (25%)</td></tr><tr><td>Fadilah</td><td>Avalon @ Cybersouth</td><td>2</td><td>RM 8,160</td><td>RM 2,040</td><td>RM 6,120</td><td>VP (40%)</td></tr></tbody></table><div class="note">Commission figures are sample numbers to show the structure. Developer commission rates, co-agency splits and any rebate treatment must be recorded in the agency appointment letter before they are relied on.</div><div class="foot"><b>ZAFA Sales Suite</b> — Prepared for Zahir MJ by Mr Tanah (internal admin). Client-facing brand: <b>ZAFA Property Group</b>. This preview is a design proposal, not a live system.</div></div></body></html>
