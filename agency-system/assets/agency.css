@@ -339,7 +339,7 @@ h3{letter-spacing:-.01em}
 
 /* ---------- masuk kad (reveal) ---------- */
 @media (prefers-reduced-motion:no-preference){
-  .reveal{opacity:0;transform:translateY(8px);animation:rev 420ms cubic-bezier(.2,.7,.3,1) forwards}
+  .reveal{animation:rev 420ms cubic-bezier(.2,.7,.3,1) both}
   @keyframes rev{to{opacity:1;transform:none}}
 }
 

@@ -35,10 +35,11 @@
     });
     document.querySelectorAll('.kpi .val, .tbl td.num, .tbl th.num').forEach(e=>e.classList.add('dotnum'));
   }
-  function reveal(){
+  function revealUnused(){
     if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const els=[...document.querySelectorAll('main .card, main .kpi')].slice(0,26);
     els.forEach((e,i)=>{ e.classList.add('reveal'); e.style.animationDelay=Math.min(i*28,520)+'ms'; });
   }
-  (document.readyState!=='loading') ? (icons(),reveal()) : document.addEventListener('DOMContentLoaded',()=>{icons();reveal();});
+  /* reveal() dibuang 15/9: kandungan mesti sentiasa kelihatan walau animasi gagal */
+  (document.readyState!=='loading') ? icons() : document.addEventListener('DOMContentLoaded',icons);
 })();
