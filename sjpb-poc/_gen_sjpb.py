@@ -82,6 +82,7 @@ NAV = [
     ("papan-jualan.html", "C · Papan Jualan"),
     ("bil-komisen.html", "D · Bil & Komisen"),
     ("pematuhan.html", "E · Pematuhan & Audit"),
+    ("penjenamaan.html", "F · Penjenamaan (ZAFA)"),
     ("reka-bentuk.html", "Reka Bentuk & Peta Jalan"),
 ]
 
@@ -577,5 +578,85 @@ rekabentuk = (seni +
 
 page("reka-bentuk.html", "Reka Bentuk &amp; Peta Jalan SJPB",
      "6 lapisan · 14 entiti data · 12 aliran · 5 fasa — ringkasan untuk keputusan Zahir", rekabentuk)
+
+# ============================================================ F. PENJENAMAAN (ZAFA)
+dua_lapisan = table(["Perkara", "Lapisan KLIEN — ZAFA Properties", "Lapisan ADMIN — Mr Tanah (dalaman)"], [
+    ["Nama yang dipaparkan", "<b>ZAFA Properties</b> (+ “Sistem disediakan oleh ZAFA Properties”)", "<b>Mr Tanah</b> (pasukan MT: Zahir, Fadilah, ejen MT)"],
+    ["Portal", "Halaman log masuk, dashboard pembeli/ejen, status tempahan, muat turun dokumen", "Papan kunci unit, komisen, pematuhan, audit, kawalan inventori"],
+    ["Emel / WhatsApp", "Pengirim: ZAFA Properties (noreply@…)", "Notifikasi operasi dalaman (MT)"],
+    ["Dokumen kepada klien", "Surat tempahan, jadual bayaran, pengesahan EOI, laporan status — header ZAFA", "Fail dalaman, senarai kerja, laporan komisen MT"],
+    ["Invois / e-invois LHDN", "<b>Nama entiti berdaftar diwajibkan</b> (cth ZMJ Solutions) + jenama dagangan dipaparkan sebagai “ZAFA Properties”", "Rekod perakaunan MT"],
+    ["Kredibiliti", "“Sistem disediakan oleh ZAFA Properties” = atribusi platform", "Siapa yang benar-benar memproses data = MT"],
+])
+
+contoh_header = ('<div class="card" style="background:#0C4437;color:#fff">'
+                 '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">'
+                 '<div><div style="font-size:19px;font-weight:800;letter-spacing:.02em">ZAFA Properties</div>'
+                 '<div style="font-size:12.5px;opacity:.8">Sistem Tempahan &amp; Status Projek — untuk pembeli, ejen &amp; pemaju</div></div>'
+                 '<div style="text-align:right;font-size:12.5px;opacity:.9">Avalon @ Cybersouth<br>Fasa 2 · Ketersediaan: 31 unit</div></div>'
+                 '</div>'
+                 '<p class="muted" style="font-size:12.5px">↑ Contoh header / muka klien (bukan MT). MT hanya muncul dalam paparan dalaman.</p>')
+
+contoh_footer = ('<div class="card"><h3>Contoh pengaki (footer) muka klien</h3>'
+                 '<div style="border-top:1px solid #DCE5E0;padding-top:10px;font-size:12.5px;color:#5D6F69">'
+                 '<b style="color:#0C4437;font-size:14px">ZAFA Properties</b><br>'
+                 'Sistem disediakan oleh ZAFA Properties · Versi 1.0<br>'
+                 'Data diproses mengikut PDPA 2010 (Akta 709) · Pertanyaan: hello@zafaproperties.my</div></div>')
+
+invois_wajib = ('<div class="warn"><b>Peraturan penting (e-invois LHDN):</b> invois/e-invois mesti menggunakan '
+                '<b>nama sah entiti berdaftar</b> (dan TIN) — jenama dagangan tidak boleh menggantikan nama berdaftar. '
+                'Jadi invois kepada pembeli/pemaju = <i>nama berdaftar</i>; “ZAFA Properties” boleh muncul sebagai '
+                'jenama dagangan pada dokumen yang sama. Perlu keputusan Zahir: entiti mana yang mengeluarkan invois '
+                '(ZMJ Solutions? entiti baharu?) dan TIN-nya.</div>')
+
+risiko_nama = table(["Semakan nama", "Dapatan", "Risiko / tindakan"], [
+    ["“ZAFAS PROPERTIES SDN. BHD.”", "Sudah wujud — kontraktor G7, Selangor (senarai panel tender 2024)",
+     "Risiko kekeliruan nama &amp; carian Google; elak kekeliruan dengan klien/pemaju — pertimbang variasi nama"],
+    ["“ZAFA PROPERTY” (Melaka)", "Wujud sebagai penginapan (halaman Agoda)", "Risiko kekeliruan carian; perlu SEO defensif (namun kekal berbeza industri)"],
+    ["Domain zafaproperties.com / .net / .asia", "Whois: <b>tiada padanan</b> (kelihatan belum didaftar)", "Boleh daftar segera jika nama diteruskan"],
+    ["Domain zafaproperties.my / .com.my / zafa.my", "Whois tidak muktamad", "Perlu semak di MYNIC/pendaftar sebelum daftar"],
+    ["Nama syarikat SSM", "Belum disemak (nama baharu)", "Semak ezbiz/SSM + keputusan bentuk entiti sebelum cetak/edaran"],
+])
+
+struktur_nama = ('<div class="grid g3">'
+                 '<div class="card"><h3>1 · Jenama klien</h3><p><b>ZAFA Properties</b></p>'
+                 '<p class="muted" style="font-size:12.5px">Nama yang dilihat pembeli, ejen &amp; pemaju. Semua muka awam, dokumen klien, emel dan notifikasi.</p></div>'
+                 '<div class="card"><h3>2 · Nama sistem (pilihan Zahir)</h3><ul>'
+                 '<li><b>ZAFA Sales Suite</b> — paling jelas fungsi (jualan projek)</li>'
+                 '<li><b>ZAFA Project Portal</b> — tumpu portal projek/pembeli</li>'
+                 '<li><b>ZAFA Launch</b> — pendek, sesuai pelancaran</li>'
+                 '<li><b>ZAFA Hub</b> — umum, boleh berkembang</li></ul></div>'
+                 '<div class="card"><h3>3 · Nama dalaman</h3><p><b>Mr Tanah (MT)</b> + <code>SJPB</code></p>'
+                 '<p class="muted" style="font-size:12.5px">Kekal untuk dokumen kajian, ops dan pasukan. Tidak dipaparkan kepada klien.</p></div></div>')
+
+keputusan_zafa = ('<h2>Keputusan yang perlu Zahir buat (penjenamaan)</h2><ol>'
+                  '<li><b>Identiti ZAFA Properties</b>: brand dagangan di bawah entiti berdaftar sedia ada, entiti SSM baharu, atau sekadar nama platform perisian?</li>'
+                  '<li><b>Nama sistem</b> yang klien nampak (ZAFA Sales Suite / Project Portal / Launch / Hub).</li>'
+                  '<li><b>Domain</b>: zafaproperties.com / .my / .com.my / lain (saya boleh semak MYNIC &amp; daftar bila diluluskan).</li>'
+                  '<li><b>Entiti pengeluar invois</b> &amp; TIN untuk e-invois (nama berdaftar mesti muncul pada invois).</li>'
+                  '<li><b>Emel/WhatsApp</b>: guna domain ZAFA (contoh hello@zafaproperties.my) atau kekal saluran MT?</li>'
+                  '<li><b>Nama alternatif</b> jika “ZAFA Properties” berisiko kekeliruan dengan ZAFAS Properties Sdn Bhd / ZAFA Property (Melaka).</li>'
+                  '<li><b>Siapa nampak MT?</b> Pastikan MT tidak muncul pada muka klien (kecuali dokumen rasmi berdaftar seperti invois/SPA).</li></ol>'
+                  '<div class="note">Kajian penuh penjenamaan: lihat dokumen kajian §12 (Penjenamaan &amp; Identiti) — '
+                  '<code>~/zmp-docs/kajian/kajian-sistem-jualan-projek-baharu-mt-2026-09-15.md</code></div>')
+
+penjenamaan = ('<div class="note"><b>Arahan Zahir (15 September 2026):</b> sistem ini akan diberi <b>nama lain</b> — bukan “Mr Tanah”. '
+               '<b>Admin/pengendali sistem = Mr Tanah</b> (dalaman). <b>Klien akan nampak: “Sistem disediakan oleh ZAFA Properties”.</b> '
+               'Halaman ini menunjukkan bagaimana jenama dua lapisan itu dibina tanpa menjejaskan pematuhan.</div>'
+               '<h2>1. Seni bina dua lapisan jenama (white-label)</h2>' + dua_lapisan +
+               '<h2>2. Contoh muka klien</h2>' + contoh_header + '<div class="grid g2">' + contoh_footer +
+               '<div class="card"><h3>Contoh dokumen klien (surat tempahan / pengesahan EOI)</h3>'
+               '<div style="border:1px solid #DCE5E0;border-radius:10px;padding:12px;font-size:13px;background:#fff">'
+               '<b>ZAFA Properties</b><br><span class="muted">Pengurusan Tempahan Projek</span><hr style="border:none;border-top:1px solid #DCE5E0">'
+               'Pengesahan EOI (RM0)<br>Projek: Avalon @ Cybersouth · Unit: A-02-05 (contoh)<br>'
+               'Pembeli: ———— · Ejen: ———— · Tarikh: ————<br><span class="muted" style="font-size:12px">'
+               'Dokumen ini bukan perjanjian jual beli. SPA akan disediakan melalui pemaju (eSPA/HIMS).</span></div></div></div>'
+               '<h2>3. Di mana jenama muncul — dan di mana nama BERDAFTAR wajib</h2>' + invois_wajib +
+               '<h2>4. Semakan nama &amp; domain</h2>' + risiko_nama +
+               '<h2>5. Struktur penamaan dicadangkan</h2>' + struktur_nama + keputusan_zafa)
+
+page("penjenamaan.html", "F · Penjenamaan — ZAFA Properties (muka klien) vs Mr Tanah (admin)",
+     "Satu sistem, dua lapisan jenama — klien nampak ZAFA Properties; MT kekal sebagai pengendali",
+     penjenamaan)
 
 print("Siap:", sorted(os.listdir(OUT)))
