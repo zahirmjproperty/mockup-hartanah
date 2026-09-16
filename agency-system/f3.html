@@ -182,8 +182,7 @@ function docPvs(f){
   '<table><thead><tr><th>A/C</th><th>Description</th><th style="text-align:right">RM</th></tr></thead><tbody>'+
   L.map(r=>'<tr><td class="mono">'+r[0]+'</td><td>'+r[1]+'</td><td style="text-align:right">'+rm(r[2])+'</td></tr>').join('')+
   '<tr class="tot"><td></td><td>Total to negotiator</td><td style="text-align:right">'+rm(tot)+'</td></tr>'+
-  lead.map(r=>'<tr><td class="mono">'+r[0]+'</td><td>'+r[1]+'</td><td style="text-align:right">'+rm(r[2])+'</td></tr>').join('')+
-  '</tbody></table>'+
+  lead.map(r=>'<tr><td class="mono">'+r[0]+'</td><td>'+r[1]+'</td><td style="text-align:right">'+rm(r[2])+'</td></tr>').join('')+ '<tr><td class=\"mono\">602-900</td><td>Rounding adjustment &mdash; absorbed by the agency share, never folded silently into a payee line</td><td style=\"text-align:right\">'+rm(0.00)+'</td></tr>'+ '<tr class=\"tot\"><td></td><td>Total out (negotiator + leader) &mdash; capped at 100% of the fee</td><td style=\"text-align:right\">'+rm(tot+lead[0][2])+'</td></tr>'+ '</tbody></table>'+
   '<p class="small"><b>Bank:</b> [bank] &middot; [account no.] &middot; [holder] &middot; Payment mode: bank transfer (bulk)</p>'+
   '<p class="small"><b>Every ringgit is tied to:</b> ZTH-LOAR-000101 &rarr; ZTH-LOCR-000101 &rarr; deal DEAL-2026-0915-01. Nothing is paid on recruitment or on fees paid by agents.</p>'+
   '<div class="sig"><div class="box">Prepared by &mdash; Operations<br><span class="es">e-signed</span></div><div class="box">Approved by &mdash; Agency Head<br><span class="es">pending</span></div></div>'+

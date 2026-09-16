@@ -92,11 +92,43 @@
     </div>
 
     <p class="foot-note">Zentra Hub prototype · Compliance guard · figures are illustrative<br>Sample data for review only.</p>
-  </main>
+  <div class="card" style="margin-top:16px">
+  <div class="h3">Rule engine — what the system refuses</div>
+  <p class="small muted">These are hard stops, not warnings. Each one refuses the entry and writes the attempt to the audit log, so a rejected configuration can be shown to a regulator or to BOVAEP exactly as it was attempted.</p>
+  <div class="row" style="gap:10px;flex-wrap:wrap;align-items:flex-end">
+    <div><label class="lab">Check</label><br>
+      <select id="rq" style="min-width:320px">
+        <option value="c45">Declare negotiator commission at 45%</option>
+        <option value="ovr15">Set L6 override to 15%</option>
+        <option value="deep3">Add a third override level in the chain</option>
+        <option value="unreg">Pay an introducer who is not a registered agent</option>
+        <option value="recruit">Add a reward for recruiting an agent</option>
+      </select></div>
+    <button class="btn" onclick="runRule()">Run check</button>
+  </div>
+  <div id="rres" class="emsg" style="margin-top:12px"></div>
+</div>
+<script>
+function autoRule(){ const v=new URLSearchParams(location.search).get('rule'); if(v){ $('rq').value=v; runRule(); } }
+function runRule(){
+  const v=$('rq').value, box=$('rres'); box.className='emsg on';
+  const R={
+    c45:['BLOCKED','Declared commission cannot exceed 40% of the professional fee. <b>Act 242, s.30</b> ceiling. If the agent is to receive more, the excess must be entered as a separate agency-funded marketing reward — never merged into the commission line.'],
+    ovr15:['BLOCKED','L6 override cap is 10%. Entering 15% exceeds the cap. The system will not accept a configuration that pays a leader more than the cap, even if a manager approves it.'],
+    deep3:['BLOCKED','Maximum two override levels in a chain. A third level would create a reward that is not traceable to a single transaction, which is the structure <b>Act 500 s.27B</b> treats as a pyramid scheme.'],
+    unreg:['BLOCKED','The payee has no REN/PEA registration. <b>Act 242</b> permits sharing a professional fee only with a registered estate agent/negotiator. Share it with an unregistered introducer and the payment itself is the offence.'],
+    recruit:['BLOCKED','No reward may be created for bringing in a new agent. <b>Act 500 s.27B</b>: reward must flow from a property transaction, never from the act of recruiting. RM0 entry cost stays.']
+  }[v];
+  box.innerHTML='<b>'+R[0]+'</b> — '+R[1]+'<div class="small muted" style="margin-top:6px">Attempt logged: '+new Date().toLocaleString('en-MY')+' · user: Agency Head · result: refused and recorded.</div>';
+}
+</script>
+
+</main>
 </div>
 <script src="assets/agency.js"></script>
 <script src="assets/notif.js"></script>
 <script src="assets/nav.js"></script>
   <script src="assets/ui.js"></script>
+<script>document.addEventListener('DOMContentLoaded',autoRule);</script>
 </body>
 </html>
