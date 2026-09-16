@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Kemas Kini Status Listing — Zahir MJ Property</title>
+<style>
+  :root{--navy:#1b3a5c;--gold:#c9a227;--ok:#177245;--bg:#f5f7fa;--line:#dfe5ec;--muted:#64748b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:#12263a;font-size:15px}
+  header{position:sticky;top:0;z-index:9;background:linear-gradient(135deg,#0f2a43,#1b3a5c);color:#fff;padding:16px 18px 14px;border-bottom:5px solid var(--gold);box-shadow:0 3px 10px rgba(0,0,0,.20)}
+  header .hbar{display:flex;align-items:center;gap:11px}
+  header .bulat{width:42px;height:42px;min-width:42px;border-radius:50%;background:var(--gold);color:#0f2a43;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;letter-spacing:.3px}
+  header h1{margin:0;font-size:20px;font-weight:800;line-height:1.15;letter-spacing:.1px}
+  header p{margin:3px 0 0;font-size:12px;opacity:.92}
+  .wrap{max-width:760px;margin:0 auto;padding:14px}
+  .banner{background:#eef7ff;border:1px solid #bcd9f5;border-left:4px solid #2f6fb0;padding:10px 12px;border-radius:8px;font-size:12.5px;margin-bottom:14px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 14px;margin-bottom:12px}
+  .card h2{margin:0 0 4px;font-size:14.5px}
+  .meta{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+  .tag{display:inline-block;background:#eef3f9;color:#274b70;border-radius:999px;padding:2px 9px;font-size:11.5px;margin-right:6px}
+  label{display:block;font-size:12px;font-weight:600;margin:9px 0 4px;color:#28425e}
+  select,input,textarea{width:100%;padding:10px;border:1px solid #cfd8e3;border-radius:7px;font-size:14px;font-family:inherit;background:#fff}
+  textarea{min-height:50px}
+  .row{display:flex;gap:10px}
+  .row>div{flex:1}
+  .btn{display:block;width:100%;margin-top:16px;background:var(--ok);color:#fff;border:0;border-radius:9px;padding:15px;font-size:15.5px;font-weight:700}
+  .foot{font-size:11.5px;color:var(--muted);text-align:center;padding:8px 0 26px;line-height:1.5}
+  .badge{float:right;font-size:11px;background:#e8f5ee;color:var(--ok);padding:3px 8px;border-radius:6px}
+  #out{display:none;background:#0f172a;color:#a7f3d0;border-radius:10px;padding:14px;font-size:12.5px;white-space:pre-wrap;word-break:break-word;margin-top:14px}
+  .hid{display:none}
+  .ok{background:#e8f5ee;border:1px solid #b7e0c8;color:#14532d;padding:12px;border-radius:9px;margin-top:14px;font-size:13.5px;display:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="hbar">
+    <div class="bulat">ZM</div>
+    <div>
+      <h1>Kemas Kini Status Listing</h1>
+      <p>Zahir MJ Property · Pautan peribadi</p>
+    </div>
+  </div>
+</header>
+<div class="wrap">
+  <div class="banner">
+    🔒 Pautan ini <b>peribadi untuk Izzat Zamros</b>. Sila jangan kongsi.
+    Kemas kini hanya untuk listing yang disenaraikan bersama kami.
+  </div>
+  <div id="list"></div>
+  <div class="banner" style="margin-top:4px;background:#f0f7ff;border-color:#bcd9f5;border-left-color:#2f6fb0">
+    📧 <b>Salinan pengesahan</b> — salinan pengesahan kemas kini ini akan dihantar melalui
+    emel ke alamat: <b>(tiada dalam rekod kami — sila isi di bawah)</b><br>
+    <span style="color:#b45309"><b>Isi ruang di bawah jika tiada alamat emel atau ada perubahan.</b></span><br>
+    Untuk alamat lain, sila maklumkan <b>Zahir MJ Property</b>: <b>zahirmj.property@gmail.com</b>
+  </div>
+  <label style="margin-top:6px">Emel untuk salinan pengesahan — isi jika tiada alamat atau ada perubahan</label>
+  <input id="emel" placeholder="cth: nama@gmail.com">
+  <div style="font-size:11.5px;color:#64748b;margin-top:5px">
+    Pengesahan akan dihantar ke alamat ini sebaik kemas kini dihantar.
+  </div>
+  <label style="margin-top:6px">Nama anda (jika wakil) — pilihan</label>
+  <input id="nama" placeholder="Biarkan kosong jika anda sendiri yang isi">
+  <label>No. WhatsApp (jika wakil) — pilihan</label>
+  <input id="wa" placeholder="cth: 016-xxxxxxx">
+  <button class="btn" id="btn" onclick="hantar()">📤 Hantar Kemas Kini</button>
+  <div id="out"></div>
+  <div class="ok" id="okbox"></div>
+  <div class="foot">
+    Kami akan kemas kini iklan dalam masa 1 hari bekerja.<br>
+    Sebarang pertanyaan: WhatsApp Zahir MJ (IQI-PEA2684) 012-2310119
+  </div>
+</div>
+<script>
+// Data TIDAK lagi tertanam — diambil LIVE dari API (arahan Zahir 16/9/2026).
+// Listing yang sudah DIJUAL / tidak aktif tidak lagi keluar di sini secara automatik.
+var API = "https://script.google.com/macros/s/AKfycbzJlyo7cYzIeBWrHCaFvFwj3GcnNM5_jkDtSkYnM6lEafL1sAwQVMmT_O0peHChrk4/exec";
+var DATA = [];
+var DIJAGA = "";
+var TOKEN = "bb5ad9dad6ef";
+var BRAND_K = "zahir";
+var AGEN = "Izzat Zamros";
+var WEBHOOK = "";
+function card(d,i){
+  var specs = [d.trk, d.harga?("RM "+d.harga):"", d.keluasan, d.lokasi].filter(Boolean);
+  return '<div class="card" id="cd'+i+'">'
+   + '<span class="badge">Data: ' + (DIJAGA || '-') + '</span>'
+   + '<h2>'+d.tajuk+'</h2>'
+   + '<div class="meta">'+specs.map(function(s){return '<span class="tag">'+s+'</span>';}).join('')+'</div>'
+   + '<label>Status terkini</label>'
+   + '<select id="st'+i+'" onchange="toggle('+i+')"><option value="">Sila pilih pilihan di bawah</option><option>Masih available</option><option>Sudah dijual</option><option>Harga berubah</option><option>Tarik diri / batal</option></select>'
+   + '<div class="row hid" id="hh'+i+'"><div><label>Harga baharu (RM)</label><input id="hg'+i+'" inputmode="numeric" placeholder="cth: 430000"></div><div><label>Tarikh berubah</label><input id="tg'+i+'" placeholder="cth: 10/09/2026"></div></div>'
+   + '<label>Nota tambahan (pilihan)</label>'
+   + '<textarea id="nt'+i+'" placeholder="cth: pembeli minta turun sedikit, boleh runding"></textarea>'
+   + '</div>';
+}
+function render(){ document.getElementById('list').innerHTML = DATA.map(card).join(''); }
+function ralat(m){
+  document.getElementById('list').innerHTML = '<div class="card" style="border-color:#f5c2c7;background:#fff5f5">'
+    + '⚠️ Gagal memuatkan senarai terkini (' + m + ').<br>'
+    + '<button class="btn" style="margin-top:10px" onclick="muat()">🔄 Cuba lagi</button></div>';
+}
+function muat(){
+  document.getElementById('list').innerHTML = '<div class="card" style="color:#64748b">⏳ Memuatkan senarai terkini…</div>';
+  fetch(API + '?senarai=1&token=' + encodeURIComponent(TOKEN) + '&t=' + Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if (!j.ok) { ralat(j.error || 'ralat tidak diketahui'); return; }
+      DATA = j.data || []; DIJAGA = j.dijana || '';
+      if (!DATA.length) {
+        document.getElementById('list').innerHTML = '<div class="card">✅ Tiada listing aktif untuk dikemas kini buat masa ini.'
+          + '<div class="meta" style="margin-top:6px">Senarai dikemas kini: ' + (DIJAGA || '-') + '</div></div>';
+        return;
+      }
+      render();
+    })
+    .catch(function(e){ ralat(e.message); });
+}
+function toggle(i){
+  var show = document.getElementById('st'+i).value === 'Harga berubah';
+  document.getElementById('hh'+i).className = show ? 'row' : 'row hid';
+  var kad = document.getElementById('cd'+i);
+  if (document.getElementById('st'+i).value) { kad.style.borderColor = '#b7e0c8'; }
+}
+function hantar(){
+  var btn = document.getElementById('btn');
+  var belum = [];
+  for (var k = 0; k < DATA.length; k++) {
+    var sel = document.getElementById('st'+k);
+    var kad = document.getElementById('cd'+k);
+    if (!sel.value) {
+      belum.push(DATA[k].trk + ' — ' + DATA[k].tajuk);
+      kad.style.borderColor = '#e11d48';
+      kad.style.borderWidth = '2px';
+    } else {
+      kad.style.borderColor = '#dfe5ec';
+      kad.style.borderWidth = '1px';
+    }
+  }
+  var out = document.getElementById('out');
+  if (belum.length) {
+    out.style.display = 'block';
+    out.textContent = '⚠️ Kemas kini TIDAK diteruskan.\n\nAda ' + belum.length +
+      ' listing yang tidak ada maklumat kemas kini (status belum dipilih):\n\n  • ' + belum.join('\n  • ') +
+      '\n\nSila pilih status untuk SEMUA listing, kemudian tekan Hantar Kemas Kini semula.';
+    out.scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  var items = DATA.map(function(d,i){
+    return {tracking:d.trk, tajuk:d.tajuk, status:document.getElementById('st'+i).value,
+            harga_baharu:document.getElementById('hg'+i).value || null,
+            tarikh:document.getElementById('tg'+i).value || null,
+            nota:document.getElementById('nt'+i).value || null};
+  });
+  var payload = {form:"coaupdate", brand:BRAND_K, token:TOKEN, agen:"Izzat Zamros",
+                 nama:document.getElementById('nama').value || null,
+                 emel:document.getElementById('emel').value || null,
+                 wa:document.getElementById('wa').value || null,
+                 tarikh_hantar:new Date().toLocaleString('ms-MY'), items:items};
+  btn.disabled = true; btn.textContent = "Menghantar...";
+  void fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
+    .then(function(r){ return r.text().then(function(t){ return {s:r.status,t:t}; }); })
+    .then(function(o){
+      btn.style.display='none';
+      var ok = document.getElementById('okbox');
+      ok.style.display='block';
+      ok.innerHTML = '<b>✅ Terima kasih!</b><br>Kemas kini anda telah dihantar. Salinan pengesahan akan dihantar melalui emel.<br><small>Rujukan: '+TOKEN+' · '+new Date().toLocaleString('ms-MY')+'</small>';
+      var out=document.getElementById('out'); out.style.display='block'; out.textContent='HTTP '+o.s+' — '+o.t;
+      ok.scrollIntoView({behavior:'smooth'});
+    })
+    .catch(function(e){
+      btn.disabled=false; btn.textContent="📤 Hantar Kemas Kini";
+      var out=document.getElementById('out'); out.style.display='block'; out.textContent='Ralat: '+e.message+'\nSila cuba lagi atau WhatsApp Zahir MJ Property 012-2310119.';
+    });
+}
+muat();
+</script>
+</body>
+</html>
