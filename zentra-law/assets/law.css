@@ -427,3 +427,8 @@ ul.check li>span.ok{background:var(--green-soft);color:var(--green)}
 .tbl td:first-child{vertical-align:top}
 td .small{line-height:1.45}
 @media (max-width:900px){.side{position:static;height:auto;width:100%;flex:0 0 auto}.shell{display:block}}
+
+/* polish: papan drafting */
+.grid.g3 .pill{white-space:nowrap;font-size:10.5px;padding:3px 7px}
+.ln{align-items:baseline}
+.check li span.ok{color:#0f9d58;font-weight:700}

@@ -9,6 +9,7 @@ DOCS = [
     ("PDPA consent notice", "Client", "E-signature", "ok", "Consent must be recorded with time and the exact wording shown."),
     ("Tenancy agreement", "Landlord and tenant", "E-signature", "ok", "Not a document excluded by the ECA. Stamp the counterpart within 30 days."),
     ("Sale and purchase agreement (subsale)", "All parties plus witnesses", "Wet-ink", "warn", "Attestation is required; the completed agreement is produced for stamping and for the land office chain."),
+    ("Sale and purchase agreement - developer (HDA new launch)", "Purchaser, developer, digital witness", "E-signature (HIMS)", "ok", "Since 1 January 2026, execution for new residential property under the Housing Development Act runs through KPKT's HIMS: identity verification in iDsaya, digital signing under the Digital Signature Act 1997, lawyer as digital witness."),
     ("Memorandum of Transfer (Form 14A)", "Transferor and transferee", "Wet-ink only", "bad", "Excluded in practice: the land office will not register an electronically signed instrument."),
     ("Charge or Deed of Assignment (Form 16A)", "Charger and chargee", "Wet-ink only", "bad", "Same as the transfer. The bank also insists on its own execution page."),
     ("Bank letter of offer or facility agreement", "Bank and borrower", "Bank's rule", "warn", "Some banks accept e-signature, most do not. The system follows the panel's instruction per bank."),
@@ -59,6 +60,12 @@ PAGES_B.append(dict(f="documents.html", t="Documents and signing", body=T("".joi
           <div class="note" id="guardBox"><b>Ready.</b> Choose a document on the left and press send &mdash; the prototype answers exactly as the real system would.</div>
         </div>
       </div>
+    </div>
+""",
+"""    <div class="card" style="margin-bottom:16px">
+      <h3 style="margin-top:0">The pipeline behind every agreement</h3>
+      <p class="small muted">Generating a document is one click. Getting it from a first internal draft to a signed, stamped agreement takes fourteen stages, several rounds with the other side's solicitors, and a client who must authorise the final terms. That pipeline &mdash; version trail, negotiation log, whos move it is, and what the client was told &mdash; is on its own screen.</p>
+      <a class="btn gold" href="drafting.html">Open drafting and vetting</a>
     </div>
 """,
 """    <h2 class="sec"><span class="num">3</span> Template library</h2>

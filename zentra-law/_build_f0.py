@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """_build_f0.py — bina semua halaman HTML Zentra Law F0 (mock-up boleh klik).
 Jalankan:  cd /home/ubuntu/mockup-hartanah/zentra-law && python3 _build_f0.py
-Sumber halaman hidup dalam _f0_a.py / _f0_b.py / _f0_c.py (satu sumber kebenaran).
+Sumber halaman hidup dalam _f0_a.py / _f0_b.py / _f0_c.py / _f0_d.py (satu sumber kebenaran).
 """
 import os, re, sys
 from _f0_common import SHELL, top
 from _f0_a import PAGES_A, rows_matters, rows_checklist, MATTERS
 from _f0_b import PAGES_B, rows_docs
 from _f0_c import PAGES_C
+from _f0_d import PAGES_D, board_html, rows_stages, rows_versions, rows_nego, rows_sla, rows_instr, rows_playbook
 
 OUT = os.path.dirname(os.path.abspath(__file__))
 
@@ -17,6 +18,7 @@ SUB = {
     "matter.html": "One conveyancing file, from the first search to the last stamped instrument.",
     "checklist.html": "What a file needs, who owes it, and what may never be signed electronically.",
     "documents.html": "Precedents, generated documents, and the correct signing method for each one.",
+    "drafting.html": "Fourteen stages from instruction to stamped agreement, with the version trail, the negotiation log and the client's instructions.",
     "signing.html": "Signing sessions in wet ink, and the envelopes that can be signed electronically.",
     "deadlines.html": "The 3+1 month clock, stamping within 30 days, CKHT within 60 days, and state consent.",
     "fees.html": "Scale fees under the Solicitors' Remuneration Order 2023, stamp duty bands, and the 25% ceiling.",
@@ -27,31 +29,45 @@ SUB = {
     "compliance.html": "No referral payments, a discount and waiver log, publicity approvals, and the checks the law requires.",
     "audit.html": "An append-only record of who did what, sealed so a gap shows.",
     "roadmap.html": "Conveyancing first, then four more practice areas on the same core.",
-    "guide.html": "Ten screens, ten questions, four product decisions.",
+    "guide.html": "Seventeen screens, ten questions, four product decisions.",
 }
 TITLE = {
     "index.html": "Overview", "matters.html": "Matters", "matter.html": "Matter detail",
     "checklist.html": "Document checklist", "documents.html": "Documents and signing",
+    "drafting.html": "Drafting and vetting",
     "signing.html": "Signing room", "deadlines.html": "Statutory clock", "fees.html": "Fee engine",
     "billing.html": "Billing", "client-account.html": "Client account", "portal.html": "Client portal",
     "admin.html": "Firm admin", "compliance.html": "Compliance guard", "audit.html": "Audit trail",
     "roadmap.html": "Roadmap", "guide.html": "Review guide",
 }
 
+TOKENS = {
+    "@@MATTER_ROWS@@": rows_matters,
+    "@@CHECKLIST_ROWS@@": rows_checklist,
+    "@@DOC_ROWS@@": rows_docs,
+    "@@BOARD@@": board_html,
+    "@@STAGE_ROWS@@": rows_stages,
+    "@@VERSION_ROWS@@": rows_versions,
+    "@@NEGO_ROWS@@": rows_nego,
+    "@@SLA_ROWS@@": rows_sla,
+    "@@INSTR_ROWS@@": rows_instr,
+    "@@PLAYBOOK_ROWS@@": rows_playbook,
+}
+
 def render(page):
     f = page["f"]
     body = page["body"]
     body = body.replace("@@TOP@@", top(TITLE[f], SUB[f]))
-    body = body.replace("@@MATTER_ROWS@@", rows_matters())
-    body = body.replace("@@CHECKLIST_ROWS@@", rows_checklist())
-    body = body.replace("@@DOC_ROWS@@", rows_docs())
+    for token, fn in TOKENS.items():
+        if token in body:
+            body = body.replace(token, fn())
     left = re.findall(r"@@[A-Z_]+@@", body)
     if left:
         raise SystemExit("Token belum diganti pada " + f + ": " + ", ".join(sorted(set(left))))
     return SHELL.format(title=TITLE[f], page=f.replace(".html", ""), body=body)
 
 def main():
-    pages = PAGES_A + PAGES_B + PAGES_C
+    pages = PAGES_A + PAGES_B + PAGES_C + PAGES_D
     seen = set()
     for p in pages:
         if p["f"] in seen:
