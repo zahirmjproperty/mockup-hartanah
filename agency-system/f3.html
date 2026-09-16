@@ -174,8 +174,8 @@ function docRcp(f){
 function docPvs(f){
   const id='ZTH-PVS-000101';
   const L=[['602-100','Declared negotiator\'s commission ('+f.cap+'%)',f.decl],
-           ['602-100','Marketing reward &mdash; agent level ('+(f.lvl-f.cap)+'%)',f.bonus],
-           ['602-100','Payment in lieu of stamp duty (reimbursement)',63.00]];
+           ['602-150','Marketing reward &mdash; agent level ('+(f.lvl-f.cap)+'%)',f.bonus],
+           ['602-300','Payment in lieu of stamp duty (reimbursement)',63.00]];
   const tot=L.reduce((a,b)=>a+b[2],0);
   const lead=[['602-200','Leader share ('+(100-f.lvl).toFixed(0)+'%) &mdash; '+f.lead_name,f.lead]];
   return head2('PAYMENT VOUCHER', id, 'Pay to: '+f.neg)+

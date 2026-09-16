@@ -82,17 +82,18 @@
     </div>
   </main>
 </div>
+<script src="assets/levels.js"></script>
 <script src="assets/notif.js"></script>
 <script src="assets/nav.js"></script>
 <script src="assets/ui.js"></script>
 <script>
 const N = [
  {id:'z', name:'Zahiruddin bin Mat Jailaini', role:'Agency Head · PEA 2684', p:613333, g:14363333, ref:null, head:true},
- {id:'n', name:'Nadia Rahman', role:'Team Leader · Level 3', p:4940000, g:8209000, ref:'z', lead:true},
- {id:'f', name:'Faizal Omar', role:'Negotiator · Level 2', p:3216667, g:3786667, ref:'n'},
- {id:'s', name:'Siti Nurhaliza binti Aziz', role:'Negotiator · Level 1', p:1036667, g:1036667, ref:'f'},
- {id:'a', name:'Aisy Karim', role:'Negotiator · Level 1', p:2413333, g:2413333, ref:'n'},
- {id:'m', name:'Ameer Haziq', role:'Negotiator · Level 2', p:2143333, g:2143333, ref:'z'}
+ {id:'n', name:'Nadia Rahman', role:'L6 · Group Leader', p:4940000, g:8209000, ref:'z', lead:true},
+ {id:'f', name:'Faizal Omar', role:'L4 · Senior negotiator', p:3216667, g:3786667, ref:'n'},
+ {id:'s', name:'Siti Nurhaliza binti Aziz', role:'L1 · Negotiator', p:1036667, g:1036667, ref:'f'},
+ {id:'a', name:'Aisy Karim', role:'L2 · Negotiator', p:2413333, g:2413333, ref:'n'},
+ {id:'m', name:'Ameer Haziq', role:'L2 · Negotiator', p:2143333, g:2143333, ref:'z'}
 ];
 const rm = n => 'RM ' + (n/1e6).toFixed(2) + ' m';
 const byId = id => N.find(x=>x.id===id);
