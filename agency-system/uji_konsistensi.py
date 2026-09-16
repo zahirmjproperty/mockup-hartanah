@@ -40,6 +40,9 @@ for f in sorted(os.listdir(D)):
         jadual = {"Team Leader": 85, "Group Leader": 90}[jt]
         if pct != jadual:
             masalah.append((f, "jawatan pada peratus salah", "%s · %s%% (jangka %s%%)" % (jt, pct, jadual)))
+    # 2b) format lama '· Level N' = tidak konsisten
+    for m in re.finditer(r"· Level (\d)", s):
+        masalah.append((f, "format lama (· Level N)", m.group(0)))
     # 3) kod akaun: komisen 602-100 tidak boleh sama dengan marketing reward
     kods = set(re.findall(r"602-\d+", s))
     if "602-100" in kods and "602-150" not in kods and "Marketing" in s:
