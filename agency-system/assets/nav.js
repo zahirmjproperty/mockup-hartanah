@@ -27,7 +27,7 @@
     {h:'platform.html', t:'Platform map', i:'map'},
     {h:'documents.html', t:'Documents & e-sign', i:'file'},
     {h:'search.html', t:'Deals & documents', i:'search'},
-    {h:'f1.html', t:'F1 document generator', i:'cog', d:1},
+    {h:'f1.html', t:'F1 document generator', i:'cog', d:1}, {h:'loc.html', t:'Letter of Confirmation', i:'file', d:1},
     {h:'f2.html', t:'F2 send & track', i:'mail', d:1},
     {h:'sign.html', t:'F2 client signing view', i:'sig', d:1},
     {h:'team.html', t:'Team & referrers', i:'users'},
