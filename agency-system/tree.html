@@ -36,7 +36,7 @@
     <div class="top">
       <div>
         <h1>Team tree</h1>
-        <p>The referrer chain the reward engine walks. Every node is a real negotiator; every ringgit traced here comes from a completed property transaction — <b>never</b> from recruiting someone.</p>
+        <p>The management upline the reward engine walks (who supervises whom &mdash; the only chain that pays). Every node is a real negotiator; every ringgit traced here comes from a completed property transaction — <b>never</b> from recruiting someone.</p>
       </div>
       <span class="badge-demo">INTERACTIVE MOCKUP · SAMPLE DATA</span>
     </div>
@@ -51,11 +51,20 @@
     <h2 class="sec"><span class="num">1</span> The team, as the engine sees it</h2>
     <div class="card">
       <div class="row" style="display:flex;gap:8px;align-items:center;margin-bottom:14px">
-        <button class="btn ghost" id="modeRef">Referrer chain</button>
+        <button class="btn ghost" id="modeRef">Management upline</button>
         <button class="btn ghost" id="modeProd">Sort by production</button>
-        <span class="small muted" id="modeNote" style="margin-left:auto">Viewing: referrer chain (who introduced whom)</span>
+        <span class="small muted" id="modeNote" style="margin-left:auto">Viewing: management upline (who supervises whom — the only chain that pays)</span>
       </div>
       <ul class="tree" id="tree"></ul>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div class="h3" style="margin:0 0 6px">Referral record &mdash; kept, but never paid</div>
+      <table class="tbl">
+        <tr><th>Person</th><th>Introduced by</th><th>Registration</th><th class="num">Override rights</th></tr>
+        <tr><td>Zahiruddin bin Mat Jailaini <span class="small muted">(Agency Head)</span></td><td>Hamdan Hussin <span class="small muted">(external)</span></td><td><span class="pill red">no REN/PEA</span></td><td class="num">RM0 &mdash; record only</td></tr>
+      </table>
+      <p class="small muted" style="margin:10px 0 0">This is the case that decides whether the whole structure is safe: a founder introduced by an unregistered outsider. The introduction stays on file; the engine pays nothing to it, because <b>Act 242</b> allows fee sharing only with registered agents.</p>
     </div>
 
     <h2 class="sec"><span class="num">2</span> How a completed sale walks the chain</h2>
@@ -64,7 +73,7 @@
         <table class="tbl">
           <tr><th>Layer</th><th>Who</th><th class="num">Share of agency commission</th></tr>
           <tr><td>Negotiator</td><td>the agent who closed</td><td class="num">up to 40% declared + level award</td></tr>
-          <tr><td>Team leader</td><td>the leader who trained and supervises</td><td class="num">14.5&ndash;15% from the agency share</td></tr>
+          <tr><td>Team leader</td><td>the leader who supervises (management upline)</td><td class="num">15% of team fees from the agency share &middot; L6 cap 10%</td></tr>
           <tr><td>Agency</td><td>Zentra Property Group</td><td class="num">remainder &mdash; office, compliance, PI cover</td></tr>
         </table>
         <p class="small muted" style="margin-bottom:0">A leader earns from a deal <b>only when the deal completes</b>. If nobody under them sells for a year, they earn nothing from the chain &mdash; which is exactly what keeps this an agency, not a recruiting scheme.</p>
@@ -75,6 +84,7 @@
           <li><span class="ok">&#10003;</span><div><b>No joining fee.</b> RM0 to become a negotiator.</div></li>
           <li><span class="ok">&#10003;</span><div><b>No reward for recruiting.</b> A leader benefits from production, not headcount.</div></li>
           <li><span class="ok">&#10003;</span><div><b>Every ringgit traces to a deal.</b> Property address, document ID, completed transaction.</div></li>
+          <li><span class="ok">&#10003;</span><div><b>Referrer &ne; leader.</b> Whoever introduced an agent is a record, not a payee. Override follows the management upline only.</div></li>
           <li><span class="ok">&#10003;</span><div><b>Rank is production-based.</b> Levels move on qualifying sales (the eXP FLQA style), never on the number of people below you.</div></li>
         </ul>
         <div class="note warn" style="margin-top:12px">Malaysia&#39;s Direct Sales and Anti-Pyramid Scheme Act 1993 draws the line at <b>where the money comes from</b>. Everything in this tree is funded by the agency&#39;s own share of completed property transactions.</div>
@@ -87,6 +97,8 @@
 <script src="assets/nav.js"></script>
 <script src="assets/ui.js"></script>
 <script>
+/* ref = management upline (who supervises). The referral record (who introduced) is a
+   separate field: it carries NO payment right and never walks the override engine. */
 const N = [
  {id:'z', name:'Zahiruddin bin Mat Jailaini', role:'Agency Head · PEA 2684', p:613333, g:14363333, ref:null, head:true},
  {id:'n', name:'Nadia Rahman', role:'L6 · Group Leader', p:4940000, g:8209000, ref:'z', lead:true},
@@ -106,7 +118,7 @@ function node(x){
   const ini = x.name.split(' ').map(w=>w[0]).slice(0,2).join('');
   return `<div class="node ${x.head?'head':(x.lead?'lead':'')}">
     <span class="av">${ini}</span>
-    <span class="who"><span class="nm">${x.name}</span><br><span class="rl">${x.role}${x.ref?` &nbsp;·&nbsp; introduced by ${byId(x.ref).name.split(' ')[0]}`:' &nbsp;·&nbsp; agency owner'}</span></span>
+    <span class="who"><span class="nm">${x.name}</span><br><span class="rl">${x.role}${x.ref?` &nbsp;·&nbsp; upline: ${byId(x.ref).name.split(' ')[0]}`:' &nbsp;·&nbsp; agency owner'}</span></span>
     <span class="metrics">
       <div><div class="k">Personal</div><div class="v">${rm(x.p)}</div></div>
       <div><div class="k">Group</div><div class="v">${rm(x.g)}</div></div>
@@ -124,7 +136,7 @@ function render(){
   document.getElementById('tree').innerHTML = `<li>${node(root)}${branch(root.id,mode)}</li>`;
   document.getElementById('modeNote').textContent = mode==='prod'
     ? 'Viewing: sorted by production (biggest group first)'
-    : 'Viewing: referrer chain (who introduced whom)';
+    : 'Viewing: management upline (who supervises whom — the only chain that pays)';
   document.getElementById('modeRef').classList.toggle('gold', mode!=='prod');
   document.getElementById('modeProd').classList.toggle('gold', mode==='prod');
 }

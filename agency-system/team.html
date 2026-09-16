@@ -30,10 +30,10 @@
       <div class="kpi warn"><div class="lab">Compliance flags</div><div class="val">2</div><div class="sub">1 tag expiring · 1 insurance expiring</div></div>
     </div>
 
-    <h2 class="sec"><span class="num">1</span> Referral chain (upline → downline)</h2>
+    <h2 class="sec"><span class="num">1</span> Management upline (who supervises whom) — referral record shown separately</h2>
     <div class="card">
       <div class="tree">
-        <div class="node l0"><b>Zahir MJ</b><span class="tag">Agency Head · PEA 2684</span><span class="tag ref">referrer: Hamdan Hussin (external)</span></div>
+        <div class="node l0"><b>Zahir MJ</b><span class="tag">Agency Head · PEA 2684</span><span class="tag ref">introduced by: Hamdan Hussin (external) &middot; record only, not a payee &middot; no REN/PEA &rarr; RM0 override</span></div>
         <div class="node l1"><b>Nadia Rahman</b><span class="tag">L6 · Group Leader · 90%</span><span class="tag ref">referrer: Zahir MJ</span></div>
         <div class="node l2"><b>Faizal Omar</b><span class="tag">L4 · Senior negotiator · 75%</span><span class="tag ref">referrer: Nadia Rahman</span></div>
         <div class="node l3"><b>Aisy Karim</b><span class="tag">L2 · Negotiator · 6%0%</span><span class="tag ref">referrer: Faizal Omar</span></div>
@@ -61,15 +61,17 @@
         <h3 style="margin-top:0">Rule set (config)</h3>
         <ul class="check">
           <li><b>Override is paid on closed deals only</b> — never on recruitment, never on a joining fee.</li>
-          <li>Override comes out of the <b>agency share</b> and is labeled <b>Marketing Bonus</b> (same account code as the commission voucher).</li>
-          <li>Levels are earned on <b>production</b>: L1 RM100k · L2 RM250k · L3 RM500k · L4 RM1.5m · L5 RM2.5m · L6 RM3.5m (closed gross sales, rolling 12 months).</li>
+          <li>Override comes out of the <b>agency share</b>, is labeled <b>Marketing Bonus</b>, and posts to its <b>own</b> account code (602-150) &mdash; never merged into the declared commission line (602-100).</li>
+          <li>Levels are earned on <b>production</b> (closed production, rolling 12 months) — exactly as in the ladder: L1 REN tag + onboarding &middot; L2 RM600k &middot; L3 RM1.5m &middot; L4 RM2.5m + 2 mentored agents &middot; L5 RM3.5m + 3 producing agents &middot; L6 RM6m + 2 team leaders.</li>
           <li><b>Qualification:</b> a leader only earns override on a member in the month the member completes a deal, and only while the leader keeps 3 personally-closed deals per year.</li>
+          <li><b>Referrer ≠ leader:</b> the referral record (who introduced whom) carries <b>no payment right</b>. Override runs on the management upline only, and only to registered, active agents (Act 242).</li>
+          <li><b>Rate versioning:</b> rates are locked to the version in force when the agreement was signed (v1.0, effective 01 Jan 2026). A ladder change applies to new agreements only &mdash; it never rewrites what an existing agent already signed.</li>
           <li><b>Cap + clawback:</b> override stops at the annual cap; if a deal falls through after payout, the engine raises a clawback against the next run.</li>
         </ul>
       </div>
       <div class="card">
         <h3 style="margin-top:0">Worked example</h3>
-        <p class="small muted" style="margin-top:0">Negotiator Aisy (level 60%) closes a subsale with a fee of RM10,000. Her referrer chain: Faizal Omar (L4 · 75%) → Nadia Rahman (L6 · 90%, override capped at 10%).</p>
+        <p class="small muted" style="margin-top:0">Negotiator Aisy (level 60%) closes a subsale with a fee of RM10,000. The chain that pays is her <b>management upline</b> (who supervises her, not who introduced her): Faizal Omar (L4 · 75%) &rarr; Nadia Rahman (L6 · 90%, override capped at 10%). A referrer who is not her leader is kept as a record and is paid <b>RM0</b>.</p>
         <table class="tbl">
           <tr><th>Bucket</th><th class="num">%</th><th class="num">RM</th></tr>
           <tr><td>Negotiator's commission (declared)</td><td class="num">40%</td><td class="num">4,000</td></tr>

@@ -45,7 +45,7 @@
     <h2 class="sec"><span class="num">1</span> Production by agent</h2>
     <div class="card">
       <table class="tbl" id="tblAgent"></table>
-      <p class="small muted">Group sales include the agents below them (referrer chain). Documents and commission follow the same chain &mdash; one payout point, the agency.</p>
+      <p class="small muted">Group sales include the agents below them on the <b>management upline</b> (the only chain that pays). Documents and commission follow the same chain &mdash; one payout point, the agency. The referral record (who introduced whom) is stored separately and gives no payment right.</p>
     </div>
 
     <h2 class="sec"><span class="num">2</span> Sales, month by month</h2>
@@ -94,7 +94,7 @@ const AGENT_COMM=agents.reduce((a,x)=>a+x.comm,0);          /* 3% of each agent'
 const salesOf=a=>a.comm/0.03;
 const teamSales=agents.reduce((a,x)=>a+salesOf(x),0);
 
-$('k1').textContent=k(teamSales); $('k1s').textContent='6 agents &middot; total sales value (referrer chain)';
+$('k1').textContent=k(teamSales); $('k1s').textContent='6 agents &middot; total sales value (management upline)';
 $('k2').textContent=k(YTD.c); $('k2s').textContent='declared '+ (YTD.d/YTD.c*100).toFixed(1)+'% &middot; paid out '+(YTD.p/YTD.c*100).toFixed(1)+'%';
 $('k3').textContent='7'; $('k3s').textContent='2 landlord &middot; 3 tenant &middot; 2 buyer';
 $('k4').textContent='2'; $('k4s').textContent='oldest due in 3 days';

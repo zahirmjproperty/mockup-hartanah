@@ -33,14 +33,14 @@
       <a class="card link" href="f4.html"><h3 style="margin-top:0">F4 &middot; Monitoring board <span class="pill ok">LIVE DEMO</span></h3><p class="small muted" style="margin-bottom:0">Production by agent, sales by month, and the monthly compliance report in one screen.</p></a>
       <a class="card link" href="f1.html"><h3 style="margin-top:0">F1 &middot; Document generator <span class="pill ok">LIVE DEMO</span></h3><p class="small muted" style="margin-bottom:0">Type the deal once &mdash; the system numbers the letter, computes the statutory fee, and files the PDF. Try it.</p></a>
       <a class="card link" href="documents.html"><h3 style="margin-top:0">Documents &amp; e-sign <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Agents create the letter, clients sign on their phone — soft copy for both sides.</p></a>
-      <a class="card link" href="team.html"><h3 style="margin-top:0">Team &amp; referrers <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">The referrer chain the override engine walks — personal vs group sales.</p></a>
+      <a class="card link" href="team.html"><h3 style="margin-top:0">Team &amp; referrers <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">The management upline the override engine walks — personal vs group sales. (The referral record is kept separately and carries no payment right.)</p></a>
       <a class="card link" href="agents.html"><h3 style="margin-top:0">Agent registry <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">REN tag, insurance, level and payout gates for every negotiator.</p></a>
       <a class="card link" href="hierarchy.html"><h3 style="margin-top:0">Levels &amp; hierarchy <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Level ladder, promotion rules and how the agency share is split.</p></a>
       <a class="card link" href="commission.html"><h3 style="margin-top:0">Commission engine <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Type a fee and a level — get the two vouchers, computed live.</p></a>
       <a class="card link" href="claims.html"><h3 style="margin-top:0">Claims &amp; vouchers <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Submission → approval → paid, with the real 30/06/2026 vouchers.</p></a>
       <a class="card link" href="payouts.html"><h3 style="margin-top:0">Payout runs <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Runs, gates, milestone release and self-billed e-invoices.</p></a>
       <a class="card link" href="compliance.html"><h3 style="margin-top:0">Compliance guard <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Declared 40% vs total paid, plus the monthly audit report.</p></a>
-      <a class="card link" href="tree.html"><h3 style="margin-top:0">Team tree <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">The referrer chain the reward engine walks — sorted by chain or by production.</p></a>
+      <a class="card link" href="tree.html"><h3 style="margin-top:0">Team tree <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">The management upline the reward engine walks — sorted by chain or by production.</p></a>
       <a class="card link" href="notifications.html"><h3 style="margin-top:0">Notification centre <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Late signatures, closing stamping windows, money awaiting action — one list.</p></a>
       <a class="card link" href="search.html"><h3 style="margin-top:0">Deals &amp; documents <span class="pill blue">INTERACTIVE MOCKUP</span></h3><p class="small muted" style="margin-bottom:0">Search every deal, filter by month, export the CSV for the accountant.</p></a>
       <a class="card link" href="onboard.html"><h3 style="margin-top:0">Agent onboarding <span class="pill ok">WORKING DEMO</span></h3><p class="small muted" style="margin-bottom:0">Six steps from interested to earning — registration, insurance, bank, e-sign.</p></a>
@@ -72,7 +72,7 @@
             <div class="legend">
               <span><i style="background:#2563eb"></i>Declared commission &mdash; RM407.41</span>
               <span><i style="background:#7c3aed"></i>Marketing Bonus (agent) &mdash; RM458.33</span>
-              <span><i style="background:#0ea5a4"></i>Marketing Bonus (leader) &mdash; RM152.79</span>
+              <span><i style="background:#0ea5a4"></i>Marketing Bonus (leader) &mdash; RM152.78</span>
             </div>
           </div>
         </div>
@@ -83,9 +83,11 @@
           <tr><td>Negotiator's commission <span class="pill blue">declared</span></td><td class="num">RM407.41</td><td class="num">40.0%</td></tr>
           <tr><td>Marketing Bonus — agent level</td><td class="num">RM458.33</td><td class="num">45.0%</td></tr>
           <tr class="total"><td>Total to negotiator</td><td class="num">RM865.74</td><td class="num">85.0%</td></tr>
-          <tr><td>Marketing Bonus — leader override</td><td class="num">RM152.79</td><td class="num">15.0%</td></tr>
+          <tr><td>Marketing Bonus — leader override</td><td class="num">RM152.78</td><td class="num">15.0%</td></tr>
+          <tr class="total"><td>Reconciles to the professional fee</td><td class="num">RM1,018.52</td><td class="num">100.0%</td></tr>
         </table>
-        <p class="small muted" style="margin-bottom:0">Two separate documents are produced: the <b>commission voucher</b> (never above 40%) and the <b>Marketing Bonus voucher</b>. Both post to the agency's marketing account code.</p>
+        <p class="small muted" style="margin:0">Rounding: RM407.41 + RM458.33 + RM152.78 = <b>RM1,018.52 exactly</b>. Any odd sen is absorbed by the agency residual, never silently folded into a payee line.</p>
+        <p class="small muted" style="margin-bottom:0">Two separate documents are produced: the <b>commission voucher</b> (never above 40%) and the <b>Marketing Bonus voucher</b>. They post to <b>separate</b> account codes &mdash; the capped commission to 602-100, the Marketing Bonus to 602-150 &mdash; so a regulator can see which line was capped and which was funded by the agency.</p>
       </div>
 
       <div class="card">

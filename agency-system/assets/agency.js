@@ -101,6 +101,14 @@
       flags.push('<li><span class="ok">✓</span><div>Total distributed: <b>' + pct(r.paidPct) + '</b> of the professional fee. Money trail is transaction-based (not recruitment-based).</div></li>');
     setHTML("complianceList", flags.join(""));
 
+    /* rounding note (K7): payee lines are exact to the sen; odd sen goes to the agency residual */
+    (function () {
+      var sum = r.comm + r.mbAgent + r.leaderAmt + r.agencyResidual;
+      var el = document.getElementById("roundNote");
+      if (el) el.textContent = "Reconciles: " + money(r.comm) + " + " + money(r.mbAgent) + " + " + money(r.leaderAmt) +
+        " + " + money(r.agencyResidual) + " = " + money(sum) + " (fee " + money(r.fee) + ")";
+    })();
+
     /* payout schedule */
     var agentTotal = r.comm + r.mbAgent;
     var events = [["Booking / Tenancy agreement", 10], ["SPA signed", 25], ["Loan approved", 25], ["Vacant possession / Completion", 40]];

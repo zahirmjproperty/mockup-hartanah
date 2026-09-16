@@ -37,7 +37,7 @@
 
       <div class="card">
         <h3 style="margin-top:0">Rule 2 — everything else is a Marketing Bonus</h3>
-        <p class="small muted" style="margin-top:0">Level commission above 40%, leader override and tier bonuses are paid from the agency share, labeled <b>Marketing Bonus</b>, on the same account code — exactly as the IQI vouchers do it.</p>
+        <p class="small muted" style="margin-top:0">Level commission above 40%, leader override and tier bonuses are paid from the agency share, labeled <b>Marketing Bonus</b>, on its <b>own</b> account code (602-150, kept apart from the declared commission 602-100) — the same wording discipline the IQI vouchers use.</p>
         <table class="tbl">
           <tr><th>Bucket</th><th>Paid from</th><th>Label on voucher</th></tr>
           <tr><td>Negotiator commission (≤40%)</td><td>Professional fee</td><td class="mono">40% Negotiator's Commission</td></tr>
@@ -103,6 +103,8 @@
         <option value="deep3">Add a third override level in the chain</option>
         <option value="unreg">Pay an introducer who is not a registered agent</option>
         <option value="recruit">Add a reward for recruiting an agent</option>
+        <option value="extref">Pay an override to an external introducer (no REN/PEA)</option>
+        <option value="dualrep">Let one negotiator represent buyer and seller on the same deal</option>
       </select></div>
     <button class="btn" onclick="runRule()">Run check</button>
   </div>
@@ -118,6 +120,8 @@ function runRule(){
     ovr15:['BLOCKED','L6 override cap is 10%. Entering 15% exceeds the cap. The system will not accept a configuration that pays a leader more than the cap, even if a manager approves it.'],
     deep3:['BLOCKED','Maximum two override levels in a chain. A third level would create a reward that is not traceable to a single transaction, which is the structure <b>Act 500 s.27B</b> treats as a pyramid scheme.'],
     unreg:['BLOCKED','The payee has no REN/PEA registration. <b>Act 242</b> permits sharing a professional fee only with a registered estate agent/negotiator. Share it with an unregistered introducer and the payment itself is the offence.'],
+    extref:['BLOCKED','The introducer holds no REN/PEA registration and is not part of the management upline. <b>Act 242</b> allows a professional fee to be shared only with a registered estate agent or negotiator, so the engine pays RM0 here. The introduction stays on file as a record — that is the difference between an agency and a recruitment scheme.'],
+    dualrep:['CONDITIONAL','Two-side representation is not refused outright, but it is never silent: it needs written pre-approval by the agency head, client consent recorded on both letters, and a separately agreed fee split. Without that approval the engine refuses to pay one negotiator both sides of the same deal.'],
     recruit:['BLOCKED','No reward may be created for bringing in a new agent. <b>Act 500 s.27B</b>: reward must flow from a property transaction, never from the act of recruiting. RM0 entry cost stays.']
   }[v];
   box.innerHTML='<b>'+R[0]+'</b> — '+R[1]+'<div class="small muted" style="margin-top:6px">Attempt logged: '+new Date().toLocaleString('en-MY')+' · user: Agency Head · result: refused and recorded.</div>';

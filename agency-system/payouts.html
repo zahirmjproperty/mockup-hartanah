@@ -93,6 +93,16 @@
       </table>
     </div>
 
+    <div class="card" style="margin-top:14px">
+      <div class="h3" style="margin:0 0 6px">Open clawback ledger (including departed agents)</div>
+      <table class="tbl">
+        <tr><th>Agent</th><th>Status</th><th>Deal</th><th class="num">Clawback (RM)</th><th>Recovery route</th></tr>
+        <tr><td>Ameer Haziq <span class="small muted">(AG-004)</span></td><td><span class="pill warn">resigned</span></td><td class="mono">DS-LOCR-160437</td><td class="num">458.33</td><td>Held against final voucher; balance becomes a recorded debt owed to the agency</td></tr>
+        <tr><td>J. Lim <span class="small muted">(AG-005)</span></td><td><span class="pill amber">payout hold</span></td><td class="mono">DS-LOCS-161250</td><td class="num">1,200.00</td><td>Deducted from the next run once the release gate clears</td></tr>
+      </table>
+      <p class="small muted" style="margin:10px 0 0">A clawback never disappears because an agent leaves. It moves to a separate ledger, stays tied to the transaction that caused it, and follows the agent until it is settled &mdash; that record is what makes the payout numbers defensible.</p>
+    </div>
+
     <p class="foot-note">Zentra Hub prototype · Payout runs · milestone percentages and gates are placeholders for Zahir to set<br>Sample data for review only.</p>
   </main>
 </div>
