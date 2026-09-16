@@ -387,3 +387,7 @@ h3{letter-spacing:-.01em}
 .ct{text-align:center;font-size:13.5px;text-transform:uppercase;letter-spacing:.05em;margin:14px 0 10px;color:var(--navy)}
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
 @media (max-width:820px){.duo{grid-template-columns:1fr}.prow{grid-template-columns:1fr 1fr}}
+
+/* ---------- progress bar (Tier B) ---------- */
+.pbar{background:#e6ece9;border-radius:999px;height:12px;overflow:hidden;margin:10px 0}
+.pbar>span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#0C4437,#1b9c6b)}
