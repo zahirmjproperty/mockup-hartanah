@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Agreement generator | Zentra Law</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/law.css">
+</head>
+<body data-page="generator">
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Agreement generator</h1>
+        <p>Pick an approved template, let the matter fill the form, let the rules block what is wrong, and generate a draft that nobody may release without a partner.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE &middot; SAMPLE DATA</span>
+    </div>
+    <div class="note"><b>What this screen proves.</b> A lawyer picks an approved template, the form arrives mostly filled from the matter record, conditional blocks come from the firm's clause library, the validation engine blocks anything that would be wrong on its face, and the document is generated, scanned and watermarked <b>DRAFT</b> until a partner approves it. Nothing leaves the firm without that approval.</div>
+
+    <div class="note warn"><b>Two hard rules of the engine.</b> (1) Placeholders that Word has split across runs must be repaired before generation, or the replacement fails silently and the document goes out with <span class="mono">{{name}}</span> inside it. (2) Every generated document records the template version and the clause set used, so a file signed today can always be reproduced exactly.</div>
+    <h2 class="sec"><span class="num">1</span> Template studio - the library a firm may draw from</h2>
+    <div class="wrap-tbl card">
+      <table class="tbl">
+        <tr><th style="width:34%">Template</th><th>Version</th><th>Owner</th><th>Approved</th><th>Golden tests</th><th>Status</th><th></th></tr>
+<tr><td><b>Engagement letter and costs estimate</b><div class="small muted">Firm-wide</div></td><td class="mono small">v4.2</td><td class="small">S. Ariffin (partner)</td><td class="small">12 Aug 2026</td><td class="small mono">8 / 8</td><td><span class="pill ok">live</span></td><td class="small"><a href="#">history</a> &middot; <a href="#">tests</a> &middot; <a href="#">use</a></td></tr>
+<tr><td><b>Tenancy agreement - residential</b><div class="small muted">Conveyancing</div></td><td class="mono small">v6.0</td><td class="small">S. Ariffin (partner)</td><td class="small">02 Sep 2026</td><td class="small mono">10 / 10</td><td><span class="pill ok">live</span></td><td class="small"><a href="#">history</a> &middot; <a href="#">tests</a> &middot; <a href="#">use</a></td></tr>
+<tr><td><b>Tenancy agreement - commercial</b><div class="small muted">Conveyancing</div></td><td class="mono small">v3.4</td><td class="small">L. Tan (partner)</td><td class="small">02 Sep 2026</td><td class="small mono">7 / 7</td><td><span class="pill ok">live</span></td><td class="small"><a href="#">history</a> &middot; <a href="#">tests</a> &middot; <a href="#">use</a></td></tr>
+<tr><td><b>Sale and purchase agreement - subsale (acts for purchaser)</b><div class="small muted">Conveyancing</div></td><td class="mono small">v9.1</td><td class="small">S. Ariffin (partner)</td><td class="small">28 Aug 2026</td><td class="small mono">12 / 12</td><td><span class="pill ok">live</span></td><td class="small"><a href="#">history</a> &middot; <a href="#">tests</a> &middot; <a href="#">use</a></td></tr>
+<tr><td><b>Sale and purchase agreement - subsale (acts for vendor)</b><div class="small muted">Conveyancing</div></td><td class="mono small">v7.3</td><td class="small">S. Ariffin (partner)</td><td class="small">28 Aug 2026</td><td class="small mono">11 / 11</td><td><span class="pill ok">live</span></td><td class="small"><a href="#">history</a> &middot; <a href="#">tests</a> &middot; <a href="#">use</a></td></tr>
+<tr><td><b>Sale and purchase agreement - developer (HDA, Schedule G/H)</b><div class="small muted">Conveyancing</div></td><td class="mono small">v2.0</td><td class="small">L. Tan (partner)</td><td class="small">05 Sep 2026</td><td class="small mono">6 / 6</td><td><span class="pill ok">live (HIMS e-SPA route)</span></td><td class="small"><a href="#">history</a> &middot; <a href="#">tests</a> &middot; <a href="#">use</a></td></tr>
+<tr><td><b>Deed of assignment (master title)</b><div class="small muted">Conveyancing</div></td><td class="mono small">v5.2</td><td class="small">L. Tan (partner)</td><td class="small">19 Aug 2026</td><td class="small mono">5 / 5</td><td><span class="pill ok">live</span></td><td class="small"><a href="#">history</a> &middot; <a href="#">tests</a> &middot; <a href="#">use</a></td></tr>
+<tr><td><b>Discharge of charge</b><div class="small muted">Conveyancing</div></td><td class="mono small">v2.6</td><td class="small">L. Tan (partner)</td><td class="small">19 Aug 2026</td><td class="small mono">4 / 4</td><td><span class="pill ok">live</span></td><td class="small"><a href="#">history</a> &middot; <a href="#">tests</a> &middot; <a href="#">use</a></td></tr>
+<tr><td><b>Will (testator with minor children)</b><div class="small muted">Family and estate</div></td><td class="mono small">v1.4</td><td class="small">N. Devi (partner)</td><td class="small">-</td><td class="small mono">0 / 4</td><td><span class="pill warn">draft - not approved</span></td><td class="small"><a href="#">history</a> &middot; <a href="#">tests</a> &middot; <a href="#">use</a></td></tr>
+<tr><td><b>Letter of demand</b><div class="small muted">Litigation</div></td><td class="mono small">v0.9</td><td class="small">-</td><td class="small">-</td><td class="small mono">0 / 3</td><td><span class="pill gray">parked for phase 4</span></td><td class="small"><a href="#">history</a> &middot; <a href="#">tests</a> &middot; <a href="#">use</a></td></tr>
+      </table>
+    </div>
+    <p class="small muted">Only templates with status <b>live</b> can be generated. A template without an owner, without a passing test set, or without partner approval cannot be promoted - the system simply does not offer it.</p>
+    <h2 class="sec"><span class="num">2</span> Generate an agreement - the form a clerk sees</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="margin-top:0">Sale and purchase agreement (subsale, acting for purchaser) <span class="pill blue mono">v9.1</span></h3>
+        <p class="small muted">Matter CV-2026-0142. Fields marked <span class="pill blue">auto from matter</span> were filled by the system; only the rest is typed.</p>
+        <div class="wrap-tbl">
+          <table class="tbl">
+            <tr><th>Field</th><th>Source</th><th>Value</th><th>Type</th></tr>
+<tr><td class="small">Purchaser name</td><td><span class="pill blue">auto from matter</span></td><td class="mono small">Nurul Ain binti Hassan</td><td class="small muted">text</td></tr>
+<tr><td class="small">Purchaser identification</td><td><span class="pill blue">auto from matter</span></td><td class="mono small">900101-14-6078</td><td class="small muted">ic</td></tr>
+<tr><td class="small">Vendor name</td><td><span class="pill blue">auto from matter</span></td><td class="mono small">Tan Wei Ming</td><td class="small muted">text</td></tr>
+<tr><td class="small">Property title</td><td><span class="pill blue">auto from matter</span></td><td class="mono small">Geran 45678, Lot 1234, Mukim Kajang</td><td class="small muted">text</td></tr>
+<tr><td class="small">Purchase price</td><td><span class="pill gray">typed</span></td><td class="mono small">RM650,000.00</td><td class="small muted">money</td></tr>
+<tr><td class="small">Deposit paid on signing</td><td><span class="pill green">rule (10%)</span></td><td class="mono small">RM65,000.00</td><td class="small muted">money</td></tr>
+<tr><td class="small">Completion date</td><td><span class="pill green">rule (SPA + 3 months)</span></td><td class="mono small">11 Dec 2026</td><td class="small muted">date</td></tr>
+<tr><td class="small">Financier</td><td><span class="pill blue">auto from matter</span></td><td class="mono small">CIMB Bank Berhad</td><td class="small muted">text</td></tr>
+<tr><td class="small">Late payment interest</td><td><span class="pill gray">clause library default</span></td><td class="mono small">8% per annum</td><td class="small muted">pct</td></tr>
+<tr><td class="small">Chattels and inventory list</td><td><span class="pill gray">typed (optional)</span></td><td class="mono small">Air-conditioners (3 units), kitchen cabinet</td><td class="small muted">text</td></tr>
+          </table>
+        </div>
+        <div class="hr"></div>
+        <h4 style="margin:0 0 8px">Live check - change a value and press generate</h4>
+        <div class="grid g2">
+          <div class="field"><label>Purchase price (figures)</label><input id="genPrice" value="650000"></div>
+          <div class="field"><label>Purchase price (in words)</label><input id="genWords" value="Ringgit Malaysia Six Hundred Fifty Thousand Only"></div>
+          <div class="field"><label>Purchaser identification</label><input id="genIc" value="900101-14-6078"></div>
+          <div class="field"><label>SPA date</label><input id="genSpa" value="2026-08-12"></div>
+          <div class="field"><label>Completion date</label><input id="genComp" value="2026-11-12"></div>
+          <div class="field"><label>Late payment interest (% per annum)</label><input id="genInt" value="8"></div>
+        </div>
+        <div class="chips">
+          <label class="chip on" id="chipStrata"><input type="checkbox" checked> Strata title</label>
+          <label class="chip" id="chipBumi"><input type="checkbox"> Bumiputera lot</label>
+          <label class="chip" id="chipRestrict"><input type="checkbox"> Restriction in interest</label>
+        </div>
+        <button class="btn gold" id="genBtn" type="button">Generate agreement</button>
+        <div class="note" id="genResult" style="margin-top:12px"><b>Ready.</b> Press generate to run the validation engine and assemble the document.</div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Conditional blocks drawn from the clause library</h3>
+        <div class="wrap-tbl">
+          <table class="tbl">
+            <tr><th>Block</th><th>State</th><th>Why</th></tr>
+<tr><td class="small">Strata management (Act 757) notices and by-laws</td><td><span class="pill ok">Included</span></td><td class="small muted">Property is a stratified parcel</td></tr>
+<tr><td class="small">Restriction in interest - state authority consent</td><td><span class="pill gray">Not included</span></td><td class="small muted">Freehold, no restriction</td></tr>
+<tr><td class="small">Bumiputera lot release</td><td><span class="pill gray">Not included</span></td><td class="small muted">Not a Bumiputera lot</td></tr>
+<tr><td class="small">Existing tenancy - purchaser takes subject to tenancy</td><td><span class="pill gray">Not included</span></td><td class="small muted">Vacant possession</td></tr>
+<tr><td class="small">Redemption of existing charge by vendor's financier</td><td><span class="pill ok">Included</span></td><td class="small muted">Charge in favour of Maybank Islamic</td></tr>
+<tr><td class="small">Loan rejection - refund of deposit</td><td><span class="pill ok">Included</span></td><td class="small muted">Purchaser financing 80%</td></tr>
+<tr><td class="small">Furniture, fittings and chattels</td><td><span class="pill warn">Included</span></td><td class="small muted">Inventory list attached</td></tr>
+<tr><td class="small">Late delivery charges (developer only)</td><td><span class="pill gray">Not applicable</span></td><td class="small muted">Not an HDA transaction</td></tr>
+          </table>
+        </div>
+        <div class="hr"></div>
+        <h4 style="margin:0 0 8px">Post-generation scan (runs on every output)</h4>
+        <ul class="check">
+          <li><span class="ok">&#10003;</span><div>No leftover placeholders - scanned for <span class="mono">{{ }}</span>, <span class="mono">{% %}</span>, <span class="mono">XXX</span>, <span class="mono">TBC</span></div></li>
+          <li><span class="ok">&#10003;</span><div>Parties named consistently in all 23 references</div></li>
+          <li><span class="ok">&#10003;</span><div>Price RM650,000.00 matches the payment schedule and the words</div></li>
+          <li><span class="ok">&#10003;</span><div>Inventory list referenced and attached</div></li>
+          <li><span>!</span><div>Page range 38 pages - inside the expected band for a subsale SPA</div></li>
+        </ul>
+        <div class="hr"></div>
+        <h4 style="margin:0 0 8px">Output package</h4>
+        <div class="grid g2">
+          <div class="kpi"><div class="lab">For review</div><div class="val small">DOCX</div><div class="sub">track changes on, watermark DRAFT</div></div>
+          <div class="kpi"><div class="lab">For signature</div><div class="val small">PDF</div><div class="sub">wet ink only for this document</div></div>
+          <div class="kpi"><div class="lab">For archive</div><div class="val small">PDF/A</div><div class="sub">with template version and hash</div></div>
+          <div class="kpi blue"><div class="lab">Evidence</div><div class="val small">sealed</div><div class="sub">who generated, when, from which version</div></div>
+        </div>
+      </div>
+    </div>
+    <h2 class="sec"><span class="num">3</span> Validation engine - the 40 rules that make this a legal tool</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="margin-top:0">Hard blocks (the document cannot be generated)</h3>
+        <ul class="check">
+          <li><span class="bad">&#10007;</span><div>Price in figures does not match the price in words</div></li>
+          <li><span class="bad">&#10007;</span><div>Completion date is not the SPA date plus three months</div></li>
+          <li><span class="bad">&#10007;</span><div>Identification number fails format or check digit</div></li>
+          <li><span class="bad">&#10007;</span><div>Strata property on a landed template, or the reverse</div></li>
+          <li><span class="bad">&#10007;</span><div>Restriction in interest present but no state consent clause</div></li>
+          <li><span class="bad">&#10007;</span><div>Existing charge with no redemption clause</div></li>
+          <li><span class="bad">&#10007;</span><div>Instrument of transfer or charge routed to e-signature</div></li>
+          <li><span class="bad">&#10007;</span><div>Developer SPA outside the HIMS e-SPA route</div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Warnings (a partner must acknowledge, with a reason)</h3>
+        <ul class="check">
+          <li><span>!</span><div>Late payment interest outside the firm's 8-10% band</div></li>
+          <li><span>!</span><div>No chattels and inventory list although the offer letter promised fittings</div></li>
+          <li><span>!</span><div>No loan rejection clause although the purchaser is financing</div></li>
+          <li><span>!</span><div>Taxes and assessment apportionment missing or ambiguous</div></li>
+          <li><span>!</span><div>Extension period exists but the extension interest rate is blank</div></li>
+          <li><span>!</span><div>Discount on scale fees exceeds the firm's policy</div></li>
+        </ul>
+        <p class="small muted" style="margin-bottom:0">Every acknowledgement is recorded: who accepted it, when, and why. Silence is never consent.</p>
+      </div>
+    </div>
+    <h2 class="sec"><span class="num">4</span> Comparing the other side's mark-up</h2>
+    <div class="wrap-tbl card">
+      <table class="tbl">
+        <tr><th style="width:32%">Option</th><th>Cost</th><th>Keeps formatting</th><th>Exports tracked changes</th><th>Note</th></tr>
+<tr><td class="small"><b>Text diff in the browser</b><div class="small muted">difflib or diff-match-patch</div></td><td class="small">Free</td><td class="small">No</td><td class="small">No</td><td class="small muted">Screen review only</td></tr>
+<tr><td class="small"><b>LibreOffice unoserver / unocompare</b><div class="small muted">LibreOffice UNO</div></td><td class="small">Free (self-hosted)</td><td class="small">Partial</td><td class="small">Yes</td><td class="small muted">Fallback if native track changes misbehave</td></tr>
+<tr><td class="small"><b>Native track changes - python-redlines (Docxodus engine)</b><div class="small muted">Python</div></td><td class="small">Free (open source)</td><td class="small">High</td><td class="small">Yes - real w:ins / w:del</td><td class="small muted">Chosen for phase 1</td></tr>
+<tr><td class="small"><b>Draftable</b><div class="small muted">Hosted or self-hosted API</div></td><td class="small">USD129-261 per user per year</td><td class="small">Very high</td><td class="small">Yes</td><td class="small muted">Later phase if needed</td></tr>
+<tr><td class="small"><b>Aspose.Words</b><div class="small muted">.NET / Python / Java SDK</div></td><td class="small">USD1,000-3,000+ per developer per year; OEM/SaaS from USD10,000+</td><td class="small">Very high</td><td class="small">Yes</td><td class="small muted">Avoid unless justified</td></tr>
+      </table>
+    </div>
+    <div class="note"><b>Why this matters.</b> The point of automatic comparison is not convenience - it is detection. If the other side edits text without turning tracked changes on, the firm still sees every change, in writing, on the record.</div>
+    <h2 class="sec"><span class="num">5</span> Artificial intelligence - what it may and may not do</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0;font-size:15px">May</h3><ul class="check small">
+        <li><span class="ok">&#10003;</span><div>Suggest a clause from the firm's own approved library</div></li>
+        <li><span class="ok">&#10003;</span><div>Summarise the other side's mark-up into a one-page list</div></li>
+        <li><span class="ok">&#10003;</span><div>Explain a clause to the client in plain language</div></li>
+      </ul></div>
+      <div class="card"><h3 style="margin-top:0;font-size:15px">May not</h3><ul class="check small">
+        <li><span class="bad">&#10007;</span><div>Write a clause that is not in the approved library, unattended</div></li>
+        <li><span class="bad">&#10007;</span><div>Send anything to a client, the other side or the land office</div></li>
+        <li><span class="bad">&#10007;</span><div>Be used to train a model on client documents</div></li>
+      </ul></div>
+      <div class="card"><h3 style="margin-top:0;font-size:15px">Controls</h3><ul class="check small">
+        <li><span class="ok">&#10003;</span><div>Per-firm off switch - some bank panels forbid external AI</div></li>
+        <li><span class="ok">&#10003;</span><div>Every use logged: who, when, model, output, decision</div></li>
+        <li><span class="ok">&#10003;</span><div>Bar Council Circular 242/2025 and the 2025 update built into the policy text</div></li>
+      </ul></div>
+    </div>
+    <div class="note warn"><b>The rule behind the rule.</b> A lawyer's professional judgement cannot be delegated to software. The system is a drafting assistant that never becomes the lawyer of record.</div>
+    <h2 class="sec"><span class="num">6</span> What the firm gets on day one</h2>
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Fields auto-filled</div><div class="val">70%</div><div class="sub">straight from the matter record</div></div>
+      <div class="kpi"><div class="lab">First draft in</div><div class="val">&lt; 2 min</div><div class="sub">against 2-4 hours by hand</div></div>
+      <div class="kpi"><div class="lab">Templates at launch</div><div class="val">10</div><div class="sub">conveyancing set first</div></div>
+      <div class="kpi warn"><div class="lab">Approval gate</div><div class="val">Always</div><div class="sub">no partner, no release</div></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3 style="margin-top:0">How the ten minutes are spent now</h3>
+      <p class="small muted">Open the matter, press generate agreement, glance at the validation panel, fix the two typed fields, read the assembled outline block by block, send for partner review. The clerk no longer copies last month's file and hunts for names to change - which is exactly where the errors used to live.</p>
+    </div>
+
+  </main>
+</div>
+<script src="assets/law.js"></script>
+<script src="assets/law-nav.js"></script>
+</body>
+</html>

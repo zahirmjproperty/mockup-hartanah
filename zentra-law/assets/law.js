@@ -112,3 +112,69 @@
   });
   if ($('#fOut')) { fees(); }
 })();
+
+/* ---------- Agreement generator demo (generator.html) ---------- */
+(function(){
+  function el(id){ return document.getElementById(id); }
+  if (!el('genBtn')) return;
+  var UNITS = ['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
+  var TENS = ['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+  function under1000(n){ var s=''; if(n>99){ s+=UNITS[Math.floor(n/100)]+' Hundred '; n=n%100; } if(n>19){ s+=TENS[Math.floor(n/10)]+' '; n=n%10; } if(n>0){ s+=UNITS[n]+' '; } return s.trim(); }
+  function words(n){
+    if(n===0) return 'Zero';
+    var out=''; var groups=[[1000000000,'Billion'],[1000000,'Million'],[1000,'Thousand']];
+    for(var i=0;i<groups.length;i++){ var g=groups[i][0]; if(n>=g){ out+=under1000(Math.floor(n/g))+' '+groups[i][1]+' '; n=n%g; } }
+    if(n>0){ out+=under1000(n); }
+    return out.trim();
+  }
+  function addMonths(d, m){ var x=new Date(d.getTime()); var day=x.getDate(); x.setMonth(x.getMonth()+m); if(x.getDate()<day){ x.setDate(0); } return x; }
+  function fmt(d){ var mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return ('0'+d.getDate()).slice(-2)+' '+mo[d.getMonth()]+' '+d.getFullYear(); }
+  function lines(cls, txt){ return '<div class="small" style="margin:4px 0"><span class="pill '+cls+'">'+(cls==='bad'?'blocked':(cls==='warn'?'warning':'pass'))+'</span> '+txt+'</div>'; }
+  el('genBtn').addEventListener('click', function(){
+    var price = parseFloat(String(el('genPrice').value).replace(/[^0-9.]/g,''))||0;
+    var say = el('genWords').value||'';
+    var ic = String(el('genIc').value).replace(/[^0-9]/g,'');
+    var spa = new Date(el('genSpa').value);
+    var comp = new Date(el('genComp').value);
+    var rate = parseFloat(el('genInt').value)||0;
+    var strata = el('chipStrata').querySelector('input').checked;
+    var bumi = el('chipBumi').querySelector('input').checked;
+    var restrict = el('chipRestrict').querySelector('input').checked;
+    var bad=[], warn=[], good=[];
+    var expect = words(price);
+    var sayNorm = say.toLowerCase().replace(/[^a-z ]/g,' ').replace(/\s+/g,' ').trim();
+    if (expect && sayNorm.indexOf(expect.toLowerCase())===-1) {
+      bad.push('Price in figures (RM'+price.toLocaleString('en-US')+') does not match the words. The engine reads &ldquo;'+expect+'&rdquo;.');
+    } else { good.push('Price in figures matches the words: Ringgit Malaysia '+expect+' Only.'); }
+    if (ic.length!==12) { bad.push('Identification number has '+ic.length+' digits after cleaning; twelve are required.'); }
+    else { good.push('Identification number format is valid ('+ic.slice(0,6)+'-'+ic.slice(6,8)+'-'+ic.slice(8)+').'); }
+    if (isNaN(spa)||isNaN(comp)) { bad.push('SPA date or completion date is empty.'); }
+    else {
+      var plus3=addMonths(spa,3), plus4=addMonths(spa,4);
+      if (comp.getTime()===plus3.getTime()) { good.push('Completion date is exactly the SPA date plus three months ('+fmt(plus3)+'). The 3+1 extension, if taken, ends '+fmt(plus4)+' with interest.'); }
+      else if (comp.getTime()===plus4.getTime()) { warn.push('Completion date is SPA plus four months - the 3+1 reading. The extension interest clause must be present.'); }
+      else { bad.push('Completion date ('+fmt(comp)+') is neither SPA plus three months ('+fmt(plus3)+') nor plus four ('+fmt(plus4)+').'); }
+    }
+    if (rate && (rate<8||rate>10)) { warn.push('Late payment interest of '+rate+'% per annum is outside the firm\u2019s 8-10% band. A partner must acknowledge.'); }
+    else if (rate) { good.push('Late payment interest of '+rate+'% per annum is within the firm\u2019s band.'); }
+    if (bumi) { bad.push('Bumiputera lot selected. A release or state authority approval clause and evidence of consent must be attached first.'); }
+    if (restrict) { bad.push('Restriction in interest selected. The state authority consent clause and the consent letter must be attached first.'); }
+    if (strata) { good.push('Strata block included: Act 757 notices, by-laws and management corporation clauses.'); }
+    var blocks = ['Parties and recitals','Property and title particulars','Purchase price and payment schedule','Deposit and stakeholder terms','Completion and vacant possession','Redemption of existing charge','Loan rejection and refund of deposit','Transfer, charge and registration','Chattels, fittings and inventory list','Apportionment of taxes and outgoings','Default, late payment and remedies','Notices and service','Dispute resolution and governing law','Execution and attestation pages'];
+    if (strata) blocks.push('Strata management and by-laws (Act 757)');
+    if (!bumi) blocks.push('Bumiputera release clause (not applicable - omitted)');
+    var html = '';
+    if (bad.length) { html += '<b>Generation blocked.</b> Fix these and generate again.'; bad.forEach(function(t){ html+=lines('bad',t); }); }
+    else { html += '<b>Document generated.</b> Watermarked DRAFT, awaiting partner approval.'; }
+    warn.forEach(function(t){ html+=lines('warn',t); });
+    good.forEach(function(t){ html+=lines('ok',t); });
+    html += '<div class="hr"></div><b>Assembled from '+blocks.length+' blocks:</b><div class="small muted" style="margin-top:4px">'+blocks.join(' &middot; ')+'</div>';
+    html += '<div class="hr"></div><div class="small"><b>Scan:</b> no leftover placeholders &middot; parties consistent in 23 references &middot; inventory list attached &middot; 38 pages (inside range). Template pinned: v9.1, clause set pinned: CL-2026-09-17-4.</div>';
+    el('genResult').innerHTML = html;
+  });
+  ['chipStrata','chipBumi','chipRestrict'].forEach(function(id){
+    var box = el(id); if(!box) return;
+    var inp = box.querySelector('input');
+    inp.addEventListener('change', function(){ box.classList.toggle('on', inp.checked); });
+  });
+})();

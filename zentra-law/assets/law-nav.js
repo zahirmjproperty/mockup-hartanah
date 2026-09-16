@@ -3,7 +3,7 @@
   var NAV = [
     ["Practice", [["index", "Overview", "\u25a3"], ["matters", "Matters", "\u2630"],
                   ["checklist", "Document checklist", "\u2611"], ["documents", "Documents and signing", "\u270e"],
-                  ["drafting", "Drafting and vetting", "\u2699"],
+                  ["drafting", "Drafting and vetting", "\u2699"], ["generator", "Agreement generator", "\u270d"],
                   ["signing", "Signing room", "\u2712"], ["deadlines", "Statutory clock", "\u23f1"]]],
     ["Money", [["fees", "Fee engine", "\u2211"], ["billing", "Billing", "\u0024"],
                ["client-account", "Client account", "\u2696"]]],

@@ -285,7 +285,7 @@ PAGES_C.append(dict(f="guide.html", t="Review guide", body=T("".join([
 """@@TOP@@""",
 """    <div class="note warn"><b>How to review this prototype.</b> Nothing here is final, and nothing is connected to a database. Walk the screens in this order, keep one question in your mind for each, and mark down anything that feels wrong &mdash; the next phase is easier to change than the one after it.</div>
 """,
-"""    <h2 class="sec"><span class="num">1</span> Seventeen screens, ten questions</h2>
+"""    <h2 class="sec"><span class="num">1</span> Eighteen screens, ten questions</h2>
     <div class="wrap-tbl card">
       <table class="tbl">
         <tr><th style="width:26%">Screen</th><th>What to check</th><th style="width:34%">Decision it unlocks</th></tr>
@@ -295,6 +295,7 @@ PAGES_C.append(dict(f="guide.html", t="Review guide", body=T("".join([
         <tr><td><a href="checklist.html">Checklist</a></td><td>Would your clerk work from this list, and are the owners right?</td><td>Checklist templates per matter type</td></tr>
         <tr><td><a href="documents.html">Documents</a></td><td>Do you agree that the transfer and the charge must never be e-signed, and is the guard firm enough?</td><td>Signing rules per document</td></tr>
         <tr><td><a href="drafting.html">Drafting and vetting</a></td><td>Is this the order a draft really moves in your firm &mdash; first draft, internal review, partner approval, out to the other side, mark-up, vetting, rounds, client authority, freeze, execute, stamp? Are the reminder days right?</td><td>Which stage gates stay hard, and who may accept a clause beyond the fallback position</td></tr>
+        <tr><td><a href="generator.html">Agreement generator</a></td><td>Is this how a clerk would work, and do the forty validation rules match what you would refuse to let out of the door? Are the two hard rules (placeholder repair, pinned template version) correct?</td><td>Which templates to automate first, and who may override a warning</td></tr>
         <tr><td><a href="signing.html">Signing room</a></td><td>Is the wet-ink session record the thing your firm would actually use?</td><td>Signing workflow priority</td></tr>
         <tr><td><a href="deadlines.html">Statutory clock</a></td><td>Are the clocks and reminder days the ones that save you?</td><td>Deadline rules and reminders</td></tr>
         <tr><td><a href="fees.html">Fee engine</a></td><td>Do the numbers match how you bill today, including the discount ceiling?</td><td>Fee rules, discount and waiver policy</td></tr>
