@@ -261,6 +261,7 @@ function sample(){const now=new Date();addParty('c',{n:'Ahmad Faizal bin Osman',
 function resetAll(){setStore([]);renderArc();draftNote('Register cleared (demo only).');}
 swapLabels();addParty('o',{n:'Noraini binti Hassan',ic:'781102085566',hp:'60123456789',em:'noraini@example.com'});showAgent();buildSteps();renderArc();
 const QP=new URLSearchParams(location.search);
+if(QP.get('type')){$('dtype').value=QP.get('type');if(QP.get('type')==='sale'){$('amount').value=680000;$('dep').value=22032;$('term').value=21;}swapLabels();}
 if(QP.get('demo')){sample();generate();if(QP.get('nomodal'))closeLetter();}
 </script>
 <script src="assets/notif.js"></script>
