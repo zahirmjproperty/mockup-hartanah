@@ -149,6 +149,7 @@ function pos(e){ const r = pad.getBoundingClientRect(); const t = e.touches ? e.
 pad.addEventListener('pointerdown', e => { drawing = true; drew = true; const p = pos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); pad.setPointerCapture(e.pointerId); });
 pad.addEventListener('pointermove', e => { if (!drawing) return; const p = pos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
 pad.addEventListener('pointerup', () => drawing = false);
+function ini(b){ b.textContent = "Page " + b.dataset.p + " \u2713"; b.style.borderColor = "#0C4437"; b.style.color = "#0C4437"; }
 function clearPad(){ ctx.clearRect(0,0,pad.width,pad.height); drew = false; }
 async function sha(txt){
   try { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt)); return [].slice.call(new Uint8Array(b)).map(x => x.toString(16).padStart(2,'0')).join(''); }
@@ -185,4 +186,5 @@ if (mp){
 </script>
   <script src="assets/ui.js"></script>
 </body>
-</html>
+</html><div class="card" style="margin-bottom:10px"><p class="small" style="margin:0"><b>Initial each page</b> &mdash; tap each page below. Initials carry the same timestamp and device record as your signature.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn ghost sm" onclick="ini(this)" data-p="2">Page 2</button><button class="btn ghost sm" onclick="ini(this)" data-p="3">Page 3</button><button class="btn ghost sm" onclick="ini(this)" data-p="4">Page 4</button><button class="btn ghost sm" onclick="ini(this)" data-p="5">Page 5</button></div></div>
+    
