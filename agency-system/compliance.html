@@ -109,9 +109,10 @@
   <div id="rres" class="emsg" style="margin-top:12px"></div>
 </div>
 <script>
-function autoRule(){ const v=new URLSearchParams(location.search).get('rule'); if(v){ $('rq').value=v; runRule(); } }
+const Q=id=>document.getElementById(id);
+function autoRule(){ const v=new URLSearchParams(location.search).get('rule'); if(v){ Q('rq').value=v; runRule(); } }
 function runRule(){
-  const v=$('rq').value, box=$('rres'); box.className='emsg on';
+  const v=Q('rq').value, box=Q('rres'); box.className='emsg on';
   const R={
     c45:['BLOCKED','Declared commission cannot exceed 40% of the professional fee. <b>Act 242, s.30</b> ceiling. If the agent is to receive more, the excess must be entered as a separate agency-funded marketing reward — never merged into the commission line.'],
     ovr15:['BLOCKED','L6 override cap is 10%. Entering 15% exceeds the cap. The system will not accept a configuration that pays a leader more than the cap, even if a manager approves it.'],
