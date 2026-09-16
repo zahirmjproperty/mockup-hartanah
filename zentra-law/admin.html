@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Firm admin | Zentra Law</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/law.css">
+</head>
+<body data-page="admin">
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Firm admin</h1>
+        <p>Users, roles, the subscription, data residency, and the AI switch.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE &middot; SAMPLE DATA</span>
+    </div>
+    <h2 class="sec"><span class="num">1</span> The subscription this firm is on</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0">Plan</h3><div class="val" style="font-size:22px;font-weight:700">Practice</div>
+        <p class="small muted">Up to 5 fee earners, unlimited matters, 3 practice areas enabled, 200 gigabytes of documents in Malaysia.</p>
+        <div class="small muted">Placeholder pricing &mdash; to be set before launch.</div></div>
+      <div class="card"><h3 style="margin-top:0">Modules enabled</h3>
+        <div class="chips"><span class="chip on">Conveyancing</span><span class="chip on">Client account</span>
+        <span class="chip on">Billing and e-invoice</span><span class="chip on">Client portal</span>
+        <span class="chip">Corporate and commercial</span><span class="chip">Family and estate</span><span class="chip">Litigation</span></div></div>
+      <div class="card"><h3 style="margin-top:0">Data residency</h3>
+        <div class="pill ok">Malaysia</div>
+        <p class="small muted" style="margin-bottom:0">Primary region in Malaysia; encrypted backups in a second Malaysian zone. No client data is sent outside Malaysia without the firm's written instruction and a lawful basis.</p></div>
+    </div>
+    <h2 class="sec"><span class="num">2</span> Users, roles and access</h2>
+    <div class="wrap-tbl card">
+      <table class="tbl">
+        <tr><th>User</th><th>Role</th><th>Sees</th><th>MFA</th><th>AI drafting</th><th>Last active</th></tr>
+        <tr><td>A. Rahman</td><td>Partner <span class="pill blue">owner</span></td><td>Every matter, every ledger, all settings</td><td><span class="pill ok">on</span></td><td><span class="pill ok">on</span></td><td>today 08:12</td></tr>
+        <tr><td>S. Leong</td><td>Lawyer</td><td>Own matters and the matters they are assigned</td><td><span class="pill ok">on</span></td><td><span class="pill ok">on</span></td><td>today 07:40</td></tr>
+        <tr><td>N. Farah</td><td>Lawyer</td><td>Own matters</td><td><span class="pill ok">on</span></td><td><span class="pill amber">off by choice</span></td><td>yesterday</td></tr>
+        <tr><td>R. Iswaran</td><td>Conveyancing clerk</td><td>Only the checklists and dates on files assigned</td><td><span class="pill ok">on</span></td><td><span class="pill gray">none</span></td><td>today 08:55</td></tr>
+        <tr><td>M. Zulaikha</td><td>Accounts</td><td>Client ledgers, bills, reconciliations &mdash; no matter content</td><td><span class="pill ok">on</span></td><td><span class="pill gray">none</span></td><td>today 07:15</td></tr>
+        <tr><td>Nurul Ain (client)</td><td>Client</td><td>Their own file only, as shown in the portal</td><td><span class="pill ok">one-time code</span></td><td><span class="pill gray">none</span></td><td>yesterday</td></tr>
+      </table>
+      <p class="small muted" style="margin-bottom:0">Role separation is not cosmetic: the clerk cannot post a ledger entry, and the accounts user cannot open a matter file. That is how the two-money separation survives a busy Friday.</p>
+    </div>
+    <h2 class="sec"><span class="num">3</span> Settings a firm actually asks about</h2>
+    <div class="grid g2">
+      <div class="card"><h3 style="margin-top:0">Security</h3>
+        <ul class="check">
+          <li><span class="ok">&#10003;</span><div>Multi-factor authentication for every staff user, enforced, no exceptions.</div></li>
+          <li><span class="ok">&#10003;</span><div>Encryption in transit and at rest, with keys managed by the platform.</div></li>
+          <li><span class="ok">&#10003;</span><div>Session timeout, device list, and a one-click "sign out everywhere".</div></li>
+          <li><span class="ok">&#10003;</span><div>Vendor access to a firm's data requires the firm's approval and is logged.</div></li>
+        </ul></div>
+      <div class="card"><h3 style="margin-top:0">Artificial intelligence</h3>
+        <ul class="check">
+          <li><span>1</span><div>Off by default for any firm that wants it off; off by choice for one lawyer in this firm.</div></li>
+          <li><span>2</span><div>Client data is never sent to a public model, and never used to train a model.</div></li>
+          <li><span>3</span><div>Where AI drafts, the draft is watermarked in the file history and a human must approve before it leaves the firm.</div></li>
+          <li><span>4</span><div>The Bar Council's guidance on generative AI is quoted in the firm's own policy page, not hidden in a terms document.</div></li>
+        </ul></div>
+    </div>
+    <p class="foot-note">Zentra Law prototype &middot; Zentra Property Group &middot; English (US) UI &middot; sample data only<br>Firm admin. Plans and pricing are placeholders pending a decision.</p>
+
+  </main>
+</div>
+<script src="assets/law.js"></script>
+<script src="assets/law-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Documents and signing | Zentra Law</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/law.css">
+</head>
+<body data-page="documents">
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Documents and signing</h1>
+        <p>Precedents, generated documents, and the correct signing method for each one.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE &middot; SAMPLE DATA</span>
+    </div>
+    <div class="note warn"><b>The rule that shapes this screen.</b> E-signature is lawful in Malaysia, but the Electronic Commerce Act 2006 excludes certain documents and, in practice, the land offices and stamping counter want wet ink on instruments of transfer and charge. So the product does not offer one signing method &mdash; it offers the <b>correct</b> one per document, and refuses the wrong one.</div>
+    <h2 class="sec"><span class="num">1</span> Signing matrix</h2>
+    <div class="card">
+      <div class="wrap-tbl">
+        <table class="tbl">
+          <tr><th>Document</th><th>Signatories</th><th>Method</th><th style="width:170px">Action</th></tr>
+<tr><td><b>Letter of engagement and costs estimate</b><div class="small muted">Electronic Commerce Act 2006 allows it. SigningCloud envelope with hash and log.</div></td><td class="small">Client</td><td><span class="pill ok">E-signature</span></td><td class="small"><a href="#">generate</a> &middot; <a href="#">send for signature</a></td></tr>
+<tr><td><b>PDPA consent notice</b><div class="small muted">Consent must be recorded with time and the exact wording shown.</div></td><td class="small">Client</td><td><span class="pill ok">E-signature</span></td><td class="small"><a href="#">generate</a> &middot; <a href="#">send for signature</a></td></tr>
+<tr><td><b>Tenancy agreement</b><div class="small muted">Not a document excluded by the ECA. Stamp the counterpart within 30 days.</div></td><td class="small">Landlord and tenant</td><td><span class="pill ok">E-signature</span></td><td class="small"><a href="#">generate</a> &middot; <a href="#">send for signature</a></td></tr>
+<tr><td><b>Sale and purchase agreement (subsale)</b><div class="small muted">Attestation is required; the completed agreement is produced for stamping and for the land office chain.</div></td><td class="small">All parties plus witnesses</td><td><span class="pill warn">Wet-ink</span></td><td class="small"><a href="#">generate</a> &middot; <a href="#">send for signature</a></td></tr>
+<tr><td><b>Memorandum of Transfer (Form 14A)</b><div class="small muted">Excluded in practice: the land office will not register an electronically signed instrument.</div></td><td class="small">Transferor and transferee</td><td><span class="pill bad">Wet-ink only</span></td><td class="small"><a href="#">generate</a> &middot; <a href="#">send for signature</a></td></tr>
+<tr><td><b>Charge or Deed of Assignment (Form 16A)</b><div class="small muted">Same as the transfer. The bank also insists on its own execution page.</div></td><td class="small">Charger and chargee</td><td><span class="pill bad">Wet-ink only</span></td><td class="small"><a href="#">generate</a> &middot; <a href="#">send for signature</a></td></tr>
+<tr><td><b>Bank letter of offer or facility agreement</b><div class="small muted">Some banks accept e-signature, most do not. The system follows the panel's instruction per bank.</div></td><td class="small">Bank and borrower</td><td><span class="pill warn">Bank's rule</span></td><td class="small"><a href="#">generate</a> &middot; <a href="#">send for signature</a></td></tr>
+<tr><td><b>Statutory declaration</b><div class="small muted">Must be sworn before a commissioner for oaths.</div></td><td class="small">Declarant plus commissioner</td><td><span class="pill warn">Wet-ink</span></td><td class="small"><a href="#">generate</a> &middot; <a href="#">send for signature</a></td></tr>
+<tr><td><b>Invoice, receipt and statement of account</b><div class="small muted">Generated and sent; the e-invoice status from LHDN is tracked alongside.</div></td><td class="small">Firm to client</td><td><span class="pill ok">No signature</span></td><td class="small"><a href="#">generate</a> &middot; <a href="#">send for signature</a></td></tr>
+        </table>
+      </div>
+    </div>
+    <h2 class="sec"><span class="num">2</span> Try the guard</h2>
+    <div class="card">
+      <div class="grid g2">
+        <div>
+          <div class="field"><label class="small muted">Document to send</label>
+            <select id="docSel">
+              <option value="esign">Letter of engagement and costs estimate</option>
+              <option value="esign">PDPA consent notice</option>
+              <option value="esign">Tenancy agreement</option>
+              <option value="wet">Sale and purchase agreement (subsale)</option>
+              <option value="block">Memorandum of Transfer (Form 14A)</option>
+              <option value="block">Charge or Deed of Assignment (Form 16A)</option>
+            </select></div>
+          <div class="field" style="margin-top:10px"><label class="small muted">Recipient</label>
+            <input placeholder="client@email.com" value="nurul.sample@email.com"></div>
+          <p style="margin-top:14px"><button class="btn" id="sendBtn">Send for e-signature</button></p>
+        </div>
+        <div>
+          <div class="note" id="guardBox"><b>Ready.</b> Choose a document on the left and press send &mdash; the prototype answers exactly as the real system would.</div>
+        </div>
+      </div>
+    </div>
+    <h2 class="sec"><span class="num">3</span> Template library</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0">Conveyancing</h3><p class="small muted" style="margin-bottom:0">Subsale SPA, developer SPA (Schedule G and H), deed of assignment, discharge of charge, completion accounts, undertakings, CKHT forms, tenancy, letter of demand.</p></div>
+      <div class="card"><h3 style="margin-top:0">Corporate and commercial</h3><p class="small muted" style="margin-bottom:0">Share sale, shareholders' agreement, board and members' resolutions, employment contracts, distributor and service agreements.</p></div>
+      <div class="card"><h3 style="margin-top:0">Family and estate</h3><p class="small muted" style="margin-bottom:0">Wills, grant of probate and letters of administration packs, trust deeds, guardianship, transfer by love and affection.</p></div>
+    </div>
+    <p class="foot-note">Zentra Law prototype &middot; Zentra Property Group &middot; English (US) UI &middot; sample data only<br>Documents and signing. Templates shown are placeholders; the firm supplies its own precedent.</p>
+
+  </main>
+</div>
+<script src="assets/law.js"></script>
+<script src="assets/law-nav.js"></script>
+</body>
+</html>

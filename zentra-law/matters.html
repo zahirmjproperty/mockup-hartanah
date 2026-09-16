@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Matters | Zentra Law</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/law.css">
+</head>
+<body data-page="matters">
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Matters</h1>
+        <p>Every file the firm is carrying, with its stage, its lawyer and how far it has run.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE &middot; SAMPLE DATA</span>
+    </div>
+    <h2 class="sec"><span class="num">1</span> All matters</h2>
+    <div class="card">
+      <div class="chips" id="mFilter">
+        <span class="chip on" data-k="all">All (16)</span>
+        <span class="chip" data-k="subsale">Subsale</span>
+        <span class="chip" data-k="end-financing">Financing</span>
+        <span class="chip" data-k="developer">Developer</span>
+        <span class="chip" data-k="tenancy">Tenancy</span>
+        <span class="chip" data-k="transfer">Consent / estate</span>
+      </div>
+      <div class="field" style="max-width:420px;margin:12px 0">
+        <input class="btn ghost" style="width:100%;text-align:left" placeholder="Search file number, client, property or bank" id="mSearch">
+      </div>
+      <div class="wrap-tbl">
+        <table class="tbl" id="mTable">
+          <tr><th>Matter</th><th>Type</th><th>Client</th><th>Counterparty / bank</th><th>Lawyer</th><th>Stage</th><th class="num">Progress</th></tr>
+<tr data-k="subsale"><td><a href="matter.html?m=CV-2026-0142"><b>CV-2026-0142</b></a></td><td>Subsale purchase</td><td>Nurul Ain binti Hassan</td><td>Tan Wei Ming</td><td>A. Rahman</td><td><span class="pill amber">Loan documents / stamping</span></td><td class="num">82%</td></tr>
+<tr data-k="subsale"><td><a href="matter.html?m=CV-2026-0138"><b>CV-2026-0138</b></a></td><td>Subsale sale (with redemption)</td><td>Tan Wei Ming</td><td>Nurul Ain binti Hassan</td><td>S. Leong</td><td><span class="pill amber">Redemption &amp; completion</span></td><td class="num">64%</td></tr>
+<tr data-k="end-financing"><td><a href="matter.html?m=CV-2026-0151"><b>CV-2026-0151</b></a></td><td>End-financing (bank panel)</td><td>Muhammad Haziq bin Omar</td><td>Public Bank Berhad</td><td>A. Rahman</td><td><span class="pill ok">Facility agreement / stamping</span></td><td class="num">71%</td></tr>
+<tr data-k="developer"><td><a href="matter.html?m=CV-2026-0155"><b>CV-2026-0155</b></a></td><td>Developer sale (Schedule H)</td><td>Chong Li Fen</td><td>Aman Setia Development Sdn Bhd</td><td>S. Leong</td><td><span class="pill ok">Progressive billing &mdash; 10% on SPA</span></td><td class="num">35%</td></tr>
+<tr data-k="tenancy"><td><a href="matter.html?m=CV-2026-0160"><b>CV-2026-0160</b></a></td><td>Tenancy agreement</td><td>Bright Path Academy Sdn Bhd</td><td>Landlord: Koperasi Seri Mutiara Berhad</td><td>N. Farah</td><td><span class="pill ok">E-signature</span></td><td class="num">90%</td></tr>
+<tr data-k="transfer"><td><a href="matter.html?m=CV-2026-0162"><b>CV-2026-0162</b></a></td><td>Transfer by love and affection</td><td>Ismail bin Yusof</td><td>Ahmad bin Ismail (son)</td><td>N. Farah</td><td><span class="pill amber">State Authority consent</span></td><td class="num">48%</td></tr>
+          <tr><td colspan="7" class="muted small">+ 10 more matters &mdash; sample data only; the six above are wired into this prototype</td></tr>
+        </table>
+      </div>
+      <p class="small muted" style="margin-bottom:0">Prototype note: filters and search work on the rows shown. In production this list is server-side, paginated and permission-scoped &mdash; a lawyer sees their own matters unless granted wider access.</p>
+    </div>
+    <h2 class="sec"><span class="num">2</span> How a matter is opened</h2>
+    <div class="card">
+      <div class="steps">
+        <div class="step done"><span>1</span><div><b>Intake</b><div class="small muted">Client, parties, property, source of instruction, conflict check.</div></div></div>
+        <div class="step done"><span>2</span><div><b>Engagement &amp; costs</b><div class="small muted">Engagement letter, scale-fee estimate, disbursement estimate, SST &mdash; client acknowledges.</div></div></div>
+        <div class="step active"><span>3</span><div><b>Documents &amp; signing</b><div class="small muted">The checklist engine drives what must be collected, drafted and signed, and by which method.</div></div></div>
+        <div class="step"><span>4</span><div><b>Completion</b><div class="small muted">Redemption, release of the balance, vacant possession, discharge of undertakings.</div></div></div>
+        <div class="step"><span>5</span><div><b>Post-completion</b><div class="small muted">Stamping, registration, CKHT retention, final bill and file closure.</div></div></div>
+      </div>
+      <div class="note warn">Steps cannot be skipped silently. Each gate records who passed it, when, and on what evidence &mdash; the same discipline the audit trail shows later.</div>
+    </div>
+    <p class="foot-note">Zentra Law prototype &middot; Zentra Property Group &middot; English (US) UI &middot; sample data only<br>Matter list. No real client, file or money is represented here.</p>
+
+  </main>
+</div>
+<script src="assets/law.js"></script>
+<script src="assets/law-nav.js"></script>
+</body>
+</html>

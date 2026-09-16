@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Audit trail | Zentra Law</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/law.css">
+</head>
+<body data-page="audit">
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Audit trail</h1>
+        <p>An append-only record of who did what, sealed so a gap shows.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE &middot; SAMPLE DATA</span>
+    </div>
+    <h2 class="sec"><span class="num">1</span> Who did what, sealed</h2>
+    <div class="card">
+      <div class="wrap-tbl">
+        <table class="tbl">
+          <tr><th>When</th><th>User</th><th>Action</th><th>Record</th><th class="mono small">Seal</th></tr>
+          <tr><td>17 Sep 2026 08:55</td><td>R. Iswaran</td><td>Attempted to send Form 14A for e-signature</td><td>CV-2026-0142</td><td class="mono small">4f8c&hellip;1a7</td></tr>
+          <tr><td>17 Sep 2026 08:55</td><td>system</td><td>Refused: instrument of transfer is not eligible for electronic signature</td><td>CV-2026-0142</td><td class="mono small">b21e&hellip;903</td></tr>
+          <tr><td>17 Sep 2026 08:41</td><td>S. Leong</td><td>Approved payout RM7,920.00 from client account against bill 1042</td><td>CV-2026-0142</td><td class="mono small">77aa&hellip;c15</td></tr>
+          <tr><td>17 Sep 2026 08:12</td><td>A. Rahman</td><td>Refused a 30% discount request: above the order's ceiling</td><td>CV-2026-0151</td><td class="mono small">e0d4&hellip;88b</td></tr>
+          <tr><td>16 Sep 2026 17:20</td><td>M. Zulaikha</td><td>Signed off monthly bank reconciliation, no difference</td><td>Client account &mdash; August 2026</td><td class="mono small">1c93&hellip;5fe</td></tr>
+          <tr><td>16 Sep 2026 15:02</td><td>Nurul Ain (client)</td><td>Downloaded countersigned sale and purchase agreement</td><td>Client portal</td><td class="mono small">9ad1&hellip;7c4</td></tr>
+          <tr><td>15 Sep 2026 11:31</td><td>system</td><td>Reminder sent: stamping due in 7 days</td><td>CV-2026-0142</td><td class="mono small">55ef&hellip;210</td></tr>
+        </table>
+      </div>
+    </div>
+    <h2 class="sec"><span class="num">2</span> How the trail is protected</h2>
+    <div class="grid g4">
+      <div class="card"><h3 style="margin-top:0">Append only</h3><p class="small muted" style="margin-bottom:0">Entries are written once. There is no edit and no delete, only a correcting entry that points at the original.</p></div>
+      <div class="card"><h3 style="margin-top:0">Chained</h3><p class="small muted" style="margin-bottom:0">Each entry carries a seal derived from the previous one, so a gap or a rewrite is visible.</p></div>
+      <div class="card"><h3 style="margin-top:0">Readable by the firm</h3><p class="small muted" style="margin-bottom:0">The firm can export its own trail at any time, which matters if it ever changes system.</p></div>
+      <div class="card"><h3 style="margin-top:0">Not visible to others</h3><p class="small muted" style="margin-bottom:0">One firm never sees another firm's trail. Isolation is tested, not assumed.</p></div>
+    </div>
+    <p class="foot-note">Zentra Law prototype &middot; Zentra Property Group &middot; English (US) UI &middot; sample data only<br>Audit trail. Seals illustrative.</p>
+
+  </main>
+</div>
+<script src="assets/law.js"></script>
+<script src="assets/law-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Fee engine | Zentra Law</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/law.css">
+</head>
+<body data-page="fees">
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Fee engine</h1>
+        <p>Scale fees under the Solicitors' Remuneration Order 2023, stamp duty bands, and the 25% ceiling.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE &middot; SAMPLE DATA</span>
+    </div>
+    <div class="note warn"><b>Why this screen exists.</b> In conveyancing the fee is not a matter of taste: the Solicitors' Remuneration Order 2023 sets a scale, caps the discount at 25% of the scale fee for sale and transfer work, and separates a genuine waiver of fees on the client's behalf from a discount to a referrer. A firm that guesses loses money, or breaches the order. So the numbers are computed, not typed.</div>
+    <h2 class="sec"><span class="num">1</span> Live calculator</h2>
+    <div class="card">
+      <div class="grid g3">
+        <div class="field"><label class="small muted">Purchase price or adjudicated value (RM)</label><input id="fPrice" value="650000"></div>
+        <div class="field"><label class="small muted">Loan amount (RM)</label><input id="fLoan" value="520000"></div>
+        <div class="field"><label class="small muted">Discount on scale fee (%)</label><input id="fDisc" value="25"></div>
+      </div>
+      <div class="hr"></div>
+      <div class="wrap-tbl">
+        <table class="tbl" id="fOut">
+          <tr><th>Line</th><th>Basis</th><th class="num">Amount (RM)</th></tr>
+        </table>
+      </div>
+      <p class="small muted"><b>Bands applied:</b> scale fee 1.25% on the first RM500,000 (minimum RM500), then 1% on the next RM7,000,000, then negotiable above RM7,500,000 but not exceeding 1%. MOT stamp duty: 1% on the first RM100,000, 2% on the next RM400,000, 3% on the next RM500,000, 4% above RM1,000,000. Loan agreement duty: 0.5% of the amount secured. SST 8% on professional fees.</p>
+      <div class="note" id="discNote"></div>
+    </div>
+    <h2 class="sec"><span class="num">2</span> Discount, waiver and what is neither</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0">Discount</h3><p class="small muted" style="margin-bottom:0">A reduction of the scale fee, capped at 25% for sale and transfer work. The cap is enforced by the engine, not by a policy memo.</p></div>
+      <div class="card"><h3 style="margin-top:0">Waiver</h3><p class="small muted" style="margin-bottom:0">A deliberate act of the firm, recorded as a waiver with a reason and an approver. Reporting a waiver as a discount is what gets a firm into trouble.</p></div>
+      <div class="card"><h3 style="margin-top:0">Referral payment</h3><p class="small muted" style="margin-bottom:0">Not permitted at all. There is no field for it anywhere in this system, and the guard screen explains why.</p></div>
+    </div>
+    <h2 class="sec"><span class="num">3</span> Rate versions</h2>
+    <div class="wrap-tbl card">
+      <table class="tbl">
+        <tr><th>Rate table</th><th>Version</th><th>Effective from</th><th>Source</th><th>Applied to</th></tr>
+        <tr><td>Scale fees, sale and transfer</td><td>v3</td><td>15 Jul 2023</td><td>Solicitors' Remuneration Order 2023, First Schedule</td><td><span class="pill ok">current</span></td></tr>
+        <tr><td>Scale fees, financing documents</td><td>v2</td><td>15 Jul 2023</td><td>Solicitors' Remuneration Order 2023, Third Schedule</td><td><span class="pill ok">current</span></td></tr>
+        <tr><td>Stamp duty, transfer</td><td>v6</td><td>01 Jan 2026</td><td>Stamp Act 1949, current bands</td><td><span class="pill ok">current</span></td></tr>
+        <tr><td>Stamp duty, loan security</td><td>v4</td><td>01 Jan 2026</td><td>Stamp Act 1949, 0.5%</td><td><span class="pill ok">current</span></td></tr>
+        <tr><td>RPGT and CKHT rates</td><td>v5</td><td>01 Jan 2026</td><td>Real Property Gains Tax Act 1976</td><td><span class="pill ok">current</span></td></tr>
+      </table>
+      <p class="small muted" style="margin-bottom:0">A central rate table is the quiet advantage of a subscription product: when the next budget changes a band, every subscribing firm is on the new number the same morning, and every old bill still shows the version it used.</p>
+    </div>
+    <p class="foot-note">Zentra Law prototype &middot; Zentra Property Group &middot; English (US) UI &middot; sample data only<br>Fee engine. Figures are illustrative; verify against the current order before use.</p>
+
+  </main>
+</div>
+<script src="assets/law.js"></script>
+<script src="assets/law-nav.js"></script>
+</body>
+</html>
