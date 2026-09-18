@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Zentra ID — Registration flow (prototype) | Zentra Property Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B2D4A; --navy-2:#123a5f; --teal:#00A3B5; --green:#43B02A;
+  --mint:#7EDCC8; --gray:#6B7280; --light:#F3F5F8; --line:#e2e8f0;
+  --red:#c0392b; --amber:#b8860b; --white:#fff; --radius:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--light);color:#16222f;font:15px/1.55 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--teal);text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:18px 16px 60px}
+
+/* top bar */
+.brandbar{background:linear-gradient(135deg,var(--navy) 0%,#0f3f66 55%,#0d5566 100%);color:#fff;padding:16px 0}
+.brandbar .wrap{padding-top:0;padding-bottom:0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.mark{width:42px;height:42px;border-radius:12px;background:var(--mint);color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;flex:0 0 auto}
+.brandbar h1{margin:0;font-size:19px;letter-spacing:-.2px}
+.brandbar p{margin:2px 0 0;font-size:12.6px;opacity:.85}
+.demo{margin-left:auto;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:6px 11px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.4px}
+
+/* screen switcher */
+.navbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 8px rgba(11,45,74,.05)}
+.navbar .wrap{padding-top:10px;padding-bottom:10px;display:flex;gap:7px;overflow-x:auto}
+.navbtn{white-space:nowrap;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:7px 13px;font:600 12.6px "Plus Jakarta Sans",sans-serif;cursor:pointer}
+.navbtn:hover{border-color:var(--teal);color:var(--teal)}
+.navbtn.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.navbtn .n{display:inline-block;min-width:16px;text-align:center;margin-right:5px;opacity:.75;font-weight:800}
+
+/* layout */
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:20px;align-items:start;margin-top:20px}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 6px 22px rgba(11,45,74,.045)}
+.card + .card{margin-top:16px}
+.side .card{padding:16px}
+h2{margin:0 0 4px;font-size:21px;color:var(--navy);letter-spacing:-.3px}
+h3{margin:0 0 8px;font-size:14.5px;color:var(--navy)}
+.sub{margin:0 0 16px;color:var(--gray);font-size:13.4px}
+label{display:block;font-size:12.6px;font-weight:700;color:var(--navy);margin:14px 0 6px}
+input[type=text],input[type=email],input[type=tel],input[type=password],select{width:100%;padding:11px 13px;border:1px solid #d5dde7;border-radius:10px;font:15px "Plus Jakarta Sans",sans-serif;background:#fff;color:#16222f}
+input:focus,select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,163,181,.14)}
+input.bad{border-color:var(--red);background:#fff7f6}
+.err{color:var(--red);font-size:12.2px;margin-top:5px;display:none}
+.err.on{display:block}
+.hint{color:var(--gray);font-size:12.2px;margin-top:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px 16px;border-radius:10px;border:0;background:var(--navy);color:#fff;font:700 14.6px "Plus Jakarta Sans",sans-serif;cursor:pointer;margin-top:18px}
+.btn:hover{background:var(--navy-2)}
+.btn:disabled{background:#c3ccd8;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--navy);border:1px solid #cfd8e3;margin-top:10px}
+.btn.ghost:hover{background:var(--light)}
+.btn.teal{background:var(--teal)}
+.btn.teal:hover{background:#008e9e}
+.btn.sm{width:auto;padding:9px 14px;font-size:13.4px;margin-top:12px}
+.btn:disabled,.btn.teal:disabled{background:#c3ccd8!important;border-color:#c3ccd8!important;color:#fff;cursor:not-allowed}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px 16px;border-radius:10px;border:1px solid #cfd8e3;background:#fff;color:#1f2a37;font:700 14.4px "Plus Jakarta Sans",sans-serif;cursor:pointer}
+.gbtn:hover{background:#f7f9fc}
+.gicon{width:18px;height:18px;flex:0 0 auto}
+.or{display:flex;align-items:center;gap:12px;color:var(--gray);font-size:12.2px;margin:16px 0 4px}
+.or::before,.or::after{content:"";height:1px;background:var(--line);flex:1}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px}
+.chk{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:12.8px;color:#33414f;line-height:1.5}
+.chk input{margin-top:2px;flex:0 0 auto;width:17px;height:17px;accent-color:var(--teal)}
+.pwrow{display:flex;gap:8px;margin-top:8px}
+.pwbar{flex:1;height:6px;border-radius:99px;background:#e6ebf1;overflow:hidden}
+.pwbar i{display:block;height:100%;width:0;background:var(--red);transition:width .25s}
+.pwlab{font-size:11.6px;font-weight:700;color:var(--gray);min-width:78px;text-align:right}
+.pwrules{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+.pwrules li{font-size:12px;color:var(--gray)}
+.pwrules li.ok{color:var(--green);font-weight:600}
+.ts{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:#fbfcfe;border-radius:10px;padding:12px;margin-top:16px}
+.ts .box{width:22px;height:22px;border:2px solid #b9c4d1;border-radius:5px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;cursor:pointer;background:#fff}
+.ts.ok .box{background:var(--green);border-color:var(--green)}
+.ts .t{font-size:13px;font-weight:700;color:var(--navy)}
+.ts .s{font-size:11.6px;color:var(--gray)}
+.spin{width:16px;height:16px;border:2px solid #cbd6e2;border-top-color:var(--teal);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{border:1px solid #cfd8e3;background:#fff;border-radius:999px;padding:8px 13px;font:600 12.8px "Plus Jakarta Sans",sans-serif;color:var(--navy);cursor:pointer}
+.chip:hover{border-color:var(--teal)}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip.lock{color:var(--gray);cursor:default;border-style:dashed}
+.pill{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.2px}
+.pill.ok{background:#e8f7e4;color:#2b7a19}
+.pill.wait{background:#fdf3d8;color:#8a6400}
+.pill.lock{background:#eef1f5;color:#5b6675}
+.pill.blue{background:#e3f4f7;color:#066a77}
+.tl{list-style:none;margin:14px 0 0;padding:0}
+.tl li{display:flex;gap:11px;padding:9px 0;font-size:13.4px;align-items:flex-start}
+.tl .dot{width:20px;height:20px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;background:#e6ebf1;color:#7a8798}
+.tl .dot.done{background:var(--green);color:#fff}
+.tl .dot.now{background:var(--teal);color:#fff}
+.tl b{display:block;color:var(--navy);font-size:13.6px}
+.tl span{color:var(--gray);font-size:12.4px}
+.sys{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.syscard{border:1px solid var(--line);border-radius:11px;padding:12px;background:#fff}
+.syscard h4{margin:0 0 3px;font-size:13.6px;color:var(--navy)}
+.syscard p{margin:0;font-size:11.8px;color:var(--gray)}
+.note{background:#f7fbfc;border:1px solid #d8ecef;border-radius:12px;padding:14px;margin-top:16px;font-size:12.6px;color:#33414f}
+.note b{color:var(--navy)}
+table.notes{width:100%;border-collapse:collapse;font-size:12.4px}
+table.notes th,table.notes td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+table.notes th{color:var(--navy);font-size:11.6px;text-transform:uppercase;letter-spacing:.4px}
+ul.tight{margin:8px 0 0;padding-left:18px;font-size:12.6px;color:#33414f}
+ul.tight li{margin-bottom:5px}
+.foot{color:var(--gray);font-size:11.8px;text-align:center;margin-top:26px}
+.hide{display:none!important}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.6px;color:#3c4a5a;background:#f4f7fa;border:1px solid var(--line);border-radius:8px;padding:9px 11px;margin-top:12px;white-space:pre-wrap;word-break:break-all}
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="wrap">
+    <div class="mark">Z</div>
+    <div>
+      <h1>Zentra ID — Registration flow</h1>
+      <p>One identity for every Zentra system · Zentra Property Group</p>
+    </div>
+    <div class="demo">PROTOTYPE · NO REAL DATA</div>
+  </div>
+</div>
+
+<div class="navbar">
+  <div class="wrap">
+    <button class="navbtn on" data-go="1"><span class="n">1</span>Sign in</button>
+    <button class="navbtn" data-go="2"><span class="n">2</span>Sign up</button>
+    <button class="navbtn" data-go="3"><span class="n">3</span>Check email</button>
+    <button class="navbtn" data-go="4"><span class="n">4</span>Account active</button>
+    <button class="navbtn" data-go="5"><span class="n">5</span>Apply for a role</button>
+    <button class="navbtn" data-go="6"><span class="n">6</span>Under review</button>
+    <button class="navbtn" data-go="7"><span class="n">7</span>Access granted</button>
+    <button class="navbtn" data-go="8"><span class="n">8</span>Sign in with Zentra</button>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="cols">
+
+  <!-- ======================= MAIN ======================= -->
+  <div class="main">
+
+    <!-- S1 -->
+    <section class="card scr" id="s1">
+      <h2>Welcome back</h2>
+      <p class="sub">Sign in with your <b>Zentra ID</b>. One account works across Zentra Asset, Zentra Works, Zentra Hub, Zentra Finance and the systems that follow.</p>
+
+      <button class="gbtn" onclick="go(7)"><svg class="gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.6 2.4 30.2 0 24 0 14.6 0 6.4 5.4 2.5 13.3l7.8 6.1C12.2 13.5 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-2.8-.4-4.1H24v8.1h12.7c-.3 2.1-1.7 5.2-4.9 7.3l7.6 5.9c4.6-4.2 7.1-10.4 7.1-17.2z"/><path fill="#FBBC05" d="M10.3 28.6c-.5-1.4-.8-2.9-.8-4.6s.3-3.2.8-4.6l-7.8-6.1C.9 16.6 0 20.2 0 24s.9 7.4 2.5 10.7l7.8-6.1z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.6l-7.6-5.9c-2 1.4-4.7 2.4-7.6 2.4-6.4 0-11.8-4-13.7-9.6l-7.8 6.1C6.4 42.6 14.6 48 24 48z"/></svg>Continue with Google</button>
+
+      <div class="or">or sign in with email</div>
+      <label for="l-email">Email address</label>
+      <input id="l-email" type="email" placeholder="you@example.com" autocomplete="email">
+      <div class="err" id="l-email-e">Enter a valid email address.</div>
+
+      <label for="l-pass">Password</label>
+      <input id="l-pass" type="password" placeholder="Your password" autocomplete="current-password">
+      <div class="row" style="margin-top:10px">
+        <span class="hint" style="margin:0">Your password is never stored in our own systems.</span>
+        <a href="#" onclick="demo('Password reset');return false;" style="font-size:12.6px;font-weight:700">Forgot password?</a>
+      </div>
+
+      <button class="btn" onclick="signin()">Sign in</button>
+      <button class="btn ghost" onclick="go(2)">New to Zentra? <b>Create your Zentra ID</b></button>
+
+      <div class="note"><b>Prototype note:</b> the Google button and the email/password fields are both live options — a user can use either one, and both end up as the same Zentra ID.</div>
+    </section>
+
+    <!-- S2 -->
+    <section class="card scr hide" id="s2">
+      <h2>Create your Zentra ID</h2>
+      <p class="sub">One account. Every Zentra system. It takes about a minute — we only ask for what we need to identify and contact you.</p>
+
+      <button class="gbtn" onclick="demo('Google sign-up')"><svg class="gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.6 2.4 30.2 0 24 0 14.6 0 6.4 5.4 2.5 13.3l7.8 6.1C12.2 13.5 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-2.8-.4-4.1H24v8.1h12.7c-.3 2.1-1.7 5.2-4.9 7.3l7.6 5.9c4.6-4.2 7.1-10.4 7.1-17.2z"/><path fill="#FBBC05" d="M10.3 28.6c-.5-1.4-.8-2.9-.8-4.6s.3-3.2.8-4.6l-7.8-6.1C.9 16.6 0 20.2 0 24s.9 7.4 2.5 10.7l7.8-6.1z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.6l-7.6-5.9c-2 1.4-4.7 2.4-7.6 2.4-6.4 0-11.8-4-13.7-9.6l-7.8 6.1C6.4 42.6 14.6 48 24 48z"/></svg>Continue with Google</button>
+
+      <div class="or">or use your email</div>
+
+      <label for="r-nama">Full name <span style="font-weight:600;color:var(--gray)">(as in your IC / SSM)</span></label>
+      <input id="r-nama" type="text" placeholder="e.g. Ahmad bin Abdullah" autocomplete="name">
+      <div class="err" id="r-nama-e">Please enter your full name.</div>
+
+      <label for="r-emel">Email address</label>
+      <input id="r-emel" type="email" placeholder="you@example.com" autocomplete="email">
+      <div class="err" id="r-emel-e">Enter a valid email address — it becomes your permanent sign-in.</div>
+
+      <label for="r-tel">Mobile number (Malaysia)</label>
+      <input id="r-tel" type="tel" placeholder="+60 12-345 6789" autocomplete="tel">
+      <div class="err" id="r-tel-e">Enter a Malaysian mobile number (e.g. 012-345 6789).</div>
+      <div class="hint">Used to contact you and to match you to an existing record — we never create a duplicate account for the same person.</div>
+
+      <label for="r-pass">Password</label>
+      <input id="r-pass" type="password" placeholder="At least 10 characters" autocomplete="new-password" oninput="pw()">
+      <div class="pwrow"><div class="pwbar"><i id="pwfill"></i></div><div class="pwlab" id="pwlab">—</div></div>
+      <ul class="pwrules">
+        <li id="pr1">At least 10 characters</li>
+        <li id="pr2">Upper &amp; lower case</li>
+        <li id="pr3">A number</li>
+        <li id="pr4">Not a known leaked password</li>
+      </ul>
+      <div class="err" id="r-pass-e">Password does not meet the requirements.</div>
+
+      <div class="ts" id="ts" onclick="turnstile()">
+        <div class="box" id="tsbox"></div>
+        <div>
+          <div class="t">Verify you are human</div>
+          <div class="s" id="tssub">Cloudflare Turnstile · protects against bots and email abuse</div>
+        </div>
+      </div>
+
+      <div class="chk">
+        <input type="checkbox" id="r-consent">
+        <label for="r-consent" style="margin:0;font-weight:500;font-size:12.8px;color:#33414f">I have read and agree to the <a href="#" onclick="demo('Privacy Notice (PDPA)');return false;">Privacy Notice</a> and <a href="#" onclick="demo('Terms of Use');return false;">Terms of Use</a>, and I consent to Zentra Property Group processing my personal data to create and manage my account.</label>
+      </div>
+      <div class="err" id="r-consent-e">Please accept the Privacy Notice to continue.</div>
+
+      <button class="btn teal" id="r-btn" onclick="signup()">Create account</button>
+
+      <div class="note"><b>What we collect and why:</b> name and mobile number identify you and let us contact you; email is your sign-in; the password is handled by our identity provider and <b>never</b> stored in our own systems. Nothing else is asked at sign-up — grants, IC copies and bank details stay in the deal file, never behind a public form.</div>
+    </section>
+
+    <!-- S3 -->
+    <section class="card scr hide" id="s3">
+      <h2>Check your inbox</h2>
+      <p class="sub">We sent a verification link to <b id="ver-mail">your email</b>. Click the link to activate your Zentra ID.</p>
+      <ul class="tl">
+        <li><div class="dot done">1</div><div><b>Account created</b><span>Just now</span></div></li>
+        <li><div class="dot now">2</div><div><b>Verify your email</b><span>Link expires in 24 hours · from no-reply@zentrapropertygroup.com</span></div></li>
+        <li><div class="dot">3</div><div><b>Sign in and request access</b><span>Accounts start with no access — roles are approved by Zentra staff</span></div></li>
+      </ul>
+      <button class="btn" onclick="go(4)" style="margin-top:20px">I clicked the link in my email (demo)</button>
+      <button class="btn ghost" id="resend" onclick="resend()">Resend verification email</button>
+      <button class="btn ghost" onclick="go(2)">I typed the wrong address</button>
+      <div class="note"><b>Didn't get it?</b> Check the spam folder and add <b>no-reply@zentrapropertygroup.com</b> to your safe senders. Delivery runs on our own mail service — not a shared free mailer — so verification mail arrives reliably.</div>
+    </section>
+
+    <!-- S4 -->
+    <section class="card scr hide" id="s4">
+      <h2>Your Zentra ID is active</h2>
+      <p class="sub"><span class="pill ok">EMAIL VERIFIED</span> &nbsp; <span id="who" style="font-weight:600;color:var(--navy)"></span></p>
+      <div class="note" style="margin-top:6px"><b>An account is an identity, not access.</b> Your Zentra ID lets you sign in. To open a dashboard you need a <b>role</b> — Tenant, Landlord, Contractor, Buyer, Seller, Solicitor, Mortgage Officer, Farm Owner — and every role is reviewed by Zentra staff before it is switched on.</div>
+      <ul class="tl">
+        <li><div class="dot done">✓</div><div><b>Account created</b><span>Identity ready</span></div></li>
+        <li><div class="dot done">✓</div><div><b>Email verified</b><span>Today</span></div></li>
+        <li><div class="dot">3</div><div><b>Request a role</b><span>Takes 2 minutes — most applications are reviewed within 1 working day</span></div></li>
+      </ul>
+      <button class="btn" onclick="go(5)">Apply for a role</button>
+      <button class="btn ghost" onclick="demo('Zentra public pages')">Browse Zentra services without an account</button>
+    </section>
+
+    <!-- S5 -->
+    <section class="card scr hide" id="s5">
+      <h2>Apply for a role</h2>
+      <p class="sub">Which Zentra role are you applying for? You can hold more than one — for example a landlord who is also a tenant.</p>
+      <div class="chips" id="rolechips"></div>
+      <div id="roledyn"></div>
+
+      <label>Which Zentra system do you need access to?</label>
+      <select id="r-sys">
+        <option>Zentra Asset — property &amp; tenancy management</option>
+        <option>Zentra Works — contractor &amp; subcontractor works</option>
+        <option>Zentra Hub — agency &amp; listings</option>
+        <option>Zentra Finance — accounting</option>
+        <option>Not sure yet</option>
+      </select>
+
+      <div class="chk">
+        <input type="checkbox" id="a-consent">
+        <label for="a-consent" style="margin:0;font-weight:500;font-size:12.8px;color:#33414f">I confirm the information above is true, and I agree that Zentra may check it against its records to verify this role.</label>
+      </div>
+      <div class="err" id="a-err">Please choose a role, complete the details and confirm the declaration.</div>
+
+      <button class="btn teal" onclick="applyrole()">Submit application</button>
+
+      <div class="note"><b>Invitation-only roles:</b> <b>Agent</b> and <b>Admin / staff</b> cannot be applied for here. They are created by invitation from Zentra staff only — the system will never let a self-registered account grant itself access to client data.</div>
+    </section>
+
+    <!-- S6 -->
+    <section class="card scr hide" id="s6">
+      <h2>Application received</h2>
+      <p class="sub">Reference <b id="ref">ZA-2026-0000</b> · submitted just now</p>
+      <ul class="tl">
+        <li><div class="dot done">✓</div><div><b>Account created</b><span>Zentra ID issued</span></div></li>
+        <li><div class="dot done">✓</div><div><b>Email verified</b><span>Today</span></div></li>
+        <li><div class="dot done">✓</div><div><b>Role application submitted</b><span id="approle">—</span></div></li>
+        <li><div class="dot now">4</div><div><b>Reviewed by Zentra staff</b><span>Usually within 1 working day — you will get an email either way</span></div></li>
+        <li><div class="dot">5</div><div><b>Dashboard unlocked</b><span>Sign in with the same Zentra ID</span></div></li>
+      </ul>
+      <button class="btn" onclick="approve()">Simulate: staff approves (demo)</button>
+      <button class="btn ghost" onclick="go(5)">Apply for another role</button>
+      <div class="note"><b>Why a human approves:</b> a property system holds other people's data. Auto-approval would let anyone claim to be a landlord or a contractor and see records that are not theirs.</div>
+    </section>
+
+    <!-- S7 -->
+    <section class="card scr hide" id="s7">
+      <h2>Signed in — welcome, <span id="who2">there</span></h2>
+      <p class="sub">You are signed in with one Zentra ID. This is what your account can open today:</p>
+      <div class="chips">
+        <span class="pill ok" id="rolepill">ROLE APPROVED</span>
+        <span class="pill blue">ZENTRA ID · ONE ACCOUNT</span>
+      </div>
+      <div class="sys">
+        <div class="syscard"><h4>Zentra Asset <span class="pill ok">ACCESS</span></h4><p>Property &amp; tenancy management — your dashboard opens here.</p></div>
+        <div class="syscard"><h4>Zentra Works <span class="pill lock">COMING SOON</span></h4><p>Contractor &amp; subcontractor works. Same Zentra ID will be used.</p></div>
+        <div class="syscard"><h4>Zentra Hub <span class="pill lock">NO ACCESS</span></h4><p>Agency &amp; listings — agent access is by invitation only.</p></div>
+        <div class="syscard"><h4>Zentra Finance <span class="pill lock">STAFF ONLY</span></h4><p>Accounting system for Zentra entities.</p></div>
+      </div>
+      <div class="note"><b>One ID, different rights.</b> The same account opens whatever your roles allow — and nothing else. Sign out from any device any time; shared devices are covered.</div>
+      <button class="btn ghost" onclick="go(1)">Sign out (demo)</button>
+    </section>
+
+    <!-- S8 -->
+    <section class="card scr hide" id="s8">
+      <h2>Sign in with Zentra</h2>
+      <p class="sub">How a <b>different</b> Zentra system (for example Zentra Finance, or Zentra Works) asks for your identity — without creating a second password.</p>
+      <ul class="tl">
+        <li><div class="dot now">1</div><div><b>You open another Zentra system</b><span>e.g. works.zentrapropertygroup.com</span></div></li>
+        <li><div class="dot">2</div><div><b>It sends you to Zentra ID</b><span>“Sign in with Zentra” — the same login screen</span></div></li>
+        <li><div class="dot">3</div><div><b>You approve access once</b><span>The screen lists exactly what the system will be allowed to read</span></div></li>
+        <li><div class="dot">4</div><div><b>You are back where you started, signed in</b><span>No new account, no new password</span></div></li>
+      </ul>
+      <div class="mono">OAuth 2.1 / OpenID Connect (PKCE)
+→ Zentra ID issues a signed token
+→ The system reads only the scopes you approved
+→ Revoke any system from My Account at any time</div>
+      <div class="note"><b>Phase 3.</b> While every system lives on one domain (one website), signing in once is automatic. “Sign in with Zentra” is for systems on other domains or servers — Zentra Finance (ERPNext) and Zentra Works are the first candidates.</div>
+      <button class="btn ghost" onclick="go(7)">Back to the signed-in view</button>
+    </section>
+
+  </div>
+
+  <!-- ======================= SIDE ======================= -->
+  <aside class="side">
+    <div class="card">
+      <h3>What this prototype shows</h3>
+      <ul class="tight">
+        <li><b>Sign up is open</b> — but an account starts with <b>no access</b>.</li>
+        <li><b>Email must be verified</b> before the account is usable.</li>
+        <li><b>Roles are approved by a human</b> (Zentra staff), not by the form.</li>
+        <li><b>Agent / Admin / staff</b> = invitation only.</li>
+        <li>One identity, <b>many roles, many systems</b>.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Things worth trying</h3>
+      <ul class="tight">
+        <li>Submit the sign-up form <b>empty</b> — see the field errors.</li>
+        <li>Type a short password and watch the meter.</li>
+        <li>Click <b>Verify you are human</b> (the Turnstile box).</li>
+        <li>Skip the consent box and try to continue.</li>
+        <li>Use <b>Simulate: staff approves</b> to jump to the unlocked state.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Protection built in</h3>
+      <table class="notes">
+        <tr><th>Risk</th><th>Control</th></tr>
+        <tr><td>Bots / fake sign-ups</td><td>Cloudflare Turnstile CAPTCHA</td></tr>
+        <tr><td>Email abuse, spam</td><td>Verification link + rate limits</td></tr>
+        <tr><td>Account snooping</td><td>Generic messages (“if an account exists…”)</td></tr>
+        <tr><td>Weak passwords</td><td>Length + complexity + leaked-password check</td></tr>
+        <tr><td>Identity theft in-app</td><td>Human role approval + declaration</td></tr>
+        <tr><td>Shared devices</td><td>Sign out everywhere</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Data &amp; privacy (PDPA)</h3>
+      <ul class="tight">
+        <li>Sign-up collects the minimum: name, email, mobile.</li>
+        <li>Passwords live with the identity provider — <b>never</b> in our own systems.</li>
+        <li>Sensitive documents (grants, IC, bank) stay in the deal file — never behind a public form.</li>
+        <li>Privacy Notice + consent captured at sign-up, with a link to withdraw.</li>
+      </ul>
+    </div>
+  </aside>
+
+</div>
+
+<div class="foot">Zentra Property Group · prototype for internal review · no real user data · not indexed by search engines</div>
+</div>
+
+<div id="toast" style="position:fixed;left:50%;transform:translateX(-50%);bottom:22px;background:var(--navy);color:#fff;padding:11px 18px;border-radius:999px;font-size:13px;font-weight:600;box-shadow:0 10px 26px rgba(11,45,74,.28);opacity:0;pointer-events:none;transition:opacity .25s">Demo</div>
+
+<script>
+var ROLES = [
+  {k:'tenant', n:'Tenant', f:[['Property / unit reference','e.g. U-1024'],['Monthly rent (RM)','e.g. 1,200']]},
+  {k:'landlord', n:'Landlord', f:[['Property address / title','e.g. Lot 1920, Kapar'],['Ownership status','Owner / joint owner / company']]},
+  {k:'contractor', n:'Contractor', f:[['Company name & SSM no.','e.g. ABC Works Sdn Bhd (1234567-A)'],['CIDB grade','G1–G7 or not registered']]},
+  {k:'buyer', n:'Buyer', f:[['Property of interest','e.g. Terra Residences, P8'],['Budget (RM)','e.g. 450,000']]},
+  {k:'seller', n:'Seller', f:[['Property to sell','e.g. Apartment, Bangi'],['Asking price (RM)','e.g. 380,000']]},
+  {k:'solicitor', n:'Solicitor', f:[['Firm name','e.g. Messrs Ali & Partners'],['Bar no. / firm ref','e.g. B/1234']]},
+  {k:'mortgage', n:'Mortgage officer', f:[['Bank / institution','e.g. Maybank'],['Officer name & staff no.','']]},
+  {k:'farmowner', n:'Farm / land owner', f:[['Plot reference','e.g. P-004'],['Crop','e.g. Oil palm']]},
+  {k:'farmbuyer', n:'Farm produce buyer', f:[['Company / mill',''],['Purchasing role','']]}
+];
+var picked = null, verified = false, ts_ok = false;
+
+function $(id){ return document.getElementById(id); }
+function toast(msg, ms){
+  var t = $('toast'); t.textContent = msg; t.style.opacity = 1;
+  clearTimeout(t._h); t._h = setTimeout(function(){ t.style.opacity = 0; }, ms || 2000);
+}
+function demo(what){ toast(what + ' — not part of this prototype'); }
+function go(n){
+  document.querySelectorAll('.scr').forEach(function(s){ s.classList.add('hide'); });
+  $('s' + n).classList.remove('hide');
+  document.querySelectorAll('.navbtn').forEach(function(b){ b.classList.toggle('on', b.dataset.go === String(n)); });
+  if (location.hash !== '#s' + n) history.replaceState(null, '', '#s' + n);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+document.querySelectorAll('.navbtn').forEach(function(b){
+  b.addEventListener('click', function(){ go(Number(b.dataset.go)); });
+});
+
+/* creds retained across screens for a believable flow */
+var NAME = '', EMAIL = '', MOBILE = '';
+
+function signin(){
+  var e = $('l-email').value.trim(), p = $('l-pass').value;
+  var ok = /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(e) && p.length > 0;
+  $('l-email').classList.toggle('bad', !ok);
+  $('l-email-e').classList.toggle('on', !ok);
+  if (!ok){ toast('Check the email and password fields'); return; }
+  verified = true; paint();
+  go(verified ? 7 : 4);
+}
+
+function pw(){
+  var v = $('r-pass').value, s = 0;
+  var r1 = v.length >= 10, r2 = /[a-z]/.test(v) && /[A-Z]/.test(v), r3 = /\d/.test(v), r4 = v.length > 0 && !/^(123456|password|qwerty|111111)/i.test(v);
+  s = (r1?1:0) + (r2?1:0) + (r3?1:0) + (r4?1:0);
+  var pct = [0,25,50,75,100][s], col = s < 3 ? '#c0392b' : (s === 3 ? '#b8860b' : '#43B02A');
+  $('pwfill').style.width = pct + '%'; $('pwfill').style.background = col;
+  $('pwlab').textContent = v ? (s < 3 ? 'Weak' : (s === 3 ? 'Good' : 'Strong')) : '—';
+  [['pr1',r1],['pr2',r2],['pr3',r3],['pr4',r4]].forEach(function(x){ $(x[0]).classList.toggle('ok', x[1]); });
+  return s >= 3;
+}
+
+function turnstile(){
+  var ts = $('ts'), box = $('tsbox');
+  if (ts_ok || ts.classList.contains('busy')) return;
+  ts.classList.add('busy');
+  box.innerHTML = '<div class="spin"></div>';
+  $('tssub').textContent = 'Checking your browser…';
+  setTimeout(function(){
+    ts_ok = true; ts.classList.add('ok'); ts.classList.remove('busy');
+    box.innerHTML = '✓'; $('tssub').textContent = 'Verified · the sign-up button is now enabled';
+    validateBtn();
+  }, 1400);
+}
+
+function validateBtn(){
+  var ok = $('r-nama').value.trim().length > 2 &&
+           /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test($('r-emel').value.trim()) &&
+           $('r-tel').value.replace(/\D/g,'').length >= 9 &&
+           $('r-pass').value.length >= 10 && $('r-consent').checked && ts_ok;
+  $('r-btn').disabled = !ok;
+}
+
+function signup(){
+  var nama = $('r-nama').value.trim(), emel = $('r-emel').value.trim(), tel = $('r-tel').value.trim();
+  var nOK = nama.length > 2, eOK = /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(emel),
+      tOK = tel.replace(/\D/g,'').length >= 9, pOK = $('r-pass').value.length >= 10, cOK = $('r-consent').checked;
+  $('r-nama').classList.toggle('bad', !nOK); $('r-nama-e').classList.toggle('on', !nOK);
+  $('r-emel').classList.toggle('bad', !eOK); $('r-emel-e').classList.toggle('on', !eOK);
+  $('r-tel').classList.toggle('bad', !tOK);  $('r-tel-e').classList.toggle('on', !tOK);
+  $('r-pass').classList.toggle('bad', !pOK); $('r-pass-e').classList.toggle('on', !pOK);
+  $('r-consent-e').classList.toggle('on', !cOK);
+  if (!ts_ok){ toast('Please complete the “Verify you are human” check'); return; }
+  if (!(nOK && eOK && tOK && pOK && cOK)){ toast('Please fix the highlighted fields'); return; }
+  NAME = nama; EMAIL = emel; MOBILE = tel;
+  $('ver-mail').textContent = EMAIL;
+  paint();
+  toast('Account created — verification email sent');
+  go(3);
+}
+
+var resendLeft = 0;
+function resend(){
+  if (resendLeft > 0) return;
+  resendLeft = 45; toast('Verification email sent again (demo)');
+  var b = $('resend');
+  (function tick(){
+    if (resendLeft <= 0){ b.disabled = false; b.textContent = 'Resend verification email'; return; }
+    b.disabled = true; b.textContent = 'Resend available in ' + resendLeft + 's';
+    resendLeft--; setTimeout(tick, 1000);
+  })();
+}
+
+function paint(){
+  $('who').textContent = (NAME && EMAIL) ? (NAME + ' · ' + EMAIL) : 'You';
+  $('who2').textContent = NAME || 'there';
+}
+
+(function buildRoles(){
+  var c = $('rolechips');
+  ROLES.forEach(function(r, i){
+    var b = document.createElement('button');
+    b.className = 'chip'; b.textContent = r.n; b.dataset.k = r.k;
+    b.addEventListener('click', function(){ pick(r); });
+    c.appendChild(b);
+  });
+  var lock = document.createElement('span');
+  lock.className = 'chip lock'; lock.textContent = 'Agent (invitation only)';
+  c.appendChild(lock);
+  var lock2 = document.createElement('span');
+  lock2.className = 'chip lock'; lock2.textContent = 'Admin / staff (invitation only)';
+  c.appendChild(lock2);
+})();
+
+function pick(r){
+  picked = r;
+  document.querySelectorAll('#rolechips .chip').forEach(function(b){ b.classList.toggle('on', b.dataset.k === r.k); });
+  var html = '<label style="margin-top:18px">Details for “' + r.n + '”</label>';
+  r.f.forEach(function(f){
+    html += '<label for="f-' + f[0] + '" style="margin-top:12px;font-weight:600;color:#33414f">' + f[0] + '</label>' +
+            '<input id="f-' + f[0] + '" type="text" placeholder="' + (f[1] || 'Type here') + '">';
+  });
+  html += '<div class="note"><b>Attachments:</b> if verification documents are needed (for example a CIDB certificate), Zentra staff will request them through the normal channel — this form does not accept uploads.</div>';
+  $('roledyn').innerHTML = html;
+}
+
+function applyrole(){
+  if (!picked || !$('a-consent').checked){
+    $('a-err').classList.toggle('on', true);
+    $('a-err').textContent = !picked ? 'Please choose a role first.' : 'Please confirm the declaration to continue.';
+    toast($('a-err').textContent); return;
+  }
+  $('a-err').classList.remove('on');
+  $('approle').textContent = 'Role requested: ' + picked.n + ' · ' + $('r-sys').value;
+  $('ref').textContent = 'ZA-2026-0' + (100 + Math.floor(Math.random() * 899));
+  toast('Application sent to Zentra staff');
+  go(6);
+}
+
+function approve(){
+  verified = true;
+  $('rolepill').textContent = (picked ? picked.n.toUpperCase() : 'ROLE') + ' · APPROVED';
+  paint(); toast('Access granted — dashboard unlocked');
+  go(7);
+}
+
+(function init(){
+  var m = (location.hash || '').match(/^#s([1-8])$/);
+  go(m ? Number(m[1]) : 1);
+  $('r-consent').addEventListener('change', validateBtn);
+  ['r-nama','r-emel','r-tel'].forEach(function(id){ $(id).addEventListener('input', validateBtn); });
+  $('r-pass').addEventListener('input', validateBtn);
+  validateBtn();
+})();
+window.addEventListener('hashchange', function(){
+  var m = (location.hash || '').match(/^#s([1-8])$/); if (m) go(Number(m[1]));
+});
+</script>
+</body>
+</html>
