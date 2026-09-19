@@ -200,3 +200,84 @@ html[data-theme="light"] .zux-banner{background:rgba(201,162,39,.1);color:#6b531
 /* banner notis (base gelap + varian cerah di bawah) */
 .zux-banner{border:1px solid rgba(201,162,39,.35);background:rgba(201,162,39,.1);
   color:#f0dfae;border-radius:12px;padding:12px 15px;font-size:13.5px;line-height:1.55;margin:0 0 20px}
+
+/* ================= MUDAH ALIH: jadual → kad berlabel (muat skrin, tanpa skrol sisi) ============ */
+@media (max-width:760px){
+  .zux-top .in{flex-wrap:wrap;gap:10px;padding:12px 14px}
+  .zux-top .in .zux-brand{flex:1 1 auto}
+  .zux-top .in .zux-tema{order:2;margin-left:0}
+  .zux-top .in .zux-nav{order:3;flex:1 1 100%;width:100%;margin-left:0;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;display:flex;flex-wrap:nowrap;gap:6px;padding:2px 0 4px;scrollbar-width:none}
+  .zux-top .zux-nav::-webkit-scrollbar{display:none}
+  .zux-nav a{flex:0 0 auto;padding:7px 11px;font-size:13px}
+  .zux-wrap{padding:0 14px}
+  .zux-h1{font-size:29px;line-height:1.15;letter-spacing:-.01em}
+  .zux-lede{font-size:14.5px}
+  .zux-kpi{grid-template-columns:repeat(2,1fr);gap:10px}
+  .zux-kpi b{font-size:22px}
+  .zux-kpi span{font-size:10.5px;letter-spacing:.06em}
+  .zux-glass{padding:16px 14px;border-radius:14px}
+  .zux-banner{font-size:12.5px;padding:11px 12px;line-height:1.5}
+  .zux-chip{font-size:12px;padding:5px 9px}
+  .zux-role{min-height:0;padding:14px}
+
+  table.zux-tbl{width:100%;display:block}
+  table.zux-tbl thead{display:none}
+  table.zux-tbl tbody,table.zux-tbl tr,table.zux-tbl td{display:block;width:100%}
+  table.zux-tbl tr{border:1px solid var(--hairline);border-radius:13px;padding:12px 13px;margin:0 0 12px;
+    background:rgba(255,255,255,.035)}
+  table.zux-tbl tr:hover{background:rgba(201,162,39,.07)}
+  table.zux-tbl td{border:0;padding:6px 0;display:flex;justify-content:space-between;align-items:baseline;
+    gap:14px;text-align:right;font-size:13.5px;overflow-wrap:anywhere}
+  table.zux-tbl td::before{content:"";flex:0 0 auto;text-align:left;font-size:10.5px;font-weight:700;
+    letter-spacing:.09em;text-transform:uppercase;color:var(--text-muted)}
+  table.zux-tbl td:first-child{border-bottom:1px solid rgba(255,255,255,.09);margin:0 0 7px;padding:0 0 9px;
+    font-size:16px;font-weight:700;color:var(--text-primary);text-align:left}
+  table.zux-tbl td:first-child::before{content:none}
+
+  /* label setiap jadual */
+  table.t-units td:nth-child(2)::before{content:"Project"}
+  table.t-units td:nth-child(3)::before{content:"Type"}
+  table.t-units td:nth-child(4)::before{content:"Status"}
+  table.t-units td:nth-child(5)::before{content:"Rent (RM)"}
+  table.t-units td:nth-child(6)::before{content:"Lease ends"}
+  table.t-queue td:nth-child(2)::before{content:"Work required"}
+  table.t-queue td:nth-child(3)::before{content:"Unit"}
+  table.t-queue td:nth-child(4)::before{content:"Priority"}
+  table.t-history td:nth-child(1)::before{content:"Work"}
+  table.t-history td:nth-child(2)::before{content:"Priority"}
+  table.t-history td:nth-child(3)::before{content:"Status"}
+  table.t-history td:nth-child(4)::before{content:"Cost (RM)"}
+  table.t-tenancy td:nth-child(2)::before{content:"Unit"}
+  table.t-tenancy td:nth-child(3)::before{content:"Tenant"}
+  table.t-tenancy td:nth-child(4)::before{content:"Rent (RM)"}
+  table.t-tenancy td:nth-child(5)::before{content:"Term"}
+  table.t-tenancy td:nth-child(6)::before{content:"Ends"}
+  table.t-tenancy td:nth-child(7)::before{content:"Payment"}
+  table.t-maintenance td:nth-child(2)::before{content:"Unit"}
+  table.t-maintenance td:nth-child(3)::before{content:"Work required"}
+  table.t-maintenance td:nth-child(4)::before{content:"Priority"}
+  table.t-maintenance td:nth-child(5)::before{content:"Status"}
+  table.t-maintenance td:nth-child(6)::before{content:"Cost (RM)"}
+  table.t-maintenance td:nth-child(7)::before{content:"Logged"}
+  table.t-billing td:nth-child(2)::before{content:"Unit"}
+  table.t-billing td:nth-child(3)::before{content:"Tenant"}
+  table.t-billing td:nth-child(4)::before{content:"Rent (RM)"}
+  table.t-billing td:nth-child(5)::before{content:"Utilities (RM)"}
+  table.t-billing td:nth-child(6)::before{content:"Late fee (RM)"}
+  table.t-billing td:nth-child(7)::before{content:"Total (RM)"}
+  table.t-billing td:nth-child(8)::before{content:"Status"}
+  table.t-roles td:nth-child(2)::before{content:"Project"}
+  table.t-roles td:nth-child(3)::before{content:"Status"}
+  table.t-roles td:nth-child(4)::before{content:"Rent (RM)"}
+  table.t-roles td:nth-child(5)::before{content:"Tenant"}
+  table.t-records td:nth-child(2)::before{content:"Details"}
+}
+
+/* tema cerah: kad jadual */
+@media (max-width:760px){
+  html[data-theme="light"] table.zux-tbl tr{background:#fff;border-color:var(--line-light)}
+  html[data-theme="light"] table.zux-tbl tr:hover{background:rgba(138,109,32,.05)}
+  html[data-theme="light"] table.zux-tbl td:first-child{color:#0b1b2e;border-bottom-color:var(--line-light)}
+  html[data-theme="light"] table.zux-tbl td::before{color:#8a6d20}
+}
