@@ -127,7 +127,7 @@ def page(fname, title, body, title_block=True):
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         + head_title +
         '<meta name="robots" content="noindex, nofollow">\n'
-        '<link rel="stylesheet" href="assets/zl.css">\n</head>\n<body>\n'
+        '<link rel="stylesheet" href="assets/zl.css?v=20260920b">\n</head>\n<body>\n'
         + sidebar(fname)
         + '\n<div class="main">\n  ' + header(nav[3]) + '\n  <div class="content">\n'
         + crumb
