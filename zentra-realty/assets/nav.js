@@ -52,7 +52,7 @@
   const here=(location.pathname.split('/').pop()||'index.html');
   const host=document.getElementById('znav');
   if(!host) return;
-  let html='<div class="brand"><div class="mark">ZH</div><div><b>Zentra Realty</b><small>Zentra Property Group</small></div></div><nav class="nav">';
+  let html='<div class="brand"><div class="mark"><img src="assets/zr-mark.png" alt="Zentra Realty" width="34" height="34"></div><div><b>Zentra Realty</b><small>Zentra Property Group</small></div></div><nav class="nav">';
   N.forEach(n=>{
     if(n.sec){ html+='<div class="sec">'+n.sec+'</div>'; return; }
     const on = (n.h===here)||(here===''&&n.h==='index.html');
