@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Zentra Report Kit — pratonton templat laporan & PDF</title>
+<style>
+:root{
+  --navy:#0B1B2E; --navy-deep:#071120; --navy-panel:#12283F; --navy-elev:#16304A;
+  --gold:#C9A227; --gold-light:#E8CE86; --gold-teks:#8A6D20;
+  --body:#C7D1DC; --muted:#8C9FB4; --line:rgba(201,162,39,.28);
+  --surface:#F5F7F9; --ink:#16222F; --ink-soft:#5F6B7A; --rule:#E2E8F0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--navy);color:var(--body);
+  font-family:"Plus Jakarta Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--gold-light);text-decoration:none} a:hover{color:#fff}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+header.hero{position:relative;overflow:hidden;padding:74px 0 54px;border-bottom:1px solid var(--line)}
+header.hero svg.arc{position:absolute;top:-90px;right:-60px;width:620px;opacity:.5}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.30em;text-transform:uppercase;color:var(--gold)}
+h1{font-size:46px;line-height:1.05;letter-spacing:-.02em;color:#fff;margin:18px 0 0;font-weight:800;max-width:760px}
+.lede{font-size:17px;color:var(--body);max-width:720px;margin:18px 0 0}
+.badge{display:inline-block;margin-top:26px;border:.6pt solid var(--gold);color:var(--gold-light);
+  font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:7px 14px;border-radius:999px}
+section{padding:52px 0;border-bottom:1px solid var(--line)}
+h2{font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 22px;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:var(--navy-panel);border-radius:14px;padding:24px;box-shadow:inset 0 2px 0 0 var(--gold)}
+.card h3{margin:0 0 8px;color:#fff;font-size:18px;font-weight:700}
+.card p{margin:0 0 14px;font-size:14px;color:var(--muted)}
+.card .meta{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-light);font-weight:700}
+.btn{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;font-size:13px;
+  padding:11px 18px;border-radius:999px;letter-spacing:.06em}
+.btn:hover{background:var(--gold-light);color:var(--navy)}
+.btn.ghost{background:transparent;color:var(--gold-light);box-shadow:inset 0 0 0 1px var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.grid figure{margin:0}
+.grid img{width:100%;display:block;border:1px solid rgba(255,255,255,.09);border-radius:4px}
+.grid figcaption{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.08em}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media(max-width:820px){.two{grid-template-columns:1fr}h1{font-size:34px}}
+ul.plain{margin:0;padding-left:20px;font-size:15px}
+ul.plain li{margin-bottom:9px}
+code,pre{font-family:"DejaVu Sans Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+pre{background:var(--navy-deep);border-left:2px solid var(--gold);border-radius:8px;padding:16px 18px;
+  font-size:12.5px;color:#DCE6F0;overflow-x:auto;white-space:pre-wrap}
+code{background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:var(--navy-elev);color:#F0EAD6;text-align:left;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;padding:10px 12px}
+td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.ok{color:#7ED67E;font-weight:700}.no{color:#E8776A;font-weight:700}
+.note{background:var(--navy-panel);border-left:2.4pt solid var(--gold);border-radius:8px;padding:18px 20px;font-size:14px}
+footer{padding:38px 0 60px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <svg class="arc" viewBox="0 0 600 400" fill="none" aria-hidden="true">
+    <path d="M-20 380 C 180 260, 420 180, 620 -10" stroke="#C9A227" stroke-opacity=".5" stroke-width="1"/>
+    <path d="M-20 330 C 190 215, 430 135, 620 -50" stroke="#C9A227" stroke-opacity=".28" stroke-width="1"/>
+    <path d="M-20 280 C 200 170, 440 90, 620 -90" stroke="#C9A227" stroke-opacity=".16" stroke-width="1"/>
+  </svg>
+  <div class="wrap">
+    <div class="eyebrow">Zentra Report Kit</div>
+    <h1>Laporan &amp; PDF profesional bertema Zentra</h1>
+    <p class="lede">Satu stylesheet cetak, satu pembina baris arahan: kulit navy penuh, kolofon, Kandungan
+      bernombor halaman automatik, kepala dan kaki larian, nota kaki, jadual data, carta dan penutup —
+      lengkap dengan salinan bertag PDF/UA-1 dan PDF/A-2b untuk arkib.</p>
+    <div class="badge">Pratonton dalaman · tidak diindeks</div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Fail untuk dilihat</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="meta">Contoh laporan · 11 muka</div>
+        <h3>Laporan Prestasi Agensi</h3>
+        <p>Data demonstrasi. Tunjuk semua blok: KPI, jadual data, carta, kotak keputusan, nota kaki dan penutup.</p>
+        <a class="btn" href="pdf/laporan-contoh.pdf" target="_blank" rel="noopener">Buka PDF</a>
+        <a class="btn ghost" href="pdf/laporan-contoh-ua.pdf" target="_blank" rel="noopener">Versi PDF/UA</a>
+      </div>
+      <div class="card">
+        <div class="meta">Kajian teknikal · 16 muka</div>
+        <h3>Kajian: laporan &amp; PDF profesional</h3>
+        <p>Perbandingan enjin, ujian sebenar pada pelayan, kontras WCAG dan bentuk templat yang dicadangkan.</p>
+        <a class="btn" href="pdf/kajian-laporan-pdf-zentra.pdf" target="_blank" rel="noopener">Buka PDF</a>
+        <a class="btn ghost" href="pdf/kajian-laporan-pdf-zentra-ua.pdf" target="_blank" rel="noopener">Versi PDF/UA</a>
+      </div>
+      <div class="card">
+        <div class="meta">Sumber boleh dijejak</div>
+        <h3>Stylesheet &amp; pembina</h3>
+        <p>Reka bentuk cetak dalam satu fail CSS; kandungan ditulis HTML ringkas, tidak menyentuh kod.</p>
+        <a class="btn" href="zentra-report.css" target="_blank" rel="noopener">zentra-report.css</a>
+        <a class="btn ghost" href="bina_laporan.py" target="_blank" rel="noopener">bina_laporan.py</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>11 muka laporan contoh</h2>
+    <div class="grid">
+      <figure><img src="thumbs/p01.jpg" alt="Kulit"><figcaption>01 · Kulit</figcaption></figure>
+      <figure><img src="thumbs/p02.jpg" alt="Kolofon"><figcaption>02 · Kolofon</figcaption></figure>
+      <figure><img src="thumbs/p03.jpg" alt="Kandungan"><figcaption>03 · Kandungan</figcaption></figure>
+      <figure><img src="thumbs/p04.jpg" alt="Ringkasan"><figcaption>04 · KPI</figcaption></figure>
+      <figure><img src="thumbs/p05.jpg" alt="Jadual"><figcaption>05 · Jadual data</figcaption></figure>
+      <figure><img src="thumbs/p06.jpg" alt="Carta"><figcaption>06 · Carta</figcaption></figure>
+      <figure><img src="thumbs/p07.jpg" alt="Langkah"><figcaption>07 · Langkah</figcaption></figure>
+      <figure><img src="thumbs/p08.jpg" alt="Risiko"><figcaption>08 · Kotak risiko</figcaption></figure>
+      <figure><img src="thumbs/p09.jpg" alt="Pelan tindakan"><figcaption>09 · Pelan tindakan</figcaption></figure>
+      <figure><img src="thumbs/p10.jpg" alt="Rujukan"><figcaption>10 · Rujukan</figcaption></figure>
+      <figure><img src="thumbs/p11.jpg" alt="Penutup"><figcaption>11 · Penutup</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap two">
+    <div>
+      <h2>Yang diuji (bukti, bukan andaian)</h2>
+      <table>
+        <tr><th>Keupayaan</th><th>WeasyPrint 70</th><th>Chrome 152</th></tr>
+        <tr><td>Bookmark PDF</td><td class="ok">Ya</td><td class="no">Tidak</td></tr>
+        <tr><td>Nombor halaman Kandungan</td><td class="ok">Ya</td><td class="no">Tidak</td></tr>
+        <tr><td>Metadata dokumen</td><td class="ok">Ya</td><td>Sebahagian</td></tr>
+        <tr><td>PDF bertag (aksesibiliti)</td><td class="ok">Ya (pdf/ua-1)</td><td class="ok">Ya</td></tr>
+        <tr><td>PDF/A arkib</td><td class="ok">Ya (pdf/a-2b)</td><td class="no">Tidak</td></tr>
+        <tr><td>Fon terbenam</td><td class="ok">CID TrueType</td><td class="no">Type 3</td></tr>
+      </table>
+      <div class="note" style="margin-top:20px">
+        Emas teras <code>#C9A227</code> atas putih hanya <b>2.42:1</b> — gagal WCAG AA. Teks emas kecil
+        pada latar cerah kini guna <code>#8A6D20</code> (<b>4.90:1</b>). Emas teras kekal untuk latar navy,
+        garis halus dan elemen grafik.
+      </div>
+    </div>
+    <div>
+      <h2>Cara guna</h2>
+      <pre>python3 bina_laporan.py \
+  --meta meta.json \
+  --kandungan badan.html \
+  --keluar laporan.pdf \
+  --ua --pdfa --sahkan</pre>
+      <h2 style="margin-top:30px">Struktur kit</h2>
+      <pre>zentra-report-kit/
+├── bina_laporan.py
+├── md_ke_laporan.py
+├── assets/zentra-report.css
+├── assets/fonts/PlusJakartaSans-w*.ttf
+├── templates/laporan.html.j2
+└── contoh/</pre>
+      <ul class="plain" style="margin-top:18px">
+        <li><b>PRATONTON</b> — reka bentuk &amp; susun atur (ini yang Zahir nilai dahulu)</li>
+        <li><b>GAGAL</b> kalau <code>--sahkan</code> ada isyarat: limpahan margin, teks bertindih, fon Type 3</li>
+        <li><b>SIAP</b> bila Zahir sahkan bentuk templat</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Zentra Report Kit · disediakan oleh Ali (Hermes Agent) untuk ZMJ Solutions · 19 September 2026 ·
+    sumber data demonstrasi, bukan data perniagaan sebenar. Halaman pratonton ini tidak diindeks.
+  </div>
+</footer>
+</body>
+</html>

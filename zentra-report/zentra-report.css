@@ -1,0 +1,225 @@
+/* ============================================================================
+   ZENTRA REPORT KIT — stylesheet cetak (A4)
+   Tema: modern, futuristik, luxury — ground navy #0B1B2E, aksen emas #C9A227
+   Token diambil dari ~/zentra-design/DESIGN.md (v-alpha, 19 Sep 2026)
+   Enjin disasarkan : WeasyPrint 70 (utama) · Chrome headless 152 (fallback)
+   ========================================================================== */
+
+/* ---- fon: instance statik (OFL) — elak Type 3 dlm PDF -------------------- */
+@font-face{font-family:'Plus Jakarta Sans';src:url('../assets/fonts/PlusJakartaSans-w400.ttf');font-weight:400;font-style:normal}
+@font-face{font-family:'Plus Jakarta Sans';src:url('../assets/fonts/PlusJakartaSans-w500.ttf');font-weight:500;font-style:normal}
+@font-face{font-family:'Plus Jakarta Sans';src:url('../assets/fonts/PlusJakartaSans-w600.ttf');font-weight:600;font-style:normal}
+@font-face{font-family:'Plus Jakarta Sans';src:url('../assets/fonts/PlusJakartaSans-w700.ttf');font-weight:700;font-style:normal}
+@font-face{font-family:'Plus Jakarta Sans';src:url('../assets/fonts/PlusJakartaSans-w800.ttf');font-weight:800;font-style:normal}
+
+:root{
+  --navy:#0B1B2E; --navy-deep:#071120; --navy-panel:#12283F; --navy-elev:#16304A;
+  --gold:#C9A227; --gold-light:#E8CE86; --gold-deep:#9A7A2E;
+  /* emas untuk TEKS atas latar cerah: #8A6D20 = 4.90:1 atas putih, 4.56:1 atas --surface (WCAG AA) */
+  --gold-teks:#8A6D20;
+  --ink:#16222F; --ink-body:#31404F; --muted:#5F6B7A; --line:#E2E8F0; --surface:#F5F7F9;
+  --success:#2E7D1F; --warning:#8A5A00; --danger:#C0392B; --info:#00707E;
+  --hair:0.5pt solid var(--gold);
+}
+
+/* ---- halaman ------------------------------------------------------------- */
+@page{
+  size:A4; margin:24mm 18mm 22mm 18mm;
+  @top-left{
+    content:string(bab); font-family:'Plus Jakarta Sans'; font-size:7.5pt; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+    vertical-align:bottom; padding-bottom:2mm;
+  }
+  @top-right{
+    content:string(entiti); font-family:'Plus Jakarta Sans'; font-size:7.5pt; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--gold-teks);
+    vertical-align:bottom; padding-bottom:2mm;
+  }
+  @bottom-left{
+    content:string(dokref); font-family:'Plus Jakarta Sans'; font-size:7.5pt; color:var(--muted);
+    vertical-align:top; padding-top:3mm;
+  }
+  @bottom-right{
+    content:"Hal. " counter(page) " / " counter(pages);
+    font-family:'Plus Jakarta Sans'; font-size:7.5pt; font-weight:700; color:var(--gold-teks);
+    vertical-align:top; padding-top:3mm;
+  }
+  @footnote{ border-top:var(--hair); margin-top:3mm; padding-top:2mm; }
+}
+/* kulit: penuh (bleed 0) dan tanpa kepala/kaki */
+@page cover{
+  margin:0;
+  @top-left{content:none} @top-right{content:none} @bottom-left{content:none} @bottom-right{content:none}
+}
+/* front matter (kolofon, kandungan): nombor roman, kepala disenyapkan */
+@page front{
+  @top-left{content:none} @top-right{content:none}
+  @bottom-right{content:counter(page,lower-roman);}
+}
+/* halaman penutup */
+@page closing{ @bottom-right{content:"Hal. " counter(page) " / " counter(pages);} }
+
+/* ---- asas tipografi ----------------------------------------------------- */
+html{ font-family:'Plus Jakarta Sans',sans-serif; font-size:10.4pt; line-height:1.62; color:var(--ink-body); }
+body{ margin:0; padding:0; }
+p{ margin:0 0 3.2mm 0; text-align:justify; hyphens:auto; orphans:2; widows:2; }
+strong,b{ color:var(--ink); font-weight:700; }
+em,i{ font-style:italic; }
+a{ color:var(--gold-teks); text-decoration:none; }
+sup{ font-size:.65em; vertical-align:super; }
+.eyebrow{ font-size:7.5pt; font-weight:700; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-teks); }
+.hair{ border:0; border-top:var(--hair); margin:5mm 0; }
+.gold{ color:var(--gold-teks); }
+.small{ font-size:8.6pt; color:var(--muted); }
+.mono{ font-family:'DejaVu Sans Mono',monospace; font-size:8.6pt; }
+/* blok kod / struktur fail: JANGAN limpah margin — balut dan pecah token panjang */
+pre{ font-family:'DejaVu Sans Mono',monospace; font-size:7.9pt; line-height:1.45;
+  background:var(--surface); border:.5pt solid var(--line); border-left:2pt solid var(--gold);
+  border-radius:2mm; padding:3.4mm 4mm; margin:3.5mm 0; white-space:pre-wrap;
+  overflow-wrap:anywhere; word-break:break-word; break-inside:avoid }
+pre code{ font-family:inherit; font-size:inherit; background:none; padding:0 }
+code{ font-family:'DejaVu Sans Mono',monospace; font-size:8.4pt; background:#F1F4F7;
+  padding:.3mm .9mm; border-radius:1mm; overflow-wrap:anywhere }
+
+/* ---- KULIT -------------------------------------------------------------- */
+.cover{
+  page:cover; height:297mm; box-sizing:border-box; position:relative;
+  background:var(--navy); color:#F0EAD6; overflow:hidden;
+  padding:38mm 20mm 22mm 20mm;
+}
+.cover .motif{ position:absolute; top:0; right:0; width:150mm; opacity:.5 }
+.cover .brand{ font-size:8.5pt; font-weight:700; letter-spacing:.32em; text-transform:uppercase; color:var(--gold); }
+.cover h1{
+  font-size:37pt; font-weight:800; line-height:1.03; letter-spacing:-.02em;
+  color:#FFFFFF; margin:9mm 0 0 0; max-width:145mm;
+}
+.cover .sub{ font-size:12.5pt; font-weight:500; color:#C7D1DC; margin-top:6mm; max-width:130mm; line-height:1.5 }
+.cover .rule{ width:38mm; border-top:1pt solid var(--gold); margin:11mm 0 7mm 0; }
+.cover .kicker{ font-size:9pt; letter-spacing:.06em; color:#94A3B8 }
+.cover .meta{ position:absolute; left:20mm; right:20mm; bottom:22mm; }
+.cover .meta table{ width:100%; border-collapse:collapse; }
+.cover .meta td{ padding:2.2mm 0; vertical-align:top; font-size:8.8pt; border:0 }
+.cover .meta td.k{ color:#8C9FB4; letter-spacing:.14em; text-transform:uppercase; font-size:7.2pt; font-weight:700; width:26mm }
+.cover .meta td.v{ color:#E8CE86; font-weight:600 }
+.cover .conf{ margin-top:7mm; padding-top:4mm; border-top:1px solid rgba(201,162,39,.35);
+  font-size:7.4pt; letter-spacing:.16em; text-transform:uppercase; color:#8C9FB4 }
+.badge-sulit{ display:inline-block; border:.6pt solid var(--gold); color:var(--gold-light);
+  font-size:7pt; font-weight:700; letter-spacing:.2em; text-transform:uppercase; padding:1.6mm 3.4mm; border-radius:999pt }
+
+/* ---- KOLOFON ------------------------------------------------------------ */
+.colophon{ page:front; break-before:page }
+.colophon h2{ font-size:16pt; font-weight:800; color:var(--navy); margin:0 0 1mm 0; letter-spacing:-.01em }
+.colophon .lede{ font-size:9.6pt; color:var(--muted); margin-bottom:6mm }
+.meta-table{ width:100%; border-collapse:collapse; margin-top:2mm }
+.meta-table th{
+  background:var(--navy); color:#F0EAD6; font-size:7.4pt; font-weight:700; letter-spacing:.12em;
+  text-transform:uppercase; text-align:left; padding:2.6mm 3mm;
+}
+.meta-table td{ padding:2.4mm 3mm; border-bottom:.5pt solid var(--line); font-size:9.4pt; vertical-align:top }
+.meta-table td.k{ width:42mm; color:var(--ink); font-weight:600; background:var(--surface) }
+.nota-kotak{ background:var(--surface); border-left:2pt solid var(--gold); padding:4mm 5mm; margin-top:6mm; font-size:9pt }
+
+/* ---- KANDUNGAN ---------------------------------------------------------- */
+.toc{ page:front; break-before:page }
+.toc h2{ font-size:16pt; font-weight:800; color:var(--navy); margin:0 0 6mm 0 }
+.toc ul{ list-style:none; margin:0; padding:0 }
+.toc li{ margin:0 }
+.toc a{ color:var(--ink); display:block; font-size:10pt; padding:1.9mm 0; border-bottom:.4pt dotted transparent }
+.toc a::after{ content:leader('.') target-counter(attr(href),page); color:var(--gold-teks); font-weight:700 }
+.toc .lv1 a{ font-weight:700; color:var(--navy); border-bottom:.4pt solid var(--line); margin-top:2.6mm }
+.toc .lv2 a{ padding-left:7mm; font-size:9.4pt; color:var(--ink-body) }
+.toc .lv2 a::after{ font-weight:400; color:var(--muted) }
+.toc .no{ display:inline-block; width:9mm; color:var(--gold-teks); font-weight:700 }
+
+/* ---- BAB ---------------------------------------------------------------- */
+.bab{ break-before:page }
+.bab-head{ border-bottom:var(--hair); padding-bottom:3.5mm; margin-bottom:5mm; break-after:avoid }
+.bab-head .no{ font-size:7.6pt; font-weight:700; letter-spacing:.26em; text-transform:uppercase; color:var(--gold-teks) }
+.bab-head h1{ font-size:19pt; font-weight:800; line-height:1.12; letter-spacing:-.015em; color:var(--navy);
+  margin:2mm 0 0 0; string-set:bab content(); bookmark-level:1; bookmark-label:content() }
+.bab-head .intro{ font-size:10pt; color:var(--muted); margin:2.4mm 0 0 0; text-align:left }
+h2{ font-size:12.2pt; font-weight:700; color:var(--navy); margin:7mm 0 2.4mm 0;
+    bookmark-level:2; bookmark-label:content(); break-after:avoid; string-set:bab content() }
+h3{ font-size:10.4pt; font-weight:700; color:var(--gold-teks); margin:5.5mm 0 2mm 0;
+    letter-spacing:.02em; break-after:avoid }
+.lead{ font-size:11.4pt; font-weight:500; color:var(--navy); line-height:1.5 }
+
+/* ---- JADUAL ------------------------------------------------------------- */
+table.data{ width:100%; border-collapse:collapse; margin:3.5mm 0 2mm 0; break-inside:avoid; font-size:9.2pt }
+table.data thead{ display:table-header-group }
+/* jadual panjang: benarkan pecah merentas muka, kepala diulang */
+table.data.boleh-pecah{ break-inside:auto }
+.halaman-baharu{ break-before:page }
+table.data caption{ caption-side:top; text-align:left; font-size:8pt; font-weight:700; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--gold-teks); padding-bottom:2mm }
+table.data th{ background:var(--navy); color:#F0EAD6; font-size:7.6pt; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; text-align:left; padding:2.6mm 3mm; }
+table.data td{ padding:2.3mm 3mm; border-bottom:.5pt solid var(--line); vertical-align:top }
+table.data tbody tr:nth-child(even) td{ background:#FAFBFC }
+table.data td.num,table.data th.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap }
+table.data tfoot td{ border-top:1pt solid var(--navy); border-bottom:0; font-weight:700; color:var(--navy); background:#FFF }
+table.data tr{ break-inside:avoid }
+table.data.wide{ font-size:8.6pt }
+
+/* ---- KPI ---------------------------------------------------------------- */
+.kpi{ display:flex; gap:4mm; margin:4mm 0 5mm 0; break-inside:avoid }
+.kpi .k{ flex:1; background:var(--navy); color:#FFFFFF; padding:4.5mm 4mm; border-radius:3mm;
+  box-shadow:inset 0 2pt 0 0 var(--gold) }
+.kpi .k .lbl{ font-size:6.8pt; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#8C9FB4 }
+.kpi .k .val{ font-size:17pt; font-weight:800; color:var(--gold-light); line-height:1.15; margin-top:1.4mm; letter-spacing:-.01em }
+.kpi .k .sub{ font-size:7.6pt; color:#C7D1DC; margin-top:1mm }
+
+/* ---- KOTAK NOTA --------------------------------------------------------- */
+.kotak{ break-inside:avoid; padding:4mm 4.6mm; margin:4mm 0; border-left:2.4pt solid var(--muted);
+  background:var(--surface); font-size:9.4pt }
+.kotak .t{ font-size:7.6pt; font-weight:700; letter-spacing:.16em; text-transform:uppercase; display:block; margin-bottom:1.6mm }
+.kotak.info{ border-left-color:var(--info); background:#F2FAFB } .kotak.info .t{ color:var(--info) }
+.kotak.ok{ border-left-color:var(--success); background:#F4FAF2 } .kotak.ok .t{ color:var(--success) }
+.kotak.amar{ border-left-color:var(--warning); background:#FFF9F1 } .kotak.amar .t{ color:var(--warning) }
+.kotak.bahaya{ border-left-color:var(--danger); background:#FDF4F3 } .kotak.bahaya .t{ color:var(--danger) }
+.kotak.emas{ border-left-color:var(--gold); background:#FDFAF0 } .kotak.emas .t{ color:var(--gold-teks) }
+.kotak p:last-child{ margin-bottom:0 }
+
+/* ---- PETIKAN / SENARAI ------------------------------------------------- */
+.petik{ break-inside:avoid; margin:5mm 0; padding:0 0 0 6mm; border-left:1.4pt solid var(--gold) }
+.petik p{ font-size:11.6pt; font-weight:500; color:var(--navy); line-height:1.45; margin:0; text-align:left }
+.petik .sumber{ font-size:8.4pt; color:var(--muted); margin-top:2mm; letter-spacing:.02em }
+ul.bulat,ol.nombor{ margin:2mm 0 3.5mm 0; padding-left:5.6mm }
+ul.bulat li,ol.nombor li{ margin-bottom:1.6mm }
+ul.semak{ list-style:none; margin:2mm 0 3.5mm 0; padding:0 }
+ul.semak li{ padding-left:7mm; position:relative; margin-bottom:1.8mm }
+ul.semak li::before{ content:"\2610"; position:absolute; left:0; color:var(--gold-teks); font-size:11pt }
+ol.langkah{ list-style:none; counter-reset:l; margin:2mm 0 3.5mm 0; padding:0 }
+ol.langkah li{ counter-increment:l; padding-left:9mm; position:relative; margin-bottom:2.2mm }
+ol.langkah li::before{ content:counter(l); position:absolute; left:0; top:.2mm; width:5.6mm; height:5.6mm;
+  line-height:5.6mm; text-align:center; background:var(--navy); color:var(--gold-light);
+  border-radius:999pt; font-size:7.4pt; font-weight:700 }
+
+/* ---- RAJAH -------------------------------------------------------------- */
+figure{ break-inside:avoid; margin:4.5mm 0 5mm 0 }
+figure img{ width:100%; display:block }
+figure figcaption{ font-size:8.2pt; color:var(--muted); margin-top:2mm; border-top:.4pt solid var(--line); padding-top:1.8mm }
+figure figcaption b{ color:var(--gold-teks); font-weight:700; letter-spacing:.08em; text-transform:uppercase; font-size:7.4pt }
+.dua-lajur{ display:flex; gap:5mm; break-inside:avoid }
+.dua-lajur figure{ margin:0 }
+.grafik{ background:var(--surface); border:.5pt solid var(--line); border-radius:2.5mm; padding:4mm }
+
+/* ---- NOTA KAKI / RUJUKAN ------------------------------------------------ */
+.fn{ float:footnote; font-size:7.8pt; line-height:1.4; color:var(--muted) }
+.fn::footnote-call{ font-size:.65em; vertical-align:super; color:var(--gold-teks); font-weight:700 }
+.fn::footnote-marker{ font-weight:700; color:var(--gold-teks) }
+.rujukan{ font-size:8.6pt; color:var(--ink-body) }
+.rujukan li{ margin-bottom:2mm; word-wrap:break-word }
+.rujukan .url{ font-family:'DejaVu Sans Mono',monospace; font-size:7.6pt; color:var(--gold-teks) }
+
+/* ---- PENUTUP ------------------------------------------------------------ */
+.penutup{ page:closing; break-before:page }
+.tandatangan{ display:flex; gap:12mm; margin-top:8mm; break-inside:avoid }
+.tandatangan .s{ flex:1; border-top:.6pt solid var(--navy); padding-top:2.4mm; font-size:8.6pt }
+.tandatangan .s b{ display:block; color:var(--navy); font-size:9.4pt }
+.penafian{ margin-top:8mm; padding-top:4mm; border-top:.5pt solid var(--line); font-size:7.8pt; color:var(--muted); text-align:justify }
+
+/* ---- cetak umum --------------------------------------------------------- */
+img,svg{ max-width:100% }
+.avoid{ break-inside:avoid }
+.selang{ height:4mm }
