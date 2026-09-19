@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zentra Asset — Dashboard</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="assets/dashboard.css">
+<!-- for landing page font; dashboard.css imports the same woff2 -->
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="brand">
+    <span class="mark" aria-hidden="true"></span>
+    <span class="wordmark">ZENTRA <em>ASSET</em></span>
+  </div>
+  <nav class="nav">
+    <a href="#" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Dashboard</span>
+    </a>
+    <a href="properties-preview.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg>
+      <span>Properties</span>
+    </a>
+    <a href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 6a3 3 0 0 1 0 6 3 3 0 0 1 0-6z"/><path d="M18 20c0-1.7-.9-3.3-2.5-4.3"/></svg>
+      <span>Tenancy</span>
+    </a>
+    <a href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span>Finances</span>
+    </a>
+    <a href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M12 9v6M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0z"/></svg>
+      <span>Compliance</span>
+    </a>
+    <div class="section-label">Reports</div>
+    <a href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span>Owner Report</span>
+    </a>
+    <a href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <span>Settings</span>
+    </a>
+  </nav>
+  <div class="user-foot">
+    <div class="avatar">ZM</div>
+    <div class="info">
+      <div class="name">Zahir MJ</div>
+      <div class="role">Administrator</div>
+    </div>
+  </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<div class="main">
+
+  <!-- Header -->
+  <header class="header">
+    <svg class="nav-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search properties, tenants..." aria-label="Search">
+    </div>
+    <div class="actions">
+      <button class="icon-btn" title="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="dot" aria-label="2 new alerts"></span>
+      </button>
+      <button class="icon-btn" title="Help">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </button>
+      <div class="avatar" title="Zahir MJ"></div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <div class="content">
+    <div class="page-title">
+      <h1>Dashboard</h1>
+      <div class="breadcrumb">Home / <span>Dashboard</span></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg></div>
+        <div class="label">Total Properties</div>
+        <div class="value">24</div>
+        <div class="sub"><span class="trend up">↑ 2</span> this quarter</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/></svg></div>
+        <div class="label">Active Tenancies</div>
+        <div class="value">18</div>
+        <div class="sub"><span class="trend up">↑ 4</span> this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="label">Monthly Rent / Income</div>
+        <div class="value">RM 218,450</div>
+        <div class="sub"><span class="trend up">↑ 5.2%</span> vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div class="label">Outstanding</div>
+        <div class="value">RM 12,380</div>
+        <div class="sub"><span class="trend down">↑ 1,240</span> overdue</div>
+      </div>
+    </div>
+
+    <!-- Row: Portfolio + Recent Transactions -->
+    <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:20px;">
+
+      <!-- Portfolio Breakdown -->
+      <div class="card">
+        <div class="card-hd">Portfolio Overview <span class="more">View All →</span></div>
+        <div class="card-bd">
+          <div class="portfolio-list">
+            <div class="portfolio-item">
+              <span class="plabel">🏠 Residential</span>
+              <div class="bar-wrap"><div class="bar-fill" style="width:50%"></div></div>
+              <span class="pcount">12</span>
+            </div>
+            <div class="portfolio-item">
+              <span class="plabel">🏢 Commercial</span>
+              <div class="bar-wrap"><div class="bar-fill" style="width:25%"></div></div>
+              <span class="pcount">6</span>
+            </div>
+            <div class="portfolio-item">
+              <span class="plabel">🏭 Industrial</span>
+              <div class="bar-wrap"><div class="bar-fill" style="width:16.7%"></div></div>
+              <span class="pcount">4</span>
+            </div>
+            <div class="portfolio-item">
+              <span class="plabel">📦 Warehouse</span>
+              <div class="bar-wrap"><div class="bar-fill" style="width:8.3%"></div></div>
+              <span class="pcount">2</span>
+            </div>
+          </div>
+          <div class="stat-inline" style="margin-top:16px; padding-top:14px; border-top:var(--hairline)">
+            <div class="si"><div class="si-label">Occupied</div><div class="si-value">18</div></div>
+            <div class="si"><div class="si-label">Vacant</div><div class="si-value">6</div></div>
+            <div class="si"><div class="si-label">Occupancy Rate</div><div class="si-value">75%</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Transactions -->
+      <div class="card">
+        <div class="card-hd">Recent Transactions <span class="more">View All →</span></div>
+        <div class="card-bd" style="padding:0">
+          <div class="activity-list">
+            <div class="activity-item" style="padding:12px 20px">
+              <div class="act-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+              <div class="act-body"><div class="act-title">Rental Payment</div><div class="act-meta">Unit A-12 · 2 hours ago</div></div>
+              <div class="act-amount">+ RM 2,800</div>
+            </div>
+            <div class="activity-item" style="padding:12px 20px">
+              <div class="act-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+              <div class="act-body"><div class="act-title">Rental Payment</div><div class="act-meta">Unit B-04 · 5 hours ago</div></div>
+              <div class="act-amount">+ RM 1,950</div>
+            </div>
+            <div class="activity-item" style="padding:12px 20px">
+              <div class="act-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+              <div class="act-body"><div class="act-title">Maintenance Cost</div><div class="act-meta">Lobby Renovation · yesterday</div></div>
+              <div class="act-amount">− RM 640</div>
+            </div>
+            <div class="activity-item" style="padding:12px 20px">
+              <div class="act-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/></svg></div>
+              <div class="act-body"><div class="act-title">New Tenancy Signed</div><div class="act-meta">Unit C-08 · 2 days ago</div></div>
+              <div class="act-amount">RM 3,200/mo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Properties Table -->
+    <div class="card" style="margin-top:4px">
+      <div class="card-hd">Properties <span class="more">View All →</span></div>
+      <div class="card-bd" style="padding:0">
+        <div class="table-wrap">
+          <table class="dash-table">
+            <thead>
+              <tr><th>Unit</th><th>Address</th><th>Type</th><th>Status</th><th>Tenant</th><th class="num">Rent (RM)</th><th class="num">Next Due</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="strong">A-12</td><td>12 Jalan SS 2/72</td><td>Residential</td><td><span class="badge green">Occupied</span></td><td>Nurul H.</td><td class="num gold">2,800</td><td class="num">01 Oct 2026</td></tr>
+              <tr><td class="strong">B-04</td><td>8 Jalan PJU 1A/3</td><td>Commercial</td><td><span class="badge green">Occupied</span></td><td>Azman S.</td><td class="num gold">1,950</td><td class="num">01 Oct 2026</td></tr>
+              <tr><td class="strong">C-08</td><td>Lot 6, Taman Melati</td><td>Residential</td><td><span class="badge green">Occupied</span></td><td>Siti R.</td><td class="num gold">3,200</td><td class="num">15 Oct 2026</td></tr>
+              <tr><td class="strong">D-01</td><td>15 Jalan 9/3B</td><td>Industrial</td><td><span class="badge amber">Vacant</span></td><td>—</td><td class="num gold">—</td><td class="num">—</td></tr>
+              <tr><td class="strong">E-07</td><td>3A, Lintang Puchong</td><td>Warehouse</td><td><span class="badge green">Occupied</span></td><td>Kian H.</td><td class="num gold">4,500</td><td class="num">05 Oct 2026</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align:center; padding:16px 0 8px; font-size:12px; color:var(--text-muted); border-top:var(--hairline); margin-top:16px;">
+      Zentra Asset · Design Mock-up · Zentra Property Group · © 2026
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
