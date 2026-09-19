@@ -222,7 +222,9 @@ function toggleTheme() {
   localStorage.setItem('za-theme', isLight ? 'light' : 'dark');
 }
 (function() {
-  if (localStorage.getItem('za-theme') === 'light') {
+  var theme = localStorage.getItem('za-theme') || 'dark';
+  if (window.location.search.indexOf('theme=light') > -1) theme = 'light';
+  if (theme === 'light') {
     document.documentElement.classList.add('theme-light');
     document.getElementById('sunIcon').style.display = 'none';
     document.getElementById('moonIcon').style.display = '';
