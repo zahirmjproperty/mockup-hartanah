@@ -88,6 +88,7 @@ function card(L){
   return '<div class="card" style="margin-bottom:11px">'
     + '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:baseline">'
       + '<b style="font-size:14px">' + L.id + '</b>'
+      + '<span class="chip ' + Z.stCls(L.status) + '">' + Z.stLabel(L.status) + '</span>'
       + '<span style="font-weight:600">' + L.title + '</span>'
       + '<span class="small muted">' + L.type + ' &middot; ' + L.location + '</span>'
       + '<span class="small" style="margin-left:auto;font-weight:640">' + money(L.price) + '</span>'
@@ -102,6 +103,7 @@ function card(L){
       + (bad ? '<span style="color:var(--amber)">' + bad + ' needing attention</span>' : '')
     + '</div>'
     + '<div style="display:flex;gap:6px;flex-wrap:wrap">' + chips + '</div>'
+    + '<div style="margin-top:12px"><a class="btn ghost small" href="listing.html?id=' + L.id + '">View history and status &rarr;</a></div>'
   + '</div>';
 }
 

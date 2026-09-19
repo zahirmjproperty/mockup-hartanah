@@ -1,0 +1,43 @@
+/* push-listing.css — halaman perincian + sejarah listing (Zentra Push) */
+.hdr{display:grid;grid-template-columns:280px 1fr;gap:18px}
+@media (max-width:900px){.hdr{grid-template-columns:1fr}}
+.hdr img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius);
+  border:1px solid var(--line);background:var(--navy-3)}
+.hdr h2{margin:6px 0 4px;font-size:20px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
+.meta span{font-size:12px;color:var(--ink-3);background:var(--card);border:1px solid var(--line);
+  padding:4px 9px;border-radius:999px}
+.acts{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.back{font-size:12.5px;color:var(--ink-3);display:inline-block;margin-bottom:10px}
+
+.tl{position:relative;margin:0;padding:0 0 0 26px;list-style:none}
+.tl::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:1px;background:var(--line)}
+.tl li{position:relative;padding:0 0 18px}
+.tl li:last-child{padding-bottom:0}
+.tl .dot{position:absolute;left:-24px;top:4px;width:15px;height:15px;border-radius:50%;
+  background:var(--navy-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.tl .dot svg{width:9px;height:9px;color:var(--ink-3)}
+.tl .dot.created{background:var(--gold-soft);border-color:var(--gold)}
+.tl .dot.created svg{color:var(--gold)}
+.tl .dot.channel{background:var(--green-soft);border-color:var(--green)}
+.tl .dot.channel svg{color:var(--green)}
+.tl .dot.status{background:var(--violet-soft);border-color:var(--violet)}
+.tl .dot.status svg{color:var(--violet)}
+.tl .dot.note{background:var(--red-soft);border-color:var(--red)}
+.tl .dot.note svg{color:var(--red)}
+.tl .ts{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.tl .what{font-size:13.5px;font-weight:650;margin:2px 0 3px}
+.tl .who{font-size:11.5px;color:var(--ink-3)}
+.tl .det{font-size:12.5px;color:var(--ink-3);line-height:1.55}
+.tl .cost{font-size:11px;color:var(--gold);border:1px solid var(--line);border-radius:999px;padding:1px 7px;margin-left:6px}
+
+.pl{display:flex;flex-direction:column}
+.pl .r{display:grid;grid-template-columns:1.5fr .7fr 1.7fr;gap:12px;padding:10px 0;
+  border-bottom:1px solid var(--line-2);align-items:center;font-size:13px}
+.pl .r:last-child{border-bottom:0}
+.pl .r .ok{color:var(--green);font-weight:600}
+.pl .r .human{color:var(--amber);font-weight:600}
+.pl .r .no{color:var(--ink-3)}
+
+:root.theme-light .tl .dot{background:#fff}
+:root.theme-light .hdr img{background:#eee}

@@ -266,7 +266,14 @@ el('go').onclick = () => {
       const zrLine = (linked && mirror)
         ? 'Mirrored to Zentra Realty and linked two-way.'
         : (linked ? 'Zentra Realty mirroring was switched off.' : 'Zentra Realty not created &mdash; no linked account.');
+      const q = 'listing.html?id=' + encodeURIComponent(ref) + '&new=1'
+        + '&t=' + encodeURIComponent(title) + '&p=' + encodeURIComponent(price)
+        + '&a=' + encodeURIComponent(agent) + '&i=' + IMGS.length
+        + '&r=' + ((linked && mirror) ? 1 : 0)
+        + '&ch=' + encodeURIComponent(list.map(c => c.id).join(','));
       el('out').innerHTML = rows.join('')
+        + '<div style="margin:14px 0 0"><a class="btn gold small" href="' + q
+        + '">View this listing&rsquo;s history and status &rarr;</a></div>'
         + '<p class="small muted" style="margin:12px 0 0;font-size:11.5px">' + ref + ' written by ' + agent
         + ' with ' + list.length + ' channel placements. Hero image: ' + (heroImg() ? heroImg().name : 'none') + ' (' + IMGS.length + ' images). ' + zrLine + ' Every placement still needs its read-back confirmation before it counts as live.</p>';
       el('ws4').className = 'fstep now';

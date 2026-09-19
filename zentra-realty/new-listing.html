@@ -272,9 +272,17 @@ el('go').onclick = () => {
   }
   el('ws3').className = 'step5 now';
   el('ws1').className = 'step5'; el('ws2').className = 'step5';
+  const fv = id => (document.getElementById(id) || {}).value || '';
+  const q = 'listing.html?id=ZR-L-0921&new=1'
+    + '&t=' + encodeURIComponent(fv('f_title'))
+    + '&p=' + encodeURIComponent(fv('f_price'))
+    + '&a=' + encodeURIComponent(s.name) + '&i=' + IMGS.length
+    + '&r=' + ((on && publish) ? 1 : 0) + '&ch=';
   el('out').innerHTML = rows.map(r =>
       '<div class="resrow"><div>' + r[0] + '</div><div>' + r[1] + '</div>'
       + '<div class="small" style="color:var(--ink-3)">' + r[2] + '</div></div>').join('')
+    + '<div style="margin:14px 0 0"><a class="btn gold small" href="' + q
+    + '">View this listing&rsquo;s history and status &rarr;</a></div>'
     + '<p class="small" style="color:var(--ink-3);margin:12px 0 0">Saved by ' + s.name + '. Hero image: ' + (heroImg() ? heroImg().name : 'none') + ' (' + IMGS.length + ' images). Every channel placement still needs its read-back confirmation before it counts as live.</p>';
 };
 

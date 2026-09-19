@@ -20,13 +20,15 @@
     lock:'<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/>',
     bell:'<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
     sig:'<path d="M3 17c3-6 5-9 6.5-9 2 0-1.5 6.5.5 6.5S14 6 15.5 6c1.2 0 .5 3.5 2 3.5.9 0 1.6-.9 2.5-2"/><path d="M3 21h18"/>',
-    plus:'<path d="M12 5v14M5 12h14"/>'
+    plus:'<path d="M12 5v14M5 12h14"/>',
+    rows:'<rect x="3" y="4.5" width="18" height="5" rx="1.5"/><rect x="3" y="14.5" width="18" height="5" rx="1.5"/>'
   };
   const N = [
     {sec:'Operations'},
     {h:'index.html', t:'Overview', i:'home'},
     {h:'platform.html', t:'Platform map', i:'map'},
     {h:'new-listing.html', t:'Listing intake', i:'plus'},
+    {h:'listings.html', t:'Listings', i:'rows'},
     {h:'documents.html', t:'Documents & e-sign', i:'file'},
     {h:'search.html', t:'Deals & documents', i:'search'},
     {h:'f1.html', t:'F1 document generator', i:'cog', d:1}, {h:'loc.html', t:'Letter of Confirmation', i:'file', d:1},

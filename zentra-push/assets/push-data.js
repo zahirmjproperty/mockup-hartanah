@@ -165,7 +165,7 @@ window.ZP.LISTINGS = [
              mitula:['live','mitula.my/ads/mt-0001'], propguru:['queued',''], mudah:['assist','']}},
 
   {id:'ZMP-0142', src:'Notion - Listing ZMP', entry:'Notion sync', title:'Residensi Avalon, Cybersouth', type:'Condo',
-   location:'Dengkil, Selangor', price:485000, agent:'Fadilah Yusof', status:'active', images:22,
+   location:'Dengkil, Selangor', price:485000, agent:'Fadilah Yusof', status:'offer', images:22,
    realty:{mirrored:true, id:'ZR-L-0902'},
    channels:{'zentrarealty':['live','zentrarealty.com/listing/zr-l-0902'], 'site-zmp':['live','/residensi-avalon'],
              dotproperty:['live',''], trovit:['live',''], iproperty:['native',''], mudah:['assist',''], carousell:['native','']}},
@@ -186,6 +186,11 @@ window.ZP.LISTINGS = [
    location:'Seremban, N.Sembilan', price:890000, agent:'Zahiruddin M.J.', status:'renewal', images:11,
    realty:{mirrored:true, id:'ZR-L-0850'},
    channels:{'zentrarealty':['renewal',''], 'site-zmp':['renewal',''], mudah:['renewal',''], dotproperty:['renewal','']}},
+
+  {id:'ZMP-0118', src:'Notion - Listing ZMP', entry:'Notion sync', title:'Serviced Apartment, Cyberjaya', type:'Serviced apartment',
+   location:'Cyberjaya, Selangor', price:712000, agent:'Fadilah Yusof', status:'sold', images:20,
+   realty:{mirrored:true, id:'ZR-L-0802'},
+   channels:{'zentrarealty':['live',''], 'site-zmp':['live',''], dotproperty:['live',''], mudah:['live',''], fbpage:['live',''], telegram:['live','']}},
 
   {id:'ZMP-0207', src:'Zentra Push', entry:'Zentra Push form', title:'Terra Residences, Bangi', type:'Condominium',
    location:'Bandar Baru Bangi, Selangor', price:520000, agent:'New agent seat', status:'draft', images:16,
@@ -245,4 +250,124 @@ window.ZP.RULES = [
 /* ---------- KPI ---------- */
 window.ZP.KPI = {
   listings: 6, live: 17, queued: 3, assist: 4, renewal: 3, auto: 9, mirrored: 5
+};
+
+/* ---------- KITARAN HAYAT LISTING (status perniagaan) ---------- */
+window.ZP.STATUS_LABEL = {
+  draft:   'Draft',
+  active:  'Live',
+  offer:   'Under offer',
+  sold:    'Sold',
+  renewal: 'Renewal due',
+  withdrawn:'Withdrawn'
+};
+window.ZP.STATUS_CLS = {
+  draft:'st-draft', active:'st-live', offer:'st-submitted',
+  sold:'st-native', renewal:'st-renewal', withdrawn:'st-dead'
+};
+window.ZP.STATUS_ORDER = ['active', 'offer', 'renewal', 'draft', 'sold', 'withdrawn'];
+window.ZP.stLabel = v => window.ZP.STATUS_LABEL[v] || v;
+window.ZP.stCls  = v => window.ZP.STATUS_CLS[v] || 'st-draft';
+
+/* ---------- SEJARAH PER-LISTING ---------- */
+/* setiap peristiwa: ts, kind, what, detail, who
+   kind: created | hero | channel | status | price | doc | note */
+window.ZP.HISTORY = {
+  'MT-0001': [
+    {ts:'2026-09-19 09:14', kind:'channel', what:'PropertyGuru queued for an assist session',
+     detail:'Human submit required by the AUP. 24 of 24 fields prefilled; no password stored.', who:'Ali (agent)', cost:'1 PG credit'},
+    {ts:'2026-09-19 09:06', kind:'channel', what:'Mirrored to Zentra Realty',
+     detail:'Account ZR-AG-0142 linked. Record created as ZR-L-0917; read back OK.', who:'Auto', cost:'RM0'},
+    {ts:'2026-09-19 08:58', kind:'channel', what:'Published to Mitula via feed',
+     detail:'Feed XML v1.2 accepted. Read-back confirms the ad is live.', who:'Auto', cost:'RM0'},
+    {ts:'2026-09-18 11:20', kind:'note', what:'Blocked by the compliance guard',
+     detail:'A credential-based portal automation request was refused: PropertyGuru AUP prohibits it.', who:'Compliance guard', cost:'-'},
+    {ts:'2026-09-17 16:31', kind:'hero', what:'Hero image changed',
+     detail:'Hero set to MT-0001-foto-3.jpg (the river view). 14 images attached.', who:'Zahiruddin M.J.', cost:'-'},
+    {ts:'2026-09-17 16:02', kind:'price', what:'Asking price revised',
+     detail:'RM3,600,000 -> RM3,500,000 after the owner review.', who:'Zahiruddin M.J.', cost:'-'},
+    {ts:'2026-09-16 10:07', kind:'created', what:'Listing created',
+     detail:'Entered through the Zentra Push intake form. Land, 2.824 acres, freehold, Malay reserve.', who:'Zahiruddin M.J.', cost:'-'}
+  ],
+  'ZMP-0142': [
+    {ts:'2026-09-19 07:12', kind:'status', what:'Marked as under offer',
+     detail:'Booking form received; deposit in the client account. Adverts stay live until the SPA is signed.', who:'Fadilah Y.', cost:'-'},
+    {ts:'2026-09-18 15:40', kind:'doc', what:'Booking form filed',
+     detail:'Signed booking form stored with the listing record.', who:'Fadilah Y.', cost:'-'},
+    {ts:'2026-09-18 08:12', kind:'channel', what:'Mudah draft published by hand',
+     detail:'Draft saved in PRO Niaga; the agent pressed Publish in their own session. 2 Mudah Credits.', who:'Fadilah Y.', cost:'2 Mudah Credits'},
+    {ts:'2026-09-17 19:22', kind:'channel', what:'Carousell received the record',
+     detail:'Mudah dual-platform listing carried it across automatically once the store tier allowed it.', who:'Auto', cost:'RM0'},
+    {ts:'2026-09-17 19:20', kind:'channel', what:'Mudah published',
+     detail:'Advance store. Mudah applied its own watermark as required.', who:'Auto', cost:'RM0'},
+    {ts:'2026-09-15 11:03', kind:'hero', what:'Hero image changed',
+     detail:'Hero set to ZMP-0142-foto-2.jpg. 22 images attached.', who:'Fadilah Y.', cost:'-'},
+    {ts:'2026-09-15 10:31', kind:'created', what:'Listing created',
+     detail:'Imported from Notion, then reviewed. Condominium, 1,050 sqft, freehold.', who:'Fadilah Y.', cost:'-'}
+  ],
+  'MT-0044': [
+    {ts:'2026-09-19 08:40', kind:'channel', what:'Sent to Dot Property and the aggregator feed',
+     detail:'Record written to feed XML v1.2. Ingest SLA is 24 hours.', who:'Auto', cost:'RM0'},
+    {ts:'2026-09-19 08:39', kind:'channel', what:'Posted to 3 Telegram channels',
+     detail:'Bot API sendMessage returned message ids 4417, 4418 and 4419.', who:'Auto', cost:'RM0'},
+    {ts:'2026-09-18 17:44', kind:'channel', what:'Facebook Page post published',
+     detail:'Graph API returned post id 122094... Read back: live.', who:'Auto', cost:'RM0'},
+    {ts:'2026-09-18 09:15', kind:'note', what:'Plan image withheld',
+     detail:'The survey plan was kept private per the house image rule; 9 publishable photos remain.', who:'Compliance guard', cost:'-'},
+    {ts:'2026-09-14 14:22', kind:'created', what:'Listing created',
+     detail:'Imported from Notion. Oil palm smallholding, 6.2 acres, leasehold.', who:'Zahiruddin M.J.', cost:'-'}
+  ],
+  'ZMP-0193': [
+    {ts:'2026-09-19 08:52', kind:'channel', what:'iProperty cross-listed',
+     detail:'AgentNet cross-listing duplicated the PropertyGuru record; no third-party tooling involved. Read back OK.', who:'Ali (agent)', cost:'0'},
+    {ts:'2026-09-18 16:10', kind:'channel', what:'PropertyGuru submitted',
+     detail:'Pay-per-post submission; record read back on the portal.', who:'Ali (agent)', cost:'1 PG credit'},
+    {ts:'2026-09-18 16:05', kind:'channel', what:'EdgeProp queued',
+     detail:'Prefill ready for the agent to submit inside EdgeProp.', who:'Auto', cost:'-'},
+    {ts:'2026-09-16 12:48', kind:'hero', what:'Hero image changed',
+     detail:'Hero set to ZMP-0193-foto-1.jpg. 18 images attached.', who:'Fadilah Y.', cost:'-'},
+    {ts:'2026-09-16 09:30', kind:'created', what:'Listing created',
+     detail:'Imported from Notion. Terrace house, 1,650 sqft, leasehold.', who:'Fadilah Y.', cost:'-'}
+  ],
+  'MT-0061': [
+    {ts:'2026-09-18 21:03', kind:'channel', what:'Renewal flagged on 4 channels',
+     detail:'7 days to expiry on the Mudah advert. An assist session is scheduled.', who:'Auto', cost:'-'},
+    {ts:'2026-09-18 21:01', kind:'status', what:'Ads moved to renewal due',
+     detail:'The portal adverts lapsed; the listing itself is still available.', who:'Auto', cost:'-'},
+    {ts:'2026-09-10 10:12', kind:'channel', what:'Published to 4 channels',
+     detail:'Site, Dot Property, Mudah and the Realty mirror.', who:'Auto', cost:'RM0'},
+    {ts:'2026-09-10 09:50', kind:'created', what:'Listing created',
+     detail:'Imported from Notion. Bungalow lot, 5,200 sqft, freehold.', who:'Zahiruddin M.J.', cost:'-'}
+  ],
+  'ZMP-0118': [
+    {ts:'2026-09-19 09:02', kind:'status', what:'Marked as sold',
+     detail:'SPA signed and stamped. Adverts withdrawn from every channel within the hour.', who:'Fadilah Y.', cost:'-'},
+    {ts:'2026-09-19 09:00', kind:'channel', what:'Adverts withdrawn everywhere',
+     detail:'8 placements taken down; the ledger keeps the history for the commission file.', who:'Auto', cost:'-'},
+    {ts:'2026-08-30 14:20', kind:'status', what:'Marked as under offer',
+     detail:'Offer accepted at RM712,000, subject to loan.', who:'Fadilah Y.', cost:'-'},
+    {ts:'2026-08-22 09:05', kind:'created', what:'Listing created',
+     detail:'Imported from Notion. Serviced apartment, 1,020 sqft, freehold.', who:'Fadilah Y.', cost:'-'}
+  ],
+  'ZMP-0207': [
+    {ts:'2026-09-19 07:58', kind:'note', what:'Zentra Realty mirror withheld',
+     detail:'The listing agent holds no Zentra Realty account, so the record stays in Zentra Push. A later link backfills it.', who:'Auto', cost:'-'},
+    {ts:'2026-09-19 07:55', kind:'hero', what:'16 images attached',
+     detail:'Hero set to ZMP-0207-foto-1.jpg.', who:'New agent seat', cost:'-'},
+    {ts:'2026-09-19 07:52', kind:'created', what:'Draft started',
+     detail:'Entered through the Zentra Push intake form; not yet published to any channel.', who:'New agent seat', cost:'-'}
+  ]
+};
+
+window.ZP.historyOf = id => window.ZP.HISTORY[id] || [];
+
+/* ---------- GAMBAR HERO PER-LISTING ---------- */
+window.ZP.HERO = {
+ "MT-0001": "https://lh3.googleusercontent.com/d/11R_E-xft6V3NGf05YGqKEgTed8Z7WAJK=w1000",
+ "ZMP-0142": "https://lh3.googleusercontent.com/d/1zp1PvWqO8Zk0EG0p_Z7JhDEBjA4WDOqP=w1000",
+ "MT-0044": "https://lh3.googleusercontent.com/d/1yfMejiuoq41PPZeN_QWmxrnzojmdLynF=w1000",
+ "ZMP-0193": "https://lh3.googleusercontent.com/d/1r64Zuz8ufxZPsR4jb1D2djHR4Fl52_KF=w1000",
+ "MT-0061": "https://lh3.googleusercontent.com/d/1PpBgYOv9ay3iwsxVtflZOs6_rdSRCMth=w1000",
+ "ZMP-0118": "https://lh3.googleusercontent.com/d/1dNIrxwl8_jPI1Y8N8FCIP1NN4WYnEjAf=w1000",
+ "ZMP-0207": "https://lh3.googleusercontent.com/d/126BKiOOOmvUCoQy8t4VsTOv7l_RWBU4M=w1000"
 };
