@@ -1,0 +1,30 @@
+
+:root{--navy:#0B1B2E;--panel:#12283F;--kad:#16304A;--gold:#C9A227;--gold2:#E8CE86;
+--badan:#C7D1DC;--kabur:#8C9FB4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--navy);color:var(--badan);font:15px/1.55 "Plus Jakarta Sans",system-ui,sans-serif}
+header{background:var(--panel);border-bottom:1px solid rgba(201,162,39,.3);padding:14px 26px;display:flex;
+gap:26px;align-items:center;position:sticky;top:0}
+.brand{color:#fff;font-weight:800;letter-spacing:.5px}
+.brand span{color:var(--gold2)}
+nav a{color:var(--badan);text-decoration:none;margin-right:16px;font-size:14px}
+nav a.on,nav a:hover{color:var(--gold2)}
+.wrap{max-width:1180px;margin:0 auto;padding:26px}
+h1{color:#fff;font-size:26px;margin:0 0 4px}
+.sub{color:var(--kabur);font-size:13.5px;margin-bottom:20px}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+.kad{background:var(--kad);border:1px solid rgba(201,162,39,.22);border-radius:12px;padding:16px}
+.kpi .nilai{color:var(--gold2);font-size:27px;font-weight:800;margin-top:6px}
+.kpi .label{font-size:12.5px;color:var(--kabur);text-transform:uppercase;letter-spacing:.6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{color:var(--gold2);text-align:left;border-bottom:1px solid rgba(201,162,39,.4);padding:8px}
+td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.06)}
+tr:hover td{background:rgba(201,162,39,.05)}
+.lencana{padding:2px 9px;border-radius:20px;font-size:12px;font-weight:700}
+.hijau{background:rgba(67,176,42,.18);color:#7BD861}
+.emas{background:rgba(201,162,39,.2);color:var(--gold2)}
+.merah{background:rgba(232,119,106,.18);color:#F0958A}
+.lin{background:rgba(0,163,181,.16);color:#5FD3E0}
+.banner{background:var(--panel);border-left:3px solid var(--gold);padding:11px 15px;border-radius:8px;
+margin-bottom:20px;font-size:13.5px}
+footer{color:var(--kabur);font-size:12.5px;padding:20px 26px;border-top:1px solid rgba(255,255,255,.07)}
