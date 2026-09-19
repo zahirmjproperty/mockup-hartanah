@@ -337,31 +337,11 @@ Never set `gold-deep` as text — it is a hairline and gradient-stop colour only
 
 ## Typography
 
-**Two faces, strictly separated by role.**
+**Plus Jakarta Sans for everything.** One family, one voice. It is a geometric grotesque
+that reads as engineered and modern without the ubiquity of Inter — and it is already
+bundled in the existing mock-up assets, so there is no new dependency and no FOUT.
 
-**Plus Jakarta Sans** is the *interface* voice — body copy, labels, buttons, nav, tables
-and every number. It is a geometric grotesque that reads as engineered and modern without
-the ubiquity of Inter, and it is already bundled, so there is no new dependency.
-
-**Zentra Display** is the *brand* voice — the wordmark, the hero headline, and section
-eyebrows ONLY. It is our own derived build: Marcellus (SIL Open Font License 1.1) renamed,
-subset to the display charset, hand-kerned for the wordmark pairs and re-exported to
-woff2 — see `tools/build_display_font.py`, which rebuilds it from the OFL source and
-verifies the result. The OFL permits modification and self-hosting; the Reserved Font
-Name rule is honoured by the rename. It is a *lapidary Roman* — flared serifs, high
-stroke contrast, inscriptional capitals — which is the register the reference banner sits
-in, and which a geometric sans cannot reach.
-
-Because it is single-weight, **never set `font-weight` above 400 on `Zentra Display`** —
-the browser will synthesise a faux-bold and smear the thin strokes. Hierarchy in the
-display face comes from size and tracking, not weight.
-
-- **Display face** — wordmark, hero h1, `.zeyebrow`. Tracking +0.02em to +0.28em
-  (the wider the smaller). Uppercase only; it has no lowercase voice.
-- **Interface face** — everything else. Never mix the two inside one sentence.
-
-Weight discipline — this applies to **Plus Jakarta Sans** only; `Zentra Display` is
-single-weight at 400. Only three weights exist in the interface family:
+Weight discipline — only three weights exist in the system:
 
 - **800** — display, h1, and numeric stats. The "engineered" voice.
 - **700** — h2, h3, labels, buttons, nav. The working voice.
@@ -369,8 +349,7 @@ single-weight at 400. Only three weights exist in the interface family:
 
 Size and tracking carry hierarchy, not colour or boxes:
 
-- **Display 72px / 400 / +0.02em (Zentra Display)** — the hero headline and one-per-page
-  statements only. Gold foil applies to the accent word only, never the whole line.
+- **Display 68px / 800 / -0.02em** — the hero wordmark and one-per-page statements only.
 - **Eyebrow 13px / 600 / 0.3em uppercase** — the "WELCOME TO" register. Wide tracking is
   what makes it feel luxury rather than shouty.
 - **Micro 11.5px / 500 / 0.16em uppercase** — nav sub-labels, footer meta, the
