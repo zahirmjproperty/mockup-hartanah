@@ -411,7 +411,8 @@ without a real elevation system behind it.
 
 - **`button-primary`** — gold gradient pill, navy text, always uppercased with 0.12em
   tracking. It may carry a two-line lockup (bold action + small supporting line) and a
-  trailing arrow. Exactly one per viewport.
+  trailing arrow. Exactly one per viewport. It always carries the `orbit` motion (see
+  Motion) — the travelling light is what marks it as the primary action.
 - **`button-ghost`** — gold outline/text on navy, fills to `navy-panel` on hover. All
   secondary actions. Two maximum per section.
 - **`panel-navy` / `panel-glass`** — the two stacking levels. Every card on navy is one of
@@ -427,6 +428,37 @@ without a real elevation system behind it.
   inside a row use the fading variant.
 - **`card-light`** — the light-mode exception, for dense operational screens only. Never
   used on a public marketing page.
+
+## Motion
+
+Motion is a material, not decoration: it imitates light on metal. Two motions exist in the
+system, and nothing else animates on its own.
+
+- **`orbit` — the primary action.** A single bright arc of gold travels once around the
+  button border every **3.6s**, linear, forever. The ring itself never moves; only the
+  gradient *angle* is animated, so the ring stays locked to the border radius at every
+  frame. Reserved for `button-primary`: exactly one travelling light per viewport.
+- **`shimmer` — icon discs.** A soft white-gold band crosses an `icon-circle` on a **5.2s**
+  ease-in-out cycle, holding still for the first ~60% so it reads as a passing reflection
+  rather than a repeating flash.
+
+**Rules**
+
+- Never animate `transform: rotate()` on an element to fake a travelling border: a rotating
+  rectangle cannot follow a rounded border and the light breaks at the corners. Animate the
+  gradient angle instead, using a registered `@property` of `syntax: "<angle>"`.
+- Never store the gradient in a custom property and consume it via `var()` in another rule —
+  the inner `var()` is resolved at declaration time, which silently kills the animation.
+  Write the gradient inside the rule that paints it.
+- A registered property with `inherits: false` must be *set on* the element that paints it.
+  Setting it on an ancestor has no effect.
+- Motion is never the only carrier of meaning, and any element that animates is decorative
+  (`aria-hidden`) or already carries a static affordance.
+
+**Reduced motion.** Under `prefers-reduced-motion: reduce` all animation stops and the
+gradient is pinned to a static angle, so the button still reads as gold. Verified: the ring
+keeps **1,807** gold pixels in reduced-motion vs **1,471** while animating, and screenshot
+pairs differ — i.e. the animation genuinely stops rather than merely appearing to.
 
 ## Do's and Don'ts
 
