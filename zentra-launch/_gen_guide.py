@@ -126,21 +126,29 @@ document.addEventListener('DOMContentLoaded', function(){
 def soalans_html():
     out = []
     for i, (qid, label, text) in enumerate(QUESTIONS, 1):
+        pilih = ANSWERS.get(qid)   # 0 Ya · 1 Perlu ubah · 2 Perbincangan
         out.append(
             '<div class="q"><div class="qt"><span class="qn">%d</span> <b>%s</b></div>'
             '<div class="qtxt">%s</div>'
             '<div class="opts">'
-            '<label class="opt"><input type="radio" name="%s" value="Yes — as designed"> Yes — as designed</label>'
-            '<label class="opt"><input type="radio" name="%s" value="Needs change"> Needs change</label>'
-            '<label class="opt"><input type="radio" name="%s" value="Discuss"> Discuss</label>'
+            '<label class="opt"><input type="radio" name="%s" value="Yes — as designed"%s> Yes — as designed</label>'
+            '<label class="opt"><input type="radio" name="%s" value="Needs change"%s> Needs change</label>'
+            '<label class="opt"><input type="radio" name="%s" value="Discuss"%s> Discuss</label>'
             '</div>'
             '<input class="notein" type="text" id="n-%s" placeholder="Note (optional) — what should change?">'
-            '</div>' % (i, label, text, qid, qid, qid, qid))
+            '</div>' % (i, label, text, qid, CK[pilih == 0], qid, CK[pilih == 1], qid, CK[pilih == 2], qid))
     return "\n".join(out)
 
 
 # Jawapan Zahir 19/9/2026 (mesej Telegram): indeks pilihan yang dipilih; None = belum dijawab
 PICK = {"d1": 0, "d2": 1, "d3": 0, "d4": 0, "d5": 0, "d6": 0}   # B dipilih 19/9: Zentra Launch = SSOT
+# Jawapan 10 soalan semak (Zahir, 19/9/2026): 0 = Ya · 1 = Perlu ubah · 2 = Perbincangan
+ANSWERS = {"q1": 0, "q2": 0, "q3": 0, "q4": 0, "q5": 1, "q6": 0, "q7": 0, "q8": 0, "q9": 1, "q10": 0}
+CK = {True: " checked", False: ""}
+ANSWER_NOTES = {
+    "q5": "Needs change — commission is released once, after end-financing disbursement (100%); nothing on booking or SPA",
+    "q9": "Needs change — no discounts at all; only the published launch packages",
+}
 
 
 def decisions_html():
@@ -202,6 +210,28 @@ BODY = """
           <b>record-only</b> for money — it issues payment instructions, records slips that buyers upload, and tracks the
           balance. The system never holds client funds (and no e-wallet or card collection). The buyer portal and the
           admin billing screens have been updated to show the developer's Housing Development Account route.</div>
+      </div></div>
+
+    <div class="card"><div class="card-hd"><h2>Review answers — 19 Sep 2026</h2><span class="more">10 of 10</span></div>
+      <div class="card-bd">
+        <div class="table-wrap"><table class="dash-table">
+          <thead><tr><th>#</th><th>Question</th><th>Answer</th></tr></thead>
+          <tbody>
+            <tr><td class="strong">1</td><td>Booking flow</td><td>Yes — as designed: EOI → 48-hour lock → booking 10% → SPA within 14 days</td></tr>
+            <tr><td class="strong">2</td><td>Lock rules</td><td>Yes — 48 hours, warning 2 hours before expiry, max 2 units per buyer</td></tr>
+            <tr><td class="strong">3</td><td>Unit ID scheme</td><td>Yes — A-12-03 (Block–Level–Unit)</td></tr>
+            <tr><td class="strong">4</td><td>Progressive billing</td><td>Yes — Third Schedule 10-10-15-10-10-15-10-5-5-10, invoiced only after architect/engineer certification</td></tr>
+            <tr><td class="strong">5</td><td>Commission release</td><td><b>Needs change</b> — released once, 100% after end-financing disbursement (or full cash settlement); nothing on booking or SPA</td></tr>
+            <tr><td class="strong">6</td><td>Buyer portal status</td><td>Yes — full stage names (EOI, Unit Locked, Booked, SPA Signed, Loan, Progressive, VP)</td></tr>
+            <tr><td class="strong">7</td><td>Wet ink vs e-signature</td><td>Yes — SPA and land instruments wet ink; other client documents e-signed</td></tr>
+            <tr><td class="strong">8</td><td>Agent visibility</td><td>Yes — own leads, locks and commission only</td></tr>
+            <tr><td class="strong">9</td><td>Discount policy</td><td><b>Needs change</b> — no discounts; only the published launch packages</td></tr>
+            <tr><td class="strong">10</td><td>Bumi quota</td><td>Yes — the system holds bumi units until the release date</td></tr>
+          </tbody></table></div>
+        <div class="note" style="margin-top:12px">Two answers changed the design: <b>commission is now a single
+          release after disbursement</b> (the booking/SPA triggers are removed) and <b>discounts are off</b> except for
+          the published launch packages. Both are now reflected in Settings, Commission and the Phase 1 plan
+          (W3 record-only collection, W2 discount field locked).</div>
       </div></div>
 
     <div class="card"><div class="card-hd"><h2>How to use this guide</h2><span class="more">3 steps</span></div>

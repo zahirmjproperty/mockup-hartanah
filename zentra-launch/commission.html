@@ -56,25 +56,31 @@
     </div>
     <div class="stat-row">
       <div class="stat-card"><div class="value">RM 128,400</div><div class="label">Commission earned (MTD)</div><div class="trend up">↑ RM 18,200</div></div>
-      <div class="stat-card"><div class="value">RM 42,600</div><div class="label">Awaiting release</div><div class="trend down">6 triggers pending</div></div>
+      <div class="stat-card"><div class="value">RM 42,600</div><div class="label">Awaiting release</div><div class="trend down">released after disbursement</div></div>
       <div class="stat-card"><div class="value">RM 385,200</div><div class="label">Released (YTD)</div><div class="trend up">↑ 4% vs LY</div></div>
       <div class="stat-card"><div class="value">12</div><div class="label">Active agents</div><div class="trend up">3 COA partners</div></div>
     </div>
     <div class="card">
-      <div class="card-hd"><h2>Release rules</h2></div>
+      <div class="card-hd"><h2>Release rules — decision 19 Sep 2026</h2></div>
       <div class="card-bd">
       <div class="table-wrap">
         <table class="dash-table">
           <thead><tr><th>Trigger event</th><th>Share released</th><th>Evidence required</th></tr></thead>
           <tbody>
-            <tr><td>Booking with 10% deposit</td><tdstrong>30%</td><td>Booking form + receipt</td></tr>
-            <tr><td>SPA signed</td><tdstrong>40%</td><td>Signed SPA copy</td></tr>
-            <tr><td>Loan disbursed / balance settled</td><tdstrong>30%</td><td>Bank advice or final receipt</td></tr>
+            <tr><td>End-financing disbursed</td><tdstrong>100%</td><td>Bank advice — release only when the money reaches the developer</td></tr>
+            <tr><td>Cash purchase — full settlement</td><tdstrong>100%</td><td>Final receipt + developer confirmation</td></tr>
             <tr><td>Co-agency sale (MT + COA agent)</td><tdgold>50 : 50 split</td><td>Co-agency agreement</td></tr>
+            <tr><td>Sale cancelled before disbursement (NTU)</td><tdstrong>none</td><td>Nothing is released — no partial payout on booking or SPA</td></tr>
           </tbody>
         </table>
       </div>
 
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><h2>Why a single release</h2></div>
+      <div class="card-bd">
+<div class="note" style="margin:0"><b>One release event, not three.</b> Booking and SPA no longer trigger a payout — commission is released <b>once</b>, after the end-financier disburses (or the buyer settles in full for a cash purchase). The system tracks the entitlement from booking, but the ledger keeps it <b>held</b> until the bank advice is attached. Cancellation before disbursement releases nothing.</div>
       </div>
     </div>
     <div class="card">
@@ -99,9 +105,9 @@
       <div class="card-hd"><h2>Recent releases</h2></div>
       <div class="card-bd">
       <div class="activity-list">
-        <div class="activity-item"><div class="act-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="act-body"><div class="act-title">Release 30% — A-12-03 Avalon @ Cybersouth</div><div class="act-meta">Aina Zulkifli · booking deposit confirmed</div></div><div class="act-amount gold">RM 3,510</div></div>
-        <div class="activity-item"><div class="act-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="act-body"><div class="act-title">Release 40% — B-04-11 Avalon @ Cybersouth</div><div class="act-meta">Fadilah Ismail · SPA signed 18 Sep</div></div><div class="act-amount gold">RM 6,120</div></div>
-        <div class="activity-item"><div class="act-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="act-body"><div class="act-title">Release 30% — A-09-07 Senna Presint 12</div><div class="act-meta">Aina Zulkifli · balance settled</div></div><div class="act-amount gold">RM 4,050</div></div>
+        <div class="activity-item"><div class="act-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="act-body"><div class="act-title">Released 100% — B-04-11 Avalon @ Cybersouth</div><div class="act-meta">Fadilah Ismail · loan disbursed 18 Sep (bank advice attached)</div></div><div class="act-amount gold">RM 15,300</div></div>
+        <div class="activity-item"><div class="act-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="act-body"><div class="act-title">Released 100% — A-09-07 Senna Presint 12</div><div class="act-meta">Aina Zulkifli · cash settlement 15 Sep</div></div><div class="act-amount gold">RM 10,800</div></div>
+        <div class="activity-item"><div class="act-icon" style="background:#C9A227"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="act-body"><div class="act-title">Held — A-12-03 Avalon @ Cybersouth</div><div class="act-meta">Aina Zulkifli · entitlement earned at booking, waiting for disbursement</div></div><div class="act-amount gold">RM 9,360 held</div></div>
         <div class="activity-item"><div class="act-icon" style="background:#B23A34"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="act-body"><div class="act-title">Hold placed — C-08-02 Setia Seraya P15</div><div class="act-meta">Lock expired without booking</div></div><div class="act-amount gold">RM 0</div></div>
       </div>
 

@@ -238,18 +238,23 @@ sales = (
 commission = (
     stats([
         ("RM 128,400", "Commission earned (MTD)", "↑ RM 18,200", "up"),
-        ("RM 42,600", "Awaiting release", "6 triggers pending", "down"),
+        ("RM 42,600", "Awaiting release", "released after disbursement", "down"),
         ("RM 385,200", "Released (YTD)", "↑ 4% vs LY", "up"),
         ("12", "Active agents", "3 COA partners", "up"),
     ])
-    + card("Release rules", table(
+    + card("Release rules — decision 19 Sep 2026", table(
         ["Trigger event", "Share released", "Evidence required"],
         [
-            ["Booking with 10% deposit", ("30%", "strong"), "Booking form + receipt"],
-            ["SPA signed", ("40%", "strong"), "Signed SPA copy"],
-            ["Loan disbursed / balance settled", ("30%", "strong"), "Bank advice or final receipt"],
+            ["End-financing disbursed", ("100%", "strong"), "Bank advice — release only when the money reaches the developer"],
+            ["Cash purchase — full settlement", ("100%", "strong"), "Final receipt + developer confirmation"],
             ["Co-agency sale (MT + COA agent)", ("50 : 50 split", "gold"), "Co-agency agreement"],
+            ["Sale cancelled before disbursement (NTU)", ("none", "strong"), "Nothing is released — no partial payout on booking or SPA"],
         ]))
+    + card("Why a single release", (
+        '<div class="note" style="margin:0"><b>One release event, not three.</b> Booking and SPA no longer trigger a payout — '
+        'commission is released <b>once</b>, after the end-financier disburses (or the buyer settles in full for a cash purchase). '
+        'The system tracks the entitlement from booking, but the ledger keeps it <b>held</b> until the bank advice is attached. '
+        'Cancellation before disbursement releases nothing.</div>'))
     + card("Agent ledger", table(
         ["Agent", "Role", "Bookings", "Rate", "Earned (MTD)", "Awaiting", "Status"],
         [
@@ -260,9 +265,9 @@ commission = (
             [("Kumar Raj", "strong"), "COA partner", ("2", "num"), "2.0%", ("RM 9,400", "num"), ("RM 5,300", "num"), b("locked", "Pending loan")],
         ]), more='<span class="more">Payout run →</span>')
     + card("Recent releases", activities([
-        ("Release 30% — A-12-03 Avalon @ Cybersouth", "Aina Zulkifli · booking deposit confirmed", "RM 3,510", None),
-        ("Release 40% — B-04-11 Avalon @ Cybersouth", "Fadilah Ismail · SPA signed 18 Sep", "RM 6,120", None),
-        ("Release 30% — A-09-07 Senna Presint 12", "Aina Zulkifli · balance settled", "RM 4,050", None),
+        ("Released 100% — B-04-11 Avalon @ Cybersouth", "Fadilah Ismail · loan disbursed 18 Sep (bank advice attached)", "RM 15,300", None),
+        ("Released 100% — A-09-07 Senna Presint 12", "Aina Zulkifli · cash settlement 15 Sep", "RM 10,800", None),
+        ("Held — A-12-03 Avalon @ Cybersouth", "Aina Zulkifli · entitlement earned at booking, waiting for disbursement", "RM 9,360 held", "#C9A227"),
         ("Hold placed — C-08-02 Setia Seraya P15", "Lock expired without booking", "RM 0", "#B23A34"),
     ]))
 )
@@ -326,12 +331,19 @@ settings_body = (
     '        <div class="form-group"><label>Unit lock duration</label><select aria-label="Lock">' + opts(["24 hours", "48 hours (default)", "72 hours"]) + '</select></div>\n'
     '        <div class="form-group"><label>Lock buffer between bookings</label><select aria-label="Buffer">' + opts(["1 hour", "2 hours (default)", "4 hours"]) + '</select></div>\n'
     '        <div class="form-group"><label>EOI validity</label><select aria-label="EOI">' + opts(["3 days", "7 days (default)", "14 days"]) + '</select></div>\n'
+
+    '        <div class="form-group"><label>SPA signing window</label><select aria-label="SPA window">' + opts(["14 days from booking (default)", "21 days", "30 days"]) + '</select></div>\n'
+    '        <div class="form-group"><label>Discount policy (decision 19/9/2026)</label><select aria-label="Discount">' + opts(["No discounts — published launch packages only", "Agent up to 2%, manager up to 5%", "Manager approves all discounts"]) + '</select></div>\n'
+    '        <div class="form-group"><label>Bumi quota control (decision 19/9/2026)</label><select aria-label="Bumi">' + opts(["System holds bumi units until the release date", "Warning only — management releases manually", "No bumi quota for this project", "Follow the state authority's conditions per project"]) + '</select></div>\n'
     '        <div class="form-group"><label>Max active locks per buyer</label><select aria-label="Max locks">' + opts(["1 unit", "2 units (default)", "3 units"]) + '</select></div>\n'
     '      </div>\n    </div>\n'
     '    <div class="card">\n      <div class="card-hd"><h2>Commission rules</h2></div>\n      <div class="card-bd">\n'
     '        <div class="form-group"><label>Internal agent rate</label><select aria-label="Internal rate">' + opts(["2.0%", "2.5% (default)", "3.0%"]) + '</select></div>\n'
     '        <div class="form-group"><label>Co-agency split (MT : partner)</label><select aria-label="Split">' + opts(["40 : 60", "50 : 50 (default)", "60 : 40"]) + '</select></div>\n'
-    '        <div class="form-group"><label>Release triggers</label><input type="text" value="Booking 30% · SPA 40% · Loan / settlement 30%" aria-label="Triggers"></div>\n'
+    '        <div class="form-group"><label>Release trigger (decision 19/9/2026)</label><select aria-label="Triggers">' + opts(["Single release after end-financing disbursement (100%)", "Single release after full cash settlement (100%)", "Staggered release (booking / SPA / disbursement)"]) + '</select></div>\n'
+    '        <div class="form-group"><label>Entitlement held until disbursement</label><select aria-label="Held">' + opts(["Yes — no payout on booking or SPA (default)", "No — release on SPA"]) + '</select></div>\n'
+    '        <div class="form-group"><label>Evidence required before release</label><input type="text" value="Bank advice (end-financier) or final receipt + developer confirmation" aria-label="Evidence"></div>\n'
+    '        <div class="form-group"><label>Cancellation before disbursement</label><select aria-label="Cancellation">' + opts(["Release nothing (default)", "Release pro-rated share"]) + '</select></div>\n'
     '        <div class="form-group"><label>Clawback on cancellation (NTU)</label><select aria-label="Clawback">' + opts(["Full recall of unreleased share", "Pro-rated by stage (default)", "No clawback"]) + '</select></div>\n'
     '      </div>\n    </div>\n'
     '    <div class="card">\n      <div class="card-hd"><h2>Billing &amp; e-invoice</h2></div>\n      <div class="card-bd">\n'
@@ -352,7 +364,7 @@ settings_body = (
     '      </div>\n    </div>\n'
     '    <div class="card">\n      <div class="card-hd"><h2>Agents &amp; access</h2></div>\n      <div class="card-bd">\n'
     '        <div class="form-group"><label>Agent roster</label><input type="text" value="9 internal · 3 COA partners" aria-label="Roster"></div>\n'
-    '        <div class="form-group"><label>Agent sees</label><select aria-label="Agent access">' + opts(["Own leads, locks and commission only", "All units, own buyers (default)", "Full read access"]) + '</select></div>\n'
+    '        <div class="form-group"><label>Agent sees (decision 19/9/2026)</label><select aria-label="Agent access">' + opts(["Own leads, locks and commission only (default)", "All units, own buyers and commission", "Full read access"]) + '</select></div>\n'
     '        <div class="form-group"><label>Developer portal</label><select aria-label="Developer access">' + opts(["Sales board + reports (read only)", "Sales board + approve prices", "No access"]) + '</select></div>\n'
     '      </div>\n    </div>\n'
     '    <div class="card">\n      <div class="card-hd"><h2>Compliance &amp; brand</h2></div>\n      <div class="card-bd">\n'

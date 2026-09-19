@@ -69,6 +69,9 @@
         <div class="form-group"><label>Unit lock duration</label><select aria-label="Lock"><option>24 hours</option><option>48 hours (default)</option><option>72 hours</option></select></div>
         <div class="form-group"><label>Lock buffer between bookings</label><select aria-label="Buffer"><option>1 hour</option><option>2 hours (default)</option><option>4 hours</option></select></div>
         <div class="form-group"><label>EOI validity</label><select aria-label="EOI"><option>3 days</option><option>7 days (default)</option><option>14 days</option></select></div>
+        <div class="form-group"><label>SPA signing window</label><select aria-label="SPA window"><option>14 days from booking (default)</option><option>21 days</option><option>30 days</option></select></div>
+        <div class="form-group"><label>Discount policy (decision 19/9/2026)</label><select aria-label="Discount"><option>No discounts — published launch packages only</option><option>Agent up to 2%, manager up to 5%</option><option>Manager approves all discounts</option></select></div>
+        <div class="form-group"><label>Bumi quota control (decision 19/9/2026)</label><select aria-label="Bumi"><option>System holds bumi units until the release date</option><option>Warning only — management releases manually</option><option>No bumi quota for this project</option><option>Follow the state authority's conditions per project</option></select></div>
         <div class="form-group"><label>Max active locks per buyer</label><select aria-label="Max locks"><option>1 unit</option><option>2 units (default)</option><option>3 units</option></select></div>
       </div>
     </div>
@@ -77,7 +80,10 @@
       <div class="card-bd">
         <div class="form-group"><label>Internal agent rate</label><select aria-label="Internal rate"><option>2.0%</option><option>2.5% (default)</option><option>3.0%</option></select></div>
         <div class="form-group"><label>Co-agency split (MT : partner)</label><select aria-label="Split"><option>40 : 60</option><option>50 : 50 (default)</option><option>60 : 40</option></select></div>
-        <div class="form-group"><label>Release triggers</label><input type="text" value="Booking 30% · SPA 40% · Loan / settlement 30%" aria-label="Triggers"></div>
+        <div class="form-group"><label>Release trigger (decision 19/9/2026)</label><select aria-label="Triggers"><option>Single release after end-financing disbursement (100%)</option><option>Single release after full cash settlement (100%)</option><option>Staggered release (booking / SPA / disbursement)</option></select></div>
+        <div class="form-group"><label>Entitlement held until disbursement</label><select aria-label="Held"><option>Yes — no payout on booking or SPA (default)</option><option>No — release on SPA</option></select></div>
+        <div class="form-group"><label>Evidence required before release</label><input type="text" value="Bank advice (end-financier) or final receipt + developer confirmation" aria-label="Evidence"></div>
+        <div class="form-group"><label>Cancellation before disbursement</label><select aria-label="Cancellation"><option>Release nothing (default)</option><option>Release pro-rated share</option></select></div>
         <div class="form-group"><label>Clawback on cancellation (NTU)</label><select aria-label="Clawback"><option>Full recall of unreleased share</option><option>Pro-rated by stage (default)</option><option>No clawback</option></select></div>
       </div>
     </div>
@@ -107,7 +113,7 @@
       <div class="card-hd"><h2>Agents &amp; access</h2></div>
       <div class="card-bd">
         <div class="form-group"><label>Agent roster</label><input type="text" value="9 internal · 3 COA partners" aria-label="Roster"></div>
-        <div class="form-group"><label>Agent sees</label><select aria-label="Agent access"><option>Own leads, locks and commission only</option><option>All units, own buyers (default)</option><option>Full read access</option></select></div>
+        <div class="form-group"><label>Agent sees (decision 19/9/2026)</label><select aria-label="Agent access"><option>Own leads, locks and commission only (default)</option><option>All units, own buyers and commission</option><option>Full read access</option></select></div>
         <div class="form-group"><label>Developer portal</label><select aria-label="Developer access"><option>Sales board + reports (read only)</option><option>Sales board + approve prices</option><option>No access</option></select></div>
       </div>
     </div>
