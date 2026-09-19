@@ -56,10 +56,10 @@
   --navy-light: #f7f5f0;
   --navy-mid: #f0ede5;
   --navy-card: rgba(255,255,255,0.85);
-  --gold-core: #b08628;
-  --gold-light: #c9a848;
-  --gold-deep: #7a5f1a;
-  --grad-gold: linear-gradient(135deg, #d4b05a 0%, #b08628 45%, #7a5f1a 100%);
+  --gold-core: #8a6418;
+  --gold-light: #a67e2e;
+  --gold-deep: #5c4210;
+  --grad-gold: linear-gradient(135deg, #a67e2e 0%, #8a6418 45%, #5c4210 100%);
   --text: #1e293b;
   --text-dim: #475569;
   --text-muted: #94a3b8;
@@ -83,14 +83,14 @@
 :root.theme-light .header .search input { color: var(--text); }
 :root.theme-light table.dash-table td { border-bottom-color: var(--stat-line); }
 :root.theme-light .stat-card .value {
-  background: linear-gradient(135deg, #c9a848 0%, #b08628 60%, #7a5f1a 100%);
+  background: linear-gradient(135deg, #a67e2e 0%, #8a6418 60%, #5c4210 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-:root.theme-light table.dash-table td.gold { color: #8c6318; }
-:root.theme-light .badge.gold { color: #7a5f1a; border-color: rgba(122,95,26,.35); background: rgba(201,162,39,.06); }
-:root.theme-light .activity-item .act-amount { color: #8c6318; }
+:root.theme-light table.dash-table td.gold { color: #5a4010; }
+:root.theme-light .badge.gold { color: #4a350a; border-color: rgba(74,53,10,.35); background: rgba(138,100,24,.08); }
+:root.theme-light .activity-item .act-amount { color: #5a4010; }
 :root.theme-light .stat-inline .si-value { color: var(--text); }
 
 /* ---- Reset ---- */
