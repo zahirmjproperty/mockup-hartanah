@@ -1,0 +1,39 @@
+<!doctype html><html lang="ms"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Peranan — Zentra Asset</title><link rel="stylesheet" href="assets/style.css"></head><body>
+<header><b>ZENTRA</b> <span>ASSET</span><nav>
+<a href="index.html">Operasi</a><a href="sewa.html">Sewa</a><a href="unit.html">Unit</a>
+<a href="penyelenggaraan.html">Penyelenggaraan</a><a href="bil.html">Bil</a>
+<a href="peranan.html">Peranan</a><a href="tambah.html">Tambah</a></nav></header><main>
+<div class="banner">Paparan berbeza mengikut peranan. Pilih peranan untuk melihat apa yang
+perlu dilihat oleh orang itu — ini asas kawalan akses sebelum bina sistem sebenar.</div>
+<h1>Peranan &amp; Paparan</h1>
+<div style="display:flex;gap:10px;margin:16px 0">
+  <button class="btn" onclick="setPeranan('pengurus')">Pengurus</button>
+  <button class="btn" onclick="setPeranan('pemilik')">Pemilik</button>
+  <button class="btn" onclick="setPeranan('penyewa')">Penyewa</button>
+</div>
+<p id="ringkas"></p>
+<table class="data"><thead><tr><th>Unit</th><th>Projek</th><th>Status</th>
+<th>Sewa (RM)</th><th>Penyewa</th></tr></thead><tbody id="baris"></tbody></table>
+<script>
+const DATA = [{"id": "AST-0001", "nama_projek": "Kompleks Sukan dan Rekreasi Negara Sepang \u2014 Sepang", "pemilik": "Zainal Abidin bin Hassan", "pemilik_ic": "000000-00-0001", "pemilik_tel": "011-0000 0001", "pemilik_emel": "pengguna0001@example.com", "sewa_bulanan_rm": 2200, "status": "Penyelenggaraan", "sumber": "SINTETIK", "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0002", "nama_projek": "Perumahan Ekonomi Sarjana Muda Bangi \u2014 Port Klang", "pemilik": "M. S. Kumar", "pemilik_ic": "000000-00-0002", "pemilik_tel": "011-0000 0002", "pemilik_emel": "pengguna0002@example.com", "sewa_bulanan_rm": 1800, "status": "Tersedia", "sumber": "SINTETIK", "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0003", "nama_projek": "Kompleks Industri Hijau Alam \u2014 Rawang", "pemilik": "Tan Jing Wei", "pemilik_ic": "000000-00-0003", "pemilik_tel": "011-0000 0003", "pemilik_emel": "pengguna0003@example.com", "sewa_bulanan_rm": 2200, "status": "Penyelenggaraan", "sumber": "SINTETIK", "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0004", "nama_projek": "Projek Perumahan Mewah Taman Laut \u2014 Puchong", "pemilik": "Loh Huat Seng", "pemilik_ic": "000000-00-0004", "pemilik_tel": "011-0000 0004", "pemilik_emel": "pengguna0004@example.com", "sewa_bulanan_rm": 1800, "status": "Penyelenggaraan", "sumber": "SINTETIK", "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0005", "nama_projek": "Pusat Pentadbiran Negara Cyberjaya 2.0 \u2014 Kuala Lumpur Barat", "pemilik": "Aisyah binti Zulkifli", "pemilik_ic": "000000-00-0005", "pemilik_tel": "011-0000 0005", "pemilik_emel": "pengguna0005@example.com", "sewa_bulanan_rm": 2200, "status": "Disewa", "sumber": "SINTETIK", "penyewa": "M. S. Kumar", "tamat_sewa": "2027-11-01", "bil_tertunggak": 0}, {"id": "AST-0006", "nama_projek": "Kompleks Komersil dan Makanan Sungai Wang \u2014 Gombak", "pemilik": "Aisyah binti Zulkifli", "pemilik_ic": "000000-00-0006", "pemilik_tel": "011-0000 0006", "pemilik_emel": "pengguna0006@example.com", "sewa_bulanan_rm": 1800, "status": "Penyelenggaraan", "sumber": "SINTETIK", "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0007", "nama_projek": "Perumahan Masyarakat Berkelanjutan Kampung Baru \u2014 Setapak", "pemilik": "Indira Devi a/p Muthu", "pemilik_ic": "000000-00-0007", "pemilik_tel": "011-0000 0007", "pemilik_emel": "pengguna0007@example.com", "sewa_bulanan_rm": 2800, "status": "Disewa", "sumber": "SINTETIK", "penyewa": "Mohd Hafizuddin bin Yusof", "tamat_sewa": "2027-10-01", "bil_tertunggak": 0}, {"id": "AST-0008", "nama_projek": "Kompleks Perumahan Bukit Hijau \u2014 Subang Jaya", "pemilik": "Priya Sharma", "pemilik_ic": "000000-00-0008", "pemilik_tel": "011-0000 0008", "pemilik_emel": "pengguna0008@example.com", "sewa_bulanan_rm": 2200, "status": "Tersedia", "sumber": "SINTETIK", "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0009", "nama_projek": "Projek Pembaharuan Bandar Lama Penang \u2014 Sepang", "pemilik": "Tan Wei Ling", "pemilik_ic": "000000-00-0009", "pemilik_tel": "011-0000 0009", "pemilik_emel": "pengguna0009@example.com", "sewa_bulanan_rm": 1500, "status": "Disewa", "sumber": "SINTETIK", "penyewa": "Tan Kok Leong", "tamat_sewa": "2027-08-01", "bil_tertunggak": 1}, {"id": "AST-0010", "nama_projek": "Projek Pembaharuan Bandar Lama Penang \u2014 Klang", "pemilik": "Tan Kok Leong", "pemilik_ic": "000000-00-0010", "pemilik_tel": "011-0000 0010", "pemilik_emel": "pengguna0010@example.com", "sewa_bulanan_rm": 1500, "status": "Tersedia", "sumber": "SINTETIK", "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0011", "nama_projek": "Perumahan Masyarakat Berkelanjutan Kampung Baru \u2014 Gombak", "pemilik": "Tan Sri Vincent Tan", "pemilik_ic": "000000-00-0011", "pemilik_tel": "011-0000 0011", "pemilik_emel": "pengguna0011@example.com", "sewa_bulanan_rm": 1200, "status": "Tersedia", "sumber": "SINTETIK", "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0012", "nama_projek": "Pusat Perbelanjaan dan Hiburan Bukit Bintang Selatan \u2014 Ampang", "pemilik": "Aisyah binti Zulkifli", "pemilik_ic": "000000-00-0012", "pemilik_tel": "011-0000 0012", "pemilik_emel": "pengguna0012@example.com", "sewa_bulanan_rm": 1800, "status": "Penyelenggaraan", "sumber": "SINTETIK", "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}];
+const KEUPAYAAN = {
+ pengurus:["Lihat semua unit","Daftar unit & perjanjian","Urus tiket penyelenggaraan","Lihat semua bil"],
+ pemilik:["Lihat unit milik sendiri sahaja","Lihat penyata sewa sendiri","Lihat tiket untuk unit sendiri"],
+ penyewa:["Lihat unit sendiri","Lihat bil sendiri","Hantar permintaan penyelenggaraan"]
+};
+function setPeranan(r){
+  const baris = DATA.filter(u => r==='pengurus' ? true : (r==='pemilik' ? u.id.charCodeAt(5)%2===0 : u.status==='Disewa'));
+  const dipapar = r==='penyewa' ? baris.slice(0,1) : (r==='pemilik' ? baris.slice(0,4) : baris);
+  document.getElementById('ringkas').innerHTML = '<b>Keupayaan '+r+':</b> '+KEUPAYAAN[r].join(' · ');
+  document.getElementById('baris').innerHTML = dipapar.map(u =>
+    '<tr><td>'+u.id+'</td><td>'+u.nama_projek+'</td><td>'+u.status+'</td><td>'+u.sewa_bulanan_rm+'</td><td>'+(u.penyewa||'—')+'</td></tr>').join('');
+  tulisLog(r, dipapar.length);
+}
+function tulisLog(r,n){ try{ const k='zentra_peranan'; const l=JSON.parse(localStorage.getItem(k)||'[]');
+  l.push({r:r,n:n}); localStorage.setItem(k, JSON.stringify(l.slice(-20))); }catch(e){} }
+setPeranan('pengurus');
+</script>
+</main><footer>Zentra Asset F2 · mockup · semua data REKAAN (sintetik, benih 20260920)
+· tiada data pelanggan · disediakan oleh Ali</footer></body></html>
