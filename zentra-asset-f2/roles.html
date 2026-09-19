@@ -1,0 +1,75 @@
+<!doctype html><html lang="en-US" data-theme="dark"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Roles & Access — Zentra Asset</title><script>(function(){try{var t=localStorage.getItem('zentra-tema');
+if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}
+document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/zentra.css"><link rel="stylesheet" href="assets/f2-lux.css">
+</head><body class="zux"><div class="zux-top"><div class="in">
+<span class="zux-brand">ZENTRA <i>ASSET</i></span>
+<nav class="zux-nav"><a href="index.html">Operations</a><a href="units.html">Units</a><a href="tenancy.html">Tenancy</a><a href="maintenance.html">Maintenance</a><a href="billing.html">Billing</a><a href="roles.html" aria-current="page">Roles</a><a href="add.html">Add Record</a></nav>
+<button class="zux-tema" id="themeToggle" onclick="toggleTheme()" aria-pressed="false"
+ title="Switch between dark and light display">&#9788; Light</button>
+</div></div><main>
+<div class="zux-banner">Access control preview. Each role sees a different slice of the same
+portfolio — the basis for permissions before any real build.</div>
+<p class="zux-eyebrow">Access Control</p>
+<h1 class="zux-h1">Roles &amp; <span class="zux-foil">Access</span></h1>
+<p class="zux-lede">Choose a role to see exactly what that person may view. Permissions are the
+foundation of the system, not a cosmetic filter.</p>
+<div class="zux-glass">
+  <h2>Select a role</h2><p class="zux-hint">The table and figures below change immediately.</p>
+  <div class="zux-roles" role="group" aria-label="Role selection">
+    <button class="zux-role" aria-pressed="true" onclick="setRole('manager',this)">
+      <span class="ic">M</span><b>Manager</b><small>Every unit, agreement, ticket and invoice.</small></button>
+    <button class="zux-role" aria-pressed="false" onclick="setRole('owner',this)">
+      <span class="ic">O</span><b>Owner</b><small>Only their own units and statements.</small></button>
+    <button class="zux-role" aria-pressed="false" onclick="setRole('tenant',this)">
+      <span class="ic">T</span><b>Tenant</b><small>One unit, own invoice, raise requests.</small></button>
+  </div>
+  <div class="zux-chips" id="chips"></div>
+</div>
+<div class="zux-kpis" id="kpi"></div>
+<div class="zux-glass">
+  <h2 id="heading">Visible units</h2><p class="zux-hint">Rows change with the selected role.</p>
+  <table class="zux-tbl"><thead><tr><th>Unit</th><th>Project</th><th>Status</th>
+  <th class="n">Rent (RM)</th><th>Tenant</th></tr></thead><tbody id="rows"></tbody></table>
+</div>
+<script>
+const DATA = [{"id": "AST-0001", "nama_projek": "Lagoon Villas \u2014 Sepang", "status": "Maintenance", "sewa": 2200, "penyewa": "\u2014", "pemilik": "Zainal Abidin bin Hassan"}, {"id": "AST-0002", "nama_projek": "Aurora Heights \u2014 Port Klang", "status": "Available", "sewa": 1800, "penyewa": "\u2014", "pemilik": "M. S. Kumar"}, {"id": "AST-0003", "nama_projek": "Vista Crest \u2014 Rawang", "status": "Maintenance", "sewa": 2200, "penyewa": "\u2014", "pemilik": "Tan Jing Wei"}, {"id": "AST-0004", "nama_projek": "Seri Utama Park \u2014 Puchong", "status": "Maintenance", "sewa": 1800, "penyewa": "\u2014", "pemilik": "Loh Huat Seng"}, {"id": "AST-0005", "nama_projek": "Vista Crest \u2014 Kuala Lumpur Barat", "status": "Rented", "sewa": 2200, "penyewa": "Tan Sri Vincent Tan", "pemilik": "Aisyah binti Zulkifli"}, {"id": "AST-0006", "nama_projek": "Aurora Heights \u2014 Gombak", "status": "Maintenance", "sewa": 1800, "penyewa": "\u2014", "pemilik": "Aisyah binti Zulkifli"}, {"id": "AST-0007", "nama_projek": "The Palm Enclave \u2014 Setapak", "status": "Rented", "sewa": 2800, "penyewa": "M. S. Kumar", "pemilik": "Indira Devi a/p Muthu"}, {"id": "AST-0008", "nama_projek": "Harmony Residences \u2014 Subang Jaya", "status": "Available", "sewa": 2200, "penyewa": "\u2014", "pemilik": "Priya Sharma"}, {"id": "AST-0009", "nama_projek": "Mutiara Court \u2014 Rawang", "status": "Rented", "sewa": 1500, "penyewa": "Mohd Hafizuddin bin Yusof", "pemilik": "Tan Sri Vincent Tan"}, {"id": "AST-0010", "nama_projek": "The Palm Enclave \u2014 Rawang", "status": "Rented", "sewa": 3500, "penyewa": "Tan Kok Leong", "pemilik": "Loh Huat Seng"}, {"id": "AST-0011", "nama_projek": "Seri Utama Park \u2014 Port Klang", "status": "Reserved", "sewa": 2800, "penyewa": "\u2014", "pemilik": "Tan Kok Leong"}, {"id": "AST-0012", "nama_projek": "Harmony Residences \u2014 Puchong", "status": "Maintenance", "sewa": 1200, "penyewa": "\u2014", "pemilik": "Aisyah binti Zulkifli"}], PEMILIK = "Zainal Abidin bin Hassan", PENYEWA = "Tan Sri Vincent Tan";
+const CAPABILITIES = {
+ manager:{c:["View all units","Register units and agreements","Manage all tickets","View all invoices"]},
+ owner:{c:["Own units only","Own rental statements","Tickets for own units"]},
+ tenant:{c:["Own unit only","Own invoice","Raise maintenance requests"]}
+};
+const WB = {Rented:'ok', Available:'info', Maintenance:'warn', Reserved:'info'};
+function fmtRm(n){return Number(n||0).toLocaleString('en-US')}
+function setRole(r,el){
+  document.querySelectorAll('.zux-role').forEach(b => b.setAttribute('aria-pressed','false'));
+  if(el){el.setAttribute('aria-pressed','true');}
+  const dipapar = r==='manager' ? DATA
+                : r==='owner'   ? DATA.filter(u => u.pemilik === PEMILIK)
+                : DATA.filter(u => u.penyewa === PENYEWA);
+  document.getElementById('chips').innerHTML = CAPABILITIES[r].c.map(x => '<span class="zux-chip">'+x+'</span>').join('');
+  const disewa = dipapar.filter(u => u.status === 'Rented');
+  const sewa = disewa.reduce((a,u) => a + u.sewa, 0);
+  document.getElementById('kpi').innerHTML = [
+    ['Visible units', dipapar.length], ['Rented', disewa.length],
+    ['Monthly rent (RM)', fmtRm(sewa)], ['Role', r]
+  ].map((k,i) => '<div class="zux-kpi"><span>'+k[0]+'</span><b'+(i===2?' class="gold"':'')+'>'+k[1]+'</b></div>').join('');
+  document.getElementById('heading').textContent = 'Visible units — ' + dipapar.length + ' rows';
+  document.getElementById('rows').innerHTML = dipapar.length ? dipapar.map(u =>
+    '<tr><td>'+u.id+'</td><td>'+u.nama_projek+'</td><td><span class="zux-badge '+WB[u.status]+
+    '">'+u.status+'</span></td><td class="n">'+fmtRm(u.sewa)+'</td><td>'+(u.penyewa||'—')+'</td></tr>').join('')
+    : '<tr><td colspan="5" class="zux-empty">No units visible for this role.</td></tr>';
+}
+setRole('manager', document.querySelector('.zux-role'));
+</script>
+</main><div class="zux-note" style="max-width:1120px;margin:0 auto;padding:0 22px 40px">
+Zentra Asset F2 · interface mockup · all records are FICTIONAL (synthetic, seed 20260920)
+· no customer data · prepared by Ali</div><script>
+function toggleTheme(){var r=document.documentElement,n=r.getAttribute('data-theme')==='light'?'dark':'light';
+r.setAttribute('data-theme',n);try{localStorage.setItem('zentra-tema',n);}catch(e){}
+var b=document.getElementById('togol');if(b){b.setAttribute('aria-pressed',n==='light');
+b.textContent=n==='light'?'\u263E Dark':'\u2600 Light';}}
+</script></body></html>

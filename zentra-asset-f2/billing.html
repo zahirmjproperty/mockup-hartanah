@@ -1,0 +1,38 @@
+<!doctype html><html lang="en-US" data-theme="dark"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Billing — Zentra Asset</title><script>(function(){try{var t=localStorage.getItem('zentra-tema');
+if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}
+document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/zentra.css"><link rel="stylesheet" href="assets/f2-lux.css">
+</head><body class="zux"><div class="zux-top"><div class="in">
+<span class="zux-brand">ZENTRA <i>ASSET</i></span>
+<nav class="zux-nav"><a href="index.html">Operations</a><a href="units.html">Units</a><a href="tenancy.html">Tenancy</a><a href="maintenance.html">Maintenance</a><a href="billing.html" aria-current="page">Billing</a><a href="roles.html">Roles</a><a href="add.html">Add Record</a></nav>
+<button class="zux-tema" id="themeToggle" onclick="toggleTheme()" aria-pressed="false"
+ title="Switch between dark and light display">&#9788; Light</button>
+</div></div><main>
+<p class="zux-eyebrow">Receivables</p>
+<h1 class="zux-h1">Tenant <span class="zux-foil">Billing</span></h1>
+<p class="zux-lede">Monthly rent, utilities and late fees per tenancy. This is a billing record,
+not a report: charges, subtotals and the amount due.</p>
+<div class="zux-kpis">
+  <div class="zux-kpi"><span>Invoices issued</span><b>4</b></div>
+  <div class="zux-kpi"><span>Rent (RM)</span><b>10,000</b></div>
+  <div class="zux-kpi"><span>Utilities + late fees (RM)</span><b>827.00</b></div>
+  <div class="zux-kpi"><span>Total due (RM)</span><b class="gold">10,827.00</b></div>
+</div>
+<div class="zux-glass">
+  <h2>September 2026 billing run</h2>
+  <p class="zux-hint">Late fee: 0.1% per day, capped at 10% of monthly rent.
+  Billing document: <a href="pdf/billing-2026-09.pdf">billing-2026-09.pdf</a></p>
+  <table class="zux-tbl"><thead><tr><th>Invoice</th><th>Unit</th><th>Tenant</th>
+  <th class="n">Rent (RM)</th><th class="n">Utilities (RM)</th><th class="n">Late fee (RM)</th>
+  <th class="n">Total (RM)</th><th>Status</th></tr></thead><tbody><tr><td>ZA-BIL-2026-09-0001</td><td>AST-0005</td><td>Tan Sri Vincent Tan</td><td class='n'>2,200</td><td class='n'>213.00</td><td class='n'>0.00</td><td class='n'>2,413.00</td><td><span class='zux-badge ok'>Issued</span></td></tr><tr><td>ZA-BIL-2026-09-0002</td><td>AST-0007</td><td>M. S. Kumar</td><td class='n'>2,800</td><td class='n'>192.00</td><td class='n'>0.00</td><td class='n'>2,992.00</td><td><span class='zux-badge ok'>Issued</span></td></tr><tr><td>ZA-BIL-2026-09-0003</td><td>AST-0009</td><td>Mohd Hafizuddin bin Yusof</td><td class='n'>1,500</td><td class='n'>196.00</td><td class='n'>21.00</td><td class='n'>1,717.00</td><td><span class='zux-badge warn'>Overdue</span></td></tr><tr><td>ZA-BIL-2026-09-0004</td><td>AST-0010</td><td>Tan Kok Leong</td><td class='n'>3,500</td><td class='n'>205.00</td><td class='n'>0.00</td><td class='n'>3,705.00</td><td><span class='zux-badge ok'>Issued</span></td></tr></tbody></table>
+</div></main><div class="zux-note" style="max-width:1120px;margin:0 auto;padding:0 22px 40px">
+Zentra Asset F2 · interface mockup · all records are FICTIONAL (synthetic, seed 20260920)
+· no customer data · prepared by Ali</div><script>
+function toggleTheme(){var r=document.documentElement,n=r.getAttribute('data-theme')==='light'?'dark':'light';
+r.setAttribute('data-theme',n);try{localStorage.setItem('zentra-tema',n);}catch(e){}
+var b=document.getElementById('togol');if(b){b.setAttribute('aria-pressed',n==='light');
+b.textContent=n==='light'?'\u263E Dark':'\u2600 Light';}}
+</script></body></html>

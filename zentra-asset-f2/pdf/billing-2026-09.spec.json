@@ -1,0 +1,78 @@
+{
+ "unit_bisnes": "ASSET",
+ "no_bil": "ZA-BIL-2026-09-0001",
+ "tarikh": "20 September 2026",
+ "tempoh": "September 2026",
+ "kepada": "Zentra Asset — Property Management",
+ "kepada_butiran": "4 rented units (fictional demonstration data)",
+ "untuk": "Monthly rent, utilities and late fees for September 2026",
+ "item": [
+  {
+   "perkara": "Monthly rent — AST-0005",
+   "unit": "AST-0005",
+   "kuantiti": 1,
+   "kadar": 2200,
+   "jumlah": 2200
+  },
+  {
+   "perkara": "Utilities (water & electricity)",
+   "unit": "AST-0005",
+   "kuantiti": 1,
+   "kadar": 213,
+   "jumlah": 213
+  },
+  {
+   "perkara": "Monthly rent — AST-0007",
+   "unit": "AST-0007",
+   "kuantiti": 1,
+   "kadar": 2800,
+   "jumlah": 2800
+  },
+  {
+   "perkara": "Utilities (water & electricity)",
+   "unit": "AST-0007",
+   "kuantiti": 1,
+   "kadar": 192,
+   "jumlah": 192
+  },
+  {
+   "perkara": "Monthly rent — AST-0009",
+   "unit": "AST-0009",
+   "kuantiti": 1,
+   "kadar": 1500,
+   "jumlah": 1500
+  },
+  {
+   "perkara": "Utilities (water & electricity)",
+   "unit": "AST-0009",
+   "kuantiti": 1,
+   "kadar": 196,
+   "jumlah": 196
+  },
+  {
+   "perkara": "Late payment fee (14 days at 0.1%)",
+   "unit": "AST-0009",
+   "kuantiti": 1,
+   "kadar": 21.0,
+   "jumlah": 21.0
+  },
+  {
+   "perkara": "Monthly rent — AST-0010",
+   "unit": "AST-0010",
+   "kuantiti": 1,
+   "kadar": 3500,
+   "jumlah": 3500
+  },
+  {
+   "perkara": "Utilities (water & electricity)",
+   "unit": "AST-0010",
+   "kuantiti": 1,
+   "kadar": 205,
+   "jumlah": 205
+  }
+ ],
+ "denda_lewat": 21.0,
+ "tarikh_akhir": "10 October 2026",
+ "cara_bayar": "Bank transfer quoting the invoice number. Owner accounts are settled directly; Zentra does not hold client funds.",
+ "nota": "fictional demonstration data — not a real invoice"
+}

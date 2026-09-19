@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><style>
+@page { size: A4; margin: 13mm 14mm 15mm; }
+* { box-sizing: border-box; }
+body { font-family: "Plus Jakarta Sans", sans-serif; color: #12283F; font-size: 10.4pt; margin: 0; }
+.top { display: flex; justify-content: space-between; align-items: flex-start;
+       border-bottom: 2px solid #C9A227; padding-bottom: 10px; }
+.brand { font-size: 17pt; font-weight: 800; letter-spacing: .14em; color: #0B1B2E; }
+.brand i { font-style: normal; color: #8A6D20; }
+.dok { text-align: right; }
+.dok .j { font-size: 11.5pt; font-weight: 700; color: #0B1B2E; }
+.dok .m { font-size: 9.4pt; color: #4A5B6E; }
+.no { margin-top: 6px; font-weight: 700; color: #8A6D20; }
+.grid { display: flex; justify-content: space-between; gap: 22px; margin: 14px 0 4px; }
+.blok { flex: 1; }
+.lbl { font-size: 8.2pt; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #8A6D20; }
+.val { margin-top: 3px; line-height: 1.45; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+th { text-align: left; font-size: 8.2pt; letter-spacing: .13em; text-transform: uppercase;
+     color: #8A6D20; border-bottom: 1px solid #C9A227; padding: 7px 8px; }
+td { padding: 8px; border-bottom: 1px solid #E3E8EE; }
+.n { text-align: right; white-space: nowrap; }
+.sum { margin-top: 12px; margin-left: auto; width: 62%; }
+.sum tr td { border-bottom: 0; padding: 5px 8px; }
+.sum .tot td { border-top: 2px solid #C9A227; font-size: 12.4pt; font-weight: 800; color: #0B1B2E; }
+.note { margin-top: 16px; border-left: 3px solid #C9A227; padding: 8px 12px; background: #F7F8FA; font-size: 9.4pt; }
+.foot { margin-top: 20px; border-top: 1px solid #E3E8EE; padding-top: 8px;
+        font-size: 8.6pt; color: #4A5B6E; display: flex; justify-content: space-between; }
+.foot b { letter-spacing: .1em; }
+</style></head><body>
+<div class="top"><div><div class="brand">ZENTRA <i>ASSET</i></div></div>
+<div class="dok"><div class="j">Bill / Statement of Account</div>
+<div class="m">Bill No.: <b>ZA-BIL-2026-09-0001</b></div>
+<div class="m">Date: 20 September 2026</div>
+<div class="m">Period: September 2026</div></div></div>
+<div class="grid"><div class="blok"><div class="lbl">Bill To</div>
+<div class="val"><b>Zentra Asset — Property Management</b><br>4 rented units (fictional demonstration data)</div></div>
+<div class="blok"><div class="lbl">For</div><div class="val">Monthly rent, utilities and late fees for September 2026</div></div>
+<div class="blok"><div class="lbl">Payment Due Date</div><div class="val"><b>10 October 2026</b></div></div></div>
+<table><thead><tr><th>Description</th><th>Unit</th><th class="n">Qty</th>
+<th class="n">Rate (RM)</th><th class="n">Amount (RM)</th></tr></thead><tbody><tr><td>Monthly rent — AST-0005</td><td>AST-0005</td><td class='n'>1</td><td class='n'>2,200.00</td><td class='n'>2,200.00</td></tr><tr><td>Utilities (water & electricity)</td><td>AST-0005</td><td class='n'>1</td><td class='n'>213.00</td><td class='n'>213.00</td></tr><tr><td>Monthly rent — AST-0007</td><td>AST-0007</td><td class='n'>1</td><td class='n'>2,800.00</td><td class='n'>2,800.00</td></tr><tr><td>Utilities (water & electricity)</td><td>AST-0007</td><td class='n'>1</td><td class='n'>192.00</td><td class='n'>192.00</td></tr><tr><td>Monthly rent — AST-0009</td><td>AST-0009</td><td class='n'>1</td><td class='n'>1,500.00</td><td class='n'>1,500.00</td></tr><tr><td>Utilities (water & electricity)</td><td>AST-0009</td><td class='n'>1</td><td class='n'>196.00</td><td class='n'>196.00</td></tr><tr><td>Late payment fee (14 days at 0.1%)</td><td>AST-0009</td><td class='n'>1</td><td class='n'>21.00</td><td class='n'>21.00</td></tr><tr><td>Monthly rent — AST-0010</td><td>AST-0010</td><td class='n'>1</td><td class='n'>3,500.00</td><td class='n'>3,500.00</td></tr><tr><td>Utilities (water & electricity)</td><td>AST-0010</td><td class='n'>1</td><td class='n'>205.00</td><td class='n'>205.00</td></tr></tbody></table>
+<table class="sum"><tr><td>Subtotal</td><td class='n'>10,827.00</td></tr><tr><td>Late fee</td><td class='n'>21.00</td></tr><tr class='tot'><td>Total Amount Due</td><td class='n'>RM 10,848.00</td></tr></table>
+<div class="note"><b>Payment Instructions</b><br>Bank transfer quoting the invoice number. Owner accounts are settled directly; Zentra does not hold client funds.</div>
+<div class="foot"><span><b>ZENTRA PROPERTY GROUP</b></span>
+<span>Prepared by Ali · fictional demonstration data — not a real invoice</span></div>
+</body></html>

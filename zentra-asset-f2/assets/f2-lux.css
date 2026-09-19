@@ -133,3 +133,68 @@ body.zux .zux-field input:invalid:not(:placeholder-shown){border-color:#E8776A}
 .zux-badge.ok{background:rgba(67,176,42,.16);color:#8fe07a;border:1px solid rgba(67,176,42,.35)}
 .zux-badge.warn{background:rgba(217,138,31,.16);color:#f0c07a;border:1px solid rgba(217,138,31,.35)}
 .zux-badge.info{background:rgba(0,163,181,.16);color:#7fd7e2;border:1px solid rgba(0,163,181,.35)}
+
+/* ================= KEUTAMAAN TEMA (Light display) =================
+   Spesifikasi DESIGN.md: light = surface-light #F5F7F9, ink-light #16222F, line-light #E2E8F0;
+   emas kekal sebagai pembawa jenama (teks emas guna #8A6D20 untuk kontras AA di atas cerah);
+   warna semantik guna set gelap pada permukaan cerah. */
+.zux-tema{margin-left:10px;cursor:pointer;font:inherit;font-size:12.5px;font-weight:700;
+  padding:7px 13px;border-radius:999px;background:rgba(255,255,255,.04);color:var(--gold-light);
+  border:1px solid var(--hairline);transition:.18s}
+.zux-tema:hover{background:rgba(201,162,39,.12)}
+.zux-tema:focus-visible{outline:2px solid var(--gold-core);outline-offset:2px}
+
+html[data-theme="light"] body.zux{
+  background:radial-gradient(1100px 520px at 10% -8%, rgba(201,162,39,.10), transparent 60%),
+             linear-gradient(180deg,#eef2f7 0%,#f5f7f9 42%,#eef2f7 100%);color:var(--ink-light)}
+html[data-theme="light"] body.zux::before{
+  background-image:linear-gradient(rgba(11,27,46,.035) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(11,27,46,.035) 1px,transparent 1px)}
+html[data-theme="light"] .zux-top{background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.78));
+  border-bottom-color:var(--line-light);box-shadow:0 1px 0 rgba(11,27,46,.04)}
+html[data-theme="light"] .zux-brand{color:#0b1b2e}
+html[data-theme="light"] .zux-brand i{color:#8a6d20}
+html[data-theme="light"] .zux-nav a{color:#39506a}
+html[data-theme="light"] .zux-nav a:hover{color:#0b1b2e;background:rgba(11,27,46,.05);border-color:var(--line-light)}
+html[data-theme="light"] .zux-tema{background:#fff;color:#8a6d20;border-color:var(--line-light)}
+html[data-theme="light"] .zux-h1{color:#0b1b2e}
+html[data-theme="light"] .zux-foil{background:linear-gradient(100deg,#8a6d20 0%,#c9a227 46%,#6f5510 100%)}
+html[data-theme="light"] .zux-eyebrow{color:#8a6d20}
+html[data-theme="light"] .zux-lede{color:#3c5169}
+html[data-theme="light"] .zux-glass{background:#fff;border-color:var(--line-light);
+  box-shadow:0 10px 30px rgba(11,27,46,.07), inset 0 1px 0 rgba(255,255,255,.9)}
+html[data-theme="light"] .zux-glass h2{color:#0b1b2e}
+html[data-theme="light"] .zux-hint,html[data-theme="light"] .zux-empty{color:#5b6f85}
+html[data-theme="light"] .zux-role{background:#fbfcfd;border-color:var(--line-light);color:#3c5169}
+html[data-theme="light"] .zux-role b{color:#0b1b2e}
+html[data-theme="light"] .zux-role .ic{background:rgba(201,162,39,.14);color:#8a6d20}
+html[data-theme="light"] .zux-role:hover{box-shadow:0 14px 28px rgba(11,27,46,.12)}
+html[data-theme="light"] .zux-kpi{background:#fff;border-color:var(--line-light)}
+html[data-theme="light"] .zux-kpi span{color:#5b6f85}
+html[data-theme="light"] .zux-kpi b{color:#0b1b2e}
+html[data-theme="light"] .zux-kpi b.gold{background:linear-gradient(100deg,#8a6d20,#c9a227 60%,#6f5510)}
+html[data-theme="light"] .zux-chip{background:#fff;border-color:var(--line-light);color:#3c5169}
+html[data-theme="light"] table.zux-tbl thead th{color:#8a6d20;border-bottom-color:var(--line-light)}
+html[data-theme="light"] table.zux-tbl tbody td{color:#3c5169;border-bottom-color:#edf1f5}
+html[data-theme="light"] table.zux-tbl tbody td:first-child{color:#0b1b2e}
+html[data-theme="light"] table.zux-tbl tbody tr:hover{background:rgba(201,162,39,.07)}
+html[data-theme="light"] .zux-field label{color:#8a6d20}
+html[data-theme="light"] .zux-field input,html[data-theme="light"] .zux-field select{
+  background:#fff;border-color:var(--line-light);color:#16222f}
+html[data-theme="light"] .zux-field input::placeholder{color:#8296ab}
+html[data-theme="light"] .zux-btn.line{color:#8a6d20;border-color:var(--line-light)}
+html[data-theme="light"] .zux-btn.line:hover{background:rgba(201,162,39,.1)}
+html[data-theme="light"] .zux-tabs{border-bottom-color:var(--line-light)}
+html[data-theme="light"] .zux-tab{color:#5b6f85}
+html[data-theme="light"] .zux-tab:hover{color:#0b1b2e}
+html[data-theme="light"] .zux-tab[aria-selected="true"]{color:#0b1b2e;border-bottom-color:var(--gold-core)}
+html[data-theme="light"] .zux-note{color:#5b6f85;border-top-color:var(--line-light)}
+/* set semantik gelap pada permukaan cerah (DESIGN.md) */
+html[data-theme="light"] .zux-badge.ok{background:rgba(46,125,31,.12);color:#2e7d1f;border-color:rgba(46,125,31,.3)}
+html[data-theme="light"] .zux-badge.warn{background:rgba(138,90,0,.12);color:#8a5a00;border-color:rgba(138,90,0,.3)}
+html[data-theme="light"] .zux-badge.info{background:rgba(0,112,126,.12);color:#00707e;border-color:rgba(0,112,126,.3)}
+html[data-theme="light"] .zux-banner{background:rgba(201,162,39,.1);color:#6b5314;border-color:rgba(201,162,39,.35)}
+
+/* banner notis (base gelap + varian cerah di bawah) */
+.zux-banner{border:1px solid rgba(201,162,39,.35);background:rgba(201,162,39,.1);
+  color:#f0dfae;border-radius:12px;padding:12px 15px;font-size:13.5px;line-height:1.55;margin:0 0 20px}

@@ -1,0 +1,61 @@
+<!doctype html><html lang="en-US" data-theme="dark"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Units — Zentra Asset</title><script>(function(){try{var t=localStorage.getItem('zentra-tema');
+if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}
+document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/zentra.css"><link rel="stylesheet" href="assets/f2-lux.css">
+</head><body class="zux"><div class="zux-top"><div class="in">
+<span class="zux-brand">ZENTRA <i>ASSET</i></span>
+<nav class="zux-nav"><a href="index.html">Operations</a><a href="units.html" aria-current="page">Units</a><a href="tenancy.html">Tenancy</a><a href="maintenance.html">Maintenance</a><a href="billing.html">Billing</a><a href="roles.html">Roles</a><a href="add.html">Add Record</a></nav>
+<button class="zux-tema" id="themeToggle" onclick="toggleTheme()" aria-pressed="false"
+ title="Switch between dark and light display">&#9788; Light</button>
+</div></div><main>
+<p class="zux-eyebrow">Portfolio</p>
+<h1 class="zux-h1">Unit <span class="zux-foil">Detail</span></h1>
+<p class="zux-lede">Select a unit to see its lease position, tenant, arrears and maintenance
+history in one place.</p>
+<div class="zux-glass">
+  <div class="zux-field" style="max-width:420px"><label for="unitSelect">Select unit</label>
+  <select id="unitSelect" onchange="showUnit(this.value)"><option value="AST-0001">AST-0001 — Lagoon Villas — Sepang</option><option value="AST-0002">AST-0002 — Aurora Heights — Port Klang</option><option value="AST-0003">AST-0003 — Vista Crest — Rawang</option><option value="AST-0004">AST-0004 — Seri Utama Park — Puchong</option><option value="AST-0005">AST-0005 — Vista Crest — Kuala Lumpur Barat</option><option value="AST-0006">AST-0006 — Aurora Heights — Gombak</option><option value="AST-0007">AST-0007 — The Palm Enclave — Setapak</option><option value="AST-0008">AST-0008 — Harmony Residences — Subang Jaya</option><option value="AST-0009">AST-0009 — Mutiara Court — Rawang</option><option value="AST-0010">AST-0010 — The Palm Enclave — Rawang</option><option value="AST-0011">AST-0011 — Seri Utama Park — Port Klang</option><option value="AST-0012">AST-0012 — Harmony Residences — Puchong</option></select></div>
+</div>
+<div class="zux-kpis" id="kpi"></div>
+<div class="zux-glass">
+  <h2 id="heading">Unit</h2><p class="zux-hint" id="sub"></p>
+  <div id="fields"></div>
+</div>
+<div class="zux-glass">
+  <h2>Maintenance history</h2><p class="zux-hint">Tickets recorded against this unit.</p>
+  <table class="zux-tbl"><thead><tr><th>Work</th><th>Priority</th><th>Status</th>
+  <th class="n">Cost (RM)</th></tr></thead><tbody id="tiket"></tbody></table>
+</div>
+<script>
+const UNIT = [{"id": "AST-0001", "nama_projek": "Lagoon Villas \u2014 Sepang", "jenis": "Condominium", "status": "Maintenance", "sewa": 2200, "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0002", "nama_projek": "Aurora Heights \u2014 Port Klang", "jenis": "Semi-D", "status": "Available", "sewa": 1800, "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0003", "nama_projek": "Vista Crest \u2014 Rawang", "jenis": "Bungalow", "status": "Maintenance", "sewa": 2200, "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0004", "nama_projek": "Seri Utama Park \u2014 Puchong", "jenis": "Shop House", "status": "Maintenance", "sewa": 1800, "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0005", "nama_projek": "Vista Crest \u2014 Kuala Lumpur Barat", "jenis": "2-Storey Terrace", "status": "Rented", "sewa": 2200, "penyewa": "Tan Sri Vincent Tan", "tamat_sewa": "2027-07-01", "bil_tertunggak": 0}, {"id": "AST-0006", "nama_projek": "Aurora Heights \u2014 Gombak", "jenis": "Apartment", "status": "Maintenance", "sewa": 1800, "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0007", "nama_projek": "The Palm Enclave \u2014 Setapak", "jenis": "Condominium", "status": "Rented", "sewa": 2800, "penyewa": "M. S. Kumar", "tamat_sewa": "2027-11-01", "bil_tertunggak": 0}, {"id": "AST-0008", "nama_projek": "Harmony Residences \u2014 Subang Jaya", "jenis": "Semi-D", "status": "Available", "sewa": 2200, "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0009", "nama_projek": "Mutiara Court \u2014 Rawang", "jenis": "Bungalow", "status": "Rented", "sewa": 1500, "penyewa": "Mohd Hafizuddin bin Yusof", "tamat_sewa": "2027-10-01", "bil_tertunggak": 1}, {"id": "AST-0010", "nama_projek": "The Palm Enclave \u2014 Rawang", "jenis": "Condominium", "status": "Rented", "sewa": 3500, "penyewa": "Tan Kok Leong", "tamat_sewa": "2027-08-01", "bil_tertunggak": 0}, {"id": "AST-0011", "nama_projek": "Seri Utama Park \u2014 Port Klang", "jenis": "Semi-D", "status": "Reserved", "sewa": 2800, "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}, {"id": "AST-0012", "nama_projek": "Harmony Residences \u2014 Puchong", "jenis": "Bungalow", "status": "Maintenance", "sewa": 1200, "penyewa": "\u2014", "tamat_sewa": "\u2014", "bil_tertunggak": 0}], TIKET = [{"unit": "AST-0010", "work": "Roof leak inspection", "priority": "High", "status": "Completed", "cost_rm": 1270}, {"unit": "AST-0006", "work": "Termite treatment", "priority": "Medium", "status": "Open", "cost_rm": 0}, {"unit": "AST-0003", "work": "Roof leak inspection", "priority": "Low", "status": "Completed", "cost_rm": 1320}, {"unit": "AST-0002", "work": "Replace door lock", "priority": "Medium", "status": "Open", "cost_rm": 0}, {"unit": "AST-0003", "work": "Termite treatment", "priority": "Medium", "status": "In progress", "cost_rm": 1550}, {"unit": "AST-0006", "work": "Gate motor service", "priority": "Medium", "status": "Completed", "cost_rm": 1030}];
+const WB = {Rented:'ok', Available:'info', Maintenance:'warn', Reserved:'info'};
+function fmtRm(n){return Number(n||0).toLocaleString('en-US')}
+function showUnit(id){
+  const u = UNIT.find(x => x.id === id); if(!u) return;
+  document.getElementById('heading').textContent = u.id + ' — ' + u.nama_projek;
+  document.getElementById('sub').textContent = u.jenis;
+  document.getElementById('kpi').innerHTML = [
+    ['Status', '<span class="zux-badge ' + WB[u.status] + '">' + u.status + '</span>'],
+    ['Monthly rent (RM)', fmtRm(u.sewa)],
+    ['Tenant', u.penyewa || '—'],
+    ['Lease ends', u.tamat_sewa || '—']
+  ].map((k,i) => '<div class="zux-kpi"><span>' + k[0] + '</span><b' + (i===1 ? ' class="gold"' : '') + '>' + k[1] + '</b></div>').join('');
+  const t = TIKET.filter(x => x.unit === id);
+  document.getElementById('tiket').innerHTML = t.length
+    ? t.map(x => '<tr><td>' + x.work + '</td><td>' + x.priority + '</td><td>' + x.status +
+        '</td><td class="n">' + fmtRm(x.cost_rm) + '</td></tr>').join('')
+    : '<tr><td colspan="4" class="zux-empty">No tickets recorded for this unit.</td></tr>';
+}
+showUnit(UNIT[0].id);
+</script>
+</main><div class="zux-note" style="max-width:1120px;margin:0 auto;padding:0 22px 40px">
+Zentra Asset F2 · interface mockup · all records are FICTIONAL (synthetic, seed 20260920)
+· no customer data · prepared by Ali</div><script>
+function toggleTheme(){var r=document.documentElement,n=r.getAttribute('data-theme')==='light'?'dark':'light';
+r.setAttribute('data-theme',n);try{localStorage.setItem('zentra-tema',n);}catch(e){}
+var b=document.getElementById('togol');if(b){b.setAttribute('aria-pressed',n==='light');
+b.textContent=n==='light'?'\u263E Dark':'\u2600 Light';}}
+</script></body></html>

@@ -1,0 +1,95 @@
+<!doctype html><html lang="en-US" data-theme="dark"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Add Record — Zentra Asset</title><script>(function(){try{var t=localStorage.getItem('zentra-tema');
+if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}
+document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="assets/zentra.css"><link rel="stylesheet" href="assets/f2-lux.css">
+</head><body class="zux"><div class="zux-top"><div class="in">
+<span class="zux-brand">ZENTRA <i>ASSET</i></span>
+<nav class="zux-nav"><a href="index.html">Operations</a><a href="units.html">Units</a><a href="tenancy.html">Tenancy</a><a href="maintenance.html">Maintenance</a><a href="billing.html">Billing</a><a href="roles.html">Roles</a><a href="add.html" aria-current="page">Add Record</a></nav>
+<button class="zux-tema" id="themeToggle" onclick="toggleTheme()" aria-pressed="false"
+ title="Switch between dark and light display">&#9788; Light</button>
+</div></div><main>
+<p class="zux-eyebrow">Workflow</p>
+<h1 class="zux-h1">Add <span class="zux-foil">Record</span></h1>
+<p class="zux-lede">Three core workflows: a new unit, a tenancy agreement, a maintenance ticket.
+This mockup stores entries in your browser only — nothing is sent to any server.</p>
+<div class="zux-glass">
+  <div class="zux-tabs" role="tablist">
+    <button class="zux-tab" role="tab" aria-selected="true" onclick="tab('unit',this)">New unit</button>
+    <button class="zux-tab" role="tab" aria-selected="false" onclick="tab('sewa',this)">Tenancy agreement</button>
+    <button class="zux-tab" role="tab" aria-selected="false" onclick="tab('tiket',this)">Maintenance ticket</button>
+  </div>
+  <div class="zux-sec on" id="sec-unit">
+    <form class="zux-form" onsubmit="addRecord(event,'Unit',['u_projek','u_status','u_rent'])">
+      <div class="zux-field"><label for="u_projek">Project name</label>
+        <input id="u_projek" placeholder="e.g. Harmony Residences" required></div>
+      <div class="zux-field"><label for="u_status">Status</label>
+        <input id="u_status" value="Available" required></div>
+      <div class="zux-field"><label for="u_rent">Monthly rent (RM)</label>
+        <input id="u_rent" type="number" min="0" step="10" placeholder="1500" required></div>
+      <button class="zux-btn" type="submit">Add unit</button>
+    </form>
+  </div>
+  <div class="zux-sec" id="sec-sewa">
+    <form class="zux-form" onsubmit="addRecord(event,'Agreement',['s_unit','s_tenant','s_term'])">
+      <div class="zux-field"><label for="s_unit">Unit ID</label>
+        <input id="s_unit" placeholder="AST-0003" required></div>
+      <div class="zux-field"><label for="s_tenant">Tenant name</label>
+        <input id="s_tenant" placeholder="Full name" required></div>
+      <div class="zux-field"><label for="s_term">Term (months)</label>
+        <input id="s_term" type="number" min="1" max="36" value="12" required></div>
+      <button class="zux-btn" type="submit">Add agreement</button>
+    </form>
+  </div>
+  <div class="zux-sec" id="sec-tiket">
+    <form class="zux-form" onsubmit="addRecord(event,'Ticket',['t_unit','t_work'],'t_priority')">
+      <div class="zux-field"><label for="t_unit">Unit ID</label>
+        <input id="t_unit" placeholder="AST-0003" required></div>
+      <div class="zux-field"><label for="t_work">Work required</label>
+        <input id="t_work" placeholder="e.g. Leaking sink pipe" required></div>
+      <div class="zux-field"><label for="t_priority">Priority</label>
+        <select id="t_priority"><option>High</option><option selected>Medium</option><option>Low</option></select></div>
+      <button class="zux-btn" type="submit">Raise ticket</button>
+    </form>
+  </div>
+</div>
+<div class="zux-glass">
+  <h2>Records added</h2><p class="zux-hint">Stored in this browser only (localStorage).</p>
+  <table class="zux-tbl"><thead><tr><th>Type</th><th>Details</th></tr></thead><tbody id="records"></tbody></table>
+  <div style="margin-top:14px"><button class="zux-btn line"
+   onclick="localStorage.removeItem('zentra_tambah');render()">Clear list</button></div>
+</div>
+<script>
+function tab(id,el){
+  document.querySelectorAll('.zux-tab').forEach(b => b.setAttribute('aria-selected','false'));
+  el.setAttribute('aria-selected','true');
+  document.querySelectorAll('.zux-sec').forEach(s => s.classList.remove('on'));
+  document.getElementById('sec-'+id).classList.add('on');
+}
+function addRecord(e,jenis,id,selId){
+  e.preventDefault(); const f = e.target;
+  if(id.includes('u_rent') && Number(f.u_rent.value) < 0){ alert('Rent cannot be negative'); return; }
+  const xtra = selId ? f[selId].value : '';
+  const nilai = id.map(k => f[k].value);
+  const l = JSON.parse(localStorage.getItem('zentra_tambah') || '[]');
+  l.push([jenis, nilai.join(' · ') + (xtra ? ' · ' + xtra : '')]);
+  localStorage.setItem('zentra_tambah', JSON.stringify(l)); f.reset(); render();
+}
+function render(){
+  const l = JSON.parse(localStorage.getItem('zentra_tambah') || '[]');
+  document.getElementById('records').innerHTML = l.length
+    ? l.map(x => '<tr><td>'+x[0]+'</td><td>'+x[1]+'</td></tr>').join('')
+    : '<tr><td colspan="2" class="zux-empty">No records added yet.</td></tr>';
+}
+render();
+</script>
+</main><div class="zux-note" style="max-width:1120px;margin:0 auto;padding:0 22px 40px">
+Zentra Asset F2 · interface mockup · all records are FICTIONAL (synthetic, seed 20260920)
+· no customer data · prepared by Ali</div><script>
+function toggleTheme(){var r=document.documentElement,n=r.getAttribute('data-theme')==='light'?'dark':'light';
+r.setAttribute('data-theme',n);try{localStorage.setItem('zentra-tema',n);}catch(e){}
+var b=document.getElementById('togol');if(b){b.setAttribute('aria-pressed',n==='light');
+b.textContent=n==='light'?'\u263E Dark':'\u2600 Light';}}
+</script></body></html>
