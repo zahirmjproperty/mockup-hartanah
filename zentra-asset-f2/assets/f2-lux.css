@@ -1,0 +1,135 @@
+/* f2-lux.css — lapisan UI Zentra Asset F2: modern · futuristik · mewah
+   Mengguna token daripada zentra.css (--gold-core, --navy-*, --hairline, --grad-gold). */
+
+body.zux{
+  background:
+    radial-gradient(1200px 600px at 12% -10%, rgba(201,162,39,.10), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(0,163,181,.06), transparent 55%),
+    linear-gradient(180deg,#071120 0%,#0b1b2e 45%,#071120 100%);
+  min-height:100vh;
+}
+body.zux::before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:44px 44px;mask-image:radial-gradient(70% 60% at 50% 20%,#000,transparent 75%);
+}
+.zux main{max-width:1120px;margin:0 auto;padding:34px 22px 64px;position:relative;z-index:1}
+
+/* bar atas kaca + garis emas */
+.zux-top{position:sticky;top:0;z-index:5;backdrop-filter:blur(14px);
+  background:linear-gradient(180deg,rgba(7,17,32,.92),rgba(7,17,32,.72));
+  border-bottom:1px solid var(--hairline)}
+.zux-top .in{max-width:1120px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:18px}
+.zux-brand{font-weight:800;letter-spacing:.16em;font-size:14px}
+.zux-brand i{font-style:normal;color:var(--gold-light)}
+.zux-nav{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.zux-nav a{color:var(--text-body);text-decoration:none;font-size:12.5px;font-weight:600;
+  padding:7px 11px;border-radius:999px;border:1px solid transparent;transition:.18s}
+.zux-nav a:hover{color:#fff;border-color:var(--hairline);background:rgba(255,255,255,.04)}
+.zux-nav a[aria-current]{color:var(--on-gold);background:var(--grad-gold);border-color:transparent}
+
+/* kepala halaman */
+.zux-eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold-light);margin:0 0 10px}
+.zux-h1{font-size:clamp(28px,4.4vw,44px);font-weight:800;letter-spacing:-.02em;margin:0 0 8px;line-height:1.06}
+.zux-foil{background:linear-gradient(100deg,#fff6dd 0%,#e8ce86 38%,#c9a227 62%,#6f5510 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.zux-lede{color:var(--text-body);max-width:70ch;font-size:15.5px;line-height:1.6}
+
+/* panel kaca */
+.zux-glass{position:relative;border:1px solid var(--hairline);border-radius:16px;
+  background:linear-gradient(180deg,rgba(22,48,74,.72),rgba(10,26,44,.62));
+  box-shadow:0 18px 44px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(10px);padding:22px;margin:18px 0}
+.zux-glass::after{content:"";position:absolute;left:22px;right:22px;top:0;height:1px;
+  background:var(--grad-gold);opacity:.55;border-radius:2px}
+.zux-glass h2{margin:0 0 4px;font-size:17px;font-weight:700;letter-spacing:.01em}
+.zux-hint{color:var(--text-muted);font-size:13px;margin:0 0 14px}
+
+/* kad peranan */
+.zux-roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:15px 0}
+.zux-role{text-align:left;cursor:pointer;border:1px solid var(--hairline);border-radius:15px;
+  padding:17px;background:linear-gradient(180deg,rgba(22,48,74,.6),rgba(9,23,40,.55));
+  color:var(--text-body);transition:transform .2s, box-shadow .2s, border-color .2s;position:relative;overflow:hidden}
+.zux-role:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(0,0,0,.42)}
+.zux-role .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+  background:rgba(201,162,39,.12);border:1px solid var(--hairline);color:var(--gold-light);
+  font-weight:800;font-size:14px;margin-bottom:11px}
+.zux-role b{color:#fff;font-size:15.5px;display:block;margin-bottom:3px}
+.zux-role small{color:var(--text-muted);font-size:12.5px;line-height:1.5}
+.zux-role[aria-pressed="true"]{border-color:var(--gold-core);
+  box-shadow:0 0 0 1px var(--gold-core), 0 16px 40px rgba(201,162,39,.18)}
+.zux-role[aria-pressed="true"]::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(232,206,134,.16) 50%,transparent 70%);
+  animation:zuxSheen 1.5s ease-out}
+.zux-role[aria-pressed="true"] .ic{background:var(--grad-gold);color:var(--on-gold)}
+
+@keyframes zuxSheen{from{transform:translateX(-60%)}to{transform:translateX(60%)}}
+@media (prefers-reduced-motion:reduce){.zux-role[aria-pressed="true"]::before{animation:none}
+  .zux-role{transition:none}}
+
+/* cip keupayaan */
+.zux-chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.zux-chip{font-size:12.5px;font-weight:600;color:var(--text-body);border:1px solid var(--hairline);
+  border-radius:999px;padding:7px 12px;background:rgba(255,255,255,.03);display:inline-flex;gap:8px;align-items:center}
+.zux-chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold-core);
+  box-shadow:0 0 0 3px rgba(201,162,39,.16)}
+
+/* kad statistik */
+.zux-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:13px;margin:6px 0 4px}
+.zux-kpi{border:1px solid var(--hairline);border-radius:14px;padding:15px 16px;
+  background:linear-gradient(180deg,rgba(22,48,74,.6),rgba(9,23,40,.5))}
+.zux-kpi span{display:block;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:6px}
+.zux-kpi b{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.02em}
+.zux-kpi b.gold{background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* jadual mewah */
+table.zux-tbl{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+table.zux-tbl thead th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-light);padding:10px 12px;border-bottom:1px solid var(--hairline)}
+table.zux-tbl tbody td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.055);color:var(--text-body)}
+table.zux-tbl tbody tr{transition:background .16s}
+table.zux-tbl tbody tr:hover{background:rgba(201,162,39,.06)}
+table.zux-tbl tbody td:first-child{color:#fff;font-weight:600}
+.zux-empty{color:var(--text-muted);font-style:italic}
+
+/* borang mewah */
+.zux-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px;align-items:end}
+.zux-field{position:relative}
+.zux-field label{display:block;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold-light);margin-bottom:7px}
+.zux-input,.zux-field input,.zux-field select{width:100%;padding:12px 13px;border-radius:11px;
+  background:rgba(7,17,32,.6);border:1px solid var(--hairline);color:#fff;font:inherit;font-size:14px;
+  transition:box-shadow .18s, border-color .18s, background .18s}
+.zux-field input::placeholder{color:#6d7f92}
+.zux-form .zux-btn{grid-column:1/-1;justify-self:start;min-width:200px}
+body.zux .zux-field input:focus,body.zux .zux-field select:focus{outline:none;border-color:var(--gold-core);
+  background:rgba(7,17,32,.9);box-shadow:0 0 0 3px rgba(201,162,39,.22)}
+body.zux .zux-field input:invalid:not(:placeholder-shown){border-color:#E8776A}
+
+/* butang */
+.zux-btn{border:0;cursor:pointer;font:inherit;font-weight:700;font-size:14px;padding:12px 20px;border-radius:11px;
+  background:var(--grad-gold);color:var(--on-gold);box-shadow:0 10px 26px rgba(201,162,39,.22);transition:.18s}
+.zux-btn:hover{transform:translateY(-1px);box-shadow:0 14px 32px rgba(201,162,39,.3)}
+.zux-btn.line{background:transparent;color:var(--gold-light);border:1px solid var(--hairline);box-shadow:none}
+.zux-btn.line:hover{background:rgba(201,162,39,.08)}
+.zux-btn:focus-visible{outline:2px solid var(--gold-light);outline-offset:2px}
+
+/* tab / bahagian */
+.zux-tabs{display:flex;gap:6px;border-bottom:1px solid var(--hairline);margin:6px 0 0}
+.zux-tab{background:none;border:0;cursor:pointer;font:inherit;font-size:13.5px;font-weight:600;
+  color:var(--text-muted);padding:11px 14px;border-bottom:2px solid transparent;transition:.16s}
+.zux-tab:hover{color:#fff}
+.zux-tab[aria-selected="true"]{color:#fff;border-bottom-color:var(--gold-core)}
+.zux-sec{display:none}.zux-sec.on{display:block;animation:zuxFade .22s ease-out}
+@keyframes zuxFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.zux-sec.on{animation:none}}
+
+.zux-note{margin-top:26px;padding-top:16px;border-top:1px solid var(--hairline);
+  color:var(--text-muted);font-size:12.5px}
+.zux-badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.08em;padding:4px 10px;border-radius:999px}
+.zux-badge.ok{background:rgba(67,176,42,.16);color:#8fe07a;border:1px solid rgba(67,176,42,.35)}
+.zux-badge.warn{background:rgba(217,138,31,.16);color:#f0c07a;border:1px solid rgba(217,138,31,.35)}
+.zux-badge.info{background:rgba(0,163,181,.16);color:#7fd7e2;border:1px solid rgba(0,163,181,.35)}

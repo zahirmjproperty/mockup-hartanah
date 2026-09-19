@@ -1,48 +1,85 @@
 <!doctype html><html lang="ms"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
-<title>Tambah Rekod — Zentra Asset</title><link rel="stylesheet" href="assets/style.css"></head><body>
-<header><b>ZENTRA</b> <span>ASSET</span><nav>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Tambah Rekod — Zentra Asset</title>
+<link rel="stylesheet" href="assets/zentra.css"><link rel="stylesheet" href="assets/f2-lux.css">
+</head><body class="zux"><div class="zux-top"><div class="in">
+<span class="zux-brand">ZENTRA <i>ASSET</i></span>
+<nav class="zux-nav">
 <a href="index.html">Operasi</a><a href="sewa.html">Sewa</a><a href="unit.html">Unit</a>
 <a href="penyelenggaraan.html">Penyelenggaraan</a><a href="bil.html">Bil</a>
-<a href="peranan.html">Peranan</a><a href="tambah.html">Tambah</a></nav></header><main>
-<div class="banner">Borang ini hanya mockup: data disimpan dalam pelayar anda (localStorage),
-tidak dihantar ke mana-mana pelayan. Ini menunjukkan aliran kerja sebenar tanpa data sebenar.</div>
-<h1>Tambah Rekod</h1>
-<h2>Unit baharu</h2>
-<form onsubmit="tambahUnit(event)">
- <input id="u_projek" placeholder="Nama projek" required>
- <input id="u_status" placeholder="Status (Tersedia/Disewa)" value="Tersedia" required>
- <input id="u_sewa" type="number" min="0" placeholder="Sewa bulanan (RM)" required>
- <button class="btn" type="submit">Tambah unit</button></form>
-<h2>Perjanjian sewa</h2>
-<form onsubmit="tambahSewa(event)">
- <input id="s_unit" placeholder="ID unit (cth AST-0003)" required>
- <input id="s_penyewa" placeholder="Nama penyewa" required>
- <input id="s_tempoh" type="number" min="1" max="36" value="12" placeholder="Tempoh (bulan)" required>
- <button class="btn" type="submit">Tambah perjanjian</button></form>
-<h2>Tiket penyelenggaraan</h2>
-<form onsubmit="tambahTiket(event)">
- <input id="t_unit" placeholder="ID unit" required>
- <input id="t_kerja" placeholder="Kerja diperlukan" required>
- <select id="t_keutamaan"><option>Tinggi</option><option>Sederhana</option><option>Rendah</option></select>
- <button class="btn" type="submit">Hantar tiket</button></form>
-<h2>Rekod ditambah (sesi ini)</h2>
-<table class="data"><thead><tr><th>Jenis</th><th>Butiran</th></tr></thead><tbody id="senarai"></tbody></table>
-<button class="btn" onclick="localStorage.removeItem('zentra_tambah');render()">Kosongkan</button>
+<a href="peranan.html">Peranan</a><a href="tambah.html" aria-current="page">Tambah</a></nav></div></div><main>
+<p class="zux-eyebrow">Aliran Kerja</p>
+<h1 class="zux-h1">Tambah <span class="zux-foil">Rekod</span></h1>
+<p class="zux-lede">Tiga aliran kerja utama: unit baharu, perjanjian sewa, dan tiket penyelenggaraan.
+Mockup ini menyimpan data dalam pelayar anda sahaja — tiada apa-apa dihantar ke pelayan.</p>
+<div class="zux-glass">
+  <div class="zux-tabs" role="tablist">
+    <button class="zux-tab" role="tab" aria-selected="true" onclick="tab('unit',this)">Unit baharu</button>
+    <button class="zux-tab" role="tab" aria-selected="false" onclick="tab('sewa',this)">Perjanjian sewa</button>
+    <button class="zux-tab" role="tab" aria-selected="false" onclick="tab('tiket',this)">Tiket penyelenggaraan</button>
+  </div>
+  <div class="zux-sec on" id="sec-unit">
+    <form class="zux-form" onsubmit="hantar(event,'Unit',['u_projek','u_status','u_sewa'])">
+      <div class="zux-field"><label for="u_projek">Nama projek</label>
+        <input id="u_projek" placeholder="cth. Residensi Harmoni" required></div>
+      <div class="zux-field"><label for="u_status">Status</label>
+        <input id="u_status" value="Tersedia" required></div>
+      <div class="zux-field"><label for="u_sewa">Sewa bulanan (RM)</label>
+        <input id="u_sewa" type="number" min="0" step="10" placeholder="1200" required></div>
+      <button class="zux-btn" type="submit">Tambah unit</button>
+    </form>
+  </div>
+  <div class="zux-sec" id="sec-sewa">
+    <form class="zux-form" onsubmit="hantar(event,'Perjanjian',['s_unit','s_penyewa','s_tempoh'])">
+      <div class="zux-field"><label for="s_unit">ID unit</label>
+        <input id="s_unit" placeholder="AST-0003" required></div>
+      <div class="zux-field"><label for="s_penyewa">Nama penyewa</label>
+        <input id="s_penyewa" placeholder="Nama penuh" required></div>
+      <div class="zux-field"><label for="s_tempoh">Tempoh (bulan)</label>
+        <input id="s_tempoh" type="number" min="1" max="36" value="12" required></div>
+      <button class="zux-btn" type="submit">Tambah perjanjian</button>
+    </form>
+  </div>
+  <div class="zux-sec" id="sec-tiket">
+    <form class="zux-form" onsubmit="hantar(event,'Tiket',['t_unit','t_kerja'],'t_keutamaan')">
+      <div class="zux-field"><label for="t_unit">ID unit</label>
+        <input id="t_unit" placeholder="AST-0003" required></div>
+      <div class="zux-field"><label for="t_kerja">Kerja diperlukan</label>
+        <input id="t_kerja" placeholder="cth. Paip sinki bocor" required></div>
+      <div class="zux-field"><label for="t_keutamaan">Keutamaan</label>
+        <select id="t_keutamaan"><option>Tinggi</option><option selected>Sederhana</option><option>Rendah</option></select></div>
+      <button class="zux-btn" type="submit">Hantar tiket</button>
+    </form>
+  </div>
+</div>
+<div class="zux-glass">
+  <h2>Rekod ditambah</h2><p class="zux-hint">Disimpan dalam pelayar ini sahaja (localStorage).</p>
+  <table class="zux-tbl"><thead><tr><th>Jenis</th><th>Butiran</th></tr></thead><tbody id="senarai"></tbody></table>
+  <div style="margin-top:14px"><button class="zux-btn line" onclick="localStorage.removeItem('zentra_tambah');render()">Kosongkan senarai</button></div>
+</div>
 <script>
-function simpan(j,b){ const k='zentra_tambah'; const l=JSON.parse(localStorage.getItem(k)||'[]');
- l.push([j,b]); localStorage.setItem(k,JSON.stringify(l)); render(); }
-function tambahUnit(e){ e.preventDefault(); const f=e.target;
- if(f.u_sewa.value<0){ alert('Sewa tidak boleh negatif'); return; }
- simpan('Unit', f.u_projek.value+' · '+f.u_status.value+' · RM'+f.u_sewa.value); f.reset(); }
-function tambahSewa(e){ e.preventDefault(); const f=e.target;
- simpan('Perjanjian', f.s_unit.value+' · '+f.s_penyewa.value+' · '+f.s_tempoh.value+' bulan'); f.reset(); }
-function tambahTiket(e){ e.preventDefault(); const f=e.target;
- simpan('Tiket', f.t_unit.value+' · '+f.t_kerja.value+' · '+f.t_keutamaan.value); f.reset(); }
-function render(){ const l=JSON.parse(localStorage.getItem('zentra_tambah')||'[]');
- document.getElementById('senarai').innerHTML = l.length ? l.map(x=>'<tr><td>'+x[0]+'</td><td>'+x[1]+'</td></tr>').join('')
- : '<tr><td colspan="2">Belum ada rekod ditambah.</td></tr>'; }
+function tab(id,el){
+  document.querySelectorAll('.zux-tab').forEach(b=>b.setAttribute('aria-selected','false'));
+  el.setAttribute('aria-selected','true');
+  document.querySelectorAll('.zux-sec').forEach(s=>s.classList.remove('on'));
+  document.getElementById('sec-'+id).classList.add('on');
+}
+function hantar(e,jenis,id,selId){
+  e.preventDefault(); const f=e.target; const nilai=id.map(k=>f[k].value);
+  if(id.includes('u_sewa') && Number(f.u_sewa.value)<0){ alert('Sewa tidak boleh negatif'); return; }
+  const xtra = selId ? f[selId].value : '';
+  const l=JSON.parse(localStorage.getItem('zentra_tambah')||'[]');
+  l.push([jenis, nilai.join(' · ') + (xtra ? ' · '+xtra : '')]);
+  localStorage.setItem('zentra_tambah', JSON.stringify(l)); f.reset(); render();
+}
+function render(){
+  const l=JSON.parse(localStorage.getItem('zentra_tambah')||'[]');
+  document.getElementById('senarai').innerHTML = l.length
+    ? l.map(x=>'<tr><td>'+x[0]+'</td><td>'+x[1]+'</td></tr>').join('')
+    : '<tr><td colspan="2" class="zux-empty">Belum ada rekod ditambah.</td></tr>';
+}
 render();
 </script>
-</main><footer>Zentra Asset F2 · mockup · semua data REKAAN (sintetik, benih 20260920)
-· tiada data pelanggan · disediakan oleh Ali</footer></body></html>
+</main><div class="zux-note" style="max-width:1120px;margin:0 auto;padding:0 22px 40px">
+Zentra Asset F2 · mockup UI · semua data REKAAN (sintetik, benih 20260920) · tiada data pelanggan
+· disediakan oleh Ali</div></body></html>
