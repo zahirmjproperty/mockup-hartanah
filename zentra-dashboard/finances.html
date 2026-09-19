@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zentra Asset — Finances</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="assets/dashboard.css">
+</head>
+<body>
+<div class="sidebar">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 2L2 9v10l12 7 12-7V9L14 2z" fill="url(#gGold)" opacity=".9"/>
+      <path d="M14 6l-8 4.5v7L14 22l8-4.5v-7L14 6z" fill="#0b1b2e"/>
+      <path d="M14 9l-4 2.5v3L14 17l4-2.5v-3L14 9z" fill="url(#gGold)"/>
+      <defs><linearGradient id="gGold" x1="0" y1="0" x2="28" y2="28"><stop offset="0" stop-color="#e8ce86"/><stop offset=".5" stop-color="#c9a227"/><stop offset="1" stop-color="#9a7a2e"/></linearGradient></defs>
+    </svg>
+    <span><strong>ZENTRA</strong> <span class="gold">ASSET</span></span>
+  </div>
+  <nav class="nav">
+    <a href="index.html"><svg viewBox="0 0 20 20" fill="none"><path d="M2 10L10 3l8 7v8a1 1 0 01-1 1h-5v-5H8v5H3a1 1 0 01-1-1v-8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg> Dashboard</a>
+    <a href="properties.html"><svg viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="2" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="11" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="11" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/></svg> Properties</a>
+    <a href="tenancy.html"><svg viewBox="0 0 20 20" fill="none"><circle cx="7" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 17a5 5 0 0110 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M13 7l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Tenancy</a>
+    <a href="finances.html" class="active"><svg viewBox="0 0 20 20" fill="none"><path d="M2 5h16v12H2V5z" stroke="currentColor" stroke-width="1.5" rx="1"/><path d="M2 9h16" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="13" r="2" stroke="currentColor" stroke-width="1.5"/></svg> Finances</a>
+    <a href="#compliance"><svg viewBox="0 0 20 20" fill="none"><path d="M10 2l8 4v8l-8 4-8-4V6l8-4z" stroke="currentColor" stroke-width="1.5"/><path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Compliance</a>
+    <a href="#owner-report"><svg viewBox="0 0 20 20" fill="none"><path d="M4 4h12v12H4V4z" stroke="currentColor" stroke-width="1.5" rx="2"/><path d="M7 14V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 14V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M13 14v-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Owner Report</a>
+    <a href="#settings"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M3.4 3.4l1.4 1.4M15.2 15.2l1.4 1.4M3.4 16.6l1.4-1.4M15.2 4.8l1.4-1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Settings</a>
+  </nav>
+  <div class="sidebar-foot">
+    <div class="user-badge">
+      <div class="avatar">ZM</div>
+      <div><strong>Zahir MJ</strong><br><span class="dim">Administrator</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <header class="header">
+    <div class="page-title">
+      <h1>Finances</h1>
+      <span class="breadcrumb">Asset Management / Financial Records</span>
+    </div>
+    <div class="search">
+      <input type="text" placeholder="Search transactions..." aria-label="Search">
+    </div>
+    <div class="actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" onclick="toggleTheme()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" id="sunIcon"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" id="moonIcon" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="icon-btn" title="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="dot"></span></button>
+      <div class="avatar">ZM</div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="stat-row">
+      <div class="stat-card"><span class="label">Monthly Income</span><span class="value">RM 26,450</span></div>
+      <div class="stat-card"><span class="label">Pending Collection</span><span class="value">RM 12,380</span></div>
+      <div class="stat-card"><span class="label">Year to Date</span><span class="value">RM 291,400</span></div>
+      <div class="stat-card"><span class="label">Expenses This Month</span><span class="value">RM 4,820</span></div>
+    </div>
+
+    <div class="card filter-bar">
+      <select class="sel" aria-label="Period"><option>This Month</option><option>Last Month</option><option>This Quarter</option><option>This Year</option></select>
+      <select class="sel" aria-label="Type"><option>All Types</option><option>Rental</option><option>Maintenance</option><option>Deposit</option></select>
+      <a href="#" class="zbtn zbtn--sm zbtn--outline" style="margin-left:auto">+ Record Payment</a>
+    </div>
+
+    <div class="card">
+      <table class="dash-table">
+        <thead>
+          <tr><th>Date</th><th>Description</th><th>Unit</th><th>Type</th><th>Amount (RM)</th><th>Status</th><th class="act">Actions</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>19 Sep 2026</td>
+            <td>Rental Payment</td>
+            <td>A-12</td>
+            <td>Rental</td>
+            <td class="gold">+2,800</td>
+            <td><span class="badge active">Paid</span></td>
+            <td class="act"><button class="icon-btn">⋯</button></td>
+          </tr>
+          <tr>
+            <td>15 Sep 2026</td>
+            <td>Rental Payment</td>
+            <td>B-04</td>
+            <td>Rental</td>
+            <td class="gold">+3,500</td>
+            <td><span class="badge active">Paid</span></td>
+            <td class="act"><button class="icon-btn">⋯</button></td>
+          </tr>
+          <tr>
+            <td>5 Sep 2026</td>
+            <td>Lobby Maintenance</td>
+            <td>Common</td>
+            <td>Maintenance</td>
+            <td class="dim">-640</td>
+            <td><span class="badge warning">Pending</span></td>
+            <td class="act"><button class="icon-btn">⋯</button></td>
+          </tr>
+          <tr>
+            <td>1 Sep 2026</td>
+            <td>Rental Payment (overdue)</td>
+            <td>E-15</td>
+            <td>Rental</td>
+            <td class="gold">+5,800</td>
+            <td><span class="badge danger">Overdue</span></td>
+            <td class="act"><button class="icon-btn">⋯</button></td>
+          </tr>
+          <tr>
+            <td>28 Aug 2026</td>
+            <td>Security Deposit</td>
+            <td>D-21</td>
+            <td>Deposit</td>
+            <td class="gold">+4,200</td>
+            <td><span class="badge active">Paid</span></td>
+            <td class="act"><button class="icon-btn">⋯</button></td>
+          </tr>
+          <tr>
+            <td>10 Aug 2026</td>
+            <td>Tenancy Renewal Fee</td>
+            <td>F-03</td>
+            <td>Fee</td>
+            <td class="gold">+500</td>
+            <td><span class="badge active">Paid</span></td>
+            <td class="act"><button class="icon-btn">⋯</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="pagination">Showing 1–6 of 38 transactions</p>
+  </div>
+</div>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const isLight = html.classList.toggle('theme-light');
+  document.getElementById('sunIcon').style.display = isLight ? 'none' : '';
+  document.getElementById('moonIcon').style.display = isLight ? '' : 'none';
+  localStorage.setItem('za-theme', isLight ? 'light' : 'dark');
+}
+(function() {
+  var theme = localStorage.getItem('za-theme') || 'dark';
+  if (window.location.search.indexOf('theme=light') > -1) theme = 'light';
+  if (theme === 'light') {
+    document.documentElement.classList.add('theme-light');
+    document.getElementById('sunIcon').style.display = 'none';
+    document.getElementById('moonIcon').style.display = '';
+  }
+})();
+</script>
+</body>
+</html>
