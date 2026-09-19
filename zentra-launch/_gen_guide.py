@@ -31,21 +31,22 @@ DECISIONS = [
         "Admin console first (projects, inventory, locks, bookings, billing) — buyer portal in Phase 2",
         "Admin console and buyer portal together",
         "Buyer portal first, admin console follows"]),
-    ("d2", "Source of truth", [
+    ("d2", "Source of truth (waiting for explanation)", [
         "Notion 'Projek Baharu MT' stays the source of truth; Zentra Launch syncs from it",
         "Build a Zentra Launch database; Notion becomes a read-only archive",
-        "Keep both in parallel and reconcile manually"]),
+        "Keep both in parallel and reconcile manually",
+        "Explain the three options in detail before I decide"]),
     ("d3", "Payment collection", [
-        "Billplz (existing account, FPX + cards) for booking and milestone payments",
-        "DuitNow QR through the acquirer (QRPayBiz / Billplz QR)",
-        "Manual bank transfer with reconciliation in the admin console"]),
+        "Transfer / cheque into the developer's Housing Development Account (system is record-only)",
+        "Transfer / cheque into the solicitor's client account for SPA-stage payments",
+        "Billplz (FPX + cards) or DuitNow QR collected by the operator"]),
     ("d4", "Buyer identity", [
         "Reuse Zentra Portal accounts (Supabase) so a buyer has one Zentra ID",
         "Separate buyer accounts inside Zentra Launch",
         "Email link access with no account (lightest friction)"]),
     ("d5", "Public microsite", [
+        "Publish under launch.zentrapropertygroup.com (one path per project)",
         "Publish project pages on mrtanah.com using the existing pipeline",
-        "Publish under a Zentra Launch path (launch.zentrapropertygroup.com)",
         "Keep it preview-only until the rebrand cutover"]),
     ("d6", "Launch timing", [
         "After the Zentra Property Group cutover (one build, one switch)",
@@ -137,6 +138,10 @@ def soalans_html():
     return "\n".join(out)
 
 
+# Jawapan Zahir 19/9/2026 (mesej Telegram): indeks pilihan yang dipilih; None = belum dijawab
+PICK = {"d1": 0, "d2": None, "d3": 0, "d4": 0, "d5": 0, "d6": 0}
+
+
 def decisions_html():
     out = []
     for i, (did, label, opts) in enumerate(DECISIONS):
@@ -144,7 +149,8 @@ def decisions_html():
         for j, o in enumerate(opts):
             rec = ' <span class="rec">recommended</span>' if j == 0 else ''
             rows.append('<label class="opt"><input type="radio" name="%s" value="%s"%s> %s%s</label>'
-                        % (did, o.replace('"', '&quot;'), ' checked' if j == 0 else '', o, rec))
+                        % (did, o.replace('"', '&quot;'),
+                           ' checked' if PICK.get(did) == j else '', o, rec))
         out.append('<div class="q"><div class="qt"><span class="qn">%s</span> <b>%s</b></div><div class="opts">%s</div></div>'
                    % (chr(65 + i), label, "\n".join(rows)))
     return "\n".join(out)
@@ -176,6 +182,23 @@ BODY = """
     <div class="banner">REVIEW GUIDE — read this before signing off the mock-up. Answer the 10 questions, choose the 6
       decisions, then copy the summary at the bottom and send it back. Nothing here is production: every screen is a
       design proposal with sample data.</div>
+
+    <div class="card" style="border-color:rgba(201,162,39,.45)"><div class="card-hd"><h2>Decisions received — 19 Sep 2026</h2>
+      <span class="more">from Zahir</span></div>
+      <div class="card-bd">
+        <div class="kv">
+          <div class="row"><span class="k">A · Phase 1 scope</span><span class="v">Admin console first</span></div>
+          <div class="row"><span class="k">B · Source of truth</span><span class="v">Explanation requested — still open</span></div>
+          <div class="row"><span class="k">C · Payment collection</span><span class="v">Transfer / cheque to the developer's Housing Development Account, or the solicitor's client account</span></div>
+          <div class="row"><span class="k">D · Buyer identity</span><span class="v">Zentra ID (Zentra Portal, Supabase)</span></div>
+          <div class="row"><span class="k">E · Public microsite</span><span class="v">launch.zentrapropertygroup.com</span></div>
+          <div class="row"><span class="k">F · Launch timing</span><span class="v">After the Zentra Property Group cutover</span></div>
+        </div>
+        <div class="note" style="margin-top:14px"><b>C changes the design:</b> Zentra Launch becomes
+          <b>record-only</b> for money — it issues payment instructions, records slips that buyers upload, and tracks the
+          balance. The system never holds client funds (and no e-wallet or card collection). The buyer portal and the
+          admin billing screens have been updated to show the developer's Housing Development Account route.</div>
+      </div></div>
 
     <div class="card"><div class="card-hd"><h2>How to use this guide</h2><span class="more">3 steps</span></div>
       <div class="card-bd">

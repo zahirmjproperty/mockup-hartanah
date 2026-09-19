@@ -299,6 +299,14 @@ billing = (
         ("Buyer receipts issued automatically on payment", "Emailed with e-invoice reference", "auto", None),
         ("Progressive claim requires architect / engineer certificate", "Uploaded before the invoice can be issued", "1 doc", "#B7791F"),
     ]))
+    + card("Payment route — record only (decision 19 Sep 2026)", activities([
+        ("Buyer pays into the developer's Housing Development Account",
+         "HDA 1966 s.7A — project account. Zentra Launch never holds client money", "record-only", "#C9A227"),
+        ("Or into the solicitor's client account for SPA-stage payments",
+         "Per the payment clause in the SPA — the system records what the solicitor confirms", "per SPA", "#1F5F8B"),
+        ("Buyer uploads the bank-in slip or cheque copy",
+         "Sales office reconciles it, then the receipt and e-invoice are issued from here", "reconcile", None),
+    ]), more='<span class="more">No card, e-wallet or QR collection</span>')
 )
 
 # ─────────────────────────────────────────────────── settings.html

@@ -111,7 +111,9 @@ function render(){
   el('spec', kv([
     ['Project', p.name], ['Type', p.type], ['Location', p.location], ['Land area', p.land],
     ['Tenure', p.tenure], ['Launch', p.launch], ['Est. completion', p.completion],
-    ['Development licence', p.dl], ['Advertising &amp; selling permit', p.apdl]
+    ['Development licence', p.dl], ['Advertising &amp; selling permit', p.apdl],
+    ['Buyer microsite (publish path)', 'launch.zentrapropertygroup.com/' + p.slug],
+    ['Payment route', 'Developer\u2019s Housing Development Account (HDA 1966 s.7A), or the solicitor\u2019s client account per SPA']
   ]));
   el('blocks', '<div class="table-wrap"><table class="dash-table"><thead><tr><th>Block / phase</th><th>Units</th><th>Sold</th><th>Take-up</th><th></th></tr></thead><tbody>' +
     p.blocks.map(function(b){

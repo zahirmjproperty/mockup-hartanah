@@ -132,7 +132,8 @@ booking = (
     ]))
     + card("Next action", (
         '<p style="margin:0 0 10px"><b>Payment 3 — Foundation completed · %s</b><br>'
-        '<span class="sub" style="margin:0">Due 30 Sep 2026 · invoice INV-2609-0142 · pay by FPX, DuitNow QR or bank transfer</span></p>'
+        '<span class="sub" style="margin:0">Due 30 Sep 2026 · invoice INV-2609-0142 · pay by transfer or cheque into the '
+        'developer\u2019s Housing Development Account (or the solicitor\u2019s client account for SPA-stage payments)</span></p>'
         '<div class="cta"><a class="btn gold" href="payments.html">View payment schedule</a>'
         '<a class="btn ghost" href="documents.html">Download invoice</a></div>' % money(70200)))
     + card("Need help?", rows([
@@ -175,13 +176,22 @@ payments = (
         ("🧾", "INV-2609-0142 · Foundation completed", "Issued 19 Sep 2026 · due 30 Sep 2026", '<span class="badge b-due">Unpaid</span>'),
     ]))
     + card("How to pay", rows([
-        ("🏦", "Bank transfer", "ZMJ Solutions · Maybank 5144 2233 8891 · ref LAU-2608-0113", '<span class="badge b-info">No fee</span>'),
-        ("⚡", "FPX online banking", "Credit the same reference within 24 hours", '<a class="btn ghost" href="#fpx">Pay</a>'),
-        ("📱", "DuitNow QR", "Scan from your banking app · same reference", '<a class="btn ghost" href="#qr">QR</a>'),
+        ("🏦", "Transfer / cheque — developer's account",
+         "Avalon Cybersouth Housing Development Account (HDA 1966 s.7A) · Maybank 5144 2233 8891 · ref LAU-2608-0113",
+         '<span class="badge b-info">Project account</span>'),
+        ("⚖️", "Transfer / cheque — solicitor's client account",
+         "For SPA-stage payments, per the payment clause in your SPA · ref LAU-2608-0113",
+         '<span class="badge b-info">Per SPA</span>'),
+        ("📎", "Upload your payment slip",
+         "Bank-in slip or cheque copy — the sales office reconciles it and issues your receipt",
+         '<a class="btn ghost" href="#upload">Upload</a>'),
     ]))
     + '<div class="note"><b>No payment is collected before your SPA is signed</b> '
       '(Regulation 11(2), Housing Development Regulations 1989). Every payment you make appears here '
-      'within 24 hours with a receipt and an e-invoice reference (LHDN MyInvois).</div>\n'
+      'within 24 hours with a receipt and an e-invoice reference (LHDN MyInvois).<br>'
+      '<b>Zentra Launch never holds your money:</b> payments are made straight to the developer\u2019s '
+      'Housing Development Account or the solicitor\u2019s client account — the system only records them, '
+      'issues receipts and tracks your balance.</div>\n'
 )
 
 # ───────────────────────────────────────────────────────────── 3. Progress
