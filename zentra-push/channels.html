@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Channel matrix | Zentra Push</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/theme-boot.js"></script>
+<link rel="stylesheet" href="assets/push.css">
+<link rel="stylesheet" href="assets/push-extra.css">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/zp-favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/zp-icon-192.png">
+<link rel="apple-touch-icon" href="icons/zp-apple-touch-icon.png">
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Channel matrix</h1>
+        <p>Every marketing channel we care about, with the integration path that actually exists, the terms that govern it, and the reach it buys.</p>
+      </div>
+      <span class="badge-demo">INTERACTIVE MOCKUP &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Fully automatable</div><div class="val" id="cAuto">8</div><div class="sub">sanctioned API or feed</div></div>
+      <div class="kpi blue"><div class="lab">Assist only</div><div class="val" id="cAssist">4</div><div class="sub">human presses submit</div></div>
+      <div class="kpi"><div class="lab">Portal-side switches</div><div class="val" id="cNative">4</div><div class="sub">turn on inside the portal</div></div>
+      <div class="kpi warn"><div class="lab">Closed to automation</div><div class="val" id="cManual">6</div><div class="sub">content pack only</div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Capability by channel</h2>
+    <div class="card">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
+        <button class="btn ghost fil on" data-f="all">All</button>
+        <button class="btn ghost fil" data-f="AUTO">Auto</button>
+        <button class="btn ghost fil" data-f="ASSIST">Assist</button>
+        <button class="btn ghost fil" data-f="NATIVE">Native</button>
+        <button class="btn ghost fil" data-f="MANUAL">Manual</button>
+        <label class="small muted" style="margin-left:auto;display:flex;gap:6px;align-items:center">
+          <input type="checkbox" id="hideClosed"> Hide channels that ban automation</label>
+      </div>
+      <div id="rows"></div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Terms of service: what the portals actually say</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0;font-size:14px">PropertyGuru / iProperty</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">The iProperty acceptable-use policy bans &ldquo;any automation software, hacks, mods or any other unauthorized third-party software designed to access, crawl or collect&rdquo; from the site. PropertyGuru's policy on porting listings states their systems detect and block third-party access and that bots cannot be granted access on request. This is the single hardest constraint in the design.</p></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14px">Mudah.my / Carousell</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">Mudah's terms prohibit scraping, framing and spidering without written consent, and assign copyright of listing content to Mudah. The PRO Niaga dashboard does allow drafting and then publishing, which is exactly the shape an assistive tool can fit.</p></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14px">Meta &amp; WhatsApp</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">Page publishing through the Graph API remains available. Group publishing does not: publish_to_groups was removed from all Graph versions on 22 April 2024. The Marketplace partner API covers European countries only, and Meta policy bars business sellers from Marketplace. WhatsApp Business accounts cannot post into groups at all.</p></div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> The pragmatic reading</h2>
+    <div class="note">
+      The sanctioned surface is wider than it looks. Feed aggregation (Dot Property, Trovit, Mitula, Nestoria), our own sites, the Facebook Page, Telegram channels and Google Business Profile together cover the reach that pages of manual posting used to. The two portals that matter most for buyers &mdash; PropertyGuru and iProperty &mdash; are reachable through one sanctioned move: AgentNet cross-listing, which duplicates a PropertyGuru record onto iProperty without any third-party tooling. That is a portal feature to switch on, not software to build.
+    </div>
+
+  </main>
+</div>
+<script src="assets/push-data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+const Z = window.ZP;
+let filter = 'all';
+
+document.getElementById('cAuto').textContent   = Z.COUNTS.AUTO;
+document.getElementById('cAssist').textContent = Z.COUNTS.ASSIST;
+document.getElementById('cNative').textContent = Z.COUNTS.NATIVE;
+document.getElementById('cManual').textContent = Z.COUNTS.MANUAL;
+
+function row(c) {
+  const d = Z.TIER[c.tier];
+  const flag = '<span class="tos-flag tos-' + c.tos + '"></span>';
+  const tosTxt = {clear:'Clearly permitted', caution:'Permitted with care', blocked:'Automation prohibited'}[c.tos];
+  const detail = (c.tosnote && c.tosnote.length > 115)
+    ? '<details style="margin-top:3px"><summary style="cursor:pointer;font-size:11px;opacity:.8">Terms detail</summary><div style="margin-top:5px;font-size:11px">' + c.tosnote + '</div></details>'
+    : '';
+  return '<div class="chan">'
+    + '<div class="nm">' + c.name + '<small>' + c.group + '</small></div>'
+    + '<div><span class="chip ' + d.cls + '">' + d.label + '</span></div>'
+    + '<div class="meta"><b style="opacity:.92">' + c.api + '</b><br>' + c.cost + '<br><span class="small">' + c.reach + '</span>' + detail + '</div>'
+    + '<div class="tos">' + flag + tosTxt + '</div>'
+    + '<div class="right">' + (c.href && c.href !== '#'
+        ? '<a class="btn ghost small" href="' + c.href + '" target="_blank" rel="noopener">Source</a>'
+        : '<span class="small muted">&mdash;</span>') + '</div>'
+    + '</div>';
+}
+
+function draw() {
+  const hideClosed = document.getElementById('hideClosed').checked;
+  let list = Z.CHANNELS.slice();
+  if (filter !== 'all') list = list.filter(c => c.tier === filter);
+  if (hideClosed) list = list.filter(c => c.tos !== 'blocked');
+  document.getElementById('rows').innerHTML = list.length
+    ? list.map(row).join('')
+    : '<p class="small muted">Nothing matches this filter.</p>';
+}
+
+document.querySelectorAll('.fil').forEach(b => b.onclick = () => {
+  filter = b.dataset.f;
+  document.querySelectorAll('.fil').forEach(x => x.classList.toggle('on', x === b));
+  draw();
+});
+document.getElementById('hideClosed').onchange = draw;
+draw();
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Overview | Zentra Push</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/theme-boot.js"></script>
+<link rel="stylesheet" href="assets/push.css">
+<link rel="stylesheet" href="assets/push-extra.css">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/zp-favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/zp-icon-192.png">
+<link rel="apple-touch-icon" href="icons/zp-apple-touch-icon.png">
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Distribution overview</h1>
+        <p>One canonical listing record, pushed to every marketing channel it is legally allowed to reach &mdash; with evidence left behind at each stop.</p>
+      </div>
+      <span class="badge-demo">INTERACTIVE MOCKUP &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="note">
+      <b>Design premise.</b> No Malaysian property portal publishes a listing-submission API for agents. PropertyGuru and iProperty additionally prohibit third-party automation in writing, and Facebook removed group publishing in April 2024. Zentra Push therefore separates what is <b>sanctioned</b> (automate fully) from what is <b>tolerated</b> (prefill, human submits) from what is <b>closed</b> (generate a pack, human posts).
+    </div>
+
+    <div class="grid g4" id="kpis"></div>
+
+    <h2 class="sec"><span class="num">1</span> What each capability tier actually means</h2>
+    <div class="grid g4" id="tiers"></div>
+
+    <h2 class="sec"><span class="num">2</span> Listings in flight</h2>
+    <div class="card">
+      <table class="mx"><thead><tr>
+        <th>Listing</th><th>Source record</th><th>Price</th><th>Agent</th><th>Channels live</th><th>Next action</th>
+      </tr></thead><tbody id="flight"></tbody></table>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Latest distribution activity</h2>
+    <div class="card" id="recent"></div>
+
+  </main>
+</div>
+<script src="assets/push-data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+const Z = window.ZP;
+const el = id => document.getElementById(id);
+const money = n => 'RM' + n.toLocaleString('en-US');
+const TIER_ORDER = ['AUTO','ASSIST','NATIVE','MANUAL'];
+
+/* --- KPI --- */
+el('kpis').innerHTML = [
+  ['Channels on full auto', Z.COUNTS.AUTO, 'of ' + Z.CHANNELS.length + ' tracked channels'],
+  ['Channel placements live', Z.KPI.live, 'across ' + Z.KPI.listings + ' listings'],
+  ['Waiting on a human', Z.KPI.assist + Z.KPI.queued, 'assist sessions and queued pushes'],
+  ['Renewals due', Z.KPI.renewal, 'portal ads nearing expiry']
+].map(k => '<div class="kpi"><div class="lab">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>').join('');
+
+/* --- kad tahap --- */
+el('tiers').innerHTML = TIER_ORDER.map(t => {
+  const d = Z.TIER[t];
+  return '<div class="card"><span class="chip ' + d.cls + '">' + d.label + ' &middot; ' + Z.COUNTS[t] + '</span>'
+    + '<h3 style="margin:10px 0 5px;font-size:14px">' + d.label + ' channels</h3>'
+    + '<p class="small muted" style="margin:0;line-height:1.55">' + d.txt + '</p></div>';
+}).join('');
+
+/* --- senarai dalam penerbangan --- */
+el('flight').innerHTML = Z.LISTINGS.map(L => {
+  const live = Object.values(L.channels).filter(c => c[0] === 'live' || c[0] === 'native').length;
+  const hasAssist = Object.values(L.channels).some(c => c[0] === 'assist');
+  const hasQueue = Object.values(L.channels).some(c => c[0] === 'queued' || c[0] === 'submitted');
+  const hasRenew = Object.values(L.channels).some(c => c[0] === 'renewal');
+  let next = '<span class="muted small">Complete the draft record</span>';
+  if (hasRenew) next = '<span class="chip st-renewal">Renewal</span>';
+  else if (hasAssist) next = '<span class="chip st-queued">Assist session</span>';
+  else if (hasQueue) next = '<span class="chip st-submitted">Awaiting ingest</span>';
+  else if (live) next = '<span class="chip st-live">Healthy</span>';
+  return '<tr><td><b>' + L.id + '</b><br><span class="small muted">' + L.title + '</span></td>'
+    + '<td class="small">' + L.src + '</td><td>' + money(L.price) + '</td>'
+    + '<td class="small">' + L.agent + '</td><td class="ctr">' + live + ' / ' + Object.keys(L.channels).length + '</td>'
+    + '<td>' + next + '</td></tr>';
+}).join('');
+
+/* --- aktiviti terkini --- */
+el('recent').innerHTML = Z.EVIDENCE.slice(0, 5).map(e => {
+  const ch = Z.CHANNELS.find(c => c.id === e.ch);
+  const nm = ch ? ch.name : e.ch;
+  return '<div class="ev"><div class="ts">' + e.ts + '</div>'
+    + '<div class="act">' + e.listing + '</div>'
+    + '<div><div class="act">' + e.action + '</div><div class="dt">' + nm + ' &middot; ' + e.detail + '</div></div>'
+    + '<div class="cost">' + e.cost + '</div></div>';
+}).join('');
+</script>
+</body>
+</html>

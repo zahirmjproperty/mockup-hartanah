@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Compliance guard | Zentra Push</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/theme-boot.js"></script>
+<link rel="stylesheet" href="assets/push.css">
+<link rel="stylesheet" href="assets/push-extra.css">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/zp-favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/zp-icon-192.png">
+<link rel="apple-touch-icon" href="icons/zp-apple-touch-icon.png">
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Compliance guard</h1>
+        <p>The rules that stop Zentra Push from doing something clever, and what happens in the software when a channel is refused.</p>
+      </div>
+      <span class="badge-demo">INTERACTIVE MOCKUP &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="note">
+      This is the page that makes Zentra Push different from the tools it replaces. Competing products authenticate to portals with the agent's credentials and post on their behalf, which is precisely what the largest portals forbid. Here the refusal lives in code: a channel marked as prohibited simply has no automatic route, and the console shows it greyed out rather than quietly attempting it.
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Guard rules</h2>
+    <div class="grid g2" id="rules"></div>
+
+    <h2 class="sec"><span class="num">2</span> Channels the guard refuses to automate</h2>
+    <div class="card"><div id="blocked"></div></div>
+
+    <h2 class="sec"><span class="num">3</span> Advertising and identity obligations</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0;font-size:14px">Registered identity on every ad</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">The firm registration and the negotiator's own registration number belong on advertising material. Zentra Push injects them from the agent profile at write time so a listing can never go out un-attributed.</p></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14px">No contact details in body copy</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">Major portals strip or penalise phone numbers and e-mail addresses inside the listing description. The renderer removes them before submission and relies on the platform's own contact fields instead.</p></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14px">Personal data</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">Listing records carry owner information. Storing portal passwords server-side would widen that exposure for no benefit, which is why assist mode runs inside the agent's own browser session instead.</p></div>
+    </div>
+    <p class="small muted" style="margin-top:12px">Note: the exact wording and numbering of the estate-agency advertising rules should be confirmed against the current regulatory guidance before this page is treated as final.</p>
+
+  </main>
+</div>
+<script src="assets/push-data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+const Z = window.ZP;
+document.getElementById('rules').innerHTML = Z.RULES.map(r =>
+  '<div class="card"><span class="chip t-manual">Rule ' + r.id + '</span>'
+  + '<h3 style="margin:10px 0 7px;font-size:14px">' + r.rule + '</h3>'
+  + '<p class="small muted" style="margin:0 0 8px;line-height:1.55"><b style="opacity:.85">Why.</b> ' + r.rationale + '</p>'
+  + '<p class="small muted" style="margin:0;line-height:1.55"><b style="opacity:.85">In the software.</b> ' + r.effect + '</p></div>'
+).join('');
+
+const blocked = Z.CHANNELS.filter(c => c.tos === 'blocked');
+document.getElementById('blocked').innerHTML = blocked.map(c => {
+  const d = Z.TIER[c.tier];
+  return '<div class="chan' + '"><div class="nm">' + c.name + '<small>' + c.group + '</small></div>'
+    + '<div><span class="chip ' + d.cls + '">' + d.label + '</span></div>'
+    + '<div class="meta">' + c.api + '<br><span class="small">' + c.cost + '</span></div>'
+    + '<div class="tos"><span class="tos-flag tos-blocked"></span>Automation prohibited</div>'
+    + '<div class="right"><span class="small muted">refused</span></div></div>';
+}).join('') + '<p class="small muted" style="margin:12px 0 0">' + blocked.length
+  + ' channels refused. Their content still reaches buyers through the channels that are permitted, and through portal-side switches that a human turns on.</p>';
+</script>
+</body>
+</html>

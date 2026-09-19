@@ -1,0 +1,118 @@
+
+/* ============================================================
+   BUILD-SPECIFIC COMPONENTS — ZENTRA PUSH (19 Sep 2026)
+   ============================================================ */
+
+/* ---------- jenama: tanda imej ganti latar gradien ---------- */
+.brand .mark{background:none;border:1px solid rgba(201,162,39,.30);border-radius:10px}
+.brand .mark img{width:100%;height:100%;object-fit:contain;display:block}
+
+/* ---------- togol tema di sidebar ---------- */
+.sideact{padding:10px 14px 4px}
+.sideact .btn{width:100%;justify-content:center;display:flex;align-items:center;gap:7px}
+
+/* ---------- cip tahap keupayaan ---------- */
+.chip{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;
+  font-size:10.5px;font-weight:700;letter-spacing:.055em;text-transform:uppercase;white-space:nowrap;
+  border:1px solid transparent}
+.chip.t-auto{background:rgba(34,160,90,.15);color:#5fd39a;border-color:rgba(34,160,90,.42)}
+.chip.t-assist{background:rgba(201,162,39,.15);color:#e8ce86;border-color:rgba(201,162,39,.45)}
+.chip.t-native{background:rgba(64,140,220,.15);color:#7db8f0;border-color:rgba(64,140,220,.42)}
+.chip.t-manual{background:rgba(150,150,160,.14);color:#a9b3c1;border-color:rgba(150,150,160,.38)}
+.chip.st-live{background:rgba(34,160,90,.15);color:#5fd39a;border-color:rgba(34,160,90,.4)}
+.chip.st-queued,.chip.st-submitted{background:rgba(201,162,39,.14);color:#e8ce86;border-color:rgba(201,162,39,.4)}
+.chip.st-renewal{background:rgba(228,140,40,.16);color:#f0b070;border-color:rgba(228,140,40,.44)}
+.chip.st-draft,.chip.st-mapped{background:rgba(150,150,160,.14);color:#a9b3c1;border-color:rgba(150,150,160,.36)}
+.chip.st-dead{background:rgba(200,60,60,.15);color:#ef8a8a;border-color:rgba(200,60,60,.4)}
+
+/* terang: cip perlu warna lebih gelap untuk kontras pada putih */
+:root.theme-light .chip.t-auto{color:#1c6b41;background:rgba(34,160,90,.12)}
+:root.theme-light .chip.t-assist{color:#6b5310;background:rgba(166,126,46,.14)}
+:root.theme-light .chip.t-native{color:#1d5185;background:rgba(64,140,220,.12)}
+:root.theme-light .chip.t-manual{color:#4b5563;background:rgba(120,130,145,.12)}
+:root.theme-light .chip.st-live{color:#1c6b41}
+:root.theme-light .chip.st-queued,:root.theme-light .chip.st-submitted{color:#6b5310}
+:root.theme-light .chip.st-renewal{color:#8a4a10}
+:root.theme-light .chip.st-draft,:root.theme-light .chip.st-mapped{color:#4b5563}
+:root.theme-light .chip.st-dead{color:#8f2222}
+
+/* ---------- baris saluran ---------- */
+.chan{display:grid;grid-template-columns:1.7fr .8fr 1.5fr .7fr auto;gap:14px;align-items:center;
+  padding:13px 15px;border:1px solid var(--line,rgba(255,255,255,.08));border-radius:var(--radius,10px);
+  background:var(--card,rgba(18,40,72,.55));margin-bottom:9px;transition:transform .16s,border-color .16s}
+.chan:hover{transform:translateY(-1px);border-color:rgba(201,162,39,.45)}
+.chan .nm{font-weight:650;font-size:13.5px;line-height:1.35}
+.chan .nm small{display:block;font-weight:400;font-size:11.5px;opacity:.66;margin-top:2px}
+.chan .tos{font-size:11.5px;line-height:1.45;opacity:.78}
+.chan .meta{font-size:11.5px;opacity:.72;line-height:1.45}
+.chan .right{text-align:right;white-space:nowrap}
+@media(max-width:1000px){.chan{grid-template-columns:1fr 1fr;}.chan .right{text-align:left}}
+
+/* tanda status ToS */
+.tos-flag{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;flex:none}
+.tos-clear{background:#3fb37c}.tos-caution{background:#d9a63a}.tos-blocked{background:#d15050}
+
+/* ---------- matriks keupayaan ---------- */
+.mx{width:100%;border-collapse:collapse;font-size:12.5px}
+.mx th{text-align:left;padding:9px 11px;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--gold);border-bottom:1px solid rgba(201,162,39,.3);font-weight:700}
+.mx td{padding:10px 11px;border-bottom:1px solid var(--line,rgba(255,255,255,.07));vertical-align:top}
+.mx tr:hover td{background:rgba(201,162,39,.055)}
+.mx .ctr{text-align:center}
+
+/* ---------- lejar bukti ---------- */
+.ev{display:grid;grid-template-columns:118px 90px 1fr auto;gap:13px;padding:10px 4px;
+  border-bottom:1px solid var(--line,rgba(255,255,255,.07));font-size:12.5px;align-items:start}
+.ev .ts{opacity:.62;font-variant-numeric:tabular-nums;font-size:11.5px}
+.ev .act{font-weight:640}
+.ev .dt{opacity:.74;font-size:11.5px;line-height:1.5;margin-top:2px}
+.ev .cost{text-align:right;opacity:.7;font-size:11.5px;white-space:nowrap}
+@media(max-width:820px){.ev{grid-template-columns:1fr;}.ev .cost{text-align:left}}
+
+/* ---------- langkah aliran ---------- */
+.flow{display:flex;gap:0;flex-wrap:wrap;align-items:stretch;margin:6px 0 4px}
+.fstep{flex:1 1 150px;min-width:150px;padding:13px 14px;border:1px solid var(--line,rgba(255,255,255,.09));
+  border-radius:var(--radius,10px);background:var(--card,rgba(18,40,72,.5));position:relative;margin-right:8px}
+.fstep .n{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--gold)}
+.fstep h4{margin:5px 0 4px;font-size:13px}
+.fstep p{margin:0;font-size:11.5px;opacity:.72;line-height:1.45}
+.fstep.done{border-color:rgba(34,160,90,.5)}
+.fstep.now{border-color:rgba(201,162,39,.65);box-shadow:0 0 0 1px rgba(201,162,39,.22)}
+
+/* ---------- pemilih saluran (push console) ---------- */
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:10px}
+.pcard{border:1px solid var(--line,rgba(255,255,255,.1));border-radius:var(--radius,10px);
+  background:var(--card,rgba(18,40,72,.5));padding:12px 13px;cursor:pointer;transition:.15s;position:relative}
+.pcard:hover{border-color:rgba(201,162,39,.5)}
+.pcard.on{border-color:rgba(201,162,39,.85);background:rgba(201,162,39,.10);box-shadow:0 0 0 1px rgba(201,162,39,.3)}
+.pcard.locked{opacity:.44;cursor:not-allowed}
+.pcard .pt{font-weight:650;font-size:13px;margin:7px 0 4px;line-height:1.3}
+.pcard .pd{font-size:11px;opacity:.68;line-height:1.45}
+.pcard .tick{position:absolute;top:11px;right:12px;font-size:11px;font-weight:800;color:var(--gold)}
+
+/* ---------- hasil push ---------- */
+.res{margin-top:12px}
+.resrow{display:grid;grid-template-columns:1.6fr 1fr 2fr;gap:12px;padding:10px 12px;font-size:12.5px;
+  border-bottom:1px solid var(--line,rgba(255,255,255,.07));align-items:center}
+.resrow .ok{color:#5fd39a;font-weight:640}
+.resrow .human{color:#e8ce86;font-weight:640}
+.resrow .no{color:#a9b3c1;font-weight:640}
+:root.theme-light .resrow .ok{color:#1c6b41}
+:root.theme-light .resrow .human{color:#6b5310}
+:root.theme-light .resrow .no{color:#4b5563}
+
+/* ---------- kad maklumat amaran ---------- */
+.note{border-left:3px solid var(--gold);background:rgba(201,162,39,.075);
+  padding:12px 15px;border-radius:0 6px 6px 0;font-size:12.5px;line-height:1.6}
+.note b{color:var(--gold)}
+:root.theme-light .note b{color:#6b5310}
+
+/* ---------- permukaan kad putih dalam tema terang ---------- */
+:root.theme-light .chan,
+:root.theme-light .fstep,
+:root.theme-light .pcard{background:#fff}
+:root.theme-light .chan:hover{border-color:rgba(138,100,24,.5)}
+:root.theme-light .pcard.on{background:#fdfaf1;border-color:rgba(138,100,24,.7)}
+:root.theme-light .note{background:rgba(138,100,24,.07)}
+:root.theme-light .mx th{color:#8a6418}
+:root.theme-light .mx tr:hover td{background:rgba(138,100,24,.05)}

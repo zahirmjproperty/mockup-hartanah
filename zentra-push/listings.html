@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Listing ledger | Zentra Push</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/theme-boot.js"></script>
+<link rel="stylesheet" href="assets/push.css">
+<link rel="stylesheet" href="assets/push-extra.css">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/zp-favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/zp-icon-192.png">
+<link rel="apple-touch-icon" href="icons/zp-apple-touch-icon.png">
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Listing ledger</h1>
+        <p>One row per listing, one chip per channel placement. The ledger is the join between our record and every portal that holds a copy of it.</p>
+      </div>
+      <span class="badge-demo">INTERACTIVE MOCKUP &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Records tracked</div><div class="val" id="k1">6</div><div class="sub">canonical listings</div></div>
+      <div class="kpi blue"><div class="lab">Channel placements</div><div class="val" id="k2">0</div><div class="sub">rows in the ledger</div></div>
+      <div class="kpi"><div class="lab">Confirmed live</div><div class="val" id="k3">0</div><div class="sub">read-back verified</div></div>
+      <div class="kpi warn"><div class="lab">Needs attention</div><div class="val" id="k4">0</div><div class="sub">renewal, queue or assist</div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Ledger</h2>
+    <div class="card">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
+        <button class="btn ghost fil on" data-f="all">All listings</button>
+        <button class="btn ghost fil" data-f="active">Active</button>
+        <button class="btn ghost fil" data-f="renewal">Needs renewal</button>
+        <button class="btn ghost fil" data-f="draft">Draft</button>
+        <input id="q" placeholder="Search reference or title" style="margin-left:auto;min-width:240px;padding:8px 11px;border-radius:6px;background:var(--card);color:var(--ink);border:1px solid var(--line)">
+      </div>
+      <div id="cards"></div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Lifecycle a placement moves through</h2>
+    <div class="card">
+      <div class="flow">
+        <div class="fstep"><div class="n">A</div><h4>Draft</h4><p>Record exists, no channel targeted yet.</p></div>
+        <div class="fstep"><div class="n">B</div><h4>Mapped</h4><p>Fields translated to that portal's schema.</p></div>
+        <div class="fstep"><div class="n">C</div><h4>Queued</h4><p>Waiting for the API window or an assist session.</p></div>
+        <div class="fstep"><div class="n">D</div><h4>Submitted</h4><p>Sent, not yet verified. Never counts as done.</p></div>
+        <div class="fstep"><div class="n">E</div><h4>Live</h4><p>Read-back URL fetched and stored.</p></div>
+        <div class="fstep"><div class="n">F</div><h4>Renewal</h4><p>Expiry date tracked; the ad gets refreshed.</p></div>
+      </div>
+      <p class="small muted" style="margin:12px 0 0">A placement is only ever marked <b>Live</b> after Zentra Push reads the public page back and stores the URL. An accepted API call is not proof of publication.</p>
+    </div>
+
+  </main>
+</div>
+<script src="assets/push-data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+const Z = window.ZP;
+const el = id => document.getElementById(id);
+const money = n => 'RM' + n.toLocaleString('en-US');
+let filter = 'all';
+
+const CH = id => Z.CHANNELS.find(c => c.id === id) || {name:id};
+
+function placements(L){ return Object.entries(L.channels); }
+
+function card(L){
+  const pl = placements(L);
+  const live = pl.filter(p => p[1][0] === 'live' || p[1][0] === 'native').length;
+  const chips = pl.length ? pl.map(p => {
+    const st = p[1][0];
+    const nm = CH(p[0]).name;
+    return '<span class="chip st-' + st + '" title="' + nm + '">' + nm + ' &middot; ' + Z.STATE_LABEL[st] + '</span>';
+  }).join(' ') : '<span class="small muted">No channel targeted yet.</span>';
+  const bad = pl.filter(p => ['renewal','assist','queued','submitted'].includes(p[1][0])).length;
+  return '<div class="card" style="margin-bottom:11px">'
+    + '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:baseline">'
+      + '<b style="font-size:14px">' + L.id + '</b>'
+      + '<span style="font-weight:600">' + L.title + '</span>'
+      + '<span class="small muted">' + L.type + ' &middot; ' + L.location + '</span>'
+      + '<span class="small" style="margin-left:auto;font-weight:640">' + money(L.price) + '</span>'
+    + '</div>'
+    + '<div style="display:flex;gap:14px;flex-wrap:wrap;margin:9px 0 10px" class="small muted">'
+      + '<span>Agent: ' + L.agent + '</span><span>' + L.images + ' images</span>'
+      + '<span>Source: ' + L.src + '</span>'
+      + '<span>Confirmed live: <b>' + live + '/' + pl.length + '</b></span>'
+      + (bad ? '<span style="color:var(--amber)">' + bad + ' needing attention</span>' : '')
+    + '</div>'
+    + '<div style="display:flex;gap:6px;flex-wrap:wrap">' + chips + '</div>'
+  + '</div>';
+}
+
+function draw(){
+  const q = (el('q').value || '').toLowerCase().trim();
+  let list = Z.LISTINGS.slice();
+  if (filter === 'active')  list = list.filter(L => L.status === 'active');
+  if (filter === 'renewal') list = list.filter(L => L.status === 'renewal');
+  if (filter === 'draft')   list = list.filter(L => L.status === 'draft');
+  if (q) list = list.filter(L => (L.id + ' ' + L.title).toLowerCase().includes(q));
+  el('cards').innerHTML = list.length ? list.map(card).join('') : '<p class="small muted">No listing matches.</p>';
+}
+
+document.querySelectorAll('.fil').forEach(b => b.onclick = () => {
+  filter = b.dataset.f;
+  document.querySelectorAll('.fil').forEach(x => x.classList.toggle('on', x === b));
+  draw();
+});
+el('q').oninput = draw;
+
+/* KPI */
+let total = 0, live = 0, attn = 0;
+Z.LISTINGS.forEach(L => placements(L).forEach(p => {
+  total++;
+  const st = p[1][0];
+  if (st === 'live' || st === 'native') live++;
+  if (['renewal','assist','queued','submitted'].includes(st)) attn++;
+}));
+el('k1').textContent = Z.LISTINGS.length;
+el('k2').textContent = total;
+el('k3').textContent = live;
+el('k4').textContent = attn;
+draw();
+</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Push console | Zentra Push</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/theme-boot.js"></script>
+<link rel="stylesheet" href="assets/push.css">
+<link rel="stylesheet" href="assets/push-extra.css">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/zp-favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/zp-icon-192.png">
+<link rel="apple-touch-icon" href="icons/zp-apple-touch-icon.png">
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Push console</h1>
+        <p>Take one canonical record and distribute it. Pick the listing, pick the channels, run the push, then read the result back.</p>
+      </div>
+      <span class="badge-demo">INTERACTIVE MOCKUP &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="flow" id="flow">
+      <div class="fstep now" id="fs1"><div class="n">STEP 1</div><h4>Choose the record</h4><p>The canonical listing, taken from our own database only.</p></div>
+      <div class="fstep" id="fs2"><div class="n">STEP 2</div><h4>Choose channels</h4><p>Auto channels run. Assist channels queue for a human.</p></div>
+      <div class="fstep" id="fs3"><div class="n">STEP 3</div><h4>Map the fields</h4><p>Per-channel field mapping and image rules applied.</p></div>
+      <div class="fstep" id="fs4"><div class="n">STEP 4</div><h4>Read back</h4><p>No channel counts as successful without evidence.</p></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Canonical record</h2>
+    <div class="card">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <label class="small muted">Listing</label>
+        <select id="pick" style="min-width:330px;padding:8px 10px;border-radius:6px;background:var(--card);color:var(--ink);border:1px solid var(--line)"></select>
+        <span class="small muted" id="srcNote"></span>
+      </div>
+      <div class="grid g3" style="margin-top:14px" id="rec"></div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Channels</h2>
+    <div class="card">
+      <p class="small muted" style="margin-top:0">Grey cards are refused by the compliance guard &mdash; their terms prohibit automation, so the software will not do it even if asked.</p>
+      <div class="pick" id="picks"></div>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap">
+        <button class="btn gold" id="run">Run push</button>
+        <button class="btn ghost" id="reset">Reset</button>
+        <span class="small muted" id="summary"></span>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Field mapping</h2>
+    <div class="card"><table class="mx"><thead><tr><th>Canonical field</th><th>Portal target</th><th>Rule applied</th></tr></thead><tbody id="map"></tbody></table></div>
+
+    <h2 class="sec"><span class="num">4</span> Push result</h2>
+    <div class="card"><div class="res" id="result"><p class="small muted" style="margin:0">Nothing pushed yet. Choose channels and press <b>Run push</b>.</p></div></div>
+
+  </main>
+</div>
+<script src="assets/push-data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+const Z = window.ZP;
+const el = id => document.getElementById(id);
+const money = n => 'RM' + n.toLocaleString('en-US');
+let chosen = new Set(['site-zmp','dotproperty','trovit','fbpage','telegram']);
+
+/* --- pemilih listing --- */
+el('pick').innerHTML = Z.LISTINGS.map(L => '<option value="' + L.id + '">' + L.id + ' &mdash; ' + L.title + '</option>').join('');
+
+function cur(){ return Z.LISTINGS.find(L => L.id === el('pick').value); }
+
+function drawRecord(){
+  const L = cur();
+  el('srcNote').textContent = 'Source of truth: ' + L.src + ' (read-only mirror)';
+  el('rec').innerHTML = [
+    ['Property type', L.type], ['Location', L.location], ['Asking price', money(L.price)],
+    ['Listing agent', L.agent], ['Photographs', L.images + ' images'],
+    ['Record status', L.status === 'draft' ? 'Draft &mdash; not yet pushable' : 'Active']
+  ].map(x => '<div><div class="small muted">' + x[0] + '</div><div style="font-weight:640;margin-top:3px">' + x[1] + '</div></div>').join('');
+  el('run').disabled = (L.status === 'draft');
+  el('run').style.opacity = L.status === 'draft' ? .5 : 1;
+}
+
+/* --- pemilih saluran --- */
+function drawPicks(){
+  el('picks').innerHTML = Z.CHANNELS.map(c => {
+    const d = Z.TIER[c.tier];
+    const locked = (c.tier === 'MANUAL');
+    const on = chosen.has(c.id);
+    return '<div class="pcard ' + (locked ? 'locked' : (on ? 'on' : '')) + '" data-id="' + c.id + '">'
+      + '<span class="chip ' + d.cls + '">' + d.label + '</span>'
+      + (on && !locked ? '<span class="tick">SELECTED</span>' : '')
+      + (locked ? '<span class="tick" style="opacity:.75">BLOCKED</span>' : '')
+      + '<div class="pt">' + c.name + '</div>'
+      + '<div class="pd">' + (locked ? 'Guard refusal: ' + c.api + '.' : c.api) + '</div></div>';
+  }).join('');
+  document.querySelectorAll('.pcard').forEach(p => p.onclick = () => {
+    const c = Z.CHANNELS.find(x => x.id === p.dataset.id);
+    if (c.tier === 'MANUAL') return;
+    chosen.has(c.id) ? chosen.delete(c.id) : chosen.add(c.id);
+    drawPicks(); tally();
+  });
+  tally();
+}
+
+function tally(){
+  const list = Z.CHANNELS.filter(c => chosen.has(c.id));
+  const a = list.filter(c => c.tier === 'AUTO').length;
+  const s = list.filter(c => c.tier === 'ASSIST').length;
+  const n = list.filter(c => c.tier === 'NATIVE').length;
+  el('summary').textContent = chosen.size
+    ? chosen.size + ' channels selected: ' + a + ' run automatically, ' + s + ' need a human, ' + n + ' are portal-side switches.'
+    : 'No channels selected.';
+  el('run').disabled = !chosen.size || cur().status === 'draft';
+}
+
+/* --- pemetaan medan --- */
+const MAP = [
+  ['title', 'Headline / ad title', 'Trimmed to each portal\u2019s character cap'],
+  ['price', 'Asking price', 'Integer, no separators, currency from portal locale'],
+  ['land_area / built_up', 'Built-up or land size', 'Converted to sq ft with square-metre fallback'],
+  ['location / state', 'Address hierarchy', 'Mapped to the portal\u2019s own area tree, never free text'],
+  ['description', 'Body copy', 'Contact details stripped: portals forbid them in bodies'],
+  ['images', 'Gallery', 'Re-encoded per portal rules: no text, watermark, collage or border'],
+  ['agent', 'Agent profile', 'Registered firm and agent number injected via profile fields'],
+  ['tracking', 'Reference', 'Our own reference kept as the join key for read-back']
+];
+el('map').innerHTML = MAP.map(m => '<tr><td><code>' + m[0] + '</code></td><td>' + m[1] + '</td><td class="small muted">' + m[2] + '</td></tr>').join('');
+
+/* --- jalankan push (simulasi) --- */
+el('run').onclick = function(){
+  const L = cur();
+  const list = Z.CHANNELS.filter(c => chosen.has(c.id));
+  el('result').innerHTML = '<p class="small muted" style="margin:0">Working&hellip;</p>';
+  let i = 0;
+  const rows = [];
+  const timer = setInterval(() => {
+    if (i >= list.length){
+      clearInterval(timer);
+      el('result').innerHTML = rows.join('') +
+        '<p class="small muted" style="margin:12px 0 0;font-size:11.5px">Ledger updated. '
+        + L.id + ' now has ' + list.length + ' channel records written, each awaiting its read-back confirmation.</p>';
+      el('fs4').className = 'fstep now';
+      return;
+    }
+    const c = list[i++];
+    let cls, txt, detail;
+    if (c.tier === 'AUTO'){
+      cls = 'ok'; txt = 'Pushed';
+      detail = 'API accepted. Read-back scheduled in 60s.';
+    } else if (c.tier === 'ASSIST'){
+      cls = 'human'; txt = 'Queued for a human';
+      detail = 'Prefill ready. No password stored; the agent submits in their own session.';
+    } else if (c.tier === 'NATIVE'){
+      cls = 'human'; txt = 'Portal switch';
+      detail = 'Enable inside the portal account; our ledger tracks the expiry.';
+    } else {
+      cls = 'no'; txt = 'Refused by guard';
+      detail = 'Automation prohibited by the channel terms.';
+    }
+    rows.push('<div class="resrow"><div><b>' + c.name + '</b><br><span class="small muted">' + c.group + '</span></div>'
+      + '<div class="' + cls + '">' + txt + '</div>'
+      + '<div class="small muted">' + detail + '</div></div>');
+    el('result').innerHTML = rows.join('');
+  }, 380);
+};
+
+el('reset').onclick = function(){
+  chosen = new Set(['site-zmp','dotproperty','trovit','fbpage','telegram']);
+  el('result').innerHTML = '<p class="small muted" style="margin:0">Nothing pushed yet. Choose channels and press <b>Run push</b>.</p>';
+  el('fs4').className = 'fstep';
+  drawPicks(); drawRecord();
+};
+
+el('pick').onchange = function(){ drawRecord(); drawPicks(); };
+drawRecord(); drawPicks();
+</script>
+</body>
+</html>

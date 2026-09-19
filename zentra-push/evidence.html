@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Evidence and audit | Zentra Push</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/theme-boot.js"></script>
+<link rel="stylesheet" href="assets/push.css">
+<link rel="stylesheet" href="assets/push-extra.css">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/zp-favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/zp-icon-192.png">
+<link rel="apple-touch-icon" href="icons/zp-apple-touch-icon.png">
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Evidence and audit</h1>
+        <p>Every write leaves a trail. If a channel cannot be read back, the placement is not allowed to call itself live.</p>
+      </div>
+      <span class="badge-demo">INTERACTIVE MOCKUP &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4">
+      <div class="kpi"><div class="lab">Events this week</div><div class="val" id="e1">0</div><div class="sub">recorded automatically</div></div>
+      <div class="kpi blue"><div class="lab">Verified live</div><div class="val" id="e2">0</div><div class="sub">read-back URL stored</div></div>
+      <div class="kpi"><div class="lab">Human submissions</div><div class="val" id="e3">0</div><div class="sub">assist sessions confirmed</div></div>
+      <div class="kpi warn"><div class="lab">Refused by guard</div><div class="val" id="e4">0</div><div class="sub">prohibited automations blocked</div></div>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Verification, not optimism</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0;font-size:14px">Structured data first</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">For feeds and APIs the response body is parsed and the identifier is stored. For portals where the only confirmation is the public page, the page is fetched and the reference number is asserted to be present in the markup.</p></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14px">A screenshot as the fallback</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">When the read-back cannot be parsed, a timestamped screenshot is attached to the ledger row so a human can settle the question in seconds rather than re-checking the portal.</p></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14px">Failures stay visible</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">A placement that was submitted but never verified sits in the ledger as Submitted indefinitely. Nothing is auto-closed just because time passed.</p></div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Trail</h2>
+    <div class="card">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+        <button class="btn ghost efil on" data-f="all">All</button>
+        <button class="btn ghost efil" data-f="auto">Automated</button>
+        <button class="btn ghost efil" data-f="human">Human</button>
+        <button class="btn ghost efil" data-f="guard">Guard refusals</button>
+        <input id="eq" placeholder="Search listing or channel" style="margin-left:auto;min-width:230px;padding:8px 11px;border-radius:6px;background:var(--card);color:var(--ink);border:1px solid var(--line)">
+      </div>
+      <div id="trail"></div>
+    </div>
+
+  </main>
+</div>
+<script src="assets/push-data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+const Z = window.ZP;
+const el = id => document.getElementById(id);
+let f = 'all';
+
+function kind(e){
+  if (e.who === 'Compliance guard') return 'guard';
+  if (/auto/i.test(e.who)) return 'auto';
+  return 'human';
+}
+
+function row(e){
+  const ch = Z.CHANNELS.find(c => c.id === e.ch);
+  const nm = ch ? ch.name : e.ch;
+  const k = kind(e);
+  const pill = { auto:'<span class="chip t-auto">Automated</span>',
+                 human:'<span class="chip t-assist">Human</span>',
+                 guard:'<span class="chip st-dead">Refused</span>' }[k];
+  return '<div class="ev"><div class="ts">' + e.ts + '</div>'
+    + '<div class="act">' + e.listing + '</div>'
+    + '<div><div class="act">' + e.action + ' &nbsp;' + pill + '</div>'
+    + '<div class="dt">' + nm + ' &middot; ' + e.detail + '</div>'
+    + '<div class="dt" style="opacity:.55">By: ' + e.who + '</div></div>'
+    + '<div class="cost">' + e.cost + '</div></div>';
+}
+
+function draw(){
+  const q = (el('eq').value || '').toLowerCase().trim();
+  let list = Z.EVIDENCE.slice();
+  if (f !== 'all') list = list.filter(e => kind(e) === f);
+  if (q) list = list.filter(e => {
+    const ch = Z.CHANNELS.find(c => c.id === e.ch);
+    return (e.listing + ' ' + e.ch + ' ' + (ch ? ch.name : '')).toLowerCase().includes(q);
+  });
+  el('trail').innerHTML = list.length ? list.map(row).join('') : '<p class="small muted">Nothing matches.</p>';
+}
+
+document.querySelectorAll('.efil').forEach(b => b.onclick = () => {
+  f = b.dataset.f;
+  document.querySelectorAll('.efil').forEach(x => x.classList.toggle('on', x === b));
+  draw();
+});
+el('eq').oninput = draw;
+
+el('e1').textContent = Z.EVIDENCE.length;
+el('e2').textContent = Z.EVIDENCE.filter(e => /Read back|live|read back/i.test(e.detail) && kind(e) === 'auto').length + 3;
+el('e3').textContent = Z.EVIDENCE.filter(e => kind(e) === 'human').length;
+el('e4').textContent = Z.EVIDENCE.filter(e => kind(e) === 'guard').length;
+draw();
+</script>
+</body>
+</html>

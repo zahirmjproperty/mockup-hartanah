@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Roadmap and phases | Zentra Push</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/theme-boot.js"></script>
+<link rel="stylesheet" href="assets/push.css">
+<link rel="stylesheet" href="assets/push-extra.css">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/zp-favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/zp-icon-192.png">
+<link rel="apple-touch-icon" href="icons/zp-apple-touch-icon.png">
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Roadmap and phases</h1>
+        <p>How the system gets built, in the order that buys reach fastest while carrying no compliance risk.</p>
+      </div>
+      <span class="badge-demo">INTERACTIVE MOCKUP &middot; SAMPLE DATA</span>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> How the system is shaped</h2>
+    <div class="card">
+      <div class="grid g3" style="margin-bottom:16px">
+        <div><div class="small muted">Source of truth</div><div style="font-weight:640;margin-top:4px">Zentra Push database, populated from the Notion listing records</div></div>
+        <div><div class="small muted">Integration pattern</div><div style="font-weight:640;margin-top:4px">One adapter per channel, each declaring its own capability</div></div>
+        <div><div class="small muted">Hard constraint</div><div style="font-weight:640;margin-top:4px">A channel marked prohibited has no automatic route in code</div></div>
+      </div>
+      <div class="flow">
+        <div class="fstep"><div class="n">LAYER 1</div><h4>Canonical record</h4><p>One listing schema, deliberately a superset of what any single portal accepts.</p></div>
+        <div class="fstep"><div class="n">LAYER 2</div><h4>Renderer</h4><p>Imagery, copy and identity block produced to each channel's rules.</p></div>
+        <div class="fstep"><div class="n">LAYER 3</div><h4>Adapters</h4><p>Feed, API, assist and portal-switch adapters, capability declared per channel.</p></div>
+        <div class="fstep"><div class="n">LAYER 4</div><h4>Ledger and guard</h4><p>Placement state, evidence trail and the refusal rules.</p></div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Phases</h2>
+    <div class="card"><table class="mx"><thead><tr>
+      <th>Phase</th><th>What ships</th><th>Reach gained</th><th class="ctr">Risk</th><th>Running cost</th>
+    </tr></thead><tbody id="phases"></tbody></table></div>
+
+    <h2 class="sec"><span class="num">3</span> What the build deliberately does not do</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0;font-size:14px">No portal credential vault</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">&ldquo;Just log in as the agent and post&rdquo; is the obvious shortcut and the one that turns ten minutes of work into an account suspension. Refused.</p></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14px">No scraping of portal listings</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">Importing a competitor's or a portal's listing into our own database is expressly prohibited by the terms we would be importing from.</p></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14px">No automating the portals that matter most</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">PropertyGuru and iProperty are reached through cross-listing and assist sessions, not through a bot. That is a permanent design decision, not a temporary one.</p></div>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Cost profile</h2>
+    <div class="card"><table class="mx"><thead><tr><th>Item</th><th>Basis</th><th>Indicative cost</th></tr></thead><tbody id="costs"></tbody></table></div>
+
+    <h2 class="sec"><span class="num">5</span> Open questions before Fasa 0</h2>
+    <div class="card"><div id="open"></div></div>
+
+  </main>
+</div>
+<script src="assets/push-data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+const el = id => document.getElementById(id);
+
+const PHASES = [
+  ['Fasa 0 &middot; Feed and owned surface',
+   'Feed adapter to the aggregator network, publication to our own sites, Facebook Page, Telegram channels and Google Business Profile. Ledger with read-back verification.',
+   'Highest: every sanctioned channel at once', 'None', 'RM0 recurring'],
+  ['Fasa 1 &middot; Assist sessions',
+   'Browser-side prefill for PropertyGuru, iProperty, EdgeProp and Mudah. The agent confirms and submits. No credential leaves the browser.',
+   'The portals that carry buyer intent', 'Low if the human always submits', 'Development time only'],
+  ['Fasa 2 &middot; Portal switches and renewal governor',
+   'Track and prompt the native cross-listing and dual-listing features, plus expiry dates and credit balances.',
+   'Keeps existing placements alive', 'None', 'RM0 recurring'],
+  ['Fasa 3 &middot; Team rollout',
+   'Per-agent seats, daily caps, per-agent reporting, and the same ledger across the whole team.',
+   'Scales what works', 'Operational discipline', 'Possibly portal credits per seat']
+];
+
+el('phases').innerHTML = PHASES.map(p =>
+  '<tr><td><b>' + p[0] + '</b></td><td class="small muted">' + p[1] + '</td><td class="small">' + p[2] + '</td>'
+  + '<td class="ctr"><span class="chip ' + (p[3] === 'None' ? 't-auto' : 't-assist') + '">' + p[3] + '</span></td>'
+  + '<td class="small">' + p[4] + '</td></tr>').join('');
+
+const COSTS = [
+  ['Aggregator feed ingestion', 'Free at the portals we would use', 'RM0'],
+  ['Our own sites and indexing', 'Existing hosting and deployment', 'RM0'],
+  ['Facebook Page and Telegram posting', 'Official APIs, no fee', 'RM0'],
+  ['Assist extension', 'Development effort, no licence', 'Effort only'],
+  ['PropertyGuru / iProperty placement', 'Existing agent package and credits', 'Already paid'],
+  ['EdgeProp PRO Agent', 'Per day, per agent', 'Per current subscription'],
+  ['WhatsApp Cloud API (optional)', 'Per conversation, only if adopted', 'Usage based']
+];
+el('costs').innerHTML = COSTS.map(c =>
+  '<tr><td>' + c[0] + '</td><td class="small muted">' + c[1] + '</td><td><b>' + c[2] + '</b></td></tr>').join('');
+
+const OPEN = [
+  'Confirm the canonical record lives in the Zentra Push database and is populated from the Notion listing records, with the websites rendered from it.',
+  'Confirm which agents get seats in Fasa 3 and what the daily cap should be for each.',
+  'Confirm whether WhatsApp Cloud API is worth adopting, or whether broadcast lists stay manual.',
+  'Confirm the estate-agency advertising rules wording before the identity block is locked into the renderer.',
+  'Confirm which aggregator network to approach first for feed ingestion.'
+];
+el('open').innerHTML = OPEN.map((q, i) =>
+  '<div class="ev"><div class="ts">Q' + (i + 1) + '</div><div class="act">Decision</div>'
+  + '<div><div class="dt" style="font-size:12.5px;opacity:.85">' + q + '</div></div>'
+  + '<div class="cost"><span class="chip st-draft">open</span></div></div>').join('');
+</script>
+</body>
+</html>
