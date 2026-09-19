@@ -120,10 +120,10 @@ function render(){
     ['Est. completion', 'Dec 2028'], ['DL / APDL', 'DL 2026/0418 · APDL 2026/1042']
   ]));
   el('price_history', '<div class="table-wrap"><table class="dash-table"><thead><tr><th>Date</th><th>Entry</th><th>Amount</th></tr></thead><tbody>' +
-    '<tr><td>02 Jan 2026</td><td>Launch price list</td><td class="num">' + fmt(u.price - 30000) + '</td></tr>' +
-    '<tr><td>17 Mar 2026</td><td>Revision +2% (Block A)</td><td class="num">' + fmt(u.price) + '</td></tr>' +
-    (d ? '<tr><td>' + d.booking_date + '</td><td>Launch discount — booking</td><td class="num gold">- ' + fmt(10000) + '</td></tr>' +
-         '<tr><td>—</td><td><b>Nett selling price</b></td><td class="num gold">' + fmt(u.price - 10000) + '</td></tr>' : '') +
+    '<tr><td data-label="Date">02 Jan 2026</td><td data-label="Entry">Launch price list</td><td class="num" data-label="Amount">' + fmt(u.price - 30000) + '</td></tr>' +
+    '<tr><td data-label="Date">17 Mar 2026</td><td data-label="Entry">Revision +2% (Block A)</td><td class="num" data-label="Amount">' + fmt(u.price) + '</td></tr>' +
+    (d ? '<tr><td data-label="Date">' + d.booking_date + '</td><td data-label="Entry">Launch discount — booking</td><td class="num gold" data-label="Amount">- ' + fmt(10000) + '</td></tr>' +
+         '<tr><td data-label="Date">—</td><td data-label="Entry"><b>Nett selling price</b></td><td class="num gold" data-label="Amount">' + fmt(u.price - 10000) + '</td></tr>' : '') +
     '</tbody></table></div>');
   el('plan', "<div class=\"plan\">\n<svg viewBox=\"0 0 420 300\" role=\"img\" aria-label=\"Sample 3R2B floor plan\">\n  <g fill=\"none\" stroke=\"#c9a227\" stroke-opacity=\".55\" stroke-width=\"1.4\">\n    <rect x=\"10\" y=\"10\" width=\"400\" height=\"280\" rx=\"3\"/>\n    <path d=\"M10 150h240M250 10v90M250 150v140M360 150v140M10 210h240\"/>\n  </g>\n  <g fill=\"#f0ead6\" fill-opacity=\".80\" font-family=\"Plus Jakarta Sans, sans-serif\" font-size=\"9.5\">\n    <text x=\"22\" y=\"30\">MASTER BEDROOM 14'0\" x 12'0\"</text>\n    <text x=\"22\" y=\"170\">LIVING / DINING 14'0\" x 13'0\"</text>\n    <text x=\"262\" y=\"30\">BEDROOM 2 10'0\" x 10'0\"</text>\n    <text x=\"262\" y=\"170\">BEDROOM 3 10'0\" x 9'0\"</text>\n    <text x=\"370\" y=\"30\">BATH 1</text>\n    <text x=\"370\" y=\"170\">BATH 2</text>\n    <text x=\"22\" y=\"230\">KITCHEN + YARD</text>\n  </g>\n  <g stroke=\"#94a3b8\" stroke-width=\"1\" fill=\"none\">\n    <path d=\"M250 128a12 12 0 0 1 22 0\" />\n    <path d=\"M360 128a12 12 0 0 1 22 0\" />\n    <path d=\"M80 205a12 12 0 0 1 0 22\" />\n  </g>\n  <g fill=\"#e8ce86\" font-family=\"Plus Jakarta Sans, sans-serif\" font-size=\"9\">\n    <text x=\"196\" y=\"294\">BUILT-UP 1,050 SQ FT</text>\n    <text x=\"18\" y=\"8\">N</text>\n  </g>\n</svg>\n<div class=\"cap\">Sample layout \u2014 3R2B \u00b7 1,050 sq ft \u00b7 layout varies by stack (mock-up)</div>\n</div>");
 

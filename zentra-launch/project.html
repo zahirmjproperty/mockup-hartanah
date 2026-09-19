@@ -118,11 +118,11 @@ function render(){
   el('blocks', '<div class="table-wrap"><table class="dash-table"><thead><tr><th>Block / phase</th><th>Units</th><th>Sold</th><th>Take-up</th><th></th></tr></thead><tbody>' +
     p.blocks.map(function(b){
       var pct = Math.round(b[2] / b[1] * 100);
-      return '<tr><td class="strong">' + b[0] + '</td><td class="num">' + b[1] + '</td><td class="num">' + b[2] + '</td><td class="num gold">' + pct + '%</td>' +
-             '<td><a class="back" href="inventory.html">Open grid &rarr;</a></td></tr>';
+      return '<tr><td class="strong" data-label="Block / phase">' + b[0] + '</td><td class="num" data-label="Units">' + b[1] + '</td><td class="num" data-label="Sold">' + b[2] + '</td><td class="num gold" data-label="Take-up">' + pct + '%</td>' +
+             '<td data-label=""><a class="back" href="inventory.html">Open grid &rarr;</a></td></tr>';
     }).join('') + '</tbody></table></div>');
   el('prices', '<div class="table-wrap"><table class="dash-table"><thead><tr><th>Unit type</th><th>Built-up</th><th>Price range</th></tr></thead><tbody>' +
-    p.prices.map(function(r){ return '<tr><td class="strong">' + r[0] + '</td><td>' + r[1] + '</td><td class="num gold">' + r[2] + '</td></tr>'; }).join('') +
+    p.prices.map(function(r){ return '<tr><td class="strong" data-label="Unit type">' + r[0] + '</td><td data-label="Built-up">' + r[1] + '</td><td class="num gold" data-label="Price range">' + r[2] + '</td></tr>'; }).join('') +
     '</tbody></table></div>');
   el('team', '<div class="activity-list">' + p.team.map(function(t){
       return '<div class="activity-item"><div class="act-body"><div class="act-title">' + t[0] + '</div>' +

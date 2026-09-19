@@ -156,7 +156,13 @@ def table(headers, rows, wrapper=True):
     th = "".join("<th>%s</th>" % h for h in headers)
     body = ""
     for r in rows:
-        body += "            <tr>" + "".join("<td%s>%s</td>" % (c[1] if isinstance(c, tuple) else "", c[0] if isinstance(c, tuple) else c) for c in r) + "</tr>\n"
+        sel = []
+        for i, c in enumerate(r):
+            atr = c[1] if isinstance(c, tuple) else ""
+            txt = c[0] if isinstance(c, tuple) else c
+            lab = headers[i] if i < len(headers) else ""
+            sel.append('<td%s data-label="%s">%s</td>' % (atr, lab, txt))
+        body += "            <tr>" + "".join(sel) + "</tr>\n"
     t = ('        <table class="dash-table">\n          <thead><tr>%s</tr></thead>\n          <tbody>\n%s'
          '          </tbody>\n        </table>\n') % (th, body)
     return '      <div class="table-wrap">\n' + t + '      </div>\n' if wrapper else t

@@ -80,16 +80,16 @@
         <div class="table-wrap"><table class="dash-table">
           <thead><tr><th>#</th><th>Question</th><th>Answer</th></tr></thead>
           <tbody>
-            <tr><td class="strong">1</td><td>Booking flow</td><td>Yes — as designed: EOI → 48-hour lock → booking 10% → SPA within 14 days</td></tr>
-            <tr><td class="strong">2</td><td>Lock rules</td><td>Yes — 48 hours, warning 2 hours before expiry, max 2 units per buyer</td></tr>
-            <tr><td class="strong">3</td><td>Unit ID scheme</td><td>Yes — A-12-03 (Block–Level–Unit)</td></tr>
-            <tr><td class="strong">4</td><td>Progressive billing</td><td>Yes — Third Schedule 10-10-15-10-10-15-10-5-5-10, invoiced only after architect/engineer certification</td></tr>
-            <tr><td class="strong">5</td><td>Commission release</td><td><b>Needs change</b> — released once, 100% after end-financing disbursement (or full cash settlement); nothing on booking or SPA</td></tr>
-            <tr><td class="strong">6</td><td>Buyer portal status</td><td>Yes — full stage names (EOI, Unit Locked, Booked, SPA Signed, Loan, Progressive, VP)</td></tr>
-            <tr><td class="strong">7</td><td>Wet ink vs e-signature</td><td>Yes — SPA and land instruments wet ink; other client documents e-signed</td></tr>
-            <tr><td class="strong">8</td><td>Agent visibility</td><td>Yes — own leads, locks and commission only</td></tr>
-            <tr><td class="strong">9</td><td>Discount policy</td><td><b>Needs change</b> — no discounts; only the published launch packages</td></tr>
-            <tr><td class="strong">10</td><td>Bumi quota</td><td>Yes — the system holds bumi units until the release date</td></tr>
+            <tr><td class="strong" data-label="#">1</td><td data-label="Question">Booking flow</td><td data-label="Answer">Yes — as designed: EOI → 48-hour lock → booking 10% → SPA within 14 days</td></tr>
+            <tr><td class="strong" data-label="#">2</td><td data-label="Question">Lock rules</td><td data-label="Answer">Yes — 48 hours, warning 2 hours before expiry, max 2 units per buyer</td></tr>
+            <tr><td class="strong" data-label="#">3</td><td data-label="Question">Unit ID scheme</td><td data-label="Answer">Yes — A-12-03 (Block–Level–Unit)</td></tr>
+            <tr><td class="strong" data-label="#">4</td><td data-label="Question">Progressive billing</td><td data-label="Answer">Yes — Third Schedule 10-10-15-10-10-15-10-5-5-10, invoiced only after architect/engineer certification</td></tr>
+            <tr><td class="strong" data-label="#">5</td><td data-label="Question">Commission release</td><td data-label="Answer"><b>Needs change</b> — released once, 100% after end-financing disbursement (or full cash settlement); nothing on booking or SPA</td></tr>
+            <tr><td class="strong" data-label="#">6</td><td data-label="Question">Buyer portal status</td><td data-label="Answer">Yes — full stage names (EOI, Unit Locked, Booked, SPA Signed, Loan, Progressive, VP)</td></tr>
+            <tr><td class="strong" data-label="#">7</td><td data-label="Question">Wet ink vs e-signature</td><td data-label="Answer">Yes — SPA and land instruments wet ink; other client documents e-signed</td></tr>
+            <tr><td class="strong" data-label="#">8</td><td data-label="Question">Agent visibility</td><td data-label="Answer">Yes — own leads, locks and commission only</td></tr>
+            <tr><td class="strong" data-label="#">9</td><td data-label="Question">Discount policy</td><td data-label="Answer"><b>Needs change</b> — no discounts; only the published launch packages</td></tr>
+            <tr><td class="strong" data-label="#">10</td><td data-label="Question">Bumi quota</td><td data-label="Answer">Yes — the system holds bumi units until the release date</td></tr>
           </tbody></table></div>
         <div class="note" style="margin-top:12px">Two answers changed the design: <b>commission is now a single
           release after disbursement</b> (the booking/SPA triggers are removed) and <b>discounts are off</b> except for
@@ -170,12 +170,12 @@
 <div class="act"><b>ECA 2006</b><span>E-signature is valid for most documents but not for land instruments, which need wet ink or a registered digital signature.</span></div>
 <div class="act"><b>Bumi quota</b><span>Bumi units, release approvals and reporting are recorded per project; releases follow the state authority's rules.</span></div></div></div>
         <div class="card"><div class="card-hd"><h2>Roadmap after sign-off</h2><span class="more">estimate</span></div>
-          <div class="card-bd"><div class="table-wrap"><table class="dash-table"><thead><tr><th>Phase</th><th>Scope</th><th>Effort</th></tr></thead><tbody><tr><td class="strong">F0 · Mock-up (done)</td><td>14 designed screens across admin console, drill-down and buyer portal — the basis for this review</td><td class="num gold">Complete</td></tr>
-<tr><td class="strong">F1 · Admin core</td><td>Projects, phases and unit inventory; timed locks; bookings; progressive billing records; role access</td><td class="num gold">6–8 weeks (estimate)</td></tr>
-<tr><td class="strong">F1a · Move the record</td><td>One-time import from Notion 'Projek Baharu MT', data check against the live site, then freeze Notion writes (decision B)</td><td class="num gold">1–2 weeks (estimate)</td></tr>
-<tr><td class="strong">F2 · Buyer portal</td><td>Buyer sign-in, booking status, payments and receipts, documents, site progress</td><td class="num gold">3–4 weeks (estimate)</td></tr>
-<tr><td class="strong">F3 · Commission &amp; agents</td><td>Release engine, agent ledger, agent view, reporting</td><td class="num gold">3–4 weeks (estimate)</td></tr>
-<tr><td class="strong">F4 · Channels &amp; statutory</td><td>Public microsite, e-invoice automation, eSPA/HIMS submission pack</td><td class="num gold">After F1–F3</td></tr></tbody></table></div>
+          <div class="card-bd"><div class="table-wrap"><table class="dash-table"><thead><tr><th>Phase</th><th>Scope</th><th>Effort</th></tr></thead><tbody><tr><td class="strong" data-label="Phase">F0 · Mock-up (done)</td><td data-label="Scope">14 designed screens across admin console, drill-down and buyer portal — the basis for this review</td><td class="num gold" data-label="Effort">Complete</td></tr>
+<tr><td class="strong" data-label="Phase">F1 · Admin core</td><td data-label="Scope">Projects, phases and unit inventory; timed locks; bookings; progressive billing records; role access</td><td class="num gold" data-label="Effort">6–8 weeks (estimate)</td></tr>
+<tr><td class="strong" data-label="Phase">F1a · Move the record</td><td data-label="Scope">One-time import from Notion 'Projek Baharu MT', data check against the live site, then freeze Notion writes (decision B)</td><td class="num gold" data-label="Effort">1–2 weeks (estimate)</td></tr>
+<tr><td class="strong" data-label="Phase">F2 · Buyer portal</td><td data-label="Scope">Buyer sign-in, booking status, payments and receipts, documents, site progress</td><td class="num gold" data-label="Effort">3–4 weeks (estimate)</td></tr>
+<tr><td class="strong" data-label="Phase">F3 · Commission &amp; agents</td><td data-label="Scope">Release engine, agent ledger, agent view, reporting</td><td class="num gold" data-label="Effort">3–4 weeks (estimate)</td></tr>
+<tr><td class="strong" data-label="Phase">F4 · Channels &amp; statutory</td><td data-label="Scope">Public microsite, e-invoice automation, eSPA/HIMS submission pack</td><td class="num gold" data-label="Effort">After F1–F3</td></tr></tbody></table></div>
             <div style="font-size:12.5px;color:var(--text-muted);margin-top:10px">
               Effort figures are working estimates; they are confirmed after the 6 decisions are made.</div>
           </div></div>

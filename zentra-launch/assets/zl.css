@@ -772,3 +772,95 @@ a.back:hover { color:var(--gold-light); }
 :root.theme-light .q, :root.theme-light .act { border-bottom-color:rgba(0,0,0,.07); }
 :root.theme-light .opt { background:rgba(0,0,0,.02); }
 :root.theme-light .notein { background:#fff; }
+
+/* ====== Pembetulan paparan telefon — 20/9/2026 (Zahir: susah dibaca, serabut, tulisan terpotong)
+   Punca: media query mudah alih menyasarkan .stats (halaman pembeli) sedangkan papan pemuka
+   guna .stat-row → 4 lajur kekal pada telefon (kad ~78px), dan .stat-card{overflow:hidden}
+   memotong nilai 34px ("RM 4.2M" terkeluar kad). ====== */
+@media (max-width: 620px) {
+  .stat-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .stat-row .stat-card { padding: 14px 10px 12px; overflow: visible; }
+  .stat-row .stat-card .value { font-size: clamp(20px, 6.6vw, 30px); white-space: nowrap; }
+  .stat-row .stat-card .label { font-size: 9.5px; letter-spacing: .04em; line-height: 1.25; margin-top: 6px; }
+  .stat-row .stat-card .trend { font-size: 10.5px; line-height: 1.3; margin-top: 4px; }
+  .banner { font-size: 12px; line-height: 1.5; padding: 12px; }
+  .project-grid { grid-template-columns: 1fr; gap: 12px; }
+  .project-card .pc-cover { height: 104px; }
+  .content h1, .page-title { font-size: 22px; }
+}
+@media (max-width: 480px) {
+  .header { flex-wrap: wrap; row-gap: 8px; }
+  .header .search { order: 9; flex: 1 1 100%; max-width: none; }
+  .header .search input { min-width: 0; font-size: 12.5px; }
+}
+
+/* Kulit kad projek: jadikan ia nampak seperti reka bentuk berjenama, bukan ruang kosong */
+.project-card .pc-cover {
+  background:
+    radial-gradient(120% 90% at 15% 10%, rgba(201,162,39,.20) 0%, rgba(201,162,39,0) 62%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 26px),
+    linear-gradient(135deg, #16294a 0%, #122840 50%, #0a1628 100%);
+  border-bottom: var(--hairline);
+}
+
+/* ====== Jadual → kad berlabel pada telefon (20/9/2026)
+   Punca limpahan: .card-bd 326px vs jadual 349–503px, tiada bekas skrol → halaman melebar
+   sehingga 567px. Sekarang setiap baris jadi kad; label diambil daripada data-label (penjana). */
+@media (max-width: 620px) {
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .dash-table, table.t { width: 100%; min-width: 0; }
+  .dash-table thead, table.t thead { display: none; }
+  .dash-table, .dash-table tbody, .dash-table tr, .dash-table td,
+  table.t, table.t tbody, table.t tr, table.t td { display: block; width: 100%; }
+  .dash-table tr, table.t tr {
+    border: var(--hairline); border-radius: 12px; padding: 10px 12px;
+    margin: 0 0 10px; background: rgba(255,255,255,.02);
+  }
+  .dash-table td, table.t td {
+    border: 0; padding: 5px 0; display: flex; justify-content: space-between;
+    align-items: baseline; gap: 12px; text-align: right; font-size: 12.5px; white-space: normal;
+  }
+  .dash-table td::before, table.t td::before {
+    content: attr(data-label); color: var(--text-muted); font-size: 9.5px; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase; text-align: left; flex: 0 0 auto;
+  }
+  .dash-table td:first-child, table.t td:first-child {
+    border-bottom: 1px solid rgba(255,255,255,.07); padding-bottom: 8px; margin-bottom: 5px;
+    font-weight: 700; font-size: 13.5px;
+  }
+  .dash-table td:first-child::before, table.t td:first-child::before { content: none; }
+}
+
+/* ====== Pusingan 2 (20/9/2026) — punca sebenar limpahan yang tinggal:
+   grid item mempunyai min-width:auto, jadi nilai tak-bungkus ("RM 108,900") memaksa
+   lajur melebihi bekas (2 x 155px = 326px dalam bekas 278px). Pembetulan kanonik:
+   minmax(0,1fr) + min-width:0 pada item. ====== */
+@media (max-width: 620px) {
+  .stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid.two, .grid, .cards, .project-grid, .kpis, .metrics { grid-template-columns: minmax(0, 1fr) !important; }
+  .stat-row .stat-card, .stats > *, .grid > *, .cards > *, .project-grid > *,
+  .card, .content > *, .card-bd > * { min-width: 0; }
+  .stat-row .stat-card .value, .stats .value { font-size: clamp(17px, 5.6vw, 26px); }
+  .main, .content { min-width: 0; max-width: 100%; }
+  .content * { max-width: 100%; }
+  .content table { width: 100%; }
+}
+
+/* ====== Pusingan 3 (20/9/2026) — sisa kes terakhir ======
+   (a) .inv-summary: baris flex tak-bungkus → tolak melepasi bekas.
+   (b) .card dalam grid min-content (392px) → item grid perlu min-width:0.
+   (c) nilai wang panjang ("RM 33,048,000") terpotong dalam kad 121px.
+   Jaring keselamatan: .content{x}-hidden supaya sisa tidak menolak seluruh halaman. */
+@media (max-width: 620px) {
+  .main * { min-width: 0 !important; max-width: 100% !important; }
+  .inv-summary { flex-wrap: wrap; white-space: normal; }
+  .content { overflow-x: hidden; }
+}
+@media (max-width: 430px) {
+  .stat-row .stat-card .value, .stats .value {
+    font-size: 16px; letter-spacing: -.02em;
+    white-space: normal; overflow-wrap: anywhere; line-height: 1.15;
+  }
+}
