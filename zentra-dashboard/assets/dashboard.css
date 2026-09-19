@@ -38,8 +38,11 @@
   --glassy: rgba(11, 27, 46, 0.82);
   --glassy-border: rgba(201, 162, 39, 0.12);
   --hairline: 1px solid rgba(201, 162, 39, 0.18);
+  --hairline-card: 1px solid rgba(201, 162, 39, 0.18);
   --shadow-card: 0 2px 12px rgba(0,0,0,.30), inset 0 1px 0 rgba(201,162,39,.06);
   --shadow-glow: 0 0 20px rgba(201,162,39,.12);
+  --page-bg: #0a1628;
+  --stat-line: rgba(255,255,255,.03);
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 14px;
   color: var(--text);
@@ -47,12 +50,41 @@
   -webkit-font-smoothing: antialiased;
 }
 
+/* Light theme — background putih, sidebar tetap navy (luxury contrast) */
+.theme-light {
+  --navy: #0b1b2e;
+  --navy-light: #f7f5f0;
+  --navy-mid: #f0ede5;
+  --navy-card: rgba(255,255,255,0.85);
+  --text: #1e293b;
+  --text-dim: #475569;
+  --text-muted: #94a3b8;
+  --glassy: rgba(255,255,255,0.88);
+  --glassy-border: rgba(201,162,39,0.08);
+  --hairline: 1px solid rgba(201,162,39,0.10);
+  --hairline-card: 1px solid rgba(201,162,39,0.12);
+  --shadow-card: 0 1px 3px rgba(0,0,0,.04), 0 2px 12px rgba(0,0,0,.04);
+  --shadow-glow: 0 0 20px rgba(201,162,39,.06);
+  --page-bg: #f7f5f0;
+  --stat-line: rgba(0,0,0,.04);
+  background: var(--page-bg);
+  color: var(--text);
+}
+.theme-light .sidebar { background: #0b1b2e; border-right-color: rgba(201,162,39,.18); }
+.theme-light .main { background: var(--page-bg); }
+.theme-light .header { backdrop-filter: none; background: var(--glassy); border-bottom-color: rgba(201,162,39,.10); }
+.theme-light .stat-card { backdrop-filter: none; }
+.theme-light .card { backdrop-filter: none; }
+.theme-light .header .search { background: rgba(0,0,0,.03); border-color: rgba(201,162,39,.08); }
+.theme-light .header .search input { color: var(--text); }
+.theme-light table.dash-table td { border-bottom-color: var(--stat-line); }
+
 /* ---- Reset ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 body {
   display: flex;
-  background: #0a1628;
+  background: var(--page-bg);
   overflow-x: hidden;
 }
 a { text-decoration: none; color: inherit; }
