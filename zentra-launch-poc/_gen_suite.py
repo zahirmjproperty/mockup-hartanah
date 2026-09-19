@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""ZAFA Sales Suite — POC generator (English US).
+"""Zentra Launch — POC generator (English US).
 Brand: ZAFA Property Group (client-facing) / Mr Tanah (admin, internal)
-Output: ~/mockup-hartanah/zafa-sales-suite/  (noindex preview)
+Output: ~/mockup-hartanah/zentra-launch-poc/  (noindex preview)
 """
 import os
 
-OUT = "/home/ubuntu/mockup-hartanah/sales-suite-poc"
+OUT = "/home/ubuntu/mockup-hartanah/zentra-launch-poc"
 os.makedirs(OUT, exist_ok=True)
 
 # ── Jenama = TETAPAN (dikonfirmasi Zahir 15/9/2026: Zentra Property Group)
 BRAND = "Zentra Property Group"
-SUITE = "Zentra Sales Suite"
+SUITE = "Zentra Launch"
 BANNER = ("PROOF OF CONCEPT / PREVIEW — not the live system. "
           "Sample structure where noted; project facts are real (Avalon @ Cybersouth). Noindex.")
 
@@ -112,6 +112,7 @@ def page(fname, title, subtitle, body, active=None):
     # Normalisasi jenama: semua token ZAFA ditukar ke nilai TETAPAN (tukar nama = tukar BRAND/SUITE di atas)
     html = (html.replace("ZAFA Property Group", BRAND)
                 .replace("ZAFA Sales Suite", SUITE)
+                .replace("Zentra Sales Suite", SUITE)   # nama kerja lama (15/9) — jangan terbit semula
                 .replace("ZAFA", BRAND))
     open(os.path.join(OUT, fname), 'w', encoding='utf-8').write(html)
     return fname
@@ -224,7 +225,7 @@ overview_body = (
     ])
 )
 
-page("index.html", "%s — Proof of Concept" % SUITE,
+page("index.html", "Proof of Concept",
      "New-launch sales system for Mr Tanah · client-facing brand: %s · English (US)" % BRAND, overview_body)
 
 # ------------------------------------------------------------------ 2. PROJECT MICROSITE
@@ -743,8 +744,8 @@ def stub(dirpath, target, label):
         '<p>This preview has moved.</p>'
         '<p><a href="%s">Continue →</a></p></body></html>' % target)
 
-stub("/home/ubuntu/mockup-hartanah/sjpb-poc", "../sales-suite-poc/index.html", "Sales Suite preview")
-stub("/home/ubuntu/mockup-hartanah/zafa-sales-suite", "../sales-suite-poc/index.html", "Sales Suite preview")
+stub("/home/ubuntu/mockup-hartanah/sjpb-poc", "../zentra-launch-poc/index.html", "Zentra Launch preview")
+stub("/home/ubuntu/mockup-hartanah/zafa-sales-suite", "../zentra-launch-poc/index.html", "Zentra Launch preview")
 
 open(os.path.join(OUT, "suite.css"), 'w', encoding='utf-8').write(CSS)
 print("Done:", sorted(os.listdir(OUT)))

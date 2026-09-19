@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""F1 — Halaman projek ZAFA/Zentra Sales Suite v3 (PRATONTON) + borang EOI RM0.
+"""F1 — Halaman projek Zentra Launch v3 (PRATONTON) + borang EOI RM0.
 Sumber fakta: ~/mrtanah-site/data/projek-baharu.json (Notion 'Projek Baharu MT').
 Hantar ke: ~/mockup-hartanah/f1-projek-v3/ (noindex, pratonton untuk kelulusan Zahir).
 Borang EOI → webhook portal MT (aksi form=eoi) → Sheet 'EOI Projek Baharu MT'.
@@ -127,9 +127,9 @@ def page(p, indeks):
     body = """<!doctype html><html lang="en-US"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>__NAMA__ — ZAFA Sales Suite (preview)</title><style>__CSS__</style></head><body>
+<title>__NAMA__ — Zentra Launch (preview)</title><style>__CSS__</style></head><body>
 <div class="pv">PRATONTON FASA 1 — noindex · data permit sebenar · borang EOI berfungsi (ujian) · belum diterbitkan ke mrtanah.com</div>
-<header><div class="b">ZENTRA <span>SALES SUITE</span></div>
+<header><div class="b">ZENTRA <span>LAUNCH</span></div>
 <div><a href="index.html">All projects</a> · <a href="https://wa.me/__WA__" target="_blank" rel="noopener">WhatsApp</a></div></header>
 <div class="wrap">
 <h1>__NAMA__</h1>
@@ -222,7 +222,7 @@ def index_page(proj):
 <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <title>Fasa 1 — projek baharu (pratonton)</title><style>%s</style></head><body>
 <div class="pv">PRATONTON FASA 1 — noindex · borang EOI RM0 berfungsi · belum terbit ke mrtanah.com</div>
-<header><div class="b">ZENTRA <span>SALES SUITE</span></div><div>Phase 1 preview</div></header>
+<header><div class="b">ZENTRA <span>LAUNCH</span></div><div>Phase 1 preview</div></header>
 <div class="wrap">
 <h1>Fasa 1 — daftar projek &amp; EOI RM0</h1>
 <p class="sub">Setiap halaman: panel permit iklan (Peraturan 6) · ringkasan ketersediaan · borang daftar minat RM0
