@@ -40,6 +40,50 @@
 .track{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
 .step5{display:flex;align-items:center;gap:7px;font-size:12px;padding:6px 11px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink-3)}
 .step5.now{border-color:var(--gold);color:var(--ink);background:var(--gold-soft);font-weight:600}
+/* ==================== IMAGES + HERO (19 Sep 2026) ==================== */
+.imgwrap{display:grid;grid-template-columns:1.35fr .95fr;gap:16px;margin-bottom:16px}
+@media (max-width:900px){.imgwrap{grid-template-columns:1fr}}
+
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+  border:1.5px dashed var(--line);border-radius:var(--radius);padding:26px 18px;text-align:center;
+  background:var(--card);transition:border-color var(--t),background var(--t);cursor:pointer}
+.drop:hover,.drop.over{border-color:var(--gold);background:var(--gold-soft)}
+.drop .dico{width:34px;height:34px;color:var(--gold);opacity:.9}
+.drop b{font-size:14px}
+.drop .fine{font-size:11.5px;color:var(--ink-3);line-height:1.5;max-width:330px}
+
+.herobox{border:1px solid var(--line);border-radius:var(--radius);padding:13px;background:var(--card);
+  display:flex;flex-direction:column;gap:7px}
+.herobox .hlab{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.herobox img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:9px;background:var(--navy-3);
+  border:1px solid var(--line)}
+.herobox .hnm{font-size:12.5px;font-weight:650;word-break:break-all}
+
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:11px}
+.tile{position:relative;border:1px solid var(--line);border-radius:11px;overflow:hidden;
+  background:var(--navy-3);aspect-ratio:4/3}
+.tile img{width:100%;height:100%;object-fit:cover;display:block}
+.tile.hero{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-soft)}
+.tile .tno{position:absolute;top:6px;left:6px;font-size:10.5px;font-weight:700;padding:2px 6px;
+  border-radius:999px;background:rgba(10,22,40,.78);color:#f0ead6;border:1px solid var(--line)}
+.tile .hbadge{position:absolute;top:6px;right:6px;font-size:10px;font-weight:800;letter-spacing:.06em;
+  padding:3px 7px;border-radius:999px;background:var(--gold);color:#241a03}
+.tile .tact{position:absolute;inset:auto 0 0 0;display:flex;gap:6px;padding:7px;
+  background:linear-gradient(180deg,rgba(10,22,40,0),rgba(10,22,40,.90))}
+.tile .tact .btn{flex:1;justify-content:center;padding:5px 7px;font-size:11px}
+.tile.bad img{opacity:.5}
+.tile .warn{position:absolute;bottom:42px;left:6px;right:6px;font-size:10px;color:#241a03;
+  background:var(--amber);border-radius:6px;padding:2px 6px;font-weight:700}
+
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
+@media (max-width:820px){.checks{grid-template-columns:1fr}}
+.checks div{display:flex;gap:8px;font-size:11.5px;color:var(--ink-3);line-height:1.5;align-items:flex-start}
+.checks svg{margin-top:1px;flex:0 0 auto;color:var(--green)}
+
+:root.theme-light .drop,:root.theme-light .herobox{background:#fff}
+:root.theme-light .tile .tno{background:rgba(255,255,255,.86);color:#1e293b}
+:root.theme-light .tile .tact{background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.94))}
+
 </style>
 </head>
 <body>
@@ -84,14 +128,40 @@
         <div class="fld"><label for="f_built">Built-up (sqft)</label><input id="f_built" value="1,130"></div>
         <div class="fld"><label for="f_land">Land area</label><input id="f_land" value="&mdash;"></div>
         <div class="fld"><label for="f_rooms">Bedrooms / bathrooms</label><input id="f_rooms" value="3 / 2"></div>
-        <div class="fld"><label for="f_images">Images</label><input id="f_images" readonly value="12 attached"></div>
+        <div class="fld"><label for="f_images">Images / hero</label><input id="f_images" readonly value=""></div>
         <div class="fld"><label for="f_agent">Listing agent</label><input id="f_agent" readonly></div>
         <div class="fld w3"><label for="f_desc">Description</label><textarea id="f_desc">Well-kept 3-bedroom unit at Terra Residences, Cyberjaya. Walking distance to shops, quick access to Putrajaya and the MEX highway. Good for own stay or rental yield.</textarea></div>
         <div class="fld w3"><label for="f_high">Highlights</label><input id="f_high" value="Tenanted &middot; High floor &middot; Covered parking &middot; 5 min to shops"></div>
       </div>
     </div>
 
-    <h2 class="sec"><span class="num">2</span> Where this record should live</h2>
+    <h2 class="sec"><span class="num">2</span> Images and hero</h2>
+    <div class="card">
+      <div class="imgwrap">
+        <label class="drop" id="drop">
+          <svg class="dico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="m7.5 8.5 4.5-4.5 4.5 4.5"/><path d="M3 15v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/></svg>
+          <b>Drop images here or choose files</b>
+          <span class="btn gold small" style="pointer-events:none">Choose images</span>
+          <input type="file" id="f_files" accept="image/*" multiple hidden>
+          <span class="fine">JPG or PNG &middot; at least 1024 &times; 768 &middot; originals only &mdash; no brightness, contrast or filter edits.</span>
+        </label>
+        <div class="herobox">
+          <span class="hlab">Hero image</span>
+          <img id="heroImg" alt="Hero image preview">
+          <span class="hnm" id="heroName"></span>
+          <span class="fine" style="font-size:11.5px;color:var(--ink-3);line-height:1.5">The hero becomes the main photo wherever this listing is published.</span>
+        </div>
+      </div>
+      <div class="gal" id="gal"></div>
+      <p class="small muted" id="galNote" style="margin:12px 0 0"></p>
+      <div class="checks">
+        <div><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg><span>Checked on upload: anything under 1024 &times; 768 is flagged before it can become the hero.</span></div>
+        <div><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg><span>Plan and title-deed images stay private &mdash; never published.</span></div>
+        <div><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg><span>Originals only &mdash; the house rule is no brightness or contrast edits.</span></div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Where this record should live</h2>
     <div class="sys">
       <div class="sysc" id="sysRealty">
         <span class="chip" style="background:var(--gold-soft);border:1px solid var(--line);color:var(--gold);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600">Always on</span>
@@ -101,7 +171,7 @@
       <div class="sysc" id="sysPush"></div>
     </div>
 
-    <h2 class="sec"><span class="num">3</span> Save &amp; publish</h2>
+    <h2 class="sec"><span class="num">4</span> Save &amp; publish</h2>
     <div class="card">
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
         <button class="btn gold" id="go">Save listing</button>
@@ -134,6 +204,7 @@ const AGENTS = [
   {name:'Hafiz Rahman',    role:'Negotiator', level:'Rookie 40%',     push:{linked:false, id:''}}
 ];
 let ACTOR = AGENTS[0].name, publish = true;
+const SEED_IDS = ["126BKiOOOmvUCoQy8t4VsTOv7l_RWBU4M", "1zp1PvWqO8Zk0EG0p_Z7JhDEBjA4WDOqP", "1_vvusjTcGrbjeAk3aHLEy2bM08I83OPS", "1r64Zuz8ufxZPsR4jb1D2djHR4Fl52_KF", "1y2jEIUG_IkSX6lKOhn6ucNssgjXQu0ix", "1dNIrxwl8_jPI1Y8N8FCIP1NN4WYnEjAf"];
 const P0 = JSON.parse(JSON.stringify(AGENTS.map(a => a.push)));
 const el = id => document.getElementById(id);
 const seat = n => AGENTS.find(a => a.name === (n || ACTOR)) || AGENTS[0];
@@ -204,16 +275,80 @@ el('go').onclick = () => {
   el('out').innerHTML = rows.map(r =>
       '<div class="resrow"><div>' + r[0] + '</div><div>' + r[1] + '</div>'
       + '<div class="small" style="color:var(--ink-3)">' + r[2] + '</div></div>').join('')
-    + '<p class="small" style="color:var(--ink-3);margin:12px 0 0">Saved by ' + s.name + '. Every channel placement still needs its read-back confirmation before it counts as live.</p>';
+    + '<p class="small" style="color:var(--ink-3);margin:12px 0 0">Saved by ' + s.name + '. Hero image: ' + (heroImg() ? heroImg().name : 'none') + ' (' + IMGS.length + ' images). Every channel placement still needs its read-back confirmation before it counts as live.</p>';
 };
 
 el('reset').onclick = () => {
   ACTOR = AGENTS[0].name; publish = true;
   AGENTS.forEach((a, i) => { a.push = JSON.parse(JSON.stringify(P0[i])); });
+  if (typeof IMGS !== 'undefined') { resetImgs(); drawImgs(); }
   el('out').innerHTML = '';
   el('ws1').className = 'step5 now'; el('ws2').className = 'step5'; el('ws3').className = 'step5';
   render();
 };
+
+/* ---------- imej + hero ---------- */
+const SEED = SEED_IDS.map(u => 'https://lh3.googleusercontent.com/d/' + u + '=w1000');
+let IMGS = [];
+resetImgs();
+const MINW = 1024, MINH = 768;
+function resetImgs(){
+  IMGS = SEED.map((u, i) => ({name: 'ZMP-0142-foto-' + (i + 1) + '.jpg', url: u, hero: i === 0, bad: false}));
+}
+function heroIdx(){ return IMGS.findIndex(x => x.hero); }
+function heroImg(){ const i = heroIdx(); return i < 0 ? null : IMGS[i]; }
+
+function drawImgs(){
+  const h = heroImg();
+  el('heroImg').src = h ? h.url : '';
+  el('heroName').textContent = h ? h.name : 'No image selected';
+  el('f_images').value = IMGS.length + ' image' + (IMGS.length === 1 ? '' : 's') + ' \u00b7 hero ' + (h ? h.name : '\u2014');
+  el('gal').innerHTML = IMGS.map((im, i) =>
+    '<div class="tile' + (im.hero ? ' hero' : '') + (im.bad ? ' bad' : '') + '" data-i="' + i + '">'
+    + '<img src="' + im.url + '" alt="" loading="lazy">'
+    + '<span class="tno">' + (i + 1) + '</span>'
+    + (im.hero ? '<span class="hbadge">HERO</span>' : '')
+    + (im.bad ? '<span class="warn">Under ' + MINW + ' \u00d7 ' + MINH + '</span>' : '')
+    + '<div class="tact">'
+    + '<button class="btn ' + (im.hero ? 'ghost' : 'gold') + ' small" data-act="hero"' + (im.hero ? ' disabled' : '') + '>' + (im.hero ? 'Hero' : 'Set hero') + '</button>'
+    + '<button class="btn ghost small" data-act="del">Remove</button>'
+    + '</div></div>').join('');
+  el('galNote').textContent = IMGS.length + ' image' + (IMGS.length === 1 ? '' : 's') + ' attached \u00b7 the hero is the main photo everywhere this listing appears.';
+  el('gal').querySelectorAll('.tile').forEach(t => {
+    const i = +t.dataset.i;
+    t.querySelectorAll('[data-act]').forEach(btn => {
+      btn.onclick = e => {
+        e.preventDefault(); e.stopPropagation();
+        if (btn.dataset.act === 'hero') IMGS.forEach((x, k) => { x.hero = (k === i); });
+        else { IMGS.splice(i, 1); if (heroIdx() < 0 && IMGS.length) IMGS[0].hero = true; }
+        drawImgs();
+      };
+    });
+  });
+}
+
+function addFiles(files){
+  [...files].forEach(f => {
+    if (!/^image\//.test(f.type)) return;
+    const url = URL.createObjectURL(f);
+    const rec = {name: f.name, url: url, hero: false, bad: false};
+    IMGS.push(rec);
+    const probe = new Image();
+    probe.onload = () => { rec.bad = probe.naturalWidth < MINW || probe.naturalHeight < MINH; drawImgs(); };
+    probe.src = url;
+  });
+  if (heroIdx() < 0 && IMGS.length) IMGS[0].hero = true;
+  drawImgs();
+}
+
+const dropEl = el('drop');
+['dragenter', 'dragover'].forEach(ev => dropEl.addEventListener(ev, e => { e.preventDefault(); dropEl.classList.add('over'); }));
+['dragleave', 'drop'].forEach(ev => dropEl.addEventListener(ev, e => { e.preventDefault(); dropEl.classList.remove('over'); }));
+dropEl.addEventListener('drop', e => { if (e.dataTransfer && e.dataTransfer.files.length) addFiles(e.dataTransfer.files); });
+el('f_files').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
+
+drawImgs();
+
 render();
 </script>
 </body>

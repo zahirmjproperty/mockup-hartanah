@@ -10,6 +10,7 @@
 <script src="assets/theme-boot.js"></script>
 <link rel="stylesheet" href="assets/push.css">
 <link rel="stylesheet" href="assets/push-extra.css">
+<link rel="stylesheet" href="assets/push-images.css">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/zp-favicon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/zp-icon-192.png">
 <link rel="apple-touch-icon" href="icons/zp-apple-touch-icon.png">
@@ -29,7 +30,7 @@
     <div class="note" id="actorNote"></div>
 
     <div class="flow" id="wiz">
-      <div class="fstep now" id="ws1"><div class="n">STEP 1</div><h4>Listing details</h4><p>The canonical fields, entered once.</p></div>
+      <div class="fstep now" id="ws1"><div class="n">STEP 1</div><h4>Listing details</h4><p>The canonical fields and the photos, entered once.</p></div>
       <div class="fstep" id="ws2"><div class="n">STEP 2</div><h4>Systems</h4><p>Zentra Push always. Zentra Realty when linked.</p></div>
       <div class="fstep" id="ws3"><div class="n">STEP 3</div><h4>Channels</h4><p>Where it goes, within each channel's terms.</p></div>
       <div class="fstep" id="ws4"><div class="n">STEP 4</div><h4>Create</h4><p>Record written, then read back.</p></div>
@@ -63,7 +64,7 @@
         <label class="fld"><span>Bedrooms &middot; Bathrooms</span>
           <input id="f_rooms" value="4 &middot; 3"></label>
         <label class="fld"><span>Photographs <em>min 6</em></span>
-          <input id="f_images" value="18" inputmode="numeric"></label>
+          <input id="f_images" readonly value=""></label>
         <label class="fld wide"><span>Description</span>
           <textarea id="f_desc" rows="3">Terrace house in Taman Saujana Impian, renovated kitchen, covered car porch for two cars. Ten minutes to Kajang SILK interchange.</textarea></label>
         <label class="fld wide"><span>Highlights <em>one per line</em></span>
@@ -74,14 +75,41 @@ Freehold</textarea></label>
       </div>
     </div>
 
-    <h2 class="sec"><span class="num">2</span> Systems this record is created in</h2>
+    <h2 class="sec"><span class="num">2</span> Images and hero</h2>
+    <div class="card">
+      <div class="imgwrap">
+        <label class="drop" id="drop">
+          <svg class="dico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="m7.5 8.5 4.5-4.5 4.5 4.5"/><path d="M3 15v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/></svg>
+          <b>Drop images here or choose files</b>
+          <span class="btn gold small" style="pointer-events:none">Choose images</span>
+          <input type="file" id="f_files" accept="image/*" multiple hidden>
+          <span class="fine">JPG or PNG &middot; at least 1024 &times; 768 &middot; originals only &mdash; no brightness, contrast or filter edits.</span>
+        </label>
+        <div class="herobox">
+          <span class="hlab">Hero image</span>
+          <img id="heroImg" alt="Hero image preview">
+          <span class="hnm" id="heroName"></span>
+          <span class="fine" style="font-size:11.5px;color:var(--ink-3);line-height:1.5">Every portal uses the hero as the listing's main photo. Pick the frame that sells the property.</span>
+        </div>
+      </div>
+      <div class="gal" id="gal"></div>
+      <p class="small muted" id="galNote" style="margin:12px 0 0"></p>
+      <div class="checks">
+        <div><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg><span>Checked on upload: anything under 1024 &times; 768 is flagged before it can become the hero.</span></div>
+        <div><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg><span>No text, watermark or collage on the hero &mdash; PropertyGuru rejects those on the main image.</span></div>
+        <div><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg><span>Mudah applies its own watermark, so never add one yourself.</span></div>
+        <div><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg><span>Plan and title-deed images stay private &mdash; never published to a portal.</span></div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Systems this record is created in</h2>
     <div class="grid g2">
       <div class="sys" id="sysPush"></div>
       <div class="sys" id="sysRealty"></div>
     </div>
     <div class="note" style="margin-top:14px">Either system can be the point of entry. Zentra Realty&rsquo;s own intake form also publishes here when the agent holds an account on both &mdash; <a href="../zentra-realty/new-listing.html">open the Zentra Realty intake form</a>.</div>
 
-    <h2 class="sec"><span class="num">3</span> Channels</h2>
+    <h2 class="sec"><span class="num">4</span> Channels</h2>
     <div class="card">
       <p class="small muted" style="margin-top:0" id="chanNote"></p>
       <div class="pick" id="picks"></div>
@@ -240,7 +268,7 @@ el('go').onclick = () => {
         : (linked ? 'Zentra Realty mirroring was switched off.' : 'Zentra Realty not created &mdash; no linked account.');
       el('out').innerHTML = rows.join('')
         + '<p class="small muted" style="margin:12px 0 0;font-size:11.5px">' + ref + ' written by ' + agent
-        + ' with ' + list.length + ' channel placements. ' + zrLine + ' Every placement still needs its read-back confirmation before it counts as live.</p>';
+        + ' with ' + list.length + ' channel placements. Hero image: ' + (heroImg() ? heroImg().name : 'none') + ' (' + IMGS.length + ' images). ' + zrLine + ' Every placement still needs its read-back confirmation before it counts as live.</p>';
       el('ws4').className = 'fstep now';
       document.querySelectorAll('#wiz .fstep').forEach(s => { if (s.id !== 'ws4') s.className = 'fstep'; });
       return;
@@ -260,6 +288,7 @@ el('go').onclick = () => {
 el('reset').onclick = () => {
   Z.ACTOR = ACTORS[0]; mirror = true; chosen = new Set(); initDone = false;
   Z.SEATS.forEach((x, i) => { x.realty = JSON.parse(JSON.stringify(REALTY0[i])); });
+  if (typeof IMGS !== 'undefined') { IMGS.forEach(x => { if (x.url.indexOf('blob:') === 0) URL.revokeObjectURL(x.url); }); IMGS = SEED.map((u, i) => ({name: 'MT-0001-foto-' + (i + 1) + '.jpg', url: u, hero: i === 0, bad: false})); drawImgs(); }
   el('out').innerHTML = '';
   el('ws4').className = 'fstep';
   actorBar(); draw();
@@ -271,6 +300,84 @@ function draw(){
   actorBar(); drawSystems(); drawPicks();
   el('ws2').className = 'fstep now';
 }
+
+/* ---------- imej + hero ---------- */
+const SEED = ['11R_E-xft6V3NGf05YGqKEgTed8Z7WAJK', '1vdU4jmic5VmkRBa04vv6KAEt0Q4pUpNl',
+              '1yfMejiuoq41PPZeN_QWmxrnzojmdLynF', '1IUzGZwmcF6F86t_u7ZWTnPmqv829ntls',
+              '1PpBgYOv9ay3iwsxVtflZOs6_rdSRCMth', '1NLi2ZKIcTDOW8Y4ZOEE_14XqKmp_ioH8']
+             .map(u => 'https://lh3.googleusercontent.com/d/' + u + '=w1000');
+let IMGS = SEED.map((u, i) => ({name: 'MT-0001-foto-' + (i + 1) + '.jpg', url: u, hero: i === 0, bad: false}));
+const MINW = 1024, MINH = 768;
+
+function heroIdx(){ return IMGS.findIndex(x => x.hero); }
+function heroImg(){ const i = heroIdx(); return i < 0 ? null : IMGS[i]; }
+
+function drawImgs(){
+  const h = heroImg();
+  el('heroImg').src = h ? h.url : '';
+  el('heroName').textContent = h ? h.name : 'No image selected';
+  el('f_images').value = IMGS.length + ' image' + (IMGS.length === 1 ? '' : 's') + ' \u00b7 hero ' + (h ? h.name : '\u2014');
+  el('gal').innerHTML = IMGS.map((im, i) =>
+    '<div class="tile' + (im.hero ? ' hero' : '') + (im.bad ? ' bad' : '') + '" data-i="' + i + '">'
+    + '<img src="' + im.url + '" alt="" loading="lazy">'
+    + '<span class="tno">' + (i + 1) + '</span>'
+    + (im.hero ? '<span class="hbadge">HERO</span>' : '')
+    + (im.bad ? '<span class="warn">Under ' + MINW + ' \u00d7 ' + MINH + '</span>' : '')
+    + '<div class="tact">'
+    + '<button class="btn ' + (im.hero ? 'ghost' : 'gold') + ' small" data-act="hero"' + (im.hero ? ' disabled' : '') + '>' + (im.hero ? 'Hero' : 'Set hero') + '</button>'
+    + '<button class="btn ghost small" data-act="del">Remove</button>'
+    + '</div></div>').join('');
+  el('galNote').textContent = IMGS.length + ' image' + (IMGS.length === 1 ? '' : 's')
+    + ' attached \u00b7 the hero is what every portal shows as the main photo.';
+  bindGal();
+}
+
+function bindGal(){
+  el('gal').querySelectorAll('.tile').forEach(t => {
+    const i = +t.dataset.i;
+    t.querySelectorAll('[data-act]').forEach(btn => {
+      btn.onclick = e => {
+        e.preventDefault(); e.stopPropagation();
+        const act = btn.dataset.act;
+        if (act === 'hero') IMGS.forEach((x, k) => { x.hero = (k === i); });
+        else if (act === 'del') { IMGS.splice(i, 1); if (heroIdx() < 0 && IMGS.length) IMGS[0].hero = true; }
+        drawImgs();
+      };
+    });
+  });
+}
+
+/* muat naik sebenar - berfungsi penuh di pelayar */
+function addFiles(files){
+  [...files].forEach(f => {
+    if (!/^image\//.test(f.type)) return;
+    const url = URL.createObjectURL(f);
+    const rec = {name: f.name, url: url, hero: false, bad: false};
+    IMGS.push(rec);
+    const probe = new Image();
+    probe.onload = () => {
+      rec.w = probe.naturalWidth; rec.h = probe.naturalHeight;
+      rec.bad = probe.naturalWidth < MINW || probe.naturalHeight < MINH;
+      drawImgs();
+    };
+    probe.src = url;
+  });
+  if (heroIdx() < 0 && IMGS.length) IMGS[0].hero = true;
+  drawImgs();
+}
+
+const dropEl = el('drop');
+['dragenter', 'dragover'].forEach(ev => dropEl.addEventListener(ev, e => {
+  e.preventDefault(); dropEl.classList.add('over');
+}));
+['dragleave', 'drop'].forEach(ev => dropEl.addEventListener(ev, e => {
+  e.preventDefault(); dropEl.classList.remove('over');
+}));
+dropEl.addEventListener('drop', e => { if (e.dataTransfer && e.dataTransfer.files.length) addFiles(e.dataTransfer.files); });
+el('f_files').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
+
+drawImgs();
+
 draw();
 </script>
 </body>
