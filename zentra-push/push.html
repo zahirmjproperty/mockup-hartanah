@@ -45,7 +45,7 @@
 
     <h2 class="sec"><span class="num">2</span> Channels</h2>
     <div class="card">
-      <p class="small muted" style="margin-top:0">Grey cards are refused by the compliance guard &mdash; their terms prohibit automation, so the software will not do it even if asked.</p>
+      <p class="small muted" style="margin-top:0">Grey cards are refused by the compliance guard &mdash; their terms prohibit automation, so the software will not do it even if asked. <b>Zentra Realty</b> appears only when the listing agent holds a linked account on that system (this seat: <span id="gateNote"></span>).</p>
       <div class="pick" id="picks"></div>
       <div style="display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap">
         <button class="btn gold" id="run">Run push</button>
@@ -69,7 +69,7 @@
 const Z = window.ZP;
 const el = id => document.getElementById(id);
 const money = n => 'RM' + n.toLocaleString('en-US');
-let chosen = new Set(['site-zmp','dotproperty','trovit','fbpage','telegram']);
+let chosen = new Set(['zentrarealty','site-zmp','dotproperty','trovit','fbpage','telegram']);
 
 /* --- pemilih listing --- */
 el('pick').innerHTML = Z.LISTINGS.map(L => '<option value="' + L.id + '">' + L.id + ' &mdash; ' + L.title + '</option>').join('');
@@ -88,9 +88,11 @@ function drawRecord(){
   el('run').style.opacity = L.status === 'draft' ? .5 : 1;
 }
 
-/* --- pemilih saluran --- */
+/* --- pemilih saluran (gate-aware: Zentra Realty hanya bila akaun berpaut) --- */
 function drawPicks(){
-  el('picks').innerHTML = Z.CHANNELS.map(c => {
+  const list = Z.channelsFor();
+  chosen.forEach(id => { if (!list.some(c => c.id === id)) chosen.delete(id); });
+  el('picks').innerHTML = list.map(c => {
     const d = Z.TIER[c.tier];
     const locked = (c.tier === 'MANUAL');
     const on = chosen.has(c.id);
@@ -102,7 +104,7 @@ function drawPicks(){
       + '<div class="pd">' + (locked ? 'Guard refusal: ' + c.api + '.' : c.api) + '</div></div>';
   }).join('');
   document.querySelectorAll('.pcard').forEach(p => p.onclick = () => {
-    const c = Z.CHANNELS.find(x => x.id === p.dataset.id);
+    const c = list.find(x => x.id === p.dataset.id);
     if (c.tier === 'MANUAL') return;
     chosen.has(c.id) ? chosen.delete(c.id) : chosen.add(c.id);
     drawPicks(); tally();
@@ -111,7 +113,7 @@ function drawPicks(){
 }
 
 function tally(){
-  const list = Z.CHANNELS.filter(c => chosen.has(c.id));
+  const list = Z.channelsFor().filter(c => chosen.has(c.id));
   const a = list.filter(c => c.tier === 'AUTO').length;
   const s = list.filter(c => c.tier === 'ASSIST').length;
   const n = list.filter(c => c.tier === 'NATIVE').length;
@@ -173,13 +175,16 @@ el('run').onclick = function(){
 };
 
 el('reset').onclick = function(){
-  chosen = new Set(['site-zmp','dotproperty','trovit','fbpage','telegram']);
+  chosen = new Set(['zentrarealty','site-zmp','dotproperty','trovit','fbpage','telegram']);
   el('result').innerHTML = '<p class="small muted" style="margin:0">Nothing pushed yet. Choose channels and press <b>Run push</b>.</p>';
   el('fs4').className = 'fstep';
   drawPicks(); drawRecord();
 };
 
 el('pick').onchange = function(){ drawRecord(); drawPicks(); };
+el('gateNote').innerHTML = Z.realtyLinked()
+  ? '<b>linked</b> &middot; ' + Z.seat().realty.id
+  : '<b>no account</b> &mdash; the channel is filtered out, so a push can never target a system the agent cannot write to';
 drawRecord(); drawPicks();
 </script>
 </body>

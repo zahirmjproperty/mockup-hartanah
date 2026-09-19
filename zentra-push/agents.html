@@ -29,13 +29,13 @@
     <div class="grid g4">
       <div class="kpi"><div class="lab">Agents on the system</div><div class="val" id="a1">3</div><div class="sub">seats provisioned</div></div>
       <div class="kpi blue"><div class="lab">Pushes today</div><div class="val" id="a2">0</div><div class="sub">across all channels</div></div>
-      <div class="kpi"><div class="lab">Daily cap reached</div><div class="val" id="a3">0</div><div class="sub">agents at the limit</div></div>
+      <div class="kpi"><div class="lab">Zentra Realty linked</div><div class="val" id="a3">0</div><div class="sub">accounts available for mirroring</div></div>
       <div class="kpi warn"><div class="lab">Freshness backlog</div><div class="val" id="a4">0</div><div class="sub">ads older than 60 days</div></div>
     </div>
 
     <h2 class="sec"><span class="num">1</span> Seats</h2>
     <div class="card"><table class="mx"><thead><tr>
-      <th>Agent</th><th>Firm</th><th>Role</th><th class="ctr">Daily cap</th><th class="ctr">Used today</th><th class="ctr">Live placements</th><th>State</th>
+      <th>Agent</th><th>Firm</th><th>Cert.</th><th>Zentra Realty</th><th class="ctr">Daily cap</th><th class="ctr">Used today</th><th class="ctr">Live placements</th><th>State</th>
     </tr></thead><tbody id="seats"></tbody></table></div>
 
     <h2 class="sec"><span class="num">2</span> Why a cap exists at all</h2>
@@ -48,7 +48,17 @@
         <p class="small muted" style="margin-bottom:0;line-height:1.6">Portal listing terms have shortened to around 60 days on the major sites. The cap is paired with automatic renewal tracking so the same ad stays current instead of being reposted as a duplicate.</p></div>
     </div>
 
-    <h2 class="sec"><span class="num">3</span> Freshness watch</h2>
+    <h2 class="sec"><span class="num">3</span> What the Zentra Realty link unlocks</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0;font-size:14px">Enter once, exist twice</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">An agent with a linked account fills in a listing a single time. The record is created in Zentra Push and mirrored into Zentra Realty, with the two kept in sync by the link &mdash; the same rule works from either system's intake form.</p></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14px">No account, no dead end</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">An agent without a Zentra Realty account still gets the full Zentra Push intake flow. The mirror option is simply not rendered, and a later link triggers a backfill instead of a re-type.</p></div>
+      <div class="card"><h3 style="margin-top:0;font-size:14px">Gated, not guessed</h3>
+        <p class="small muted" style="margin-bottom:0;line-height:1.6">The Zentra Realty channel is filtered out of every picker until the account exists, so a push can never target a system the agent cannot write to. Guard rule G7.</p></div>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Freshness watch</h2>
     <div class="card"><div id="fresh"></div></div>
 
   </main>
@@ -60,18 +70,18 @@
 const Z = window.ZP;
 const el = id => document.getElementById(id);
 
-const SEATS = [
-  {name:'Zahiruddin M.J.', firm:'IQI Realty Sdn Bhd', role:'Principal', cap:6, used:4, live:9, state:'ok'},
-  {name:'Fadilah Yusof',   firm:'IQI Realty Sdn Bhd', role:'Negotiator', cap:4, used:4, live:5, state:'cap'},
-  {name:'Unassigned seat', firm:'IQI Realty Sdn Bhd', role:'Negotiator', cap:4, used:0, live:0, state:'idle'}
-];
+const SEATS = Z.SEATS;   /* sumber tunggal: assets/push-data.js */
 
 el('seats').innerHTML = SEATS.map(s => {
   const pct = Math.round(s.used / s.cap * 100);
   const chip = s.state === 'cap' ? '<span class="chip st-renewal">At daily cap</span>'
              : s.state === 'idle' ? '<span class="chip st-draft">Not activated</span>'
              : '<span class="chip st-live">Within cap</span>';
-  return '<tr><td><b>' + s.name + '</b></td><td class="small">' + s.firm + '</td><td class="small">' + s.role + '</td>'
+  const zr = s.realty && s.realty.linked
+    ? '<span class="chip st-live">' + s.realty.id + ' &middot; ' + s.realty.level + '</span>'
+    : '<span class="chip st-draft">No account</span>';
+  return '<tr><td><b>' + s.name + '</b><div class="small muted">' + s.role + '</div></td>'
+    + '<td class="small">' + s.firm + '</td><td class="small">' + s.cert + '</td><td>' + zr + '</td>'
     + '<td class="ctr">' + s.cap + '</td>'
     + '<td class="ctr"><b>' + s.used + '</b> <span class="small muted">(' + pct + '%)</span></td>'
     + '<td class="ctr">' + s.live + '</td><td>' + chip + '</td></tr>';
@@ -79,7 +89,7 @@ el('seats').innerHTML = SEATS.map(s => {
 
 el('a1').textContent = SEATS.length;
 el('a2').textContent = SEATS.reduce((n, s) => n + s.used, 0);
-el('a3').textContent = SEATS.filter(s => s.state === 'cap').length;
+el('a3').textContent = SEATS.filter(s => s.realty && s.realty.linked).length;
 el('a4').textContent = 2;
 
 const FRESH = [

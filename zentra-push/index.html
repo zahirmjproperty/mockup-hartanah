@@ -27,7 +27,7 @@
     </div>
 
     <div class="note">
-      <b>Design premise.</b> No Malaysian property portal publishes a listing-submission API for agents. PropertyGuru and iProperty additionally prohibit third-party automation in writing, and Facebook removed group publishing in April 2024. Zentra Push therefore separates what is <b>sanctioned</b> (automate fully) from what is <b>tolerated</b> (prefill, human submits) from what is <b>closed</b> (generate a pack, human posts).
+      <b>Design premise.</b> No Malaysian property portal publishes a listing-submission API for agents. PropertyGuru and iProperty additionally prohibit third-party automation in writing, and Facebook removed group publishing in April 2024. Zentra Push therefore separates what is <b>sanctioned</b> (automate fully) from what is <b>tolerated</b> (prefill, human submits) from what is <b>closed</b> (generate a pack, human posts).<br><b>Linked systems.</b> A listing is entered once. Agents who hold a Zentra Realty account get a mirror option and the two records stay linked; agents without one simply work in Zentra Push &mdash; nothing is blocked, and a later link backfills instead of asking for the data twice.
     </div>
 
     <div class="grid g4" id="kpis"></div>
@@ -38,11 +38,27 @@
     <h2 class="sec"><span class="num">2</span> Listings in flight</h2>
     <div class="card">
       <table class="mx"><thead><tr>
-        <th>Listing</th><th>Source record</th><th>Price</th><th>Agent</th><th>Channels live</th><th>Next action</th>
+        <th>Listing</th><th>Source record</th><th>Price</th><th>Agent</th><th>Channels live</th><th>Zentra Realty</th><th>Next action</th>
       </tr></thead><tbody id="flight"></tbody></table>
     </div>
 
-    <h2 class="sec"><span class="num">3</span> Latest distribution activity</h2>
+    <h2 class="sec"><span class="num">3</span> How a listing enters the system</h2>
+    <div class="grid g2">
+      <div class="card">
+        <div class="chip t-auto">Always available</div>
+        <h3 style="margin:10px 0 6px;font-size:15px">Enter it here, in Zentra Push</h3>
+        <p class="small muted" style="line-height:1.6;margin-bottom:12px">One form captures the canonical record and the channels it should reach. This works for every agent, with or without a Zentra Realty account.</p>
+        <a class="btn gold" href="new.html">Open the intake form</a>
+      </div>
+      <div class="card">
+        <div class="chip t-auto">When the account is linked</div>
+        <h3 style="margin:10px 0 6px;font-size:15px">Also mirrored to Zentra Realty</h3>
+        <p class="small muted" style="line-height:1.6;margin-bottom:12px">Agents who hold a Zentra Realty account see an extra switch on the same form. The record is created in both systems and the link keeps them in sync &mdash; and Zentra Realty's own intake form can push back the other way.</p>
+        <a class="btn ghost" href="agents.html">See who is linked</a>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Latest distribution activity</h2>
     <div class="card" id="recent"></div>
 
   </main>
@@ -57,11 +73,17 @@ const money = n => 'RM' + n.toLocaleString('en-US');
 const TIER_ORDER = ['AUTO','ASSIST','NATIVE','MANUAL'];
 
 /* --- KPI --- */
+let liveN = 0, waitN = 0;
+Z.LISTINGS.forEach(L => Object.values(L.channels).forEach(c => {
+  if (c[0] === 'live' || c[0] === 'native') liveN++;
+  if (['assist','queued','submitted'].includes(c[0])) waitN++;
+}));
+const mirrored = Z.LISTINGS.filter(L => L.realty && L.realty.mirrored).length;
 el('kpis').innerHTML = [
   ['Channels on full auto', Z.COUNTS.AUTO, 'of ' + Z.CHANNELS.length + ' tracked channels'],
-  ['Channel placements live', Z.KPI.live, 'across ' + Z.KPI.listings + ' listings'],
-  ['Waiting on a human', Z.KPI.assist + Z.KPI.queued, 'assist sessions and queued pushes'],
-  ['Renewals due', Z.KPI.renewal, 'portal ads nearing expiry']
+  ['Channel placements live', liveN, 'across ' + Z.LISTINGS.length + ' listings'],
+  ['Waiting on a human', waitN, 'assist sessions and queued pushes'],
+  ['Mirrored to Zentra Realty', mirrored + ' / ' + Z.LISTINGS.length, 'linked accounts only']
 ].map(k => '<div class="kpi"><div class="lab">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>').join('');
 
 /* --- kad tahap --- */
@@ -86,6 +108,9 @@ el('flight').innerHTML = Z.LISTINGS.map(L => {
   return '<tr><td><b>' + L.id + '</b><br><span class="small muted">' + L.title + '</span></td>'
     + '<td class="small">' + L.src + '</td><td>' + money(L.price) + '</td>'
     + '<td class="small">' + L.agent + '</td><td class="ctr">' + live + ' / ' + Object.keys(L.channels).length + '</td>'
+    + '<td>' + (L.realty && L.realty.mirrored
+        ? '<span class="chip st-live">' + L.realty.id + '</span>'
+        : '<span class="chip st-draft">Not mirrored</span>') + '</td>'
     + '<td>' + next + '</td></tr>';
 }).join('');
 

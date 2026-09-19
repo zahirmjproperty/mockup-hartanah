@@ -83,9 +83,12 @@ function row(c) {
   const detail = (c.tosnote && c.tosnote.length > 115)
     ? '<details style="margin-top:3px"><summary style="cursor:pointer;font-size:11px;opacity:.8">Terms detail</summary><div style="margin-top:5px;font-size:11px">' + c.tosnote + '</div></details>'
     : '';
+  const gate = c.gate === 'realty'
+    ? '<div class="small" style="margin-top:5px"><span class="chip t-auto">Gated</span> <span class="muted">needs a linked account</span></div>'
+    : '';
   return '<div class="chan">'
     + '<div class="nm">' + c.name + '<small>' + c.group + '</small></div>'
-    + '<div><span class="chip ' + d.cls + '">' + d.label + '</span></div>'
+    + '<div><span class="chip ' + d.cls + '">' + d.label + '</span>' + gate + '</div>'
     + '<div class="meta"><b style="opacity:.92">' + c.api + '</b><br>' + c.cost + '<br><span class="small">' + c.reach + '</span>' + detail + '</div>'
     + '<div class="tos">' + flag + tosTxt + '</div>'
     + '<div class="right">' + (c.href && c.href !== '#'

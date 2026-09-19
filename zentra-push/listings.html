@@ -30,7 +30,7 @@
       <div class="kpi"><div class="lab">Records tracked</div><div class="val" id="k1">6</div><div class="sub">canonical listings</div></div>
       <div class="kpi blue"><div class="lab">Channel placements</div><div class="val" id="k2">0</div><div class="sub">rows in the ledger</div></div>
       <div class="kpi"><div class="lab">Confirmed live</div><div class="val" id="k3">0</div><div class="sub">read-back verified</div></div>
-      <div class="kpi warn"><div class="lab">Needs attention</div><div class="val" id="k4">0</div><div class="sub">renewal, queue or assist</div></div>
+      <div class="kpi blue"><div class="lab">Mirrored to Zentra Realty</div><div class="val" id="k4">0</div><div class="sub">linked two-way</div></div>
     </div>
 
     <h2 class="sec"><span class="num">1</span> Ledger</h2>
@@ -40,9 +40,12 @@
         <button class="btn ghost fil" data-f="active">Active</button>
         <button class="btn ghost fil" data-f="renewal">Needs renewal</button>
         <button class="btn ghost fil" data-f="draft">Draft</button>
+        <button class="btn ghost fil" data-f="realty">In Zentra Realty</button>
+        <button class="btn ghost fil" data-f="norealty">Not mirrored</button>
         <input id="q" placeholder="Search reference or title" style="margin-left:auto;min-width:240px;padding:8px 11px;border-radius:6px;background:var(--card);color:var(--ink);border:1px solid var(--line)">
       </div>
       <div id="cards"></div>
+      <p class="small muted" style="margin:14px 0 0">"Entered via" shows where the record originated. A listing with no Zentra Realty account is still complete here &mdash; mirroring is a bonus, never a blocker.</p>
     </div>
 
     <h2 class="sec"><span class="num">2</span> Lifecycle a placement moves through</h2>
@@ -91,7 +94,10 @@ function card(L){
     + '</div>'
     + '<div style="display:flex;gap:14px;flex-wrap:wrap;margin:9px 0 10px" class="small muted">'
       + '<span>Agent: ' + L.agent + '</span><span>' + L.images + ' images</span>'
-      + '<span>Source: ' + L.src + '</span>'
+      + '<span>Entered via: ' + (L.entry || L.src) + '</span>'
+      + (L.realty && L.realty.mirrored
+          ? '<span>Zentra Realty: <b>' + L.realty.id + '</b> &middot; linked</span>'
+          : '<span style="color:var(--amber)">Zentra Realty: not created</span>')
       + '<span>Confirmed live: <b>' + live + '/' + pl.length + '</b></span>'
       + (bad ? '<span style="color:var(--amber)">' + bad + ' needing attention</span>' : '')
     + '</div>'
@@ -105,6 +111,8 @@ function draw(){
   if (filter === 'active')  list = list.filter(L => L.status === 'active');
   if (filter === 'renewal') list = list.filter(L => L.status === 'renewal');
   if (filter === 'draft')   list = list.filter(L => L.status === 'draft');
+  if (filter === 'realty')  list = list.filter(L => L.realty && L.realty.mirrored);
+  if (filter === 'norealty')list = list.filter(L => !(L.realty && L.realty.mirrored));
   if (q) list = list.filter(L => (L.id + ' ' + L.title).toLowerCase().includes(q));
   el('cards').innerHTML = list.length ? list.map(card).join('') : '<p class="small muted">No listing matches.</p>';
 }
@@ -127,7 +135,7 @@ Z.LISTINGS.forEach(L => placements(L).forEach(p => {
 el('k1').textContent = Z.LISTINGS.length;
 el('k2').textContent = total;
 el('k3').textContent = live;
-el('k4').textContent = attn;
+el('k4').textContent = Z.LISTINGS.filter(L => L.realty && L.realty.mirrored).length;
 draw();
 </script>
 </body>

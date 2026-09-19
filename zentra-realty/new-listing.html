@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Listing Intake | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/zr-icon-192.png"><link rel="apple-touch-icon" href="icons/zr-apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<style>
+/* hanya kelas yang halaman ini perlukan — agency.css tidak disentuh */
+.frm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:900px){.frm{grid-template-columns:1fr}}
+.fld{display:flex;flex-direction:column;gap:5px}
+.fld.w2{grid-column:span 2}
+.fld.w3{grid-column:span 3}
+.fld label{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)}
+.fld input,.fld select,.fld textarea{padding:9px 11px;border-radius:8px;background:var(--card);color:var(--ink);border:1px solid var(--line);font:inherit;font-size:13.5px}
+.fld input[readonly]{opacity:.7}
+.fld textarea{min-height:74px;resize:vertical}
+.fld .hint{font-size:11px;color:var(--ink-3)}
+.sys{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:900px){.sys{grid-template-columns:1fr}}
+.sysc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.sysc.off{opacity:.72;border-style:dashed}
+.sysc h3{margin:9px 0 6px;font-size:14px}
+.sw{position:relative;display:inline-block;width:44px;height:24px;flex:0 0 44px}
+.sw input{opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.sw span{position:absolute;inset:0;border-radius:999px;background:rgba(148,163,184,.30);border:1px solid var(--line);transition:.2s;pointer-events:none}
+.sw span::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.sw input:checked + span{background:var(--gold)}
+.sw input:checked + span::after{transform:translateX(20px)}
+.resrow{display:grid;grid-template-columns:1.1fr .7fr 1.6fr;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line-2)}
+.resrow:last-child{border-bottom:0}
+.resrow .ok{color:var(--green);font-weight:600;font-size:13px}
+.resrow .human{color:var(--amber);font-weight:600;font-size:13px}
+.track{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.step5{display:flex;align-items:center;gap:7px;font-size:12px;padding:6px 11px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink-3)}
+.step5.now{border-color:var(--gold);color:var(--ink);background:var(--gold-soft);font-weight:600}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Listing intake</h1>
+        <p>Enter a listing once, here in Zentra Realty. If the agent holds a Zentra Push account, the same record is published there too and the two stay linked &mdash; the mirror works in both directions.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <b>Acting as</b>
+        <select id="actor" style="padding:7px 10px;border-radius:8px;background:var(--card);color:var(--ink);border:1px solid var(--line)"></select>
+        <span id="actorChip"></span>
+        <span class="small" style="color:var(--ink-3)">Switch the seat to see how the form changes.</span>
+      </div>
+    </div>
+
+    <div class="track">
+      <span class="step5 now" id="ws1">1 &middot; Listing details</span>
+      <span class="step5" id="ws2">2 &middot; Systems</span>
+      <span class="step5" id="ws3">3 &middot; Save &amp; publish</span>
+    </div>
+
+    <h2 class="sec"><span class="num">1</span> Listing details</h2>
+    <div class="card">
+      <div class="frm">
+        <div class="fld"><label for="f_ref">Reference</label><input id="f_ref" readonly value="ZR-L-0921"><span class="hint">Assigned on save</span></div>
+        <div class="fld w2"><label for="f_title">Title</label><input id="f_title" value="Terra Residences, Cyberjaya"></div>
+        <div class="fld"><label for="f_purpose">Listing purpose</label><select id="f_purpose"><option>Sale</option><option>Rent</option></select></div>
+        <div class="fld"><label for="f_type">Property type</label><select id="f_type"><option>Condominium</option><option>Terrace</option><option>Semi-D</option><option>Bungalow</option><option>Land</option><option>Shop office</option></select></div>
+        <div class="fld"><label for="f_price">Price (RM)</label><input id="f_price" value="585,000"></div>
+        <div class="fld"><label for="f_loc">Area</label><input id="f_loc" value="Cyberjaya"></div>
+        <div class="fld"><label for="f_state">State</label><select id="f_state"><option>Selangor</option><option>W.P. Kuala Lumpur</option><option>Putrajaya</option><option>Johor</option><option>Penang</option><option>Pahang</option><option>Negeri Sembilan</option><option>Perak</option><option>Melaka</option><option>Kedah</option><option>Sabah</option><option>Sarawak</option></select></div>
+        <div class="fld"><label for="f_tenure">Tenure</label><select id="f_tenure"><option>Freehold</option><option>Leasehold</option></select></div>
+        <div class="fld"><label for="f_built">Built-up (sqft)</label><input id="f_built" value="1,130"></div>
+        <div class="fld"><label for="f_land">Land area</label><input id="f_land" value="&mdash;"></div>
+        <div class="fld"><label for="f_rooms">Bedrooms / bathrooms</label><input id="f_rooms" value="3 / 2"></div>
+        <div class="fld"><label for="f_images">Images</label><input id="f_images" readonly value="12 attached"></div>
+        <div class="fld"><label for="f_agent">Listing agent</label><input id="f_agent" readonly></div>
+        <div class="fld w3"><label for="f_desc">Description</label><textarea id="f_desc">Well-kept 3-bedroom unit at Terra Residences, Cyberjaya. Walking distance to shops, quick access to Putrajaya and the MEX highway. Good for own stay or rental yield.</textarea></div>
+        <div class="fld w3"><label for="f_high">Highlights</label><input id="f_high" value="Tenanted &middot; High floor &middot; Covered parking &middot; 5 min to shops"></div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Where this record should live</h2>
+    <div class="sys">
+      <div class="sysc" id="sysRealty">
+        <span class="chip" style="background:var(--gold-soft);border:1px solid var(--line);color:var(--gold);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600">Always on</span>
+        <h3>Zentra Realty</h3>
+        <p class="small" style="color:var(--ink-3);line-height:1.6;margin:0">The agency record. Commission, documents and the agent's book all read from here, so a listing entered in this system exists here by definition.</p>
+      </div>
+      <div class="sysc" id="sysPush"></div>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Save &amp; publish</h2>
+    <div class="card">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <button class="btn gold" id="go">Save listing</button>
+        <button class="btn ghost" id="reset">Reset</button>
+        <a class="btn ghost" href="../zentra-push/new.html">Open Zentra Push intake &rarr;</a>
+      </div>
+      <div id="out" style="margin-top:14px"></div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h3 style="margin-top:0;font-size:14px">How the two systems link</h3>
+      <p class="small" style="color:var(--ink-3);line-height:1.7;margin-bottom:0">
+        Zentra Realty owns the agent, the commission and the paperwork; Zentra Push owns the channels a listing reaches.
+        Either intake form can be the point of entry. When the agent has an account on both, the record is written to both
+        and the link is stored &mdash; an edit on one side updates the other. When the agent has no Zentra Push account,
+        the listing simply stays inside Zentra Realty: nothing is blocked, and a later link backfills the push record
+        instead of asking for the same details twice. The same is true in reverse on the
+        <a href="../zentra-push/new.html">Zentra Push side</a>.
+      </p>
+    </div>
+
+  </main>
+</div>
+<script src="assets/nav.js"></script>
+<script>
+/* --- data contoh: kerusi agen + status akaun Zentra Push --- */
+const AGENTS = [
+  {name:'Zahiruddin M.J.', role:'Principal',  level:'Principal 68%',  push:{linked:true,  id:'ZP-AG-0142'}},
+  {name:'Fadilah Yusof',   role:'Negotiator', level:'Negotiator 55%', push:{linked:true,  id:'ZP-AG-0231'}},
+  {name:'Hafiz Rahman',    role:'Negotiator', level:'Rookie 40%',     push:{linked:false, id:''}}
+];
+let ACTOR = AGENTS[0].name, publish = true;
+const P0 = JSON.parse(JSON.stringify(AGENTS.map(a => a.push)));
+const el = id => document.getElementById(id);
+const seat = n => AGENTS.find(a => a.name === (n || ACTOR)) || AGENTS[0];
+const linked = n => !!seat(n).push.linked;
+
+function chip(){
+  const s = seat();
+  el('actorChip').innerHTML = s.push.linked
+    ? '<span class="chip" style="background:var(--gold-soft);border:1px solid var(--line);color:var(--gold);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600">Zentra Push account linked &middot; ' + s.push.id + '</span>'
+    : '<span class="chip" style="background:var(--card);border:1px solid var(--line);color:var(--ink-3);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600">No Zentra Push account</span>';
+}
+
+function drawSystems(){
+  const s = seat(), on = linked();
+  if (on) {
+    el('sysPush').className = 'sysc';
+    el('sysPush').innerHTML =
+      '<div style="display:flex;align-items:center;gap:10px;justify-content:space-between">'
+      + '<span class="chip" style="background:var(--gold-soft);border:1px solid var(--line);color:var(--gold);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600">Available &middot; linked</span>'
+      + '<label class="sw"><input type="checkbox" id="pub"' + (publish ? ' checked' : '') + '><span></span></label></div>'
+      + '<h3>Zentra Push</h3>'
+      + '<p class="small" style="color:var(--ink-3);line-height:1.6;margin:0">' + s.name + ' holds Zentra Push account <b>' + s.push.id + '</b>. Publish the same record to the push platform and keep the two in sync.</p>';
+    el('pub').onchange = e => { publish = e.target.checked; drawSystems(); };
+  } else {
+    el('sysPush').className = 'sysc off';
+    el('sysPush').innerHTML =
+      '<span class="chip" style="background:var(--card);border:1px solid var(--line);color:var(--ink-3);padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600">Unavailable &middot; no account</span>'
+      + '<h3>Zentra Push</h3>'
+      + '<p class="small" style="color:var(--ink-3);line-height:1.6;margin:0 0 12px">' + s.name + ' has no Zentra Push account linked, so the publish option is hidden and the listing stays inside Zentra Realty.</p>'
+      + '<button class="btn ghost small" id="linkAcct">Link a Zentra Push account</button>';
+    el('linkAcct').onclick = () => {
+      seat().push = {linked:true, id:'ZP-AG-0307'};
+      publish = true; render();
+    };
+  }
+}
+
+function render(){
+  el('f_agent').value = seat().name + ' \u00b7 ' + seat().role + ' \u00b7 ' + seat().level;
+  el('actor').innerHTML = AGENTS.map(a => '<option' + (a.name === ACTOR ? ' selected' : '') + '>' + a.name + '</option>').join('');
+  chip(); drawSystems();
+  el('ws2').className = 'step5' + (linked() ? ' now' : '');
+}
+el('actor').onchange = e => { ACTOR = e.target.value; publish = true; render(); };
+
+el('go').onclick = () => {
+  const on = linked(), s = seat();
+  const rows = [
+    ['<b>Zentra Realty</b><br><span class="small" style="color:var(--ink-3)">Agency record</span>',
+     '<span class="human">Saved</span>',
+     'ZR-L-0921 under agent ' + s.name + '. Commission, documents and the listing book all read from this record.']
+  ];
+  if (on && publish) {
+    rows.push(['<b>Zentra Push</b><br><span class="small" style="color:var(--ink-3)">Channel record</span>',
+      '<span class="ok">Published &middot; linked</span>',
+      'ZP-2026-0088 under account ' + s.push.id + '. Two-way link stored, so an edit on either side updates both.']);
+  } else if (on) {
+    rows.push(['<b>Zentra Push</b><br><span class="small" style="color:var(--ink-3)">Channel record</span>',
+      '<span class="human">Skipped</span>',
+      'Account ' + s.push.id + ' is linked; you chose <b>not</b> to publish this listing.']);
+  } else {
+    rows.push(['<b>Zentra Push</b><br><span class="small" style="color:var(--ink-3)">Channel record</span>',
+      '<span class="human">Not created</span>',
+      'No Zentra Push account for ' + s.name + '. The listing stays in Zentra Realty; a later link backfills it without re-typing.']);
+  }
+  el('ws3').className = 'step5 now';
+  el('ws1').className = 'step5'; el('ws2').className = 'step5';
+  el('out').innerHTML = rows.map(r =>
+      '<div class="resrow"><div>' + r[0] + '</div><div>' + r[1] + '</div>'
+      + '<div class="small" style="color:var(--ink-3)">' + r[2] + '</div></div>').join('')
+    + '<p class="small" style="color:var(--ink-3);margin:12px 0 0">Saved by ' + s.name + '. Every channel placement still needs its read-back confirmation before it counts as live.</p>';
+};
+
+el('reset').onclick = () => {
+  ACTOR = AGENTS[0].name; publish = true;
+  AGENTS.forEach((a, i) => { a.push = JSON.parse(JSON.stringify(P0[i])); });
+  el('out').innerHTML = '';
+  el('ws1').className = 'step5 now'; el('ws2').className = 'step5'; el('ws3').className = 'step5';
+  render();
+};
+render();
+</script>
+</body>
+</html>

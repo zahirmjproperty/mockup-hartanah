@@ -116,3 +116,46 @@
 :root.theme-light .note{background:rgba(138,100,24,.07)}
 :root.theme-light .mx th{color:#8a6418}
 :root.theme-light .mx tr:hover td{background:rgba(138,100,24,.05)}
+
+/* ==================== INTAKE FORM (New listing) ==================== */
+.frm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px 16px}
+@media (max-width:900px){.frm{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.frm{grid-template-columns:1fr}}
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fld.wide{grid-column:1/-1}
+.fld>span{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.fld>span em{font-style:normal;text-transform:none;letter-spacing:0;opacity:.7;font-weight:600}
+.fld input,.fld select,.fld textarea{
+  padding:9px 11px;border-radius:7px;background:var(--card);color:var(--ink);
+  border:1px solid var(--line);font:inherit;font-size:13.5px;width:100%;box-sizing:border-box}
+.fld textarea{resize:vertical;line-height:1.5}
+.fld input[readonly]{opacity:.72}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--gold)}
+
+/* --- kad sistem (Zentra Push / Zentra Realty) --- */
+.sys{border:1px solid var(--line);border-radius:var(--radius);padding:15px 17px;margin-bottom:12px;
+  background:var(--card)}
+.sys:last-child{margin-bottom:0}
+.sys .pt{font-weight:700;font-size:15px;margin:9px 0 5px}
+.sys .pd{color:var(--ink-3);font-size:12.5px;line-height:1.55}
+
+/* --- suis --- */
+.sw{display:inline-flex;align-items:center;gap:10px;margin-top:13px;cursor:pointer;user-select:none}
+.sw input{position:absolute;opacity:0;width:0;height:0}
+.sw .track{width:40px;height:22px;border-radius:99px;background:var(--navy-3);border:1px solid var(--line);
+  position:relative;transition:background var(--t);flex:0 0 auto}
+.sw .track::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;
+  background:var(--ink-3);transition:transform var(--t),background var(--t)}
+.sw input:checked + .track{background:var(--gold-soft);border-color:var(--gold)}
+.sw input:checked + .track::after{transform:translateX(18px);background:var(--gold)}
+.sw input:focus-visible + .track{outline:2px solid var(--gold);outline-offset:2px}
+.sw b{font-size:13px;font-weight:650}
+
+:root.theme-light .sys,:root.theme-light .fld input,:root.theme-light .fld select,
+:root.theme-light .fld textarea,:root.theme-light #actor{background:#fff}
+:root.theme-light .sw .track{background:#e2ddd2}
+:root.theme-light .sw .track::after{background:#b9b2a4}
+
+/* keadaan 'tiada akaun' pada kad sistem */
+.sys.off{opacity:.75;border-style:dashed}
+.sw .track{flex:0 0 auto}
