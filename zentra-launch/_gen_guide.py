@@ -68,6 +68,7 @@ GUARDRAILS = [
 ROADMAP = [
     ["F0 · Mock-up (done)", "14 designed screens across admin console, drill-down and buyer portal — the basis for this review", "Complete"],
     ["F1 · Admin core", "Projects, phases and unit inventory; timed locks; bookings; progressive billing records; role access", "6–8 weeks (estimate)"],
+    ["F1a · Move the record", "One-time import from Notion 'Projek Baharu MT', data check against the live site, then freeze Notion writes (decision B)", "1–2 weeks (estimate)"],
     ["F2 · Buyer portal", "Buyer sign-in, booking status, payments and receipts, documents, site progress", "3–4 weeks (estimate)"],
     ["F3 · Commission &amp; agents", "Release engine, agent ledger, agent view, reporting", "3–4 weeks (estimate)"],
     ["F4 · Channels &amp; statutory", "Public microsite, e-invoice automation, eSPA/HIMS submission pack", "After F1–F3"],
@@ -139,7 +140,7 @@ def soalans_html():
 
 
 # Jawapan Zahir 19/9/2026 (mesej Telegram): indeks pilihan yang dipilih; None = belum dijawab
-PICK = {"d1": 0, "d2": None, "d3": 0, "d4": 0, "d5": 0, "d6": 0}
+PICK = {"d1": 0, "d2": 1, "d3": 0, "d4": 0, "d5": 0, "d6": 0}   # B dipilih 19/9: Zentra Launch = SSOT
 
 
 def decisions_html():
@@ -188,13 +189,16 @@ BODY = """
       <div class="card-bd">
         <div class="kv">
           <div class="row"><span class="k">A · Phase 1 scope</span><span class="v">Admin console first</span></div>
-          <div class="row"><span class="k">B · Source of truth</span><span class="v">Explanation requested — still open</span></div>
+          <div class="row"><span class="k">B · Source of truth</span><span class="v">Zentra Launch is the system of record; Notion becomes a read-only archive</span></div>
           <div class="row"><span class="k">C · Payment collection</span><span class="v">Transfer / cheque to the developer's Housing Development Account, or the solicitor's client account</span></div>
           <div class="row"><span class="k">D · Buyer identity</span><span class="v">Zentra ID (Zentra Portal, Supabase)</span></div>
           <div class="row"><span class="k">E · Public microsite</span><span class="v">launch.zentrapropertygroup.com</span></div>
           <div class="row"><span class="k">F · Launch timing</span><span class="v">After the Zentra Property Group cutover</span></div>
         </div>
-        <div class="note" style="margin-top:14px"><b>C changes the design:</b> Zentra Launch becomes
+        <div class="note" style="margin-top:14px"><b>B changes the plan:</b> before F1 can go live the Notion record
+          must be imported once and then frozen — <b>one writer only</b> (Zentra Launch). Import, freeze and cut-over
+          are now part of the F1 scope; until the freeze, Notion stays authoritative for existing records.</div>
+        <div class="note"><b>C changes the design:</b> Zentra Launch becomes
           <b>record-only</b> for money — it issues payment instructions, records slips that buyers upload, and tracks the
           balance. The system never holds client funds (and no e-wallet or card collection). The buyer portal and the
           admin billing screens have been updated to show the developer's Housing Development Account route.</div>

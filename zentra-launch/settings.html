@@ -94,6 +94,16 @@
       </div>
     </div>
     <div class="card">
+      <div class="card-hd"><h2>Data ownership — system of record</h2><span class="more">decision 19/9/2026</span></div>
+      <div class="card-bd">
+        <div class="form-group"><label>System of record</label><select aria-label="System of record"><option>Zentra Launch — from cutover (decision B)</option><option>Notion 'Projek Baharu MT' — until freeze</option></select></div>
+        <div class="form-group"><label>Notion 'Projek Baharu MT'</label><select aria-label="Notion role"><option>Read-only archive after one-time import</option><option>Still editable (pre-freeze)</option><option>Retired</option></select></div>
+        <div class="form-group"><label>Write lock on Notion fields</label><select aria-label="Write lock"><option>Units, prices, locks and bookings (default)</option><option>All fields</option><option>None</option></select></div>
+        <div class="form-group"><label>Import status</label><input type="text" value="Not started — scheduled in F1a (import → verify → freeze)" aria-label="Import"></div>
+        <div class="form-group"><label>Audit trail retention</label><select aria-label="Audit"><option>Every change, who and when (default)</option><option>Status changes only</option></select></div>
+      </div>
+    </div>
+    <div class="card">
       <div class="card-hd"><h2>Agents &amp; access</h2></div>
       <div class="card-bd">
         <div class="form-group"><label>Agent roster</label><input type="text" value="9 internal · 3 COA partners" aria-label="Roster"></div>

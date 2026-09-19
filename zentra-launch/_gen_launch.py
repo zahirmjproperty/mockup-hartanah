@@ -343,6 +343,13 @@ settings_body = (
     '        <div class="form-group"><label>Buyer proof of payment</label><select aria-label="Proof">' + opts(["Upload bank-in slip / cheque copy — sales office reconciles (default)", "Record only, no upload", "Require bank confirmation letter"]) + '</select></div>\n'
     '        <div class="form-group"><label>Online collection (card / e-wallet / QR)</label><select aria-label="Collection">' + opts(["Disabled — Zentra Launch never holds client money (default)", "Enabled for non-licensed projects only"]) + '</select></div>\n'
     '      </div>\n    </div>\n'
+    '    <div class="card">\n      <div class="card-hd"><h2>Data ownership — system of record</h2><span class="more">decision 19/9/2026</span></div>\n      <div class="card-bd">\n'
+    '        <div class="form-group"><label>System of record</label><select aria-label="System of record">' + opts(["Zentra Launch — from cutover (decision B)", "Notion 'Projek Baharu MT' — until freeze"]) + '</select></div>\n'
+    '        <div class="form-group"><label>Notion \'Projek Baharu MT\'</label><select aria-label="Notion role">' + opts(["Read-only archive after one-time import", "Still editable (pre-freeze)", "Retired"]) + '</select></div>\n'
+    '        <div class="form-group"><label>Write lock on Notion fields</label><select aria-label="Write lock">' + opts(["Units, prices, locks and bookings (default)", "All fields", "None"]) + '</select></div>\n'
+    '        <div class="form-group"><label>Import status</label><input type="text" value="Not started — scheduled in F1a (import → verify → freeze)" aria-label="Import"></div>\n'
+    '        <div class="form-group"><label>Audit trail retention</label><select aria-label="Audit">' + opts(["Every change, who and when (default)", "Status changes only"]) + '</select></div>\n'
+    '      </div>\n    </div>\n'
     '    <div class="card">\n      <div class="card-hd"><h2>Agents &amp; access</h2></div>\n      <div class="card-bd">\n'
     '        <div class="form-group"><label>Agent roster</label><input type="text" value="9 internal · 3 COA partners" aria-label="Roster"></div>\n'
     '        <div class="form-group"><label>Agent sees</label><select aria-label="Agent access">' + opts(["Own leads, locks and commission only", "All units, own buyers (default)", "Full read access"]) + '</select></div>\n'
@@ -380,6 +387,12 @@ def patch_existing():
         # sisa jenama lama + kelas badge tak wujud
         s = s.replace(">ZB<", ">ZL<").replace('class="badge hot"', 'class="badge red"').replace('class="badge gold">Warm', 'class="badge amber">Warm')
         s = s.replace("localStorage.getItem('za-theme')", "localStorage.getItem('zl-theme')").replace("localStorage.setItem('za-theme'", "localStorage.setItem('zl-theme'")
+        # notis punca kebenaran (keputusan B, 19/9/2026) — disisip sekali sahaja
+        if fname == "index.html" and "System of record:" not in s:
+            notis = ('<div class="banner">System of record: <b>Zentra Launch</b>. '
+                     'Notion \'Projek Baharu MT\' becomes a read-only archive after the one-time import '
+                     '(decision 19/9/2026).</div>\n    ')
+            s = s.replace('<div class="content">\n', '<div class="content">\n    ' + notis, 1)
         open(p, "w", encoding="utf-8").write(s)
         changed.append(fname)
     return changed
