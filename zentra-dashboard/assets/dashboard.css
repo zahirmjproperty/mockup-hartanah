@@ -51,7 +51,7 @@
 }
 
 /* Light theme — background putih, sidebar tetap navy (luxury contrast) */
-.theme-light {
+:root.theme-light {
   --navy: #0b1b2e;
   --navy-light: #f7f5f0;
   --navy-mid: #f0ede5;
@@ -70,14 +70,14 @@
   background: var(--page-bg);
   color: var(--text);
 }
-.theme-light .sidebar { background: #0b1b2e; border-right-color: rgba(201,162,39,.18); }
-.theme-light .main { background: var(--page-bg); }
-.theme-light .header { backdrop-filter: none; background: var(--glassy); border-bottom-color: rgba(201,162,39,.10); }
-.theme-light .stat-card { backdrop-filter: none; }
-.theme-light .card { backdrop-filter: none; }
-.theme-light .header .search { background: rgba(0,0,0,.03); border-color: rgba(201,162,39,.08); }
-.theme-light .header .search input { color: var(--text); }
-.theme-light table.dash-table td { border-bottom-color: var(--stat-line); }
+:root.theme-light .sidebar { background: #0b1b2e; border-right-color: rgba(201,162,39,.18); }
+:root.theme-light .main { background: var(--page-bg); }
+:root.theme-light .header { backdrop-filter: none; background: var(--glassy); border-bottom-color: rgba(201,162,39,.10); }
+:root.theme-light .stat-card { backdrop-filter: none; }
+:root.theme-light .card { backdrop-filter: none; }
+:root.theme-light .header .search { background: rgba(0,0,0,.03); border-color: rgba(201,162,39,.08); }
+:root.theme-light .header .search input { color: var(--text); }
+:root.theme-light table.dash-table td { border-bottom-color: var(--stat-line); }
 
 /* ---- Reset ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
