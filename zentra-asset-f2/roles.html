@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Roles & Access — Zentra Asset</title><script>(function(){try{var t=localStorage.getItem('zentra-tema');
-if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}
+if(t!=='light'){t='dark';}
 document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="assets/zentra.css"><link rel="stylesheet" href="assets/f2-lux.css">
 </head><body class="zux"><div class="zux-top"><div class="in">
@@ -70,6 +70,10 @@ Zentra Asset F2 · interface mockup · all records are FICTIONAL (synthetic, see
 · no customer data · prepared by Ali</div><script>
 function toggleTheme(){var r=document.documentElement,n=r.getAttribute('data-theme')==='light'?'dark':'light';
 r.setAttribute('data-theme',n);try{localStorage.setItem('zentra-tema',n);}catch(e){}
-var b=document.getElementById('togol');if(b){b.setAttribute('aria-pressed',n==='light');
-b.textContent=n==='light'?'\u263E Dark':'\u2600 Light';}}
+labelTheme(n);}
+function labelTheme(t){var b=document.getElementById('themeToggle');if(!b){return;}
+var cerah=t==='light';b.setAttribute('aria-pressed',cerah);
+b.textContent=cerah?'☾ Dark':'☀ Light';
+b.title=cerah?'Switch to dark display':'Switch to light display';}
+document.addEventListener('DOMContentLoaded',function(){labelTheme(document.documentElement.getAttribute('data-theme')||'dark');});
 </script></body></html>
