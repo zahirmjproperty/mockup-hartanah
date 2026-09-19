@@ -725,3 +725,26 @@ table.dash-table td.num { text-align: right; font-variant-numeric: tabular-nums;
   table.dash-table { font-size: 12.5px; }
   .stat-row { gap: 10px; }
 }
+
+
+/* --- Halaman drill-down (19/9/2026): kad boleh klik, panel butiran, pelan lantai --- */
+a.project-card, a.unit-cell { text-decoration:none; color:inherit; }
+a.project-card:focus-visible, a.unit-cell:focus-visible { outline:2px solid var(--gold-core); outline-offset:2px; }
+.banner { background:rgba(201,162,39,.10); border:var(--hairline-card); border-radius:var(--radius);
+          padding:10px 14px; font-size:12.5px; color:var(--text-dim); margin-bottom:16px; }
+.split { display:grid; grid-template-columns:1fr; gap:16px; }
+@media (min-width:1000px){ .split { grid-template-columns: 1.4fr 1fr; } }
+.kv .row { display:flex; justify-content:space-between; gap:14px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.05); }
+.kv .row:last-child { border-bottom:0; }
+.kv .row .k { color:var(--text-muted); font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; }
+.kv .row .v { color:var(--text); font-size:13.5px; text-align:right; }
+.plan { background:rgba(0,0,0,.20); border:var(--hairline-card); border-radius:var(--radius); padding:12px; }
+.plan svg { width:100%; height:auto; display:block; }
+.plan .cap { font-size:11.5px; color:var(--text-muted); text-align:center; margin-top:8px; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:4px; }
+.chip { font-size:12px; padding:5px 10px; border-radius:999px; border:var(--hairline-card); color:var(--text-dim); background:rgba(255,255,255,.03); }
+.chip.on { background:var(--grad-gold); color:#1b1b1b; font-weight:600; border-color:transparent; }
+a.back { font-size:12.5px; color:var(--text-dim); text-decoration:none; }
+a.back:hover { color:var(--gold-light); }
+.tl-mini { font-size:12.5px; color:var(--text-dim); }
+.tl-mini b { color:var(--text); }

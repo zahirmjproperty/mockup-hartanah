@@ -26,22 +26,27 @@ ICON = {
     "settings": '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/>',
 }
 
-# (fail, label, ikon, tajuk carian, breadcrumb)
+# (fail, label, ikon, tajuk carian, breadcrumb, ada_dalam_nav)
 NAV = [
-    ("index.html", "Dashboard", "dash", "Search projects, units, buyers...", "Dashboard"),
-    ("projects.html", "Projects", "projects", "Search projects...", "All Projects"),
-    ("inventory.html", "Inventory", "inventory", "Search units...", "Unit Inventory"),
-    ("leads.html", "Leads", "leads", "Search leads...", "Buyers &amp; Inquiries"),
-    ("sales.html", "Sales", "sales", "Search bookings...", "Bookings &amp; Pipeline"),
-    ("commission.html", "Commission", "commission", "Search agents...", "Agent Commission"),
-    ("billing.html", "Billing", "billing", "Search invoices...", "Progressive Billing"),
-    ("settings.html", "Settings", "settings", "Search settings...", "System Settings"),
+    ("index.html", "Dashboard", "dash", "Search projects, units, buyers...", "Dashboard", True),
+    ("projects.html", "Projects", "projects", "Search projects...", "All Projects", True),
+    ("inventory.html", "Inventory", "inventory", "Search units...", "Unit Inventory", True),
+    ("leads.html", "Leads", "leads", "Search leads...", "Buyers &amp; Inquiries", True),
+    ("sales.html", "Sales", "sales", "Search bookings...", "Bookings &amp; Pipeline", True),
+    ("commission.html", "Commission", "commission", "Search agents...", "Agent Commission", True),
+    ("billing.html", "Billing", "billing", "Search invoices...", "Progressive Billing", True),
+    ("settings.html", "Settings", "settings", "Search settings...", "System Settings", True),
+    # halaman drill-down — TIADA dalam sidebar (dibuka dengan klik kad/unit)
+    ("project.html", "Project detail", "projects", "Search units in this project...", "Project detail", False),
+    ("unit.html", "Unit detail", "inventory", "Search units...", "Unit detail", False),
 ]
 
 
 def sidebar(active):
     links = []
-    for i, (href, label, icon, _s, _b) in enumerate(NAV):
+    for i, (href, label, icon, _s, _b, in_nav) in enumerate(NAV):
+        if not in_nav:
+            continue
         if i == 4:
             links.append('<div class="section-label">Money</div>')
         if i == 7:
@@ -108,12 +113,13 @@ function toggleTheme() {
 </script>"""
 
 
-def page(fname, title, body):
+def page(fname, title, body, title_block=True):
+    """title_block=False → halaman bina kepala sendiri (tajuk dinamik melalui JS)."""
     nav = [n for n in NAV if n[0] == fname][0]
     head_title = '<title>Zentra Launch — %s</title>\n' % title          # % pada literal tunggal sahaja
     crumb = ('    <div class="page-title">\n      <h1>%s</h1>\n'
              '      <div class="breadcrumb"><span>Zentra Launch</span> · <span>%s</span></div>\n    </div>\n'
-             % (title, nav[4]))
+             % (title, nav[4])) if title_block else ''
     html = (
         '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
@@ -345,7 +351,7 @@ NEW_PAGES = [("sales.html", "Sales", sales), ("commission.html", "Commission", c
 def patch_existing():
     """Tulis semula blok sidebar + header halaman sedia ada supaya nav seragam (kandungan dikekalkan)."""
     changed = []
-    for fname, _label, _icon, _s, _b in NAV[:4]:
+    for fname, _label, _icon, _s, _b, _in_nav in NAV[:4]:
         p = os.path.join(OUT, fname)
         if not os.path.exists(p):
             continue
