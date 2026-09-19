@@ -204,7 +204,7 @@ def utama() -> int:
     import os
     css_href = os.path.relpath(ASSETS / "zentra-report.css", out.parent)
     html_teks = Template((KIT / "templates/laporan.html.j2").read_text(encoding="utf-8")).render(
-        meta=meta, bab=bab, lampiran=lamp, bahasa=meta.get("bahasa", "ms"), css_href=css_href)
+        meta=meta, bab=bab, lampiran=lamp, bahasa=meta.get("bahasa", "en"), css_href=css_href)
     html_path = out.with_suffix(".html")
     html_path.write_text(html_teks, encoding="utf-8")
     print(f"HTML : {html_path} ({len(html_teks)} bait) · bab={len(bab)} · sub={sum(len(b['sub']) for b in bab)}")
