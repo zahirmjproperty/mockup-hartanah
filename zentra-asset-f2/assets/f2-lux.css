@@ -158,7 +158,8 @@ html[data-theme="light"] .zux-nav a{color:#39506a}
 html[data-theme="light"] .zux-nav a:hover{color:#0b1b2e;background:rgba(11,27,46,.05);border-color:var(--line-light)}
 html[data-theme="light"] .zux-tema{background:#fff;color:#8a6d20;border-color:var(--line-light)}
 html[data-theme="light"] .zux-h1{color:#0b1b2e}
-html[data-theme="light"] .zux-foil{background:linear-gradient(100deg,#8a6d20 0%,#c9a227 46%,#6f5510 100%)}
+html[data-theme="light"] .zux-foil{background-image:linear-gradient(100deg,#8a6d20 0%,#c9a227 46%,#6f5510 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
 html[data-theme="light"] .zux-eyebrow{color:#8a6d20}
 html[data-theme="light"] .zux-lede{color:#3c5169}
 html[data-theme="light"] .zux-glass{background:#fff;border-color:var(--line-light);
@@ -172,7 +173,8 @@ html[data-theme="light"] .zux-role:hover{box-shadow:0 14px 28px rgba(11,27,46,.1
 html[data-theme="light"] .zux-kpi{background:#fff;border-color:var(--line-light)}
 html[data-theme="light"] .zux-kpi span{color:#5b6f85}
 html[data-theme="light"] .zux-kpi b{color:#0b1b2e}
-html[data-theme="light"] .zux-kpi b.gold{background:linear-gradient(100deg,#8a6d20,#c9a227 60%,#6f5510)}
+html[data-theme="light"] .zux-kpi b.gold{background-image:linear-gradient(100deg,#8a6d20,#c9a227 60%,#6f5510);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
 html[data-theme="light"] .zux-chip{background:#fff;border-color:var(--line-light);color:#3c5169}
 html[data-theme="light"] table.zux-tbl thead th{color:#8a6d20;border-bottom-color:var(--line-light)}
 html[data-theme="light"] table.zux-tbl tbody td{color:#3c5169;border-bottom-color:#edf1f5}
