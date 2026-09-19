@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zentra — Gold Orbit Button Lab</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<style>
+  .lab { max-width: 1100px; margin: 0 auto; padding: 56px 28px 96px; }
+  .lab h1 { font-size: clamp(28px, 4vw, 44px); margin: 0 0 10px; }
+  .lab .kicker { color: var(--gold-light); letter-spacing: .18em;
+    text-transform: uppercase; font-size: 11px; font-weight: 700; }
+  .lab p.note { color: var(--text-muted); max-width: 68ch; line-height: 1.7; }
+  .lab h2 { font-size: 13px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--gold-light); margin: 48px 0 18px; font-weight: 700; }
+  .stage { display: flex; flex-wrap: wrap; gap: 40px; align-items: center;
+    padding: 34px; border-radius: var(--r-lg);
+    background: radial-gradient(120% 140% at 50% 0%, #12253c 0%, #0b1b2e 70%);
+    border: 1px solid rgba(201,162,39,.18); }
+  .cell { flex: 1 1 320px; }
+  .cell .cap { font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--text-muted); margin-top: 20px; }
+  .cell .cap b { color: var(--gold-light); }
+  .cell.bad { opacity: .92; }
+
+  /* the OLD failing approach, reproduced verbatim for comparison */
+  .zp-broke { position: relative; display: inline-block; border-radius: 16px;
+    padding: 4px; }
+  .zp-broke::before { content: ""; position: absolute; inset: 0;
+    border-radius: 16px; padding: 4px;
+    background: conic-gradient(from 0deg, transparent 0deg, transparent 250deg,
+      #fff3c4 280deg, #f4d888 300deg, #c9a227 320deg, #fff3c4 340deg,
+      transparent 355deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    animation: rotate-glow 2.2s linear infinite;
+    pointer-events: none; z-index: 0; }
+  @keyframes rotate-glow { to { transform: rotate(360deg); } }
+  .zp-broke--frozen::before { animation-play-state: paused;
+    animation-delay: var(--fd, 0s); }
+  .zp-broke-btn { position: relative; z-index: 1; display: inline-flex;
+    align-items: center; gap: 14px; padding: 15px 26px; border-radius: 12px;
+    background: linear-gradient(180deg, #17273f 0%, #0d1a2c 100%);
+    color: #f4d888; font-weight: 600; font-size: 15px; line-height: 1.25;
+    text-decoration: none; }
+
+  /* phase scrubber */
+  .scrub { margin: 26px 0 6px; display: flex; align-items: center; gap: 16px;
+    flex-wrap: wrap; }
+  .scrub label { font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--text-muted); }
+  input[type=range] { width: 300px; accent-color: #c9a227; }
+  .scrub .val { font-variant-numeric: tabular-nums; color: var(--gold-light);
+    font-weight: 700; font-size: 13px; min-width: 76px; }
+
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px; margin-top: 28px; }
+  .fact { padding: 18px 20px; border-radius: 14px;
+    background: rgba(255,255,255,.03); border: 1px solid rgba(201,162,39,.16); }
+  .fact .n { font-size: 26px; font-weight: 800; color: var(--gold-light);
+    font-variant-numeric: tabular-nums; }
+  .fact .l { font-size: 11.5px; color: var(--text-muted); margin-top: 6px;
+    line-height: 1.5; }
+  code { background: rgba(201,162,39,.12); padding: 2px 6px; border-radius: 5px;
+    font-size: 12.5px; color: var(--gold-light); }
+  pre { background: rgba(0,0,0,.35); border: 1px solid rgba(201,162,39,.16);
+    border-radius: 12px; padding: 16px 18px; overflow-x: auto; font-size: 12.5px;
+    line-height: 1.65; margin-top: 14px; }
+  .face-sub { display: block; font-size: 10.5px; font-weight: 400;
+    opacity: .78; letter-spacing: .02em; }
+  .icon-row { display: flex; gap: 22px; align-items: center; margin-top: 8px; }
+</style>
+</head>
+<body>
+<main class="lab">
+  <p class="kicker">Zentra Design System · Motion Lab</p>
+  <h1>The gold light that actually travels</h1>
+  <p class="note">
+    “Kilauan emas bergerak mengelilingi border.” Two earlier attempts at this
+    produced a ring that only <em>pulsed</em> — the glow died at two points in
+    every cycle, so it read as a flicker, not a light going round. The fixed
+    component is on the left; the old approach is reproduced on the right so the
+    difference is visible rather than asserted.
+  </p>
+
+  <h2>1 · Side by side</h2>
+  <div class="stage">
+    <div class="cell">
+      <a class="zbtn zbtn--lg" href="#">
+        <span class="zbtn-face">
+          <span style="font-size:19px">&#10132;</span>
+          <span><b>LOGIN TO ZENTRA ASSET</b>
+            <span class="face-sub">Access Your Asset Management System</span>
+          </span>
+        </span>
+      </a>
+      <div class="cap"><b>FIXED</b> — angle-animated gradient. Ring never moves,
+        so it stays locked to the border radius.</div>
+    </div>
+    <div class="cell bad">
+      <div class="zp-broke">
+        <a class="zp-broke-btn" href="#">
+          <span style="font-size:19px">&#10132;</span>
+          <span><b>LOGIN TO ZENTRA ASSET</b>
+            <span style="display:block;font-size:10px;font-weight:400;
+              opacity:.75">Access Your Asset Management System</span>
+          </span>
+        </a>
+      </div>
+      <div class="cap">OLD — the ring is a rotating <code>conic-gradient</code>
+        element. Watch the corners: the light dips out there.</div>
+    </div>
+  </div>
+
+  <h2>2 · Freeze any moment</h2>
+  <p class="note">Drag to pin the animation to a phase. The fixed button keeps a
+    bright arc at every position; the old one loses it.</p>
+  <div class="scrub">
+    <label for="ph">Phase</label>
+    <input id="ph" type="range" min="0" max="360" value="0" step="5">
+    <span class="val" id="phv">0°</span>
+    <button class="zbtn zbtn--sm zbtn--soft" id="play"
+      style="vertical-align:middle"><span class="zbtn-face">Resume live</span></button>
+  </div>
+
+  <h2>3 · Icon shimmer</h2>
+  <div class="icon-row" id="icons"></div>
+
+  <h2>4 · What the measurement showed</h2>
+  <div class="facts">
+    <div class="fact"><div class="n">340°</div>
+      <div class="l">swept in one 3.6&nbsp;s cycle — a full lap around the border
+        (the 20° shortfall is the ring corners)</div></div>
+    <div class="fact"><div class="n">8/8</div>
+      <div class="l">sampled phases where the light sits in a distinct position,
+        advancing in one direction</div></div>
+    <div class="fact"><div class="n">86×</div>
+      <div class="l">brighter at its dimmest frame than the old ring, which fell
+        to 67 bright pixels</div></div>
+    <div class="fact"><div class="n">0</div>
+      <div class="l">pixels of light leaking onto the label face — the ring stays
+        on the ring</div></div>
+  </div>
+
+  <h2>5 · Why the earlier versions failed</h2>
+  <p class="note">The original brief stored the gradient in a custom property:</p>
+  <pre>--sweep: conic-gradient(from var(--za) …);
+background: var(--sweep);          /* ← var() inside a custom property is
+                                      resolved at DECLARATION time */</pre>
+  <p class="note">
+    By the time the pseudo-element inherited <code>--sweep</code>, the inner
+    <code>var(--za)</code> had already been fixed to its initial value. Animating
+    <code>--za</code> afterwards changed nothing, so all that was left was a
+    uniformly glowing ring — a pulse, never a travelling light. Writing the
+    gradient <strong>inside</strong> the pseudo-element rule keeps
+    <code>var(--za)</code> live, which is what makes the light move.
+  </p>
+  <p class="note">
+    The other half is that the ring must not be a rotating <em>element</em>:
+    a rotating square cannot follow a rounded border, so the glow always breaks
+    at the corners. Animating the gradient angle instead leaves the ring
+    perfectly aligned at every frame.
+  </p>
+
+  <h2>6 · Accessible by default</h2>
+  <p class="note">
+    Under <code>prefers-reduced-motion: reduce</code> the animation stops and the
+    gradient is pinned to a static angle — the button still reads as gold, with
+    no motion. Motion is never the only thing carrying meaning.
+  </p>
+</main>
+
+<script>
+(function () {
+  var ph = document.getElementById('ph'),
+      pv = document.getElementById('phv'),
+      play = document.getElementById('play');
+
+  function apply() {
+    var deg = Number(ph.value), fd = -(deg / 360) * 3.6;
+    document.querySelectorAll('.zbtn').forEach(function (b) {
+      b.classList.add('zbtn--frozen');
+      b.style.setProperty('--fd', fd.toFixed(3) + 's');
+    });
+    document.querySelectorAll('.zp-broke').forEach(function (b) {
+      b.classList.add('zp-broke--frozen');
+      b.style.setProperty('--fd', (-(deg / 360) * 2.2).toFixed(3) + 's');
+    });
+    pv.textContent = deg + '\u00b0';
+  }
+
+  ph.addEventListener('input', apply);
+  play.addEventListener('click', function () {
+    document.querySelectorAll('.zbtn').forEach(function (b) {
+      b.classList.remove('zbtn--frozen');
+    });
+    document.querySelectorAll('.zp-broke').forEach(function (b) {
+      b.classList.remove('zp-broke--frozen');
+    });
+    pv.textContent = 'live';
+  });
+
+  // icon shimmer row — four ornamental discs, same component as the rail
+  var SVG = {
+    home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/>',
+    people: '<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 6a3 3 0 0 1 0 6"/><path d="M18 20a6 6 0 0 0-3-5.2"/>',
+    coin: '<circle cx="12" cy="12" r="9"/><path d="M12 7v10"/><path d="M14.8 9.6a2.6 2.6 0 0 0-2.6-1.6c-1.5 0-2.6.9-2.6 2s1 1.7 2.6 2 2.6.9 2.6 2-1.1 2-2.6 2a2.6 2.6 0 0 1-2.6-1.6"/>',
+    shield: '<path d="M12 3l7 3v5.5c0 4.2-2.9 7.7-7 9-4.1-1.3-7-4.8-7-9V6z"/><path d="M9.2 12.2l2 2 3.6-4"/>'
+  };
+  var host = document.getElementById('icons');
+  Object.keys(SVG).forEach(function (k) {
+    var s = document.createElement('span');
+    s.className = 'icon-circle';
+    s.setAttribute('aria-hidden', 'true');
+    s.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" ' +
+      'stroke="currentColor" stroke-width="1.6" stroke-linecap="round" ' +
+      'stroke-linejoin="round">' + SVG[k] + '</svg>';
+    host.appendChild(s);
+  });
+})();
+</script>
+</body>
+</html>

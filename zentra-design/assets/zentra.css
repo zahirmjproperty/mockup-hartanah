@@ -378,4 +378,174 @@ p  { font-size: 17px; line-height: 1.65; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { transition: none !important; animation: none !important; }
+  /* keep a static gold edge so the button still reads as a CTA */
+  .icon-circle::after { display: none; }
 }
+
+
+/* ============================================================================
+   COMPONENT — .zbtn   |   Zentra gold shimmer button
+   "Kilauan emas bergerak mengelilingi border"
+
+   WHY PRIOR ATTEMPTS FAILED
+   -------------------------
+   Earlier versions animated `transform: rotate(360deg)` on the ring element.
+   Rotating the ELEMENT rotates its box and its mask too, so the ring swings
+   off the button's rounded rectangle, sweeps across the button face, and
+   breaks at the corners. It cannot work at any speed.
+
+   THE FIX
+   -------
+   Animate the GRADIENT ANGLE, not the element. A registered Houdini custom
+   property makes it interpolatable:
+
+       @property --za { syntax: "<angle>"; initial-value: 0deg; }
+
+   The element never moves, so the ring stays locked to the border radius
+   while the light travels around it.
+
+   LAYER STACK — no mask-composite anywhere (that is what broke before):
+     .zbtn         transparent wrapper; its `padding` IS the ring thickness
+     .zbtn         own background = permanent subtle gold base ring
+     .zbtn::before blurred conic gradient  -> glow that bleeds OUTWARD
+     .zbtn::after  crisp   conic gradient  -> the travelling light
+     .zbtn-face    opaque face; covers the centre, leaving only the ring
+   ========================================================================== */
+
+@property --za {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes zentra-orbit { to { --za: 360deg; } }
+
+.zbtn {
+  --zbtn-ring: 2px;
+  --zbtn-r: 14px;
+  --zbtn-r-out: calc(var(--zbtn-r) + var(--zbtn-ring));
+  --zbtn-dur: 3.6s;
+  /* STOPS ONLY (no gradient wrapper). Traps: a gradient stored in a custom
+     property gets its inner var(--za) RESOLVED at declaration time on .zbtn,
+     so animating --za on the pseudo-element can no longer reach it. We pass
+     the raw stop list instead and build the gradient inside the pseudo rule,
+     where var(--za) is still live. */
+  --zbtn-stops:
+      rgba(255,246,208,0)    0deg,
+      rgba(255,246,208,0)  205deg,
+      rgba(255,246,208,.16) 234deg,
+      rgba(255,246,208,.72) 268deg,
+      #fff6d0               292deg,
+      #f4d888               310deg,
+      #c9a227               332deg,
+      rgba(201,162,39,.10)  352deg,
+      rgba(201,162,39,0)    360deg;
+
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  padding: var(--zbtn-ring);
+  border-radius: var(--zbtn-r-out);
+  text-decoration: none;
+  /* permanent base ring — paints beneath every other layer */
+  background: linear-gradient(135deg,
+      rgba(201,162,39,.62) 0%,
+      rgba(244,216,136,.30) 46%,
+      rgba(201,162,39,.62) 100%);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.zbtn::before,
+.zbtn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: conic-gradient(from var(--za) at 50% 50%, var(--zbtn-stops));
+  animation: zentra-orbit var(--zbtn-dur) linear infinite;
+  pointer-events: none;
+}
+/* outward glow — blur bleeds past the box; NO ancestor may clip it */
+.zbtn::before { z-index: 0; filter: blur(9px) saturate(1.35); opacity: .80; }
+/* the travelling light */
+.zbtn::after  { z-index: 1; }
+
+.zbtn-face {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: var(--zbtn-r);
+  padding: 15px 26px;
+  background: linear-gradient(180deg, #17273f 0%, #0d1a2c 100%);
+  color: #f4d888;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* interaction */
+.zbtn:hover { transform: translateY(-1px); }
+.zbtn:hover::before { opacity: 1; filter: blur(11px) saturate(1.5); }
+.zbtn:active { transform: translateY(0); }
+.zbtn:focus-visible { outline: 2px solid #f4d888; outline-offset: 3px; }
+
+/* sizes */
+.zbtn--sm .zbtn-face { padding: 10px 16px; gap: 9px; font-size: 13px; }
+.zbtn--md .zbtn-face { padding: 12px 20px; gap: 11px; font-size: 14px; }
+.zbtn--lg .zbtn-face { padding: 15px 26px; gap: 14px; font-size: 15px; }
+
+/* faded variant — softer, for secondary CTAs */
+.zbtn--soft { background: linear-gradient(135deg,
+      rgba(201,162,39,.28) 0%, rgba(244,216,136,.14) 46%, rgba(201,162,39,.28) 100%); }
+
+/* frozen-frame helper (used by the motion test rig + the lab film strip) */
+.zbtn--frozen::before,
+.zbtn--frozen::after {
+  animation-play-state: paused;
+  animation-delay: var(--fd, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* --za is registered with inherits:false, so it must be set ON the
+     pseudo-elements. Setting it on .zbtn silently did nothing. */
+  .zbtn::before,
+  .zbtn::after { animation: none; --za: 300deg; }
+  .zbtn:hover { transform: none; }
+  .zbtn:hover::before { filter: blur(9px) saturate(1.35); }
+}
+
+/* ============================================================================
+   COMPONENT — .icon-circle   |   gold shimmer sweep across the icon
+   Requested with the button glow ("kilauan emas" on the icons too).
+   The sweep only crosses the icon disc, so it reads as light passing over
+   metal rather than a flashing block.
+   ============================================================================ */
+.icon-circle {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.icon-circle::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -160%;
+  width: 60%;
+  height: 140%;
+  background: linear-gradient(115deg,
+      rgba(255,246,208,0) 0%,
+      rgba(255,246,208,.38) 40%,
+      rgba(255,255,255,.72) 50%,
+      rgba(255,246,208,.38) 60%,
+      rgba(255,246,208,0) 100%);
+  transform: skewX(-18deg);
+  animation: zentra-shimmer 5.2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+@keyframes zentra-shimmer {
+  0%, 62%   { left: -160%; }
+  88%, 100% { left: 160%; }
+}
+
