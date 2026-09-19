@@ -85,6 +85,7 @@ function card(L){
     return '<span class="chip st-' + st + '" title="' + nm + '">' + nm + ' &middot; ' + Z.STATE_LABEL[st] + '</span>';
   }).join(' ') : '<span class="small muted">No channel targeted yet.</span>';
   const bad = pl.filter(p => ['renewal','assist','queued','submitted'].includes(p[1][0])).length;
+  const st = Z.staleOf(L).length;
   return '<div class="card" style="margin-bottom:11px">'
     + '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:baseline">'
       + '<b style="font-size:14px">' + L.id + '</b>'
@@ -101,6 +102,9 @@ function card(L){
           : '<span style="color:var(--amber)">Zentra Realty: not created</span>')
       + '<span>Confirmed live: <b>' + live + '/' + pl.length + '</b></span>'
       + (bad ? '<span style="color:var(--amber)">' + bad + ' needing attention</span>' : '')
+      + '<span>Version <b>v' + L.v + '</b></span>'
+      + (st ? '<span class="chip st-renewal">' + st + ' out of date</span>'
+            : '<span class="chip st-live">All current</span>')
     + '</div>'
     + '<div style="display:flex;gap:6px;flex-wrap:wrap">' + chips + '</div>'
     + '<div style="margin-top:12px"><a class="btn ghost small" href="listing.html?id=' + L.id + '">View history and status &rarr;</a></div>'

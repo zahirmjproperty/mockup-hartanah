@@ -41,3 +41,9 @@
 
 :root.theme-light .tl .dot{background:#fff}
 :root.theme-light .hdr img{background:#eee}
+
+/* tanda lapuk + senarai mod kemas kini */
+.stale{font-size:10.5px;color:var(--amber);font-weight:600;margin-top:3px}
+.ul{margin:9px 0 0;padding-left:18px;font-size:12.5px;line-height:1.9;color:var(--ink-3)}
+.ul b{color:var(--ink)}
+.chip.st-renewal{white-space:nowrap}

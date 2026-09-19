@@ -20,33 +20,51 @@ window.ZR = {
    "channels": {
     "zentrarealty": [
      "live",
+     "zentrarealty.com/listing/zr-l-0917",
+     4,
      "zentrarealty.com/listing/zr-l-0917"
     ],
     "site-zmp": [
      "live",
+     "/tanah-janda-baik",
+     4,
      "/tanah-janda-baik"
     ],
     "dotproperty": [
      "live",
+     "dotproperty.com.my/ads/mt-0001",
+     3,
      "dotproperty.com.my/ads/mt-0001"
     ],
     "trovit": [
      "live",
+     "trovit.my/ads/mt-0001",
+     4,
      "trovit.my/ads/mt-0001"
     ],
     "mitula": [
      "live",
+     "mitula.my/ads/mt-0001",
+     4,
      "mitula.my/ads/mt-0001"
     ],
     "propguru": [
      "queued",
+     "",
+     4,
      ""
     ],
     "mudah": [
      "assist",
+     "",
+     4,
      ""
     ]
    },
+   "v": 4,
+   "stale": [
+    "dotproperty"
+   ],
    "where": "Janda Baik, Pahang, Land",
    "live": 5,
    "placed": 7,
@@ -70,33 +88,51 @@ window.ZR = {
    "channels": {
     "zentrarealty": [
      "live",
+     "zentrarealty.com/listing/zr-l-0902",
+     3,
      "zentrarealty.com/listing/zr-l-0902"
     ],
     "site-zmp": [
      "live",
+     "/residensi-avalon",
+     3,
      "/residensi-avalon"
     ],
     "dotproperty": [
      "live",
+     "",
+     3,
      ""
     ],
     "trovit": [
      "live",
+     "",
+     3,
      ""
     ],
     "iproperty": [
      "native",
+     "",
+     3,
      ""
     ],
     "mudah": [
      "assist",
+     "",
+     2,
      ""
     ],
     "carousell": [
      "native",
+     "",
+     3,
      ""
     ]
    },
+   "v": 3,
+   "stale": [
+    "mudah"
+   ],
    "where": "Dengkil, Selangor, Condo",
    "live": 6,
    "placed": 7,
@@ -120,29 +156,43 @@ window.ZR = {
    "channels": {
     "zentrarealty": [
      "live",
+     "zentrarealty.com/listing/zr-l-0888",
+     2,
      "zentrarealty.com/listing/zr-l-0888"
     ],
     "site-zmp": [
      "live",
+     "",
+     2,
      ""
     ],
     "dotproperty": [
      "submitted",
+     "",
+     2,
      ""
     ],
     "fbpage": [
      "live",
+     "",
+     2,
      ""
     ],
     "telegram": [
      "live",
+     "",
+     2,
      ""
     ],
     "gbp": [
      "live",
+     "",
+     2,
      ""
     ]
    },
+   "v": 2,
+   "stale": [],
    "where": "Kuala Pilah, N.Sembilan, Agriculture",
    "live": 5,
    "placed": 6,
@@ -166,29 +216,46 @@ window.ZR = {
    "channels": {
     "zentrarealty": [
      "submitted",
+     "",
+     5,
      ""
     ],
     "site-zmp": [
      "live",
+     "",
+     5,
      ""
     ],
     "propguru": [
      "submitted",
+     "",
+     5,
      ""
     ],
     "iproperty": [
      "native",
+     "",
+     4,
      ""
     ],
     "edgeprop": [
      "queued",
+     "",
+     4,
      ""
     ],
     "mudah": [
      "assist",
+     "",
+     5,
      ""
     ]
    },
+   "v": 5,
+   "stale": [
+    "iproperty",
+    "edgeprop"
+   ],
    "where": "Putrajaya, Terrace",
    "live": 2,
    "placed": 6,
@@ -212,21 +279,35 @@ window.ZR = {
    "channels": {
     "zentrarealty": [
      "renewal",
+     "",
+     1,
      ""
     ],
     "site-zmp": [
      "renewal",
+     "",
+     1,
      ""
     ],
     "mudah": [
      "renewal",
+     "",
+     2,
      ""
     ],
     "dotproperty": [
      "renewal",
+     "",
+     1,
      ""
     ]
    },
+   "v": 2,
+   "stale": [
+    "zentrarealty",
+    "site-zmp",
+    "dotproperty"
+   ],
    "where": "Seremban, N.Sembilan, Bungalow",
    "live": 0,
    "placed": 4,
@@ -250,29 +331,43 @@ window.ZR = {
    "channels": {
     "zentrarealty": [
      "live",
+     "",
+     6,
      ""
     ],
     "site-zmp": [
      "live",
+     "",
+     6,
      ""
     ],
     "dotproperty": [
      "live",
+     "",
+     6,
      ""
     ],
     "mudah": [
      "live",
+     "",
+     6,
      ""
     ],
     "fbpage": [
      "live",
+     "",
+     6,
      ""
     ],
     "telegram": [
      "live",
+     "",
+     6,
      ""
     ]
    },
+   "v": 6,
+   "stale": [],
    "where": "Cyberjaya, Selangor, Serviced apartment",
    "live": 6,
    "placed": 6,
@@ -294,6 +389,8 @@ window.ZR = {
     "id": ""
    },
    "channels": {},
+   "v": 1,
+   "stale": [],
    "where": "Bandar Baru Bangi, Selangor, Condominium",
    "live": 0,
    "placed": 0,
@@ -712,6 +809,38 @@ window.ZR = {
   "sold",
   "withdrawn"
  ],
+ "ZR_UPD_MODE": {
+  "zentrarealty": "auto",
+  "site-zmp": "auto",
+  "dotproperty": "auto",
+  "trovit": "auto",
+  "mitula": "auto",
+  "nestoria": "auto",
+  "fbpage": "auto",
+  "telegram": "auto",
+  "gbp": "auto",
+  "propguru": "assist",
+  "iproperty": "portal",
+  "edgeprop": "assist",
+  "mudah": "assist",
+  "carousell": "portal",
+  "fbmarket": "pack",
+  "fbgroups": "pack",
+  "whatsapp": "pack",
+  "community": "pack"
+ },
+ "ZR_UPD_LABEL": {
+  "auto": "Updates in place",
+  "portal": "Portal switch, same ad",
+  "assist": "Agent updates the ad",
+  "pack": "Regenerate the pack"
+ },
+ "ZR_UPD_NOTE": {
+  "auto": "The feed or API replaces the record by its remote id, so the same advert is updated rather than a second one created.",
+  "portal": "The portal cross-listing keeps its own advert id; the change follows the switch.",
+  "assist": "The advert already exists, so this is an update, not a new post. The agent changes the fields in their own session: no duplicate advert, no extra credit beyond Mudah republish rules.",
+  "pack": "The channel has no edit path at all. A fresh pack is generated and the human replaces the old post by hand."
+ },
  "ZR_AGENTS": [
   {
    "name": "Zahiruddin M.J.",
@@ -874,3 +1003,5 @@ window.ZR.stLabel = v => window.ZR.ZR_STATUS_LABEL[v] || v;
 window.ZR.stCls = v => window.ZR.ZR_STATUS_CLS[v] || "st-draft";
 window.ZR.historyOf = id => window.ZR.ZR_HISTORY[id] || [];
 window.ZR.byId = id => window.ZR.ZR_LISTINGS.find(l => l.id === id) || window.ZR.ZR_LISTINGS[0];
+window.ZR.updMode = id => window.ZR.ZR_UPD_MODE[id] || "assist";
+window.ZR.isStale = (l, ch) => (l.stale || []).indexOf(ch) > -1;

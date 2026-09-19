@@ -66,6 +66,22 @@
       <div class="card" id="sysPush"></div>
       <div class="card" id="sysRealty"></div>
     </div>
+    <h2 class="sec"><span class="num">5</span> Edit and re-push</h2>
+    <div class="card">
+      <p class="small muted" style="margin-top:0">
+        Editing the record does not change the adverts already out there. Each placement remembers the
+        version it was sent at, so anything behind the current version is flagged <b>out of date</b> until
+        it is re-pushed &mdash; and a re-push <b>updates the existing advert</b> rather than creating a second one.
+      </p>
+      <div class="grid g2" id="editCols"></div>
+      <div style="margin-top:16px;display:flex;gap:9px;flex-wrap:wrap">
+        <a class="btn gold" id="editBtn" href="#">Edit this listing</a>
+        <button class="btn ghost" id="priceBtn">Change price &minus;RM50,000</button>
+        <button class="btn ghost" id="pushBtn">Re-push now</button>
+      </div>
+      <div class="note" id="flash" style="margin-top:14px" hidden></div>
+    </div>
+
   </main>
 </div>
 <script src="assets/push-data.js"></script>
@@ -141,13 +157,16 @@ function draw(){
   el('sub').textContent = l.location + ' \u00b7 ' + l.type;
   el('meta').innerHTML = ['<span><b>' + money(l.price) + '</b></span>', '<span>Agent: ' + l.agent + '</span>',
     '<span>' + l.images + ' images</span>', '<span>' + live + '/' + Object.keys(l.channels).length + ' channels live</span>',
-    '<span>' + (created ? days(created.ts) : 0) + ' days since entry</span>'].join('');
+    '<span>' + (created ? days(created.ts) : 0) + ' days since entry</span>',
+    '<span>Version <b>' + l.v + '</b></span>'].join('');
   el('acts').innerHTML = '<a class="btn gold" href="push.html">Open the push console</a>'
     + '<a class="btn ghost" href="listings.html">Back to the ledger</a>';
 
   el('kpis').innerHTML = [
     ['Channels live', live + ' / ' + Object.keys(l.channels).length, pend ? pend + ' awaiting a human or ingest' : 'fully placed'],
-    ['Events on record', h.length, 'each one attributable'],
+    ['Record version', 'v' + l.v, Z.staleOf(l).length
+      ? Z.staleOf(l).length + ' placement' + (Z.staleOf(l).length > 1 ? 's' : '') + ' out of date'
+      : 'every placement is current'],
     ['Asking price', money(l.price), l.type],
     ['Days since entry', created ? days(created.ts) : 0, created ? 'entered ' + created.ts.slice(0, 10) : '-']
   ].map(k => '<div class="kpi"><div class="lab">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>').join('');
@@ -165,9 +184,12 @@ function draw(){
   el('pl').innerHTML = keys.length ? keys.map(k => {
     const c = CH[k] || {name:k, tier:'MANUAL'}, st = l.channels[k][0], url = l.channels[k][1];
     const cls = (st === 'live' || st === 'native') ? 'ok' : (st === 'renewal' || st === 'dead') ? 'no' : 'human';
+    const mode = Z.UPD_MODE(k);
+    const stale = Z.isStale(l, k);
     return '<div class="r"><div><b>' + c.name + '</b><br><span class="small muted">' + (Z.TIER[c.tier] || {}).label + '</span></div>'
-      + '<div class="' + cls + '">' + (esc[st] || st) + '</div>'
-      + '<div class="small muted">' + (url ? '<a href="https://' + url + '" target="_blank" rel="noopener">' + url + '</a>' : 'No public URL yet &mdash; nothing to link until it goes live.') + '</div></div>';
+      + '<div class="' + cls + '">' + (esc[st] || st) + (stale ? '<div class="stale">Out of date &middot; v' + (l.channels[k][2] || 1) + '</div>' : '') + '</div>'
+      + '<div class="small muted"><b style="opacity:.85">' + Z.UPD_LABEL[mode] + '</b><br>'
+      + (url ? '<a href="https://' + url + '" target="_blank" rel="noopener">' + url + '</a>' : 'No public URL yet &mdash; nothing to link until it goes live.') + '</div></div>';
   }).join('') : '<p class="small muted" style="margin:0">Not published to any channel yet.</p>';
 
   const evs = Z.EVIDENCE.filter(e => e.listing === cur);
@@ -177,6 +199,8 @@ function draw(){
       + '<div class="cost">' + e.cost + '</div></div>').join('')
     : '<p class="small muted" style="margin:0">No channel evidence rows for this listing yet.</p>';
 
+  drawEdit();
+
   el('sysPush').innerHTML = '<h3 style="margin-top:0;font-size:14px">Zentra Push</h3>'
     + '<p class="small muted" style="line-height:1.6;margin:0">This record. Owns the channels, the ledger and the evidence trail.</p>';
   el('sysRealty').innerHTML = '<h3 style="margin-top:0;font-size:14px">Zentra Realty</h3>'
@@ -185,6 +209,63 @@ function draw(){
           + '<a class="btn gold small" href="../zentra-realty/listing.html?id=' + l.id + '">Open in Zentra Realty</a>'
         : '<p class="small muted" style="line-height:1.6;margin:0">' + l.agent + ' holds no Zentra Realty account, so no mirror exists. The record stands alone here and a later link backfills the agency side.</p>');
 }
+
+/* ---------- edit + push semula ---------- */
+function drawEdit(){
+  const l = Z.LISTINGS.find(x => x.id === cur);
+  const keys = Object.keys(l.channels);
+  const auto = keys.filter(k => Z.UPD_MODE(k) === 'auto');
+  const rest = keys.filter(k => Z.UPD_MODE(k) !== 'auto');
+  const li = k => {
+    const stale = Z.isStale(l, k);
+    return '<li><b>' + (CH[k] ? CH[k].name : k) + '</b>'
+      + (stale ? ' <span class="chip st-renewal">v' + (l.channels[k][2] || 1) + ' of ' + l.v + '</span>'
+               : ' <span class="chip st-live">current</span>') + '</li>';
+  };
+  el('editCols').innerHTML =
+    '<div><div class="chip t-auto">Updates itself &middot; ' + auto.length + '</div>'
+    + '<p class="small muted" style="margin:8px 0 0">' + Z.UPD_NOTE.auto + '</p>'
+    + '<ul class="ul">' + (auto.length ? auto.map(li).join('') : '<li class="small muted">None on this listing.</li>') + '</ul></div>'
+    + '<div><div class="chip t-assist">Needs the agent &middot; ' + rest.length + '</div>'
+    + '<p class="small muted" style="margin:8px 0 0">' + Z.UPD_NOTE.assist + '</p>'
+    + '<ul class="ul">' + (rest.length ? rest.map(li).join('') : '<li class="small muted">None on this listing.</li>') + '</ul></div>';
+  el('editBtn').setAttribute('href', 'new.html?edit=' + l.id);
+  el('flash').hidden = true;
+}
+function flash(msg){ const f = el('flash'); f.innerHTML = msg; f.hidden = false; }
+
+el('priceBtn').onclick = () => {
+  const l = Z.LISTINGS.find(x => x.id === cur);
+  const was = l.price;
+  l.priceOld = was;
+  l.price = Math.max(10000, was - 50000);
+  l.v += 1;                       /* atV setiap saluran kekal -> jadi lapuk */
+  Z.HISTORY[cur].unshift({ts:'2026-09-19 10:52', kind:'price', what:'Asking price revised',
+    detail: money(was) + ' -> ' + money(l.price) + '. Version raised to v' + l.v + ', so every placement behind it is now out of date.',
+    who:'You (mock-up)', cost:'-'});
+  draw();
+  flash('Price changed to <b>' + money(l.price) + '</b>. Version is now <b>v' + l.v + '</b>. '
+    + Z.staleOf(l).length + ' placement(s) are out of date &mdash; press <b>Re-push now</b>.');
+};
+
+el('pushBtn').onclick = () => {
+  const l = Z.LISTINGS.find(x => x.id === cur);
+  const st = Z.staleOf(l);
+  if (!st.length){ flash('Nothing to re-push: every placement is already on v' + l.v + '.'); return; }
+  const auto = st.filter(k => Z.UPD_MODE(k) === 'auto');
+  const rest = st.filter(k => Z.UPD_MODE(k) !== 'auto');
+  auto.forEach(k => { l.channels[k][2] = l.v; });
+  const TS = '2026-09-19 10:53';
+  if (auto.length) Z.HISTORY[cur].unshift({ts: TS, kind:'channel', what:'Re-pushed to ' + auto.length + ' channel' + (auto.length > 1 ? 's' : '') + ' automatically',
+    detail: auto.map(k => (CH[k] ? CH[k].name : k)).join(', ') + '. The existing records were updated by remote id &mdash; no duplicate adverts were created.',
+    who:'Auto', cost:'RM0'});
+  if (rest.length) Z.HISTORY[cur].unshift({ts: TS, kind:'note', what:rest.length + ' placement(s) still need the agent',
+    detail: rest.map(k => (CH[k] ? CH[k].name : k)).join(', ') + '. These are updates to adverts that already exist, so nothing is re-charged beyond Mudah republish rules.',
+    who:'Assist queue', cost:'-'});
+  draw();
+  flash('<b>' + auto.length + '</b> placement(s) updated automatically. '
+    + (rest.length ? '<b>' + rest.length + '</b> still waiting for the agent to press Submit in their own session.' : 'Everything is current now.'));
+};
 
 el('pick').onchange = e => {
   cur = e.target.value.split(' ')[0];

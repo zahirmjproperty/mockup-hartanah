@@ -106,7 +106,8 @@ function coverage(l){
   const total = Math.max(l.placed, 6);
   let bar = '';
   for (let i = 0; i < total; i++) bar += '<i class="' + (i < ok ? 'ok' : (i < ok + wait ? 'wait' : 'no')) + '"></i>';
-  return '<div class="bar">' + bar + '</div><span class="chn">' + ok + ' live &middot; ' + wait + ' pending</span>';
+  const st = (l.stale || []).length;
+  return '<div class="bar">' + bar + '</div><span class="chn">' + ok + ' live &middot; ' + wait + ' pending' + (st ? ' &middot; <b style="color:var(--amber)">' + st + ' out of date</b>' : '') + '</span>';
 }
 
 function drawRows(){

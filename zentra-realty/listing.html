@@ -50,6 +50,8 @@ select#pick{padding:7px 10px;border-radius:8px;background:var(--card);color:var(
 .pl .r .ok{color:var(--green);font-weight:600}
 .pl .r .human{color:var(--amber);font-weight:600}
 .pl .r .no{color:var(--ink-3)}
+.ul{margin:9px 0 0;padding-left:18px;font-size:12.5px;line-height:1.9;color:var(--ink-3)}
+.ul b{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -100,6 +102,22 @@ select#pick{padding:7px 10px;border-radius:8px;background:var(--card);color:var(
     <div class="grid g2">
       <div class="card" id="sysRealty"></div>
       <div class="card" id="sysPush"></div>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Edit and re-push</h2>
+    <div class="card">
+      <p class="small" style="color:var(--ink-3);margin-top:0;line-height:1.6">
+        Editing the record does not touch the adverts already out there. Every placement remembers the
+        version it was sent at, so anything behind the current version is flagged <b>out of date</b> until
+        it is re-pushed &mdash; and a re-push <b>updates the existing advert</b> instead of creating a second one.
+      </p>
+      <div class="grid g2" id="editCols"></div>
+      <div style="margin-top:16px;display:flex;gap:9px;flex-wrap:wrap">
+        <a class="btn gold" id="editBtn" href="#">Edit this listing</a>
+        <button class="btn ghost" id="priceBtn">Change price &minus;RM50,000</button>
+        <button class="btn ghost" id="pushBtn">Re-push now</button>
+      </div>
+      <div class="note" id="flash" style="margin-top:14px" hidden></div>
     </div>
 
   </main>
@@ -173,14 +191,17 @@ function draw(){
     '<span>Agent: ' + l.agent + '</span>',
     '<span>' + l.images + ' images</span>',
     '<span>' + (created ? days(created.ts) : 0) + ' days on book</span>',
-    '<span>' + live + '/' + l.placed + ' channels live</span>'].join('');
+    '<span>' + live + '/' + l.placed + ' channels live</span>',
+    '<span>Version <b>' + l.v + '</b></span>'].join('');
   el('acts').innerHTML = '<a class="btn gold" href="../zentra-push/listing.html?id=' + l.id + '">Open the Zentra Push record</a>'
     + '<a class="btn ghost" href="listings.html">Back to monitor</a>';
 
   el('kpis').innerHTML = [
     ['Listed price', money(l.price), l.type],
     ['Channels live', live + ' / ' + l.placed, pending ? pending + ' still pending' : 'fully placed'],
-    ['Events on record', h.length, 'every step is attributable'],
+    ['Record version', 'v' + l.v, (l.stale || []).length
+      ? (l.stale || []).length + ' placement(s) out of date'
+      : 'every placement is current'],
     ['Days on book', created ? days(created.ts) : 0, 'since ' + (created ? created.ts.slice(0, 10) : '-')]
   ].map(k => '<div class="kpi"><div class="lab">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>').join('');
 
@@ -197,10 +218,14 @@ function draw(){
   el('pl').innerHTML = keys.length ? keys.map(k => {
     const st = l.channels[k][0], url = l.channels[k][1];
     const cls = (st === 'live' || st === 'native') ? 'ok' : (st === 'renewal' || st === 'dead') ? 'no' : 'human';
+    const stale = R.isStale(l, k);
     return '<div class="r"><div><b>' + (CH_NAME[k] || k) + '</b><br><span class="small" style="color:var(--ink-3)">' + k + '</span></div>'
-      + '<div class="' + cls + '">' + (esc[st] || st) + '</div>'
+      + '<div class="' + cls + '">' + (esc[st] || st)
+      + (stale ? '<div style="font-size:10.5px;color:var(--amber);font-weight:600;margin-top:3px">Out of date &middot; v' + (l.channels[k][2] || 1) + '</div>' : '') + '</div>'
       + '<div class="small" style="color:var(--ink-3)">' + (url ? '<a href="https://' + url + '" target="_blank" rel="noopener">' + url + '</a>' : 'No public URL yet &mdash; nothing to link until it goes live.') + '</div></div>';
   }).join('') : '<div class="r"><div class="small" style="color:var(--ink-3)">Not published to any channel yet.</div></div>';
+
+  drawEdit();
 
   el('sysRealty').innerHTML = '<h3 style="margin-top:0;font-size:14px">Zentra Realty</h3>'
     + '<p class="small" style="color:var(--ink-3);line-height:1.6;margin:0">This record. Owns ' + l.agent
@@ -213,6 +238,63 @@ function draw(){
           + '<a class="btn gold small" href="../zentra-push/listing.html?id=' + l.id + '">Open in Zentra Push</a>'
         : '<p class="small" style="color:var(--ink-3);line-height:1.6;margin:0">The agent holds no Zentra Realty account, so no mirror was created. The Zentra Push record stands alone and a later link backfills this side without re-typing.</p>');
 }
+
+/* ---------- edit + push semula ---------- */
+function drawEdit(){
+  const l = R.byId(cur);
+  const keys = Object.keys(l.channels);
+  const auto = keys.filter(k => R.updMode(k) === 'auto');
+  const rest = keys.filter(k => R.updMode(k) !== 'auto');
+  const li = k => {
+    const stale = R.isStale(l, k);
+    return '<li><b>' + (CH_NAME[k] || k) + '</b>'
+      + (stale ? ' <span class="chip st-renewal">v' + (l.channels[k][2] || 1) + ' of ' + l.v + '</span>'
+               : ' <span class="chip st-live">current</span>') + '</li>';
+  };
+  el('editCols').innerHTML =
+    '<div><div class="chip t-auto">Updates itself &middot; ' + auto.length + '</div>'
+    + '<p class="small" style="color:var(--ink-3);margin:8px 0 0;line-height:1.6">' + R.ZR_UPD_NOTE.auto + '</p>'
+    + '<ul class="ul">' + (auto.length ? auto.map(li).join('') : '<li class="small" style="color:var(--ink-3)">None on this listing.</li>') + '</ul></div>'
+    + '<div><div class="chip t-assist">Needs the agent &middot; ' + rest.length + '</div>'
+    + '<p class="small" style="color:var(--ink-3);margin:8px 0 0;line-height:1.6">' + R.ZR_UPD_NOTE.assist + '</p>'
+    + '<ul class="ul">' + (rest.length ? rest.map(li).join('') : '<li class="small" style="color:var(--ink-3)">None on this listing.</li>') + '</ul></div>';
+  el('editBtn').setAttribute('href', 'new-listing.html?edit=' + l.id);
+  el('flash').hidden = true;
+}
+function flash(msg){ const f = el('flash'); f.innerHTML = msg; f.hidden = false; }
+
+el('priceBtn').onclick = () => {
+  const l = R.byId(cur);
+  const was = l.price;
+  l.price = Math.max(10000, was - 50000);
+  l.v += 1;
+  R.ZR_HISTORY[cur].unshift({ts:'2026-09-19 10:52', kind:'price', what:'Asking price revised',
+    detail: money(was) + ' -> ' + money(l.price) + '. Version raised to v' + l.v + ', so every placement behind it is now out of date.',
+    who:'You (mock-up)', cost:'-'});
+  draw();
+  flash('Price changed to <b>' + money(l.price) + '</b>. Version is now <b>v' + l.v + '</b>. '
+    + (l.stale || []).length + ' placement(s) are out of date.');
+};
+
+el('pushBtn').onclick = () => {
+  const l = R.byId(cur);
+  const st = l.stale || [];
+  if (!st.length){ flash('Nothing to re-push: every placement is already on v' + l.v + '.'); return; }
+  const auto = st.filter(k => R.updMode(k) === 'auto');
+  const rest = st.filter(k => R.updMode(k) !== 'auto');
+  auto.forEach(k => { l.channels[k][2] = l.v; });
+  l.stale = rest.slice();
+  const TS = '2026-09-19 10:53';
+  if (auto.length) R.ZR_HISTORY[cur].unshift({ts: TS, kind:'channel', what:'Re-pushed to ' + auto.length + ' channel(s) automatically',
+    detail: auto.map(k => CH_NAME[k] || k).join(', ') + '. Existing records updated by remote id - no duplicate adverts.',
+    who:'Auto', cost:'RM0'});
+  if (rest.length) R.ZR_HISTORY[cur].unshift({ts: TS, kind:'note', what:rest.length + ' placement(s) still need the agent',
+    detail: rest.map(k => CH_NAME[k] || k).join(', ') + '. Updates to adverts that already exist, so nothing is re-charged beyond Mudah republish rules.',
+    who:'Assist queue', cost:'-'});
+  draw();
+  flash('<b>' + auto.length + '</b> placement(s) updated automatically. '
+    + (rest.length ? '<b>' + rest.length + '</b> still waiting for the agent.' : 'Everything is current now.'));
+};
 
 el('pick').onchange = e => {
   cur = e.target.value.split(' ')[0];

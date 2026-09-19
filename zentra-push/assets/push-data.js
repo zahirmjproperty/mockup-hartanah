@@ -371,3 +371,57 @@ window.ZP.HERO = {
  "ZMP-0118": "https://lh3.googleusercontent.com/d/1dNIrxwl8_jPI1Y8N8FCIP1NN4WYnEjAf=w1000",
  "ZMP-0207": "https://lh3.googleusercontent.com/d/126BKiOOOmvUCoQy8t4VsTOv7l_RWBU4M=w1000"
 };
+
+/* ---------- VERSI + KESEGARAN PENGHANTARAN ----------
+   Setiap rekod ada versi. Setiap penghantaran saluran menyimpan versi ia dihantar.
+   Kalau atV < v, iklan itu sudah lapuk dan perlu push semula. Inilah caranya kita
+   tahu harga lama masih terpampang di sesetengah saluran. */
+window.ZP.VERSION = {'MT-0001':4,'ZMP-0142':3,'MT-0044':2,'ZMP-0193':5,'MT-0061':2,'ZMP-0118':6,'ZMP-0207':1};
+/* saluran yang sengaja ditinggalkan pada versi lama (demonstrasi lapuk) */
+window.ZP.STALE_ON = {
+  'MT-0001':['dotproperty','telegram'],
+  'ZMP-0142':['mudah'],
+  'ZMP-0193':['edgeprop','iproperty'],
+  'MT-0061':['dotproperty','site-zmp','zentrarealty']
+};
+(function(){
+  window.ZP.LISTINGS.forEach(L => {
+    L.v = window.ZP.VERSION[L.id] || 1;
+    const st = window.ZP.STALE_ON[L.id] || [];
+    Object.keys(L.channels).forEach(k => {
+      const c = L.channels[k];
+      c[2] = st.indexOf(k) > -1 ? Math.max(1, L.v - 1) : L.v;
+      if (c[3] === undefined) c[3] = c[1] || '';
+    });
+  });
+})();
+
+/* saluran lapuk bagi satu rekod */
+window.ZP.staleOf = L => Object.keys(L.channels).filter(k => {
+  const c = L.channels[k];
+  return c[0] !== 'dead' && (c[2] || L.v) < L.v;
+});
+window.ZP.isStale = (L, ch) => window.ZP.staleOf(L).indexOf(ch) > -1;
+
+/* cara satu saluran menerima kemas kini */
+window.ZP.UPD_MODE = function(id){
+  const c = window.ZP.CHANNELS.find(x => x.id === id);
+  if (!c) return 'assist';
+  if (c.gate) return 'auto';
+  if (c.tier === 'AUTO') return 'auto';      /* kemas kini di tempat, automatik */
+  if (c.tier === 'NATIVE') return 'portal';  /* suis portal, kekal id iklan */
+  if (c.tier === 'MANUAL') return 'pack';    /* jana pakej, manusia tampal */
+  return 'assist';                            /* pra-isi, manusia hantar */
+};
+window.ZP.UPD_LABEL = {
+  auto:   'Updates in place',
+  portal: 'Portal switch, same ad',
+  assist: 'Agent updates the ad',
+  pack:   'Regenerate the pack'
+};
+window.ZP.UPD_NOTE = {
+  auto:   'The feed or API replaces the record by its remote id, so the same advert is updated rather than a second one created.',
+  portal: 'The portal cross-listing keeps its own advert id; the change follows the switch.',
+  assist: 'The advert already exists, so this is an update, not a new post. The agent changes the fields in their own session: no duplicate advert, no extra credit beyond Mudah republish rules.',
+  pack:   'The channel has no edit path at all. A fresh pack is generated and the human replaces the old post by hand.'
+};

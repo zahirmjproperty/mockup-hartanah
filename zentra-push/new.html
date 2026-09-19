@@ -137,6 +137,13 @@ const el = id => document.getElementById(id);
 let chosen = new Set();
 let mirror = true;              /* cermin ke Zentra Realty bila berpaut */
 let initDone = false;
+
+/* ---------- MOD EDIT (new.html?edit=MT-0001) ----------
+   Satu borang, dua mod. Selepas simpan, panel keputusan menunjukkan apa yang
+   berlaku pada setiap saluran: kemas kini di tempat, atau menunggu ejen. */
+const EDIT = (new URLSearchParams(location.search)).get('edit') || '';
+const ELA = EDIT ? Z.LISTINGS.find(x => x.id === EDIT) : null;
+if (ELA) Z.ACTOR = Z.SEATS.some(x => x.name === ELA.agent) ? ELA.agent : Z.ACTOR;
 const REALTY0 = JSON.parse(JSON.stringify(Z.SEATS.map(x => x.realty)));  /* pulihkan dlm Reset */
 
 /* --- penukar pelaku (demo): tunjuk kes berpaut vs tiada akaun --- */
@@ -242,6 +249,21 @@ el('go').onclick = () => {
   const linked = Z.realtyLinked();
   const zr = Z.seat().realty.id;
   const rows = [];
+  const isEdit = !!ELA && ref === ELA.id;
+
+  if (isEdit){
+    rows.push('<div class="resrow"><div><b>Record saved</b><br><span class="small muted">Version ' + ELA.v + ' &rarr; ' + (ELA.v + 1) + '</span></div>'
+      + '<div class="ok">Saved</div><div class="small muted">The listing record is updated. Nothing on any portal has changed yet.</div></div>');
+    const keys = list.map(c => c.id);
+    const atm = keys.filter(k => Z.UPD_MODE(k) === 'auto');
+    const man = keys.filter(k => Z.UPD_MODE(k) !== 'auto');
+    rows.push('<div class="resrow"><div><b>' + atm.length + ' updated in place</b><br><span class="small muted">Feed, API or portal switch</span></div>'
+      + '<div class="ok">Auto</div><div class="small muted">' + (atm.map(k => (Z.CHANNELS.find(c => c.id === k) || {}).name).join(', ') || '&mdash;')
+      + '. Each one keeps its remote id, so this is an update, not a new advert.</div></div>');
+    rows.push('<div class="resrow"><div><b>' + man.length + ' need the agent</b><br><span class="small muted">Prefill, human submits</span></div>'
+      + '<div class="human">Queued</div><div class="small muted">' + (man.map(k => (Z.CHANNELS.find(c => c.id === k) || {}).name).join(', ') || '&mdash;')
+      + '. These are edits to adverts that already exist. Mudah may re-moderate and can charge a republish credit.</div></div>');
+  }
 
   rows.push('<div class="resrow"><div><b>Zentra Push</b><br><span class="small muted">Canonical record</span></div>'
     + '<div class="ok">Created</div><div class="small muted">' + ref + ' &middot; ' + title + ' &middot; RM' + price + '</div></div>');
@@ -384,6 +406,35 @@ dropEl.addEventListener('drop', e => { if (e.dataTransfer && e.dataTransfer.file
 el('f_files').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
 
 drawImgs();
+
+/* ---------- pra-isi untuk mod edit ---------- */
+function prefillEdit(){
+  if (!ELA) return;
+  const set = (id, v) => { const e = el(id); if (e) e.value = v; };
+  set('f_ref', ELA.id);
+  set('f_title', ELA.title);
+  set('f_price', ELA.price.toLocaleString('en-US'));
+  set('f_loc', ELA.location.split(',')[0]);
+  set('f_tenure', 'Freehold');
+  set('f_land', '123,053 sqft');
+  set('f_built', '-');
+  set('f_rooms', '0');
+  set('f_desc', ELA.title + ' in ' + ELA.location + '. Entered once and pushed to every channel the terms allow.');
+  set('f_high', ['Held in the agency listing book', 'Agent: ' + ELA.agent, 'Version v' + ELA.v].join('\n'));
+  const h1 = document.querySelector('.top h1'); if (h1) h1.textContent = 'Edit listing ' + ELA.id;
+  const p = document.querySelector('.top p');
+  if (p) p.textContent = 'Change the record, then decide what to re-push. Saving does not change any advert on its own — each placement is updated when it is re-pushed.';
+  const btn = el('go'); if (btn) btn.textContent = 'Save and re-push';
+  const note = document.createElement('div');
+  note.className = 'note';
+  note.innerHTML = '<b>Editing ' + ELA.id + ' (v' + ELA.v + ').</b> ' + Object.keys(ELA.channels).length
+    + ' channel placement(s) were pushed at older versions. '
+    + Z.staleOf(ELA).length + ' is/are already out of date. Re-pushing updates the <b>existing adverts</b> &mdash; it never creates a second one.';
+  document.querySelector('.top').parentNode.insertBefore(note, document.querySelector('.top').nextSibling);
+}
+
+/* ---------- label langkah + butang ---------- */
+prefillEdit();
 
 draw();
 </script>

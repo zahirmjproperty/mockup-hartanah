@@ -195,6 +195,7 @@
 
   </main>
 </div>
+<script src="assets/realty-listings.js"></script>
 <script src="assets/nav.js"></script>
 <script>
 /* --- data contoh: kerusi agen + status akaun Zentra Push --- */
@@ -204,6 +205,29 @@ const AGENTS = [
   {name:'Hafiz Rahman',    role:'Negotiator', level:'Rookie 40%',     push:{linked:false, id:''}}
 ];
 let ACTOR = AGENTS[0].name, publish = true;
+
+/* ---------- MOD EDIT (new-listing.html?edit=ZMP-0142) ---------- */
+const EDIT = (new URLSearchParams(location.search)).get('edit') || '';
+const ZRL = window.ZR || {ZR_LISTINGS: []};
+const ELA = EDIT ? (ZRL.ZR_LISTINGS || []).find(x => x.id === EDIT) || null : null;
+if (ELA && AGENTS.some(a => a.name === ELA.agent)) ACTOR = ELA.agent;
+
+function prefillEdit(){
+  if (!ELA) return;
+  const set = (id, v) => { const e = document.getElementById(id); if (e) e.value = v; };
+  set('f_title', ELA.title);
+  set('f_price', ELA.price.toLocaleString('en-US'));
+  const h1 = document.querySelector('.top h1'); if (h1) h1.textContent = 'Edit listing ' + ELA.id;
+  const btn = document.getElementById('go'); if (btn) btn.textContent = 'Save and re-push';
+  const note = document.createElement('div');
+  note.className = 'note';
+  note.innerHTML = '<b>Editing ' + ELA.id + ' (v' + ELA.v + ').</b> '
+    + Object.keys(ELA.channels).length + ' channel placement(s) were pushed at older versions &mdash; '
+    + (ELA.stale || []).length + ' already out of date. A re-push updates the existing adverts, never creates a second one.';
+  const top = document.querySelector('.top');
+  top.parentNode.insertBefore(note, top.nextSibling);
+}
+prefillEdit();
 const SEED_IDS = ["126BKiOOOmvUCoQy8t4VsTOv7l_RWBU4M", "1zp1PvWqO8Zk0EG0p_Z7JhDEBjA4WDOqP", "1_vvusjTcGrbjeAk3aHLEy2bM08I83OPS", "1r64Zuz8ufxZPsR4jb1D2djHR4Fl52_KF", "1y2jEIUG_IkSX6lKOhn6ucNssgjXQu0ix", "1dNIrxwl8_jPI1Y8N8FCIP1NN4WYnEjAf"];
 const P0 = JSON.parse(JSON.stringify(AGENTS.map(a => a.push)));
 const el = id => document.getElementById(id);
@@ -253,6 +277,9 @@ el('actor').onchange = e => { ACTOR = e.target.value; publish = true; render(); 
 el('go').onclick = () => {
   const on = linked(), s = seat();
   const rows = [
+    ...(ELA ? [['<b>Record saved</b><br><span class="small" style="color:var(--ink-3)">Version ' + ELA.v + ' &rarr; ' + (ELA.v + 1) + '</span>',
+      '<span class="ok">Saved</span>',
+      'The agency record is updated. No portal advert has changed yet - each placement updates when it is re-pushed.']] : []),
     ['<b>Zentra Realty</b><br><span class="small" style="color:var(--ink-3)">Agency record</span>',
      '<span class="human">Saved</span>',
      'ZR-L-0921 under agent ' + s.name + '. Commission, documents and the listing book all read from this record.']
