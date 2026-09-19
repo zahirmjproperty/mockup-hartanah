@@ -48,7 +48,7 @@ def sidebar(active):
             links.append('<div class="section-label">System</div>')
         cls = ' class="active"' if href == active else ""
         links.append(
-            '<a href="%s"%s><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">%s</svg> %s</a>'
+            '<a href="%s"%s><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">%s</svg><span>%s</span></a>'
             % (href, cls, ICON[icon], label)
         )
     return (

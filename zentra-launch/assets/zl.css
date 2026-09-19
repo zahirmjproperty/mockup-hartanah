@@ -704,3 +704,24 @@ table.dash-table td.num { text-align: right; font-variant-numeric: tabular-nums;
   .stats { grid-template-columns: 1fr 1fr; }
   .header .search { max-width: 140px; }
 }
+
+/* --- Pembetulan responsif 19/9/2026 ---------------------------------------
+   Punca limpahan mendatar pada telefon: .sidebar adalah position:fixed (keluar
+   aliran), jadi .main = satu-satunya item flex; min-content kepala halaman
+   (butang menu + carian + aksi) memaksa .main melebihi lebar viewport
+   (min-width:auto pada item flex). Ukuran CDP 390px: scroll 420 vs viewport 390.
+   Pembetulan: benarkan .main mengecil + hadkan lebar tepat. */
+@media (max-width: 768px) {
+  .main { min-width: 0; width: calc(100% - 64px); }
+  .header { gap: 10px; padding: 0 14px; }
+  .header .nav-toggle { flex: 0 0 auto; }
+  .header .search { flex: 1 1 auto; min-width: 0; max-width: none; }
+  .header .actions { flex: 0 0 auto; gap: 10px; }
+  .content { padding: 16px 14px 32px; }
+  .page-title h1 { font-size: 20px; }
+}
+@media (max-width: 480px) {
+  .header .search { max-width: 46%; }
+  table.dash-table { font-size: 12.5px; }
+  .stat-row { gap: 10px; }
+}
