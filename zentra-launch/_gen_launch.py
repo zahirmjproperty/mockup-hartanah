@@ -24,6 +24,7 @@ ICON = {
     "commission": '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
     "billing": '<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="11" y2="15"/>',
     "settings": '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/>',
+    "guide": '<path d="M9 4h6a2 2 0 0 1 2 2v14l-5-3-5 3V6a2 2 0 0 1 2-2z"/><path d="M9 9h6M9 13h4"/>',
 }
 
 # (fail, label, ikon, tajuk carian, breadcrumb, ada_dalam_nav)
@@ -36,6 +37,7 @@ NAV = [
     ("commission.html", "Commission", "commission", "Search agents...", "Agent Commission", True),
     ("billing.html", "Billing", "billing", "Search invoices...", "Progressive Billing", True),
     ("settings.html", "Settings", "settings", "Search settings...", "System Settings", True),
+    ("guide.html", "Guide", "guide", "Search the guide...", "Guide &amp; Review Notes", True),
     # halaman drill-down — TIADA dalam sidebar (dibuka dengan klik kad/unit)
     ("project.html", "Project detail", "projects", "Search units in this project...", "Project detail", False),
     ("unit.html", "Unit detail", "inventory", "Search units...", "Unit detail", False),
