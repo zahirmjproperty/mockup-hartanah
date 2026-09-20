@@ -571,3 +571,22 @@ canvas{border-color:rgba(201,162,39,.28)!important;background:rgba(255,255,255,.
   .chip, .chip * { white-space: normal !important; overflow-wrap: anywhere !important; word-break: break-word; min-width: 0; max-width: 100%; }
   .card, .card-bd, .grid > * { min-width: 0; }
 }
+
+/* PANEL LUT SINAR — dibetulkan 20/9/2026 (punca sama seperti Zentra Realty:
+   .drawer/.modal 4% legap tanpa blur → kandungan halaman menembusi panel) */
+.drawer {
+  background: linear-gradient(180deg, #12283F 0%, #0B1B2E 100%);
+  border-left: 1px solid rgba(201, 162, 39, .22);
+  box-shadow: -26px 0 70px rgba(0, 0, 0, .55);
+  z-index: 90;
+}
+.drawer .dhead { background: inherit; border-bottom: 1px solid rgba(201, 162, 39, .18); }
+.drawer::before { content: ""; position: fixed; inset: 0; background: rgba(4, 10, 20, .55); z-index: -1; }
+.modal .inner {
+  background: linear-gradient(180deg, #14294A 0%, #0E2036 100%);
+  border: 1px solid rgba(201, 162, 39, .22);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .6);
+}
+:root.theme-light .drawer { background: #FFFFFF; border-left-color: rgba(138, 100, 24, .18); box-shadow: -26px 0 70px rgba(16, 34, 47, .22); }
+:root.theme-light .drawer::before { background: rgba(16, 34, 47, .28); }
+:root.theme-light .modal .inner { background: #FFFFFF; border-color: rgba(138, 100, 24, .18); }

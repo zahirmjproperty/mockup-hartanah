@@ -592,3 +592,50 @@ canvas{border-color:rgba(201,162,39,.28)!important;background:rgba(255,255,255,.
   li, p, ul, ol, .muted, .small { overflow-wrap: anywhere; }
   ul, ol { padding-left: 1.15em; }
 }
+
+/* ============================================================
+   PANEL NOTIFIKASI (.drawer) — 20/9/2026
+   Kecacatan asal: .drawer{background:rgba(255,255,255,.04)} — 4% legap TANPA blur,
+   jadi kandungan halaman menembusi panel dan semua teks kelihatan bertindan
+   (laporan Zahir). Butang burger/bell (z-index 60) juga kelihatan menembusinya.
+   Pembetulan: latar legap bertema + lapisan gelap (scrim) di belakang panel.
+   ============================================================ */
+.drawer {
+  background: linear-gradient(180deg, #12283F 0%, #0B1B2E 100%);
+  border-left: 1px solid rgba(201, 162, 39, .22);
+  box-shadow: -26px 0 70px rgba(0, 0, 0, .55);
+  z-index: 90;
+}
+.drawer .dhead {
+  background: inherit;
+  border-bottom: 1px solid rgba(201, 162, 39, .18);
+}
+/* Lapisan gelap di belakang panel: hanya kelihatan apabila panel terbuka
+   (transform pada .drawer menjadikan ::before ini bergerak bersama panel). */
+.drawer::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 10, 20, .55);
+  z-index: -1;
+}
+:root.theme-light .drawer {
+  background: #FFFFFF;
+  border-left: 1px solid rgba(138, 100, 24, .18);
+  box-shadow: -26px 0 70px rgba(16, 34, 47, .22);
+}
+:root.theme-light .drawer::before { background: rgba(16, 34, 47, .28); }
+:root.theme-light .drawer .dhead { border-bottom-color: rgba(138, 100, 24, .16); }
+
+/* Butang tutup panel notifikasi + kunci skrol halaman belakang (20/9/2026) */
+.dacts { display: flex; align-items: center; gap: 8px; }
+.dclose {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 10px; cursor: pointer;
+  background: rgba(255, 255, 255, .06); color: #e8ce86;
+  border: 1px solid rgba(201, 162, 39, .28); padding: 0;
+}
+.dclose:hover { background: rgba(201, 162, 39, .18); }
+.dclose:focus-visible { outline: 2px solid #C9A227; outline-offset: 2px; }
+:root.theme-light .dclose { background: rgba(138, 100, 24, .06); color: #8a6418; border-color: rgba(138, 100, 24, .22); }
+body.drawer-open { overflow: hidden; }
