@@ -690,3 +690,23 @@ textarea.i::placeholder { color: #64748b; }
 :root.theme-light textarea.i:focus { outline-color: rgba(138, 100, 24, .18) !important; }
 /* label di barisnya sendiri supaya tiada teks membalut di sisi medan */
 .field label { display: block; margin-bottom: 6px; }
+
+/* ============================================================
+   KOTAK .flag — kontras dibetulkan 20/9/2026 (Zahir: "Tak nampak text")
+   Punca: .flag{background:var(--gold-soft);color:#1a1206}. Dalam tema gelap
+   --gold-soft = rgba(201,162,39,.12) (tint gelap) tetapi teks kekal #1a1206
+   (hampir hitam) → teks gelap atas panel gelap, tidak boleh dibaca.
+   ============================================================ */
+.flag {
+  color: var(--ink, #f0ead6);
+  background: rgba(201, 162, 39, .10);
+  border: 1px solid rgba(201, 162, 39, .32);
+}
+.flag b, .flag strong { color: #e8ce86; }
+/* Tema cerah: kekalkan reka bentuk asal (panel emas muda + teks gelap) */
+:root.theme-light .flag {
+  color: #1a1206;
+  background: rgba(138, 100, 24, .10);
+  border-color: rgba(138, 100, 24, .30);
+}
+:root.theme-light .flag b, :root.theme-light .flag strong { color: #6b4f10; }
