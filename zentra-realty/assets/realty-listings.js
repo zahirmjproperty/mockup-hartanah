@@ -1005,3 +1005,71 @@ window.ZR.historyOf = id => window.ZR.ZR_HISTORY[id] || [];
 window.ZR.byId = id => window.ZR.ZR_LISTINGS.find(l => l.id === id) || window.ZR.ZR_LISTINGS[0];
 window.ZR.updMode = id => window.ZR.ZR_UPD_MODE[id] || "assist";
 window.ZR.isStale = (l, ch) => (l.stale || []).indexOf(ch) > -1;
+
+/* ====== Shim label jadual — Zentra Realty (20/9/2026) ======
+   Punca: pada telefon, lajur kanan jadual terpotong (PAY…, ACTOR/AC1…, NEGOTIAT…,
+   ACTION…, EXPECTED RELE…). 61 jadual, hanya 11 ada <thead> — jadi label diambil
+   daripada baris <th> PERTAMA, sama ada ia dibalut <thead> atau tidak.
+   Jadual ditanda .zr-kad HANYA selepas berjaya dilabel → jika JS gagal, jadual
+   kekal sebagai jadual biasa (tidak muncul sebagai kad tanpa label). */
+(function () {
+  function tajuk(t) {
+    var th = t.querySelectorAll('thead tr:first-child th');
+    if (th.length) { return th; }
+    var baris = t.querySelector('tr');
+    return baris ? baris.querySelectorAll('th') : [];
+  }
+  function label(t) {
+    var th = tajuk(t);
+    if (!th.length) { return false; }
+    /* Baris tajuk yang TIDAK dibalut <thead> mesti disembunyikan dalam mod kad,
+       jika tidak ia muncul sebagai kad kosong. */
+    if (!t.tHead && th[0] && th[0].parentElement) {
+      th[0].parentElement.classList.add('zr-hdr');
+    }
+    var baris = [];
+    if (t.tBodies && t.tBodies.length) {
+      for (var b = 0; b < t.tBodies.length; b++) {
+        for (var r = 0; r < t.tBodies[b].rows.length; r++) { baris.push(t.tBodies[b].rows[r]); }
+      }
+    } else {
+      var semua = Array.prototype.slice.call(t.rows);
+      baris = semua.slice(1);
+    }
+    var kira = 0;
+    baris.forEach(function (tr) {
+      var td = tr.querySelectorAll('td');
+      if (!td.length) { return; }
+      for (var c = 0; c < td.length; c++) {
+        if (!td[c].hasAttribute('data-label') && th[c]) {
+          td[c].setAttribute('data-label', (th[c].textContent || '').trim());
+        }
+      }
+      kira++;
+    });
+    if (kira) { t.classList.add('zr-kad'); return true; }
+    return false;
+  }
+  function semua() {
+    var t = document.querySelectorAll('table'), n = 0;
+    for (var i = 0; i < t.length; i++) { if (label(t[i])) { n++; } }
+    return n;
+  }
+  function boot() {
+    semua();
+    if (!window.MutationObserver) { return; }
+    var jad = document.querySelectorAll('table');
+    for (var i = 0; i < jad.length; i++) {
+      var tb = jad[i].tBodies && jad[i].tBodies[0];
+      if (!tb) { continue; }
+      (function (t) {
+        new MutationObserver(function () { label(t); }).observe(t.tBodies[0], { childList: true, subtree: true });
+      })(jad[i]);
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
