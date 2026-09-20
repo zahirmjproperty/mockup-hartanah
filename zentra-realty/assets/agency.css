@@ -662,3 +662,31 @@ body.drawer-open { overflow: hidden; }
 .nscrim.on { display: block; }
 :root.theme-light .nscrim { background: rgba(16, 34, 47, .30); }
 .drawer::before { content: none !important; }
+
+/* ============================================================
+   MEDAN TEXTAREA — dibetulkan 20/9/2026 (ui/ux)
+   Punca: peraturan medan menyasar `input.i, select.i` SAHAJA. Textarea (cth: Inventory
+   dalam Letter of Confirmation) tidak sepadan, jadi ia jatuh ke gaya lalai pelayar:
+   latar putih, saiz kecil, menjorok ke dalam — tidak sepadan dengan medan lain.
+   Label juga bertindih kerana <label> kekal inline dan textarea membalut di sisinya.
+   ============================================================ */
+textarea.i {
+  display: block;
+  width: 100%;
+  padding: 10px 11px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.55;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .04) !important;
+  border: 1px solid rgba(201, 162, 39, .22) !important;
+  color: #f0ead6 !important;
+  min-height: 104px;
+  resize: vertical;
+}
+textarea.i:focus { outline: 2px solid rgba(201, 162, 39, .22) !important; border-color: var(--gold, #C9A227) !important; }
+textarea.i::placeholder { color: #64748b; }
+:root.theme-light textarea.i { background: #fff !important; border-color: rgba(138, 100, 24, .22) !important; color: #1e293b !important; }
+:root.theme-light textarea.i:focus { outline-color: rgba(138, 100, 24, .18) !important; }
+/* label di barisnya sendiri supaya tiada teks membalut di sisi medan */
+.field label { display: block; margin-bottom: 6px; }
