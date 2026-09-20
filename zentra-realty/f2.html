@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/agency.css?v=f34f5b9b">
+    <link rel="stylesheet" href="assets/agency.css?v=94087d2d">
 <style>
  .who{display:grid;grid-template-columns:1.4fr .9fr 1fr 1.2fr auto;gap:8px;align-items:center}
  .who input,.who select{width:100%}
@@ -256,8 +256,8 @@ function resetAll(){ S = {signers: DEF(), sentAt:'', doneAt:'', lockNote:''}; sa
 render();
 if (location.search.indexOf('demo=done') > -1){ sendAll(); S.signers.forEach((s,i)=>signed(i)); S.doneAt=new Date().toISOString(); save(); render(); }
 </script>
-<script src="assets/notif.js"></script>
-<script src="assets/nav.js"></script>
-  <script src="assets/ui.js"></script>
+<script src="assets/notif.js?v=94087d2d"></script>
+<script src="assets/nav.js?v=94087d2d"></script>
+  <script src="assets/ui.js?v=94087d2d"></script>
 </body>
 </html>
