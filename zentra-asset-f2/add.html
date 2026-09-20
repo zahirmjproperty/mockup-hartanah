@@ -5,6 +5,7 @@
 if(t!=='light'){t='dark';}
 document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="assets/zentra.css?v=8870c4de"><link rel="stylesheet" href="assets/f2-lux.css?v=8870c4de">
+<link rel="stylesheet" href="assets/zentra-ui.css?v=7277ff13">
 </head><body class="zux"><div class="zux-top"><div class="in">
 <span class="zux-brand">ZENTRA <i>ASSET</i></span>
 <nav class="zux-nav"><a href="index.html">Operations</a><a href="units.html">Units</a><a href="tenancy.html">Tenancy</a><a href="maintenance.html">Maintenance</a><a href="billing.html">Billing</a><a href="roles.html">Roles</a><a href="add.html" aria-current="page">Add Record</a></nav>
@@ -96,4 +97,5 @@ var cerah=t==='light';b.setAttribute('aria-pressed',cerah);
 b.textContent=cerah?'☾ Dark':'☀ Light';
 b.title=cerah?'Switch to dark display':'Switch to light display';}
 document.addEventListener('DOMContentLoaded',function(){labelTheme(document.documentElement.getAttribute('data-theme')||'dark');});
-</script></body></html>
+</script><script src="assets/zentra-ui.js?v=7277ff13" defer></script>
+</body></html>
