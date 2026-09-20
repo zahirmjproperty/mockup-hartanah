@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/agency.css?v=3f8a087d">
+    <link rel="stylesheet" href="assets/agency.css?v=e0a21a1f">
 <style>
  .bars{display:flex;align-items:flex-end;gap:6px;height:120px;padding:6px 2px;border-bottom:1px solid var(--line)}
  .bars .b{flex:1;background:var(--navy-3);border-radius:4px 4px 0 0;position:relative;min-height:3px}
@@ -130,7 +130,7 @@ $('tblAlert').innerHTML='<thead><tr><th>Item</th><th>What</th><th>Due</th><th>Ow
   ['Signature','ZTH-LOCS-000107 &mdash; buyer not signed (4 days)','today','Ameer Haziq','Send reminder'],
   ['Compliance','August gap 45.0% &mdash; above the 40% line','review','Agency Head','Open report'],
   ['Agent','Siti Nurhaliza &mdash; no production 45 days','&mdash;','Team Leader','Check in']]
- .map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td><span class="flag a">'+r[4]+'</span></td></tr>').join('')+'</tbody>';
+ .map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td><button type="button" class="btn ghost sm act-demo">'+r[4]+'</button></td></tr>').join('')+'</tbody>';
 
 function exportCsv(){
   const head=['Month','Agency commission','Named commission 40%','Total payout','Gap %','Docs signed','Stamping on time %','Exceptions'];
@@ -140,9 +140,9 @@ function exportCsv(){
   a.download='zentra-realty-compliance-2026.csv'; a.click();
 }
 </script>
-<script src="assets/levels.js?v=3f8a087d"></script>
-<script src="assets/notif.js?v=3f8a087d"></script>
-<script src="assets/nav.js?v=3f8a087d"></script>
-  <script src="assets/ui.js?v=3f8a087d"></script>
+<script src="assets/levels.js?v=e0a21a1f"></script>
+<script src="assets/notif.js?v=e0a21a1f"></script>
+<script src="assets/nav.js?v=e0a21a1f"></script>
+  <script src="assets/ui.js?v=e0a21a1f"></script>
 </body>
 </html>

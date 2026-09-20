@@ -165,3 +165,56 @@
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',build);
   else build();
 })();
+
+/* ============================================================
+   LAPISAN TINDAKAN DEMO (20/9/2026)
+   Zahir: "Most page, button tiada function". Sebabnya: banyak kawalan bukan
+   <button> langsung — kolum ACTION F4 dahulunya <span class="flag a">, dan ada
+   75 kawalan tanpa href/onclick merentas halaman. Lapisan ini memberi setiap
+   kawalan maklum balas yang JUJUR (toast), tanpa berpura-pura melakukan tindakan
+   sebenar, dan menawarkan pautan ke halaman berkaitan bila ada.
+   ============================================================ */
+(function () {
+  var PETA = [
+    [/^(send reminder|remind|chase)/i, 'Would email the owner and record the reminder in the audit trail.', null],
+    [/^(open report|view report|report)/i, 'Opens the compliance report for this exception.', 'compliance.html'],
+    [/^stamp now/i, 'Would submit the stamping to LHDN and log the stamped date.', null],
+    [/^check in/i, 'Would log a check-in with the agent and their team leader.', 'team.html'],
+    [/^upload/i, 'Opens the document picker. (Prototype: no file is stored.)', null],
+    [/^invite/i, 'Would email an invitation to the new agent.', 'onboard.html'],
+    [/^(approve|reject|decline)/i, 'Would record your decision against this item.', null],
+    [/^export/i, 'Would download a CSV of this table.', null],
+    [/^(send|submit|issue|notify)/i, 'Would send this and log it in the audit trail.', null],
+    [/^(new|add|create|generate)/i, 'Would open the form and generate the document from sample data.', null],
+    [/^(view|open)/i, 'Opens the related record.', null]
+  ];
+  function toast(teks, label, href) {
+    var t = document.getElementById('demoToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'demoToast'; t.className = 'dtoast'; t.setAttribute('role', 'status');
+      document.body.appendChild(t);
+    }
+    t.innerHTML = '<b>Demo action</b><span>' + (label ? '&ldquo;' + label + '&rdquo; &mdash; ' : '') + teks + '</span>' +
+      (href ? '<a href="' + href + '">Open the related page &rarr;</a>' : '') +
+      '<i>Prototype only &middot; sample data &middot; no real change is made.</i>';
+    t.classList.add('on');
+    clearTimeout(window.__dtoast);
+    window.__dtoast = setTimeout(function () { t.classList.remove('on'); }, 5000);
+  }
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('button, a.btn, .btn, .flag.a, .flag.g, .act-demo');
+    if (!el) { return; }
+    if (el.closest('.drawer') || el.closest('#demoToast')) { return; }
+    if (el.id === 'zrThemeBtn' || el.closest('.side') || el.closest('.foot')) { return; }
+    if (el.tagName === 'A' && el.getAttribute('href')) { return; }
+    if (el.hasAttribute('onclick') || el.hasAttribute('data-demo-ignore')) { return; }
+    var label = (el.textContent || '').replace(/\s+/g, ' ').trim();
+    if (!label || label.length > 46) { return; }
+    var mesej = 'This is a prototype control &mdash; the live system runs the real action here.', href = null;
+    for (var i = 0; i < PETA.length; i++) {
+      if (PETA[i][0].test(label)) { mesej = PETA[i][1]; href = PETA[i][2]; break; }
+    }
+    toast(mesej, label, href);
+  }, true);
+})();

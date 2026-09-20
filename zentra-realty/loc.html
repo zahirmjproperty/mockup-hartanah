@@ -7,7 +7,7 @@
 <title>Letter of Confirmation | Zentra Realty</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/agency.css?v=d6a7cb01">
+<link rel="stylesheet" href="assets/agency.css?v=e4a08bea">
 <style>
 .ferr input,.ferr select,.ferr textarea{border-color:#E8776A!important;background:rgba(232,119,106,.06)}
 .emsg{display:none;font-size:11.5px;color:#E8776A;margin-top:4px}
@@ -126,7 +126,7 @@ Washing machine</textarea>
 <div class="modal" id="modal" onclick="if(event.target===this)closeLetter()">
   <div class="sheet" id="sheet"></div>
 </div>
-<script src="assets/agency.js?v=d6a7cb01"></script>
+<script src="assets/agency.js?v=e4a08bea"></script>
 <script>
 const $=id=>document.getElementById(id);
 const rm=n=>'RM '+(Math.round(n*100)/100).toLocaleString('en-MY',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -264,8 +264,8 @@ const QP=new URLSearchParams(location.search);
 if(QP.get('type')){$('dtype').value=QP.get('type');if(QP.get('type')==='sale'){$('amount').value=680000;$('dep').value=22032;$('term').value=21;}swapLabels();}
 if(QP.get('demo')){sample();generate();if(QP.get('nomodal'))closeLetter();}
 </script>
-<script src="assets/notif.js?v=d6a7cb01"></script>
-<script src="assets/nav.js?v=d6a7cb01"></script>
-<script src="assets/ui.js?v=d6a7cb01"></script>
+<script src="assets/notif.js?v=e4a08bea"></script>
+<script src="assets/nav.js?v=e4a08bea"></script>
+<script src="assets/ui.js?v=e4a08bea"></script>
 </body>
 </html>
