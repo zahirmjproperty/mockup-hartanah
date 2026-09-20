@@ -43,3 +43,40 @@
   /* reveal() dibuang 15/9: kandungan mesti sentiasa kelihatan walau animasi gagal */
   (document.readyState!=='loading') ? icons() : document.addEventListener('DOMContentLoaded',icons);
 })();
+
+/* ====== Shim label jadual (20/9/2026) ======
+   Menambah data-label pada setiap <td> berdasarkan <th> yang sepadan, supaya CSS
+   mudah alih boleh memaparkan setiap baris sebagai kad berlabel. Berfungsi untuk
+   jadual statik DAN jadual yang dibina kemudian oleh JS (MutationObserver). */
+(function () {
+  function labelSatu(t) {
+    var th = t.querySelectorAll('thead th');
+    if (!th.length) { return; }
+    var rows = t.querySelectorAll('tbody tr');
+    for (var r = 0; r < rows.length; r++) {
+      var tds = rows[r].querySelectorAll('td');
+      for (var c = 0; c < tds.length; c++) {
+        if (!tds[c].hasAttribute('data-label') && th[c]) {
+          tds[c].setAttribute('data-label', (th[c].textContent || '').trim());
+        }
+      }
+    }
+  }
+  function labelSemua() {
+    var t = document.querySelectorAll('table');
+    for (var i = 0; i < t.length; i++) { labelSatu(t[i]); }
+  }
+  function boot() {
+    labelSemua();
+    if (!window.MutationObserver) { return; }
+    document.querySelectorAll('table tbody').forEach(function (tb) {
+      new MutationObserver(function () { labelSatu(tb.closest('table')); })
+        .observe(tb, { childList: true, subtree: true });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
