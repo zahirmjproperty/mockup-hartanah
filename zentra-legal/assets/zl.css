@@ -862,3 +862,17 @@ ul.note-list li::before {
   .content [style*="grid-template-columns"] { grid-template-columns: minmax(0, 1fr) !important;
     display: block !important; }
 }
+
+/* ====== Zentra Legal: jaring keselamatan rel ikon ======
+   Satu pautan (keadaan .active) terlepas daripada pembalut span. Menetapkan font-size:0 pada
+   rel memastikan SEBARANG teks yang tertinggal tidak kelihatan; ikon SVG tidak terjejas. */
+@media (max-width: 900px) {
+  .sidebar .nav a, .sidebar .nav .section-label { font-size: 0; }
+  .sidebar .nav a span, .sidebar .nav a b, .sidebar .nav a em { display: none; }
+  .sidebar .brand .wordmark { display: none; }
+  .sidebar .nav a svg { width: 22px; height: 22px; opacity: .85; }
+}
+
+@media (max-width: 900px){ .sidebar { overflow-x: hidden; } }
+
+@media (max-width: 900px){ .sidebar .nav-group, .sidebar .sidebar-foot .who { display: none; } }
