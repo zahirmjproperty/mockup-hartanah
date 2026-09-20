@@ -76,15 +76,21 @@
       d.setAttribute('role','dialog'); d.setAttribute('aria-modal','true'); d.setAttribute('aria-label','Notifications');
       d.innerHTML='<div class="dhead"><b>Notifications</b><span class="dacts"><button class="btn ghost small" id="ndAll">Mark all read</button><button class="dclose" id="ndClose" type="button" aria-label="Close notifications"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span></div><div id="ndList"></div><a class="dfoot" href="notifications.html">Open the notification centre &rarr;</a><button class="dclosebar" id="ndCloseBar" type="button">Close panel</button>';
       document.body.appendChild(d);
+      /* Skrim sebenar: elemen berasingan supaya ia boleh menutupi SELURUH halaman.
+         (Skrim ::before tidak berfungsi: transform pada panel menjadikannya anak
+         relatif kepada panel, bukan viewport.) */
+      let scr=document.getElementById('notifScrim');
+      if(!scr){ scr=document.createElement('div'); scr.id='notifScrim'; scr.className='nscrim'; document.body.appendChild(scr); }
       /* --- tutup panel: butang X, ketukan di luar panel, kekunci Esc (20/9/2026) ---
          Punca: pada telefon panel ini 100% lebar dan menutupi butang loceng, jadi
          satu-satunya cara menutupnya hilang. Kini ada tiga cara. */
-      const tutup=()=>{ d.classList.remove('open'); document.body.classList.remove('drawer-open'); };
+      const tutup=()=>{ d.classList.remove('open'); scr.classList.remove('on'); document.body.classList.remove('drawer-open'); };
+      scr.onclick=tutup;
       document.getElementById('ndClose').onclick=tutup;
       document.getElementById('ndCloseBar').onclick=tutup;
       d.addEventListener('click',e=>{ if(e.target===d){ tutup(); } });
       document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ tutup(); } });
-      document.getElementById('bellBtn').onclick=()=>{ paint(); const on=d.classList.toggle('open'); document.body.classList.toggle('drawer-open', on); };
+      document.getElementById('bellBtn').onclick=()=>{ paint(); const on=d.classList.toggle('open'); scr.classList.toggle('on', on); document.body.classList.toggle('drawer-open', on); };
       document.getElementById('ndAll').onclick=()=>{ ZTH.markAllRead(); paint(); };
     }
     paint();
