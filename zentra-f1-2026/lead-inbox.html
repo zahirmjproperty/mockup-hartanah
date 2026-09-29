@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Lead inbox — Zentra Realty (Fasa 1 preview)</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css">
+<style>
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.tools input[type=search],.tools select{padding:8px 12px;border-radius:8px;background:var(--card);color:var(--ink);
+  border:1px solid var(--line);font:inherit;font-size:13.5px;min-width:190px}
+.tools input[type=search]:focus,.tools select:focus{outline:none;border-color:var(--gold)}
+.tools .count{margin-left:auto;font-size:12.5px;color:var(--ink-3)}
+.lrow{cursor:pointer}.lrow:hover td{background:var(--gold-soft)}
+.lid{font-weight:700;font-size:13px}.lsub{font-size:11.5px;color:var(--ink-3)}
+.overdue{color:var(--red);font-weight:600}
+.empty{padding:26px;text-align:center;color:var(--ink-3);font-size:13px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Lead inbox</h1>
+        <p>Every enquiry from every channel in one list, with an owner and a follow-up date. This is the screen
+        that replaces "check WhatsApp and the portal e-mails" — the gap ESP GO fills and ZENTRA Realty does not have yet.</p>
+      </div>
+      <span class="badge-demo">PREVIEW &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4" id="kpis"></div>
+
+    <h2 class="sec"><span class="num">1</span> All leads</h2>
+    <div class="card">
+      <div class="tools">
+        <input type="search" id="q" placeholder="Search name, id, phone or project">
+        <select id="fown"><option value="">All owners</option></select>
+        <select id="fsrc"><option value="">All sources</option></select>
+        <button class="btn ghost" data-f="open">Open</button>
+        <button class="btn ghost" data-f="unassigned">Unassigned</button>
+        <button class="btn ghost" data-f="won">Won</button>
+        <button class="btn ghost" data-f="lost">Lost</button>
+        <button class="btn ghost" data-f="all">All</button>
+        <span class="count" id="count"></span>
+      </div>
+      <table class="tbl" id="tbl">
+        <thead><tr>
+          <th>Lead</th><th>Source</th><th>Project interest</th><th>Budget</th>
+          <th>Status</th><th>Owner</th><th>Next follow-up</th><th>Action</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="empty" id="empty" style="display:none">No lead matches this filter.</div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Why this matters</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0">One owner per lead</h3>
+        <p class="small muted" style="margin-bottom:0">A lead with no owner is the most common way money is lost.
+        The red counter above is the daily reminder, not a monthly report.</p></div>
+      <div class="card"><h3 style="margin-top:0">Follow-up is a date</h3>
+        <p class="small muted" style="margin-bottom:0">Every record carries a next action date. Past-due rows are
+        flagged so a team leader can see the leak before the buyer walks.</p></div>
+      <div class="card"><h3 style="margin-top:0">The lead becomes the booking</h3>
+        <p class="small muted" style="margin-bottom:0">Open a record and convert it — the buyer, agent and unit carry
+        across into the booking E-Form with no re-typing.</p></div>
+    </div>
+  </main>
+</div>
+<script src="assets/f1-data.js"></script>
+<script src="assets/f1-project-data.js"></script>
+<script src="assets/nav.js"></script>
+<script>
+(function(){
+  const L = F1.LEADS, A = F1.AGENTS, P = F1.PROJECTS;
+  const TODAY = '2026-09-29';
+  const PILL = {new:'blue', contacted:'', viewing:'gold', negotiation:'warn', won:'ok', lost:'bad'};
+  const proj = id => (P.find(p => p.id === id) || {}).name || id;
+  const owner = id => id ? ((A.find(a => a.id === id) || {}).name || id) : '<span class="overdue">Unassigned</span>';
+  const money = n => 'RM' + n.toLocaleString('en-MY');
+  const due = d => !d ? '—' : (d < TODAY ? '<span class="overdue">' + d + '</span>' : d);
+
+  const overdue = L.filter(x => x.next && x.next < TODAY).length;
+  const k = [
+    {lab:'Leads in view', val:L.length, sub:L.filter(x => x.status === 'new').length + ' never contacted', c:''},
+    {lab:'Unassigned', val:L.filter(x => !x.owner).length, sub:'needs an owner today', c:'warn'},
+    {lab:'Follow-up overdue', val:overdue, sub:'date already passed', c:'warn'},
+    {lab:'Won', val:L.filter(x => x.status === 'won').length, sub:'moved into the booking pipeline', c:'blue'}
+  ];
+  document.getElementById('kpis').innerHTML = k.map(x =>
+    '<div class="kpi ' + x.c + '"><div class="lab">' + x.lab + '</div><div class="val">' + x.val +
+    '</div><div class="sub">' + x.sub + '</div></div>').join('');
+
+  const fown = document.getElementById('fown'), fsrc = document.getElementById('fsrc');
+  A.forEach(a => fown.insertAdjacentHTML('beforeend', '<option value="' + a.id + '">' + a.name + '</option>'));
+  [...new Set(L.map(x => x.source))].sort().forEach(s => fsrc.insertAdjacentHTML('beforeend', '<option value="' + s + '">' + s + '</option>'));
+
+  let mode = 'open';
+  function render(){
+    const q = document.getElementById('q').value.trim().toLowerCase();
+    const rows = L.filter(x => {
+      if(mode === 'open' && (x.status === 'won' || x.status === 'lost')) return false;
+      if(mode === 'unassigned' && x.owner) return false;
+      if(mode === 'won' && x.status !== 'won') return false;
+      if(mode === 'lost' && x.status !== 'lost') return false;
+      if(fown.value && x.owner !== fown.value) return false;
+      if(fsrc.value && x.source !== fsrc.value) return false;
+      if(q && !(x.id + ' ' + x.name + ' ' + x.phone + ' ' + proj(x.project)).toLowerCase().includes(q)) return false;
+      return true;
+    });
+    document.querySelector('#tbl tbody').innerHTML = rows.map(x =>
+      '<tr class="lrow" data-id="' + x.id + '">' +
+      '<td><div class="lid">' + x.name + '</div><div class="lsub">' + x.id + ' &middot; ' + x.phone + '</div></td>' +
+      '<td>' + x.source + '</td>' +
+      '<td>' + proj(x.project) + '<div class="lsub">' + x.unit_interest + '</div></td>' +
+      '<td class="num">' + money(x.budget) + '</td>' +
+      '<td><span class="pill ' + PILL[x.status] + '">' + x.status + '</span></td>' +
+      '<td>' + owner(x.owner) + '</td>' +
+      '<td>' + due(x.next) + '</td>' +
+      '<td>' + (x.status === 'won' || x.status === 'negotiation'
+        ? '<a class="btn ghost small" href="booking-new.html?lead=' + x.id + '">Convert</a>'
+        : '<a class="btn ghost small" href="lead-detail.html?id=' + x.id + '">Open</a>') + '</td></tr>').join('');
+    document.getElementById('empty').style.display = rows.length ? 'none' : 'block';
+    document.getElementById('count').textContent = rows.length + ' of ' + L.length + ' leads';
+    document.querySelectorAll('#tbl tbody tr').forEach(tr => tr.onclick = e => {
+      if(e.target.closest('a')) return;
+      location.href = 'lead-detail.html?id=' + tr.dataset.id;
+    });
+  }
+  document.querySelectorAll('.tools .btn').forEach(b => b.onclick = () => {
+    mode = b.dataset.f;
+    document.querySelectorAll('.tools .btn').forEach(x => x.classList.toggle('on', x === b));
+    render();
+  });
+  document.querySelectorAll('.tools .btn')[0].classList.add('on');
+  ['q','fown','fsrc'].forEach(id => document.getElementById(id).addEventListener('input', render));
+  render();
+})();
+</script>
+</body>
+</html>
