@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Fasa 1 preview — Zentra Realty x Zentra Project</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css">
+<style>
+.prevbar{background:var(--gold-soft);border:1px solid var(--gold);border-radius:var(--radius);
+  padding:10px 14px;margin-bottom:16px;font-size:13px;color:var(--ink)}
+.prevbar b{letter-spacing:.4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.side-note{font-size:12.5px;color:var(--ink-3);margin-top:6px}
+.mini{font-size:12px;color:var(--ink-3);margin:2px 0 0}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Fasa 1 preview — lead to booking, inside ZENTRA</h1>
+        <p>What the ESP GO study says we are missing, built the ZENTRA way: one lead source in
+        <b>Zentra Realty</b>, one booking pipeline in <b>Zentra Project</b>, one commission engine.
+        This is a clickable prototype to approve the <b>flow</b> before any production work.</p>
+      </div>
+      <span class="badge-demo">PREVIEW &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="prevbar"><b>PREVIEW ONLY.</b> Every record here is synthetic (phone <code>011-0000 ####</code>,
+    e-mail <code>@example.com</code>). Nothing on this site is connected to a live system and none of these
+    figures are real. Approving this page means approving the design and the flow only.</div>
+
+    <div class="grid g4" id="kpis"></div>
+
+    <h2 class="sec"><span class="num">1</span> What is new in Fasa 1</h2>
+    <div class="grid g2">
+      <a class="card link" href="lead-inbox.html"><h3 style="margin-top:0">Lead inbox <span class="pill ok">WORKING DEMO</span></h3>
+        <p class="small muted" style="margin-bottom:0">Every lead from every channel in one list, with owner, source,
+        follow-up date and score. Filter, search, open the record — then convert it into a booking.</p></a>
+      <a class="card link" href="campaigns.html"><h3 style="margin-top:0">Campaigns <span class="pill ok">WORKING DEMO</span></h3>
+        <p class="small muted" style="margin-bottom:0">The marketing run behind the leads: sent, replies, leads produced,
+        bookings produced, and what each channel actually costs.</p></a>
+      <a class="card link" href="booking-new.html"><h3 style="margin-top:0">New booking E-Form <span class="pill ok">CLICK-THROUGH DEMO</span></h3>
+        <p class="small muted" style="margin-bottom:0">Project &rarr; unit &rarr; buyer &rarr; scheme &rarr; consent &rarr; signature &rarr;
+        confirmation, using the same document engine Zentra Realty already has.</p></a>
+      <a class="card link" href="booking-status.html"><h3 style="margin-top:0">Booking pipeline <span class="pill ok">WORKING DEMO</span></h3>
+        <p class="small muted" style="margin-bottom:0">The seven stages from pending to completed, and what the agent,
+        developer, bank and lawyer each see at the same moment.</p></a>
+      <a class="card link" href="calculators.html"><h3 style="margin-top:0">Calculator suite <span class="pill ok">WORKING DEMO</span></h3>
+        <p class="small muted" style="margin-bottom:0">Instalment, eligibility (DSR), stamp duty and RPGT — the tool agents
+        use in front of a buyer, which also feeds the lead record.</p></a>
+      <div class="card"><h3 style="margin-top:0">How to read this preview <span class="pill blue">GUIDE</span></h3>
+        <p class="small muted" style="margin-bottom:0">Use the menu: the top section is the agent side (Realty), the lower
+        section is the developer side (Project). They share the same lead and the same booking.</p>
+        <p class="mini" id="stamp"></p></div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> The two systems, one deal</h2>
+    <div class="two">
+      <div class="card"><h3 style="margin-top:0">Zentra Realty &middot; agent side</h3>
+        <p class="small muted">Owns the lead, the follow-up, the document and the commission.</p>
+        <ul class="small muted" style="margin:0;padding-left:18px">
+          <li>Lead inbox, campaigns, follow-up tasks</li>
+          <li>Booking E-Form generated from the Realty document engine</li>
+          <li>Commission stays in the existing Realty engine</li>
+        </ul></div>
+      <div class="card"><h3 style="margin-top:0">Zentra Project &middot; developer side</h3>
+        <p class="small muted">Owns the project, the unit, the stage and the money collected.</p>
+        <ul class="small muted" style="margin:0;padding-left:18px">
+          <li>Project and unit inventory with stage gating</li>
+          <li>Booking pipeline with bank and lawyer roles</li>
+          <li>Progress billing and the buyer portal</li>
+        </ul></div>
+    </div>
+  </main>
+</div>
+<script src="assets/f1-data.js"></script>
+<script src="assets/f1-project-data.js"></script>
+<script src="assets/nav.js"></script>
+<script>
+(function(){
+  const L = F1.LEADS || [], B = F1.BOOKINGS || [], U = F1.UNITS || [], C = F1.CAMPAIGNS || [];
+  const unassigned = L.filter(x => !x.owner).length;
+  const openLeads = L.filter(x => x.status !== 'won' && x.status !== 'lost').length;
+  const held = U.filter(x => x.status === 'booked' || x.status === 'reserved').length;
+  const money = n => 'RM' + n.toLocaleString('en-MY');
+  const target = B.reduce((s,x) => s + (x.stage >= 3 ? x.price : 0), 0);
+  const k = [
+    {lab:'Open leads', val:openLeads, sub:L.length + ' total · ' + unassigned + ' unassigned', c:''},
+    {lab:'Running campaigns', val:C.filter(x => x.status === 'running').length, sub:C.length + ' campaigns in the list', c:'blue'},
+    {lab:'Bookings in pipeline', val:B.length, sub:B.filter(x=>x.stage<7).length + ' still moving', c:'warn'},
+    {lab:'Units held', val:held, sub:'stock blocked by a booking', c:'blue'}
+  ];
+  document.getElementById('kpis').innerHTML = k.map(x =>
+    '<div class="kpi ' + x.c + '"><div class="lab">' + x.lab + '</div><div class="val">' + x.val +
+    '</div><div class="sub">' + x.sub + '</div></div>').join('');
+  const stamp = document.getElementById('stamp');
+  if(stamp) stamp.textContent = 'Fixture ' + F1.META.musim + ' · status ' + F1.META.jenis +
+    ' · value already staged in the pipeline: ' + money(target) + '.';
+})();
+</script>
+</body>
+</html>
