@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Calculator suite — Zentra (Fasa 1 preview)</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css">
+<style>
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.calc .f{display:flex;flex-direction:column;gap:5px}
+.calc label{font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-3)}
+.calc input,.calc select{padding:9px 12px;border-radius:8px;background:var(--card);color:var(--ink);
+  border:1px solid var(--line);font:inherit;font-size:13.5px}
+.calc input:focus,.calc select:focus{outline:none;border-color:var(--gold)}
+@media(max-width:700px){.calc{grid-template-columns:1fr}}
+.out{margin-top:12px;border-top:1px solid var(--line);padding-top:10px;font-size:13.5px}
+.out b{font-size:17px}
+.note{font-size:12.5px;color:var(--ink-3);margin-top:10px}
+.rows{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:13px}
+.rows .r{color:var(--ink-3)}
+.rows .v{font-variant-numeric:tabular-nums;font-weight:700;text-align:right}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Calculator suite</h1>
+        <p>The tools an agent uses in front of a buyer — instalment, eligibility, stamp duty and RPGT. ESP GO ships a
+        dozen of these; they matter because they are what the agent does while the buyer is still deciding. Each
+        result can be attached to the lead record, so the record shows what the buyer was told.</p>
+      </div>
+      <span class="badge-demo">PREVIEW &middot; INDICATIVE FIGURES</span>
+    </div>
+
+    <div class="grid g2">
+      <div class="card"><h3 style="margin-top:0">Monthly instalment</h3>
+        <div class="calc">
+          <div class="f"><label>Property price (RM)</label><input id="ip" type="number" value="638000"></div>
+          <div class="f"><label>Down payment (%)</label><input id="idp" type="number" value="10" step="1"></div>
+          <div class="f"><label>Interest rate (% p.a.)</label><input id="ir" type="number" value="4.2" step="0.05"></div>
+          <div class="f"><label>Tenure (years)</label><input id="iy" type="number" value="35"></div>
+        </div>
+        <div class="out" id="o1"></div>
+      </div>
+
+      <div class="card"><h3 style="margin-top:0">Eligibility (DSR)</h3>
+        <div class="calc">
+          <div class="f"><label>Net monthly income (RM)</label><input id="ii" type="number" value="7200"></div>
+          <div class="f"><label>Existing commitments (RM)</label><input id="ic" type="number" value="950"></div>
+          <div class="f"><label>Max DSR the bank allows (%)</label><input id="id" type="number" value="60"></div>
+          <div class="f"><label>Instalment from above (RM)</label><input id="im" type="text" readonly></div>
+        </div>
+        <div class="out" id="o2"></div>
+      </div>
+
+      <div class="card"><h3 style="margin-top:0">Stamp duty (MOT) and loan agreement</h3>
+        <div class="calc">
+          <div class="f"><label>Price or value (RM)</label><input id="sm" type="number" value="638000"></div>
+          <div class="f"><label>Loan amount (RM)</label><input id="sl" type="number" value="574200"></div>
+        </div>
+        <div class="out" id="o3"></div>
+        <p class="note">MOT bands used: 1% on the first RM100,000 &middot; 2% on the next RM400,000 &middot;
+        3% on the next RM500,000 &middot; 4% above RM1,000,000. Loan agreement: 0.5% of the loan.
+        First-time buyer exemptions are not applied here.</p>
+      </div>
+
+      <div class="card"><h3 style="margin-top:0">RPGT on a later sale</h3>
+        <div class="calc">
+          <div class="f"><label>Purchase price (RM)</label><input id="rb1" type="number" value="638000"></div>
+          <div class="f"><label>Expected sale price (RM)</label><input id="rb2" type="number" value="720000"></div>
+          <div class="f"><label>Years held</label><input id="rb3" type="number" value="4" step="1"></div>
+        </div>
+        <div class="out" id="o4"></div>
+        <p class="note">Individual citizen rates: 30% in the first three years, 20% in year four, 15% in year five,
+        nil from year six. Companies pay a flat 10%. Costs of sale (agent fee, legal fees) are excluded here.</p>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> Why a calculator belongs in the CRM</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0">It closes in the room</h3><p class="small muted" style="margin-bottom:0">A buyer who hears the monthly figure before they leave does not go home to work it out — and rarely comes back to the same agent.</p></div>
+      <div class="card"><h3 style="margin-top:0">It writes to the lead</h3><p class="small muted" style="margin-bottom:0">The result is stored against the lead, so the next person who speaks to the buyer sees the same numbers.</p></div>
+      <div class="card"><h3 style="margin-top:0">It must stay indicative</h3><p class="small muted" style="margin-bottom:0">Never present these as a bank offer. The wording on this page is the wording we would ship.</p></div>
+    </div>
+  </main>
+</div>
+<script src="assets/f1-data.js"></script>
+<script src="assets/nav.js"></script>
+<script>
+(function(){
+  const $ = id => document.getElementById(id), N = id => Number($(id).value || 0);
+  const money = n => 'RM' + Math.round(n).toLocaleString('en-MY');
+  const num = (id, f) => { $(id).addEventListener('input', f); };
+
+  function instalment(){
+    const p = N('ip'), dp = N('idp'), r = N('ir')/100/12, y = N('iy')*12;
+    const loan = p * (1 - dp/100);
+    const m = r > 0 ? loan * r / (1 - Math.pow(1 + r, -y)) : loan / y;
+    const total = m * y;
+    $('o1').innerHTML = 'Monthly instalment: <b>' + money(m) + '</b><div class="rows">' +
+      '<span class="r">Loan amount</span><span class="v">' + money(loan) + '</span>' +
+      '<span class="r">Down payment</span><span class="v">' + money(p - loan) + '</span>' +
+      '<span class="r">Total repaid over the tenure</span><span class="v">' + money(total) + '</span>' +
+      '<span class="r">Total interest</span><span class="v">' + money(total - loan) + '</span></div>';
+    $('im').value = money(m);
+    dsr(m);
+  }
+  function dsr(m){
+    const inc = N('ii'), com = N('ic'), max = inc * N('id')/100;
+    const inst = m || (parseFloat(($('im').value || '0').replace(/[^0-9.]/g,'')) || 0);
+    const use = com + inst, head = max - use;
+    $('o2').innerHTML = (head >= 0
+      ? 'Within the limit: <b>' + money(head) + '</b> of headroom<div class="rows">'
+      : 'Over the limit by <b>' + money(-head) + '</b><div class="rows">') +
+      '<span class="r">Instalment used in the test</span><span class="v">' + money(inst) + '</span>' +
+      '<span class="r">Commitments</span><span class="v">' + money(com) + '</span>' +
+      '<span class="r">Total debt service</span><span class="v">' + money(use) + '</span>' +
+      '<span class="r">Allowed at ' + N('id') + '% DSR</span><span class="v">' + money(max) + '</span></div>';
+  }
+  function stamping(){
+    const v = N('sm'), l = N('sl');
+    const m1 = Math.min(v, 100000) * 0.01;
+    const m2 = Math.min(Math.max(v - 100000, 0), 400000) * 0.02;
+    const m3 = Math.min(Math.max(v - 500000, 0), 500000) * 0.03;
+    const m4 = Math.max(v - 1000000, 0) * 0.04;
+    const mot = m1 + m2 + m3 + m4, loan = l * 0.005;
+    $('o3').innerHTML = 'Total to budget: <b>' + money(mot + loan) + '</b><div class="rows">' +
+      '<span class="r">MOT on the transfer</span><span class="v">' + money(mot) + '</span>' +
+      '<span class="r">Loan agreement stamping</span><span class="v">' + money(loan) + '</span>' +
+      '<span class="r">First RM100,000 band</span><span class="v">' + money(m1) + '</span>' +
+      '<span class="r">Next RM400,000 band</span><span class="v">' + money(m2) + '</span>' +
+      '<span class="r">Next RM500,000 band</span><span class="v">' + money(m3) + '</span>' +
+      '<span class="r">Above RM1,000,000 band</span><span class="v">' + money(m4) + '</span></div>';
+  }
+  function rpgt(){
+    const buy = N('rb1'), sell = N('rb2'), y = N('rb3');
+    const gain = Math.max(sell - buy, 0);
+    const rate = y <= 3 ? 0.30 : (y === 4 ? 0.20 : (y === 5 ? 0.15 : 0));
+    $('o4').innerHTML = 'Tax payable: <b>' + money(gain * rate) + '</b><div class="rows">' +
+      '<span class="r">Chargeable gain</span><span class="v">' + money(gain) + '</span>' +
+      '<span class="r">Rate applied</span><span class="v">' + Math.round(rate*100) + '%</span>' +
+      '<span class="r">Years held</span><span class="v">' + y + '</span></div>';
+  }
+  ['ip','idp','ir','iy'].forEach(id => num(id, instalment));
+  ['ii','ic','id'].forEach(id => num(id, () => dsr(0)));
+  ['sm','sl'].forEach(id => num(id, stamping));
+  ['rb1','rb2','rb3'].forEach(id => num(id, rpgt));
+  instalment(); stamping(); rpgt();
+})();
+</script>
+</body>
+</html>
