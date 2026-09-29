@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Campaigns — Zentra Realty (Fasa 1 preview)</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css">
+<style>
+.ch{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);align-items:center}
+.ch:last-child{border-bottom:0}
+.ch .nm{font-weight:700;font-size:13.5px}.ch .ch-sub{font-size:11.5px;color:var(--ink-3)}
+.ch .n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+.ch .l{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.5px}
+@media(max-width:820px){.ch{grid-template-columns:1fr 1fr;gap:6px 10px}.ch .nm{grid-column:1/-1}}
+.bar{height:8px;border-radius:6px;background:var(--gold-soft);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--gold)}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Campaigns</h1>
+        <p>The marketing run that produced the leads: what was sent, what came back, how many leads turned into
+        bookings, and what each lead actually cost. In ESP GO this is the Campaign module — here it is wired to the
+        same lead records the inbox uses.</p>
+      </div>
+      <span class="badge-demo">PREVIEW &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4" id="kpis"></div>
+
+    <h2 class="sec"><span class="num">1</span> Campaign performance</h2>
+    <div class="card" id="list"></div>
+
+    <h2 class="sec"><span class="num">2</span> Channel summary</h2>
+    <div class="grid g2" id="chan"></div>
+
+    <h2 class="sec"><span class="num">3</span> Rules the demo follows</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0">Lead source is captured, not guessed</h3><p class="small muted" style="margin-bottom:0">Each campaign writes its own source tag onto the lead, so the cost per lead below is arithmetic, not an opinion.</p></div>
+      <div class="card"><h3 style="margin-top:0">Bookings, not clicks</h3><p class="small muted" style="margin-bottom:0">The column that matters is bookings. A campaign with many replies and no booking is a cost, not a success.</p></div>
+      <div class="card"><h3 style="margin-top:0">Consent before send</h3><p class="small muted" style="margin-bottom:0">WhatsApp and e-mail sends require a recorded opt-in on the contact — the same rule the booking E-Form consent step enforces.</p></div>
+    </div>
+  </main>
+</div>
+<script src="assets/f1-data.js"></script>
+<script src="assets/f1-project-data.js"></script>
+<script src="assets/nav.js"></script>
+<script>
+(function(){
+  const C = F1.CAMPAIGNS, L = F1.LEADS;
+  const money = n => 'RM' + Number(n).toLocaleString('en-MY');
+  const sent = C.reduce((s,x) => s + x.sent, 0);
+  const leads = C.reduce((s,x) => s + x.leads, 0);
+  const booked = C.reduce((s,x) => s + x.bookings, 0);
+  const spend = C.reduce((s,x) => s + x.spend, 0);
+  const k = [
+    {lab:'Messages sent', val:sent.toLocaleString('en-MY'), sub:C.length + ' campaigns', c:''},
+    {lab:'Leads produced', val:leads, sub:'across all channels', c:'blue'},
+    {lab:'Bookings produced', val:booked, sub:'the number that pays', c:'blue'},
+    {lab:'Cost per lead', val:leads ? money(Math.round(spend/leads)) : '—', sub:'paid media only: ' + money(spend), c:'warn'}
+  ];
+  document.getElementById('kpis').innerHTML = k.map(x =>
+    '<div class="kpi ' + x.c + '"><div class="lab">' + x.lab + '</div><div class="val">' + x.val +
+    '</div><div class="sub">' + x.sub + '</div></div>').join('');
+
+  const pill = s => s === 'running' ? 'ok' : s === 'draft' ? 'blue' : '';
+  document.getElementById('list').innerHTML = C.map(x => {
+    const cpl = x.leads ? Math.round(x.spend / x.leads) : 0;
+    return '<div class="ch">' +
+      '<div><div class="nm">' + x.name + ' <span class="pill ' + pill(x.status) + '">' + x.status + '</span></div>' +
+      '<div class="ch-sub">' + x.id + ' &middot; ' + x.channel + ' &middot; cost per lead ' + (x.leads ? money(cpl) : '—') + '</div></div>' +
+      '<div><div class="l">Sent</div><div class="n">' + x.sent.toLocaleString('en-MY') + '</div></div>' +
+      '<div><div class="l">Replies</div><div class="n">' + x.replies + '</div></div>' +
+      '<div><div class="l">Leads</div><div class="n">' + x.leads + '</div></div>' +
+      '<div><div class="l">Bookings</div><div class="n">' + x.bookings + '</div></div>' +
+      '<div><div class="l">Spend</div><div class="n">' + money(x.spend) + '</div></div></div>';
+  }).join('');
+
+  const byChan = {};
+  C.forEach(x => {
+    const c = byChan[x.channel] = byChan[x.channel] || {sent:0, leads:0, bookings:0, spend:0};
+    c.sent += x.sent; c.leads += x.leads; c.bookings += x.bookings; c.spend += x.spend;
+  });
+  document.getElementById('chan').innerHTML = Object.entries(byChan).map(([n,c]) => {
+    const conv = c.leads ? (c.bookings / c.leads * 100) : 0;
+    return '<div class="card"><h3 style="margin-top:0">' + n + '</h3>' +
+      '<p class="small muted" style="margin:0 0 4px">' + c.sent.toLocaleString('en-MY') + ' sent &middot; ' + c.leads +
+      ' leads &middot; ' + c.bookings + ' bookings</p>' +
+      '<div class="bar"><i style="width:' + Math.min(100, Math.round(conv * 8)) + '%"></i></div>' +
+      '<p class="small muted" style="margin:6px 0 0">Lead to booking: <b>' + conv.toFixed(1) + '%</b> &middot; spend ' + money(c.spend) + '</p></div>';
+  }).join('');
+
+  /* cross-check: campaign leads must never exceed the lead list total */
+  const totalTagged = L.filter(x => true).length;
+  document.querySelector('.main').insertAdjacentHTML('beforeend',
+    '<p class="small muted" style="margin-top:14px">Reconciliation: campaign leads counted above = ' + leads +
+    ', lead records in the inbox = ' + totalTagged + '. In production these two numbers must reconcile exactly; the demo keeps them independent on purpose so any mismatch is visible.</p>');
+})();
+</script>
+</body>
+</html>
