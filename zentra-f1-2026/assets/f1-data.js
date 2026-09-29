@@ -1,0 +1,72 @@
+/* f1-data.js — Fasa 1 fixtures. SINGLE SOURCE OF TRUTH for every page.
+   All records synthetic: every record carries sumber:"SINTETIK".
+   Person data is deliberately impossible: phone 011-0000 #### and @example.com only. */
+window.F1 = window.F1 || {};
+F1.META = {jenis:"SINTETIK", musim:"2026-09", sistem:["Zentra Realty","Zentra Project"]};
+
+F1.AGENTS = [
+  {id:"ZR-AG-0101", name:"Nadia Rahman",     level:"Senior Negotiator", team:"Team Aurora"},
+  {id:"ZR-AG-0102", name:"Kelvin Tan",       level:"Negotiator",        team:"Team Aurora"},
+  {id:"ZR-AG-0103", name:"Harith Zulkifli",  level:"Team Leader",       team:"Team Bayu"},
+  {id:"ZR-AG-0104", name:"Priya Sundaram",   level:"Negotiator",        team:"Team Bayu"},
+  {id:"ZR-AG-0105", name:"Aiman Roslan",     level:"Junior Negotiator", team:"Team Ceria"}
+];
+
+F1.LEADS = [
+  {id:"LR-2609-041", name:"Siti Nurhaliza Binti Osman", phone:"011-0000 4101", email:"lead041@example.com",
+   source:"Facebook", project:"PRJ-01", unit_interest:"Type A (3R2B)", budget:520000, status:"new",
+   owner:null, created:"2026-09-28 09:12", last:null, next:"2026-09-29 10:00", score:72,
+   note:"Asked for unit facing the pool. Wants to view on a weekend.", tags:["first-timer","weekend viewing"], sumber:"SINTETIK"},
+  {id:"LR-2609-040", name:"Tan Wei Ming", phone:"011-0000 4102", email:"lead040@example.com",
+   source:"WhatsApp", project:"PRJ-02", unit_interest:"Terrace 22x75", budget:735000, status:"contacted",
+   owner:"ZR-AG-0101", created:"2026-09-27 14:40", last:"2026-09-28 18:05", next:"2026-09-30 09:30", score:81,
+   note:"Upgrading from a condo. Sent the price list and site plan.", tags:["upgrader","has loan"], sumber:"SINTETIK"},
+  {id:"LR-2609-039", name:"Muhammad Faiz Bin Aziz", phone:"011-0000 4103", email:"lead039@example.com",
+   source:"Referral", project:"PRJ-01", unit_interest:"Type B (4R2B)", budget:610000, status:"viewing",
+   owner:"ZR-AG-0102", created:"2026-09-26 11:02", last:"2026-09-29 09:15", next:"2026-10-03 15:00", score:88,
+   note:"Second viewing with spouse booked. Referred by an existing buyer.", tags:["hot","spouse coming"], sumber:"SINTETIK"},
+  {id:"LR-2609-038", name:"Kavitha Ramasamy", phone:"011-0000 4104", email:"lead038@example.com",
+   source:"TikTok", project:"PRJ-03", unit_interest:"Shop lot G-12", budget:1250000, status:"negotiation",
+   owner:"ZR-AG-0103", created:"2026-09-24 16:20", last:"2026-09-29 08:40", next:"2026-09-30 14:00", score:90,
+   note:"Requested 5% rebate. Developer replied with 3% + free legal fees.", tags:["investor","commercial"], sumber:"SINTETIK"},
+  {id:"LR-2609-037", name:"Lim Chee Keong", phone:"011-0000 4105", email:"lead037@example.com",
+   source:"Portal", project:"PRJ-02", unit_interest:"Terrace 20x70", budget:680000, status:"won",
+   owner:"ZR-AG-0101", created:"2026-09-20 10:05", last:"2026-09-28 17:30", next:null, score:95,
+   note:"Booking form signed. Deposit banked. Handed to the loan team.", tags:["won","e-form signed"], sumber:"SINTETIK"},
+  {id:"LR-2609-036", name:"Nurul Aisyah Binti Hamid", phone:"011-0000 4106", email:"lead036@example.com",
+   source:"Facebook", project:"PRJ-01", unit_interest:"Type A (3R2B)", budget:505000, status:"contacted",
+   owner:"ZR-AG-0104", created:"2026-09-25 20:11", last:"2026-09-27 12:20", next:"2026-09-29 16:00", score:64,
+   note:"Comparing with a project nearby. Needs the monthly instalment figure.", tags:["needs calculator"], sumber:"SINTETIK"},
+  {id:"LR-2609-035", name:"Arvind Krishnan", phone:"011-0000 4107", email:"lead035@example.com",
+   source:"Walk-in", project:"PRJ-03", unit_interest:"Shop lot G-05", budget:980000, status:"lost",
+   owner:"ZR-AG-0105", created:"2026-09-18 15:00", last:"2026-09-26 11:00", next:null, score:35,
+   note:"Chose a competitor project. Keep for the next phase.", tags:["cold","revisit Q1"], sumber:"SINTETIK"},
+  {id:"LR-2609-034", name:"Farah Diyana Binti Yusof", phone:"011-0000 4108", email:"lead034@example.com",
+   source:"WhatsApp", project:"PRJ-02", unit_interest:"Terrace 22x75", budget:750000, status:"viewing",
+   owner:"ZR-AG-0102", created:"2026-09-23 08:55", last:"2026-09-28 19:10", next:"2026-10-01 11:30", score:85,
+   note:"Likes corner lot. Asked about bumi lot status and rebate.", tags:["corner lot"], sumber:"SINTETIK"},
+  {id:"LR-2609-033", name:"Goh Su Ling", phone:"011-0000 4109", email:"lead033@example.com",
+   source:"Referral", project:"PRJ-01", unit_interest:"Type C (2R2B)", budget:430000, status:"new",
+   owner:null, created:"2026-09-28 21:30", last:null, next:"2026-09-29 11:00", score:58,
+   note:"Investment unit for rental. Wants the expected rental yield.", tags:["investor","yield question"], sumber:"SINTETIK"},
+  {id:"LR-2609-032", name:"Suresh Balakrishnan", phone:"011-0000 4110", email:"lead032@example.com",
+   source:"Facebook", project:"PRJ-03", unit_interest:"Shop lot G-20", budget:1420000, status:"contacted",
+   owner:"ZR-AG-0103", created:"2026-09-26 13:45", last:"2026-09-28 09:30", next:"2026-10-02 10:00", score:76,
+   note:"Wants two adjoining lots. Awaiting the revised layout from the developer.", tags:["two lots","commercial"], sumber:"SINTETIK"},
+  {id:"LR-2609-031", name:"Ahmad Zaki Bin Idris", phone:"011-0000 4111", email:"lead031@example.com",
+   source:"TikTok", project:"PRJ-01", unit_interest:"Type B (4R2B)", budget:595000, status:"negotiation",
+   owner:"ZR-AG-0104", created:"2026-09-22 17:05", last:"2026-09-29 07:50", next:"2026-09-30 16:30", score:87,
+   note:"Asking for a higher rebate and a later booking date.", tags:["negotiating"], sumber:"SINTETIK"},
+  {id:"LR-2609-030", name:"Chong Mei Yee", phone:"011-0000 4112", email:"lead030@example.com",
+   source:"Portal", project:"PRJ-02", unit_interest:"Terrace 22x75", budget:720000, status:"contacted",
+   owner:"ZR-AG-0105", created:"2026-09-24 09:20", last:"2026-09-27 15:45", next:"2026-10-01 09:00", score:66,
+   note:"Parents will be the co-borrowers. Needs a joint-loan explanation.", tags:["joint loan"], sumber:"SINTETIK"},
+  {id:"LR-2609-029", name:"Izzat Hakim Bin Zainal", phone:"011-0000 4113", email:"lead029@example.com",
+   source:"Walk-in", project:"PRJ-01", unit_interest:"Type A (3R2B)", budget:512000, status:"viewing",
+   owner:"ZR-AG-0101", created:"2026-09-21 14:10", last:"2026-09-28 13:05", next:"2026-10-04 12:00", score:79,
+   note:"Ready with a 10% down payment. Waiting for the loan pre-check result.", tags:["ready","pre-check"], sumber:"SINTETIK"},
+  {id:"LR-2609-028", name:"Ramlah Binti Salleh", phone:"011-0000 4114", email:"lead028@example.com",
+   source:"Referral", project:"PRJ-02", unit_interest:"Terrace 20x70", budget:672000, status:"new",
+   owner:null, created:"2026-09-29 08:02", last:null, next:"2026-09-29 15:00", score:61,
+   note:"Walked in through a relative who bought phase one.", tags:["phase one referral"], sumber:"SINTETIK"}
+];
