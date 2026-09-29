@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>New booking E-Form — Zentra Project (Fasa 1 preview)</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css">
+<style>
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.step{padding:6px 12px;border-radius:20px;border:1px solid var(--line);font-size:12.5px;color:var(--ink-3);background:var(--card)}
+.step.on{border-color:var(--gold);color:var(--ink);font-weight:700}
+.step.done{border-color:var(--green);color:var(--green)}
+.pane{display:none}.pane.on{display:block}
+.frm{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.frm .f{display:flex;flex-direction:column;gap:5px}
+.frm .f.full{grid-column:1/-1}
+.frm label{font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-3)}
+.frm input,.frm select{padding:9px 12px;border-radius:8px;background:var(--card);color:var(--ink);
+  border:1px solid var(--line);font:inherit;font-size:13.5px}
+.frm input:focus,.frm select:focus{outline:none;border-color:var(--gold)}
+@media(max-width:700px){.frm{grid-template-columns:1fr}}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);
+  border-radius:8px;background:var(--card);margin-bottom:8px;font-size:13px}
+.chk input{margin-top:2px}
+.padwrap{border:1px dashed var(--line);border-radius:10px;background:var(--card);padding:8px}
+canvas#pad{width:100%;height:150px;display:block;touch-action:none;background:transparent;cursor:crosshair}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.nav .sp{margin-left:auto}
+.msg{font-size:12.5px;color:var(--red);min-height:16px}
+.sum{display:grid;grid-template-columns:180px 1fr;gap:6px 10px;font-size:13.5px}
+.sum dt{color:var(--ink-3)}.sum dd{margin:0}
+@media(max-width:600px){.sum{grid-template-columns:1fr}}
+.ok{background:var(--gold-soft);border:1px solid var(--gold);border-radius:var(--radius);padding:14px;margin-bottom:14px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>New booking &mdash; E-Form</h1>
+        <p>One signature-ready booking form per project, generated from the same document engine Zentra Realty
+        already runs (letter &rarr; links &rarr; signature &rarr; stamped record). In ESP GO this is the per-developer
+        booking form; here it is a template driven by data, so a new project needs no new code.</p>
+      </div>
+      <span class="badge-demo">PREVIEW &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="steps" id="steps"></div>
+    <div class="card">
+      <div class="pane on" id="p1">
+        <h3 style="margin-top:0">1 &middot; Project and unit</h3>
+        <div class="frm"><div class="f"><label>Project</label><select id="proj"></select></div>
+        <div class="f"><label>Agent</label><select id="ag"></select></div></div>
+        <div class="tools"><button class="btn ghost" data-avail="1">Show available only</button><span class="small muted" id="ucount"></span></div>
+        <table class="tbl" id="utbl"><thead><tr><th>Unit</th><th>Type</th><th>Built-up</th><th>Price</th><th>Status</th><th></th></tr></thead><tbody></tbody></table>
+      </div>
+
+      <div class="pane" id="p2">
+        <h3 style="margin-top:0">2 &middot; Buyer</h3>
+        <p class="small muted" style="margin-top:0">Prefilled from the lead when you arrive through <em>Convert</em>.</p>
+        <div class="frm">
+          <div class="f"><label>Full name (as per IC)</label><input id="bn" placeholder="Buyer name"></div>
+          <div class="f"><label>Phone</label><input id="bp" placeholder="011-0000 ####"></div>
+          <div class="f"><label>E-mail</label><input id="be" placeholder="buyer@example.com"></div>
+          <div class="f"><label>IC / passport</label><input id="bi" placeholder="000000-00-####"></div>
+        </div>
+      </div>
+
+      <div class="pane" id="p3">
+        <h3 style="margin-top:0">3 &middot; Scheme</h3>
+        <div class="frm">
+          <div class="f"><label>Selling price (RM)</label><input id="pr" type="number"></div>
+          <div class="f"><label>Rebate</label><select id="rb"><option value="0">0%</option><option value="1.5">1.5%</option><option value="2">2%</option><option value="3" selected>3%</option></select></div>
+          <div class="f"><label>Booking fee (RM)</label><select id="bf"><option>1000</option><option>2000</option><option>5000</option></select></div>
+          <div class="f"><label>Bank</label><select id="bk"><option>Maybank</option><option>CIMB</option><option>RHB</option><option>Public Bank</option><option>Not decided yet</option></select></div>
+        </div>
+        <p class="small muted" id="calc"></p>
+      </div>
+
+      <div class="pane" id="p4">
+        <h3 style="margin-top:0">4 &middot; Consent</h3>
+        <label class="chk"><input type="checkbox" id="c1"><span><b>PDPA notice</b> &mdash; the buyer has been told how their personal data is used and kept (7 years), and who it is shared with (developer, bank, lawyer).</span></label>
+        <label class="chk"><input type="checkbox" id="c2"><span><b>Developer marketing consent</b> &mdash; the buyer agrees to be contacted about this project and its later phases.</span></label>
+        <label class="chk"><input type="checkbox" id="c3"><span><b>Accuracy declaration</b> &mdash; the details entered match the buyer&rsquo;s identity document, and the booking fee is paid to the account named by the developer (never to an agent personally).</span></label>
+      </div>
+
+      <div class="pane" id="p5">
+        <h3 style="margin-top:0">5 &middot; Signature</h3>
+        <p class="small muted" style="margin-top:0">In production this is signed on the buyer&rsquo;s own phone through a
+        one-time link (the same F2 flow Zentra Realty already runs), with a stamping clock that starts by itself.
+        Here you can sign with the mouse or a finger.</p>
+        <div class="padwrap"><canvas id="pad"></canvas></div>
+        <div class="tools"><button class="btn ghost" id="clear">Clear signature</button><span class="small muted" id="sigstate">Not signed yet</span></div>
+      </div>
+
+      <div class="pane" id="p6">
+        <h3 style="margin-top:0">6 &middot; Review and submit</h3>
+        <dl class="sum" id="sum"></dl>
+        <div class="nav"><button class="btn" id="submit">Submit booking</button><span class="small muted">Creates the record at stage 1 (Pending) and starts the seven-stage clock.</span></div>
+      </div>
+
+      <div class="pane" id="p7">
+        <div class="ok"><b>Booking created &mdash; stage 1 of 7</b><div class="small" id="okid"></div></div>
+        <dl class="sum" id="sum2"></dl>
+        <div class="nav">
+          <a class="btn" id="toPipe" href="booking-status.html">Open the booking pipeline</a>
+          <a class="btn ghost" href="lead-inbox.html">Back to the lead inbox</a>
+          <button class="btn ghost" id="again">Start another booking</button>
+        </div>
+        <p class="small muted">What would happen next in production: the developer confirms the hold, the buyer gets the
+        e-brochure and the payment schedule, and the bank file opens at stage 3. Nothing is e-mailed from this preview.</p>
+      </div>
+
+      <div class="nav"><button class="btn ghost" id="back">&larr; Back</button><button class="btn" id="next">Next &rarr;</button>
+        <span class="msg sp" id="msg"></span></div>
+    </div>
+  </main>
+</div>
+<script src="assets/f1-data.js"></script>
+<script src="assets/f1-project-data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/booking.js"></script>
+</body>
+</html>
