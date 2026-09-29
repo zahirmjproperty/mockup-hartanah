@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Lead detail — Zentra Realty (Fasa 1 preview)</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css">
+<style>
+.hd{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.av{width:46px;height:46px;border-radius:50%;background:var(--gold-soft);border:1px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--ink)}
+.tl{margin:0;padding:0 0 0 26px;list-style:none;position:relative}
+.tl:before{content:'';position:absolute;left:9px;top:6px;bottom:6px;width:1px;background:var(--line)}
+.tl li{position:relative;padding:0 0 14px}
+.tl li:before{content:'';position:absolute;left:-21px;top:5px;width:9px;height:9px;border-radius:50%;
+  background:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.tl .t{font-size:11.5px;color:var(--ink-3);letter-spacing:.3px}
+.tl .w{font-size:13.5px;color:var(--ink)}
+.rowbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:6px 10px;font-size:13.5px}
+.kv dt{color:var(--ink-3)}
+.kv dd{margin:0;color:var(--ink)}
+@media(max-width:600px){.kv{grid-template-columns:1fr}.kv dt{margin-top:6px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+  <main class="main">
+    <div class="top">
+      <div class="hd">
+        <div class="av" id="av">–</div>
+        <div><h1 id="nm">Lead record</h1><p class="lsub" id="sub"></p></div>
+      </div>
+      <span class="badge-demo">PREVIEW &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4" id="kpis"></div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="margin-top:0">Requirement</h3>
+        <dl class="kv" id="req"></dl>
+        <div class="rowbtns">
+          <button class="btn" id="assign">Assign to me</button>
+          <button class="btn ghost" id="log">Log a call</button>
+          <a class="btn ghost" id="conv" href="#">Convert to booking</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">History</h3>
+        <ul class="tl" id="tl"></ul>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">2</span> What happens next in the flow</h2>
+    <div class="grid g3">
+      <div class="card"><h3 style="margin-top:0">1 &middot; Qualify</h3><p class="small muted" style="margin-bottom:0">Budget, unit type and financing are captured here so the calculator can run before the buy&rsquo;s expectation is set.</p></div>
+      <div class="card"><h3 style="margin-top:0">2 &middot; Book</h3><p class="small muted" style="margin-bottom:0">Convert opens the booking E-Form with the buyer, agent and unit already filled — the developer confirms the hold.</p></div>
+      <div class="card"><h3 style="margin-top:0">3 &middot; Track</h3><p class="small muted" style="margin-bottom:0">From then on the record lives in the booking pipeline, and the commission is released at stage 7.</p></div>
+    </div>
+  </main>
+</div>
+<script src="assets/f1-data.js"></script>
+<script src="assets/f1-project-data.js"></script>
+<script src="assets/nav.js"></script>
+<script>
+(function(){
+  const L = F1.LEADS, A = F1.AGENTS, P = F1.PROJECTS;
+  const id = new URLSearchParams(location.search).get('id') || L[0].id;
+  const x = L.find(l => l.id === id) || L[0];
+  const pj = P.find(p => p.id === x.project) || {};
+  const money = n => 'RM' + n.toLocaleString('en-MY');
+  let owner = x.owner, events = [];
+
+  events.push({t:x.created, w:'Lead created from ' + x.source + ' — ' + pj.name + ', ' + x.unit_interest});
+  if(x.last) events.push({t:x.last, w:'Last contact logged by ' + (A.find(a => a.id === x.owner) || {}).name});
+  events.push({t:x.next || '—', w:'Next action: ' + (x.status === 'won' ? 'file handed to the loan team' : 'follow up on ' + x.note.toLowerCase())});
+  events.push({t:x.created, w:'Note: ' + x.note});
+
+  document.getElementById('av').textContent = x.name.split(' ').map(w => w[0]).slice(0,2).join('');
+  document.getElementById('nm').textContent = x.name;
+  document.getElementById('sub').innerHTML = x.id + ' &middot; ' + x.phone + ' &middot; ' + x.email +
+    ' <span class="pill ' + (x.status === 'won' ? 'ok' : x.status === 'lost' ? 'bad' : 'blue') + '">' + x.status + '</span>';
+
+  document.getElementById('req').innerHTML =
+    [['Project', pj.name + ' (' + pj.location + ')'],
+     ['Unit interest', x.unit_interest],
+     ['Budget', money(x.budget)],
+     ['Source', x.source],
+     ['Score', x.score + ' / 100'],
+     ['Owner', owner ? (A.find(a => a.id === owner) || {}).name : 'Unassigned'],
+     ['Next follow-up', x.next || '—'],
+     ['Tags', x.tags.join(', ')]].map(r => '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>').join('');
+
+  document.getElementById('conv').href = 'booking-new.html?lead=' + x.id;
+  const paint = () => {
+    document.getElementById('tl').innerHTML = events.map(e =>
+      '<li><div class="t">' + e.t + '</div><div class="w">' + e.w + '</div></li>').join('');
+    document.getElementById('kpis').innerHTML = [
+      {lab:'Budget', val:money(x.budget), sub:'stated by the buyer', c:''},
+      {lab:'Score', val:x.score, sub:'fit against the project', c:'blue'},
+      {lab:'Days since contact', val:x.last ? 1 : '—', sub:x.last || 'not contacted yet', c:''},
+      {lab:'Stage', val:x.status, sub:'lead side only', c:'warn'}
+    ].map(k => '<div class="kpi ' + k.c + '"><div class="lab">' + k.lab + '</div><div class="val">' + k.val +
+      '</div><div class="sub">' + k.sub + '</div></div>').join('');
+  };
+  paint();
+  document.getElementById('assign').onclick = () => {
+    owner = 'ZR-AG-0101';
+    x.owner = owner;
+    events.unshift({t:'just now', w:'Assigned to Nadia Rahman (ZR-AG-0101) — in production this writes an audit entry'});
+    paint();
+  };
+  document.getElementById('log').onclick = () => {
+    events.unshift({t:'just now', w:'Call logged (demo only) — a real call note would carry a recording link and a next-action date'});
+    paint();
+  };
+})();
+</script>
+</body>
+</html>
