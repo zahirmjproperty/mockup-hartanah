@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Incentives &amp; recognition | Zentra Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/agency.css?v=d206f7d3">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<style>
+.ic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.ic{border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--card);cursor:pointer;
+  transition:transform .12s ease,border-color .12s ease}
+.ic:hover{transform:translateY(-2px);border-color:var(--gold)}
+.ic.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.ic .k{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.ic h4{margin:6px 0 8px;font-size:13.5px;line-height:1.35}
+.ic .bar{height:8px;border-radius:6px;background:var(--gold-soft);overflow:hidden}
+.ic .bar i{display:block;height:100%;background:var(--gold)}
+.ic .mt{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--ink-3);margin-top:7px}
+.ic .mt b{color:var(--ink);font-variant-numeric:tabular-nums}
+.cond{display:grid;gap:8px}
+.cond div{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--ink-2)}
+.cond i{flex:none;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;
+  font-size:11px;font-weight:800;font-style:normal;background:var(--gold-soft);color:var(--gold)}
+.tbl td .miss{font-size:11px;color:var(--amber)}
+.st{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.st.s0{background:rgba(148,163,184,.15);color:var(--ink-3)}
+.st.s1{background:var(--green-soft);color:var(--green)}
+.st.s2{background:var(--amber-soft);color:var(--amber)}
+.rec{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.rec .rc{border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--card)}
+.rec .rc .sd{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.rec .rc h4{margin:6px 0 4px;font-size:14px}
+.rec .rc p{margin:0;font-size:12px;color:var(--ink-3)}
+.rec .rc .r{margin-top:9px;font-size:12.5px;color:var(--gold);font-weight:700}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="znav"></aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <h1>Incentives &amp; recognition</h1>
+        <p>Every agency campaign with its money target and progress, the eligibility gate that has to pass before anything is paid, and who has actually qualified. A participant who hits the target but fails a condition is shown as <b>Held</b>, never as qualified.</p>
+      </div>
+      <span class="badge-demo">PROTOTYPE &middot; SAMPLE DATA</span>
+    </div>
+
+    <div class="grid g4" id="kpis"></div>
+
+    <h2 class="sec"><span class="num">1</span> Campaigns</h2>
+    <div class="ic-grid" id="camp"></div>
+
+    <h2 class="sec"><span class="num">2</span> Progress board <span class="small" id="campName" style="color:var(--ink-3);font-weight:400"></span></h2>
+    <div class="card">
+      <table class="tbl">
+        <thead><tr>
+          <th>#</th><th>Seat</th><th class="num">Progress</th><th class="num">Achieved</th>
+          <th>Target</th><th>Reward</th><th>Status</th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <h2 class="sec"><span class="num">3</span> Eligibility gate</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3 style="margin-top:0;font-size:14px">Conditions checked for every campaign</h3>
+        <div class="cond" id="syarat"></div>
+        <p class="small" style="color:var(--ink-3);margin:12px 0 0">All four are hard conditions. Failing any one of them does not cancel the sales value — it only holds the reward until the gap is closed.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;font-size:14px">Seats failing at least one condition</h3>
+        <div id="gagal"></div>
+      </div>
+    </div>
+
+    <h2 class="sec"><span class="num">4</span> Recognition</h2>
+    <div class="rec" id="peng"></div>
+
+    <p class="small" style="color:var(--ink-3);margin-top:18px">Prototype only. Targets, seats and figures are sample data and are not tied to any real agent or transaction.</p>
+  </main>
+</div>
+
+<script src="assets/incentive-data.js?v=2"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var aktif = INS.CAMPAIGNS[0].id;
+
+  function drawKpis() {
+    var s = INS.summary();
+    var K = [
+      ['Live campaigns', s.campaigns],
+      ['Seats participating', s.seats],
+      ['Agency target', INS.millions(s.target)],
+      ['Agency achieved', INS.millions(s.achieved) + ' (' + s.pct + '%)'],
+      ['Qualified payouts', s.qualified],
+      ['Held by compliance', s.held]
+    ];
+    $('kpis').innerHTML = K.map(function (k) {
+      return '<div class="kpi"><div class="lab">' + k[0] + '</div><div class="val">' + k[1] + '</div></div>';
+    }).join('');
+  }
+
+  function drawCampaigns() {
+    $('camp').innerHTML = INS.CAMPAIGNS.map(function (c) {
+      var p = INS.participants(c.id);
+      var got = p.reduce(function (a, x) { return a + x.value; }, 0);
+      var pct = Math.min(100, Math.round((got / c.target) * 1000) / 10);
+      return '<div class="ic' + (c.id === aktif ? ' on' : '') + '" data-c="' + c.id + '">'
+        + '<div class="k">' + c.kind + ' &middot; ' + c.audience + '</div>'
+        + '<h4>' + c.name + '</h4>'
+        + '<div class="bar"><i style="width:' + pct + '%"></i></div>'
+        + '<div class="mt"><span>Target <b>' + INS.millions(c.target) + '</b></span>'
+        + '<span>Achieved <b>' + INS.millions(got) + '</b></span></div>'
+        + '<div class="mt"><span>' + c.metric + '</span><span><b>' + pct + '%</b></span></div>'
+        + '</div>';
+    }).join('');
+    $('camp').querySelectorAll('.ic').forEach(function (e) {
+      e.onclick = function () { aktif = e.getAttribute('data-c'); drawCampaigns(); drawBoard(); };
+    });
+  }
+
+  function drawBoard() {
+    var c = INS.campaign(aktif);
+    $('campName').textContent = '\u2014 ' + c.name;
+    var b = INS.board(aktif);
+    var LABEL = { 0: 'In progress', 1: 'Qualified', 2: 'Held \u2014 compliance' };
+    $('rows').innerHTML = b.map(function (r, i) {
+      var val = c.metric.indexOf('units') > -1 || r.units ? (r.units + ' units') : INS.money(r.value);
+      var miss = r.missing.length
+        ? '<div class="miss">Missing: ' + r.missing.join(', ') + '</div>' : '';
+      return '<tr>'
+        + '<td class="num">' + (i + 1) + '</td>'
+        + '<td><b>' + r.name + '</b>' + miss + '</td>'
+        + '<td class="num">' + r.pct.toFixed(1) + '%</td>'
+        + '<td class="num">' + val + '</td>'
+        + '<td>' + INS.millions(c.target) + '</td>'
+        + '<td>' + r.reward + '</td>'
+        + '<td><span class="st s' + r.state + '">' + LABEL[r.state] + '</span></td>'
+        + '</tr>';
+    }).join('');
+  }
+
+  function drawConditions() {
+    $('syarat').innerHTML = INS.CONDITIONS.map(function (c) {
+      return '<div><i>' + c.id + '</i><span>' + c.text + '</span></div>';
+    }).join('');
+    var bad = INS.COMPLIANCE.filter(function (x) { return INS.missing(x.seat).length; });
+    $('gagal').innerHTML = bad.length
+      ? bad.map(function (x) {
+          return '<div class="sp-row" style="display:flex;justify-content:space-between;gap:10px;'
+            + 'font-size:12.5px;padding:7px 0;border-bottom:1px solid var(--line-2)">'
+            + '<span>' + INS.seatName(x.seat) + '</span>'
+            + '<b style="color:var(--amber)">' + INS.missing(x.seat).join(', ') + '</b></div>';
+        }).join('')
+      : '<p class="small" style="color:var(--ink-3);margin:0">Every seat passes all four conditions.</p>';
+  }
+
+  function drawRecognition() {
+    var out = [];
+    INS.CAMPAIGNS.forEach(function (c) {
+      INS.board(c.id).forEach(function (r) {
+        if (r.state === 1) {
+          out.push({ name: r.name, camp: c.name, reward: r.reward, value: r.value, kind: c.kind });
+        }
+      });
+    });
+    var seen = {}, uniq = [];
+    out.forEach(function (o) {
+      var k = o.name + '|' + o.camp;
+      if (!seen[k]) { seen[k] = 1; uniq.push(o); }
+    });
+    $('peng').innerHTML = uniq.length ? uniq.map(function (o) {
+      return '<div class="rc"><div class="sd">' + o.kind + '</div><h4>' + o.name + '</h4>'
+        + '<p>' + o.camp + '</p><div class="r">' + o.reward + '</div></div>';
+    }).join('') : '<div class="card"><p class="small" style="margin:0;color:var(--ink-3)">No seat has qualified for a campaign yet.</p></div>';
+  }
+
+  drawKpis(); drawCampaigns(); drawBoard(); drawConditions(); drawRecognition();
+})();
+</script>
+</body>
+</html>

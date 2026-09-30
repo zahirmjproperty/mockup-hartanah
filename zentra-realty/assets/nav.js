@@ -41,6 +41,7 @@
     {h:'hierarchy.html', t:'Levels & hierarchy', i:'list'},
     {sec:'Money'},
     {h:'f3.html', t:'F3 reward engine', i:'sum', d:1},
+    {h:'incentives.html', t:'Incentives & recognition', i:'check'},
     {h:'commission.html', t:'Commission engine', i:'sum'},
     {h:'claims.html', t:'Claims & vouchers', i:'check'},
     {h:'payouts.html', t:'Payout runs', i:'swap'},
