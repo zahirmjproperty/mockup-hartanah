@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ZENTRA Contact — Reminders</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<link rel="stylesheet" href="assets/contact.css">
+<script src="assets/theme-boot.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar"><div id="znav"></div></aside>
+  <main id="content">
+    <div class="phead">
+      <div>
+        <h1>Reminders &amp; tasks</h1>
+        <p>Follow-ups that are due or overdue, oldest first.</p>
+      </div>
+      <button class="btn">+ Add task</button>
+    </div>
+
+    <div class="demo-banner">
+      <span>⚠️</span>
+      <div><b>Prototype — sample data only.</b> "Mark done" shows a demo message; nothing is saved.</div>
+    </div>
+
+    <div id="reminders"></div>
+
+    <div class="card">
+      <h2>Why this matters</h2>
+      <p style="font-size:12.5px;color:#c9d6e4;line-height:1.6;margin:0">
+        The current setup already sends an idle-card alert to Telegram once a day. ZENTRA Contact makes the
+        reminder a first-class record: it belongs to a contact, has an owner and a due date, and appears on
+        that contact's timeline when it is closed. That is what turns "we alerted you" into "it was done".</p>
+    </div>
+  </main>
+</div>
+<script src="assets/contact-data.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

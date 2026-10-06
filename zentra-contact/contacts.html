@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ZENTRA Contact — All contacts</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<link rel="stylesheet" href="assets/contact.css">
+<script src="assets/theme-boot.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar"><div id="znav"></div></aside>
+  <main id="content">
+    <div class="phead">
+      <div>
+        <h1>All contacts</h1>
+        <p>Search, filter and open any record.</p>
+      </div>
+      <a class="btn primary" href="new-contact.html">+ New contact</a>
+    </div>
+
+    <div class="demo-banner">
+      <span>⚠️</span>
+      <div><b>Prototype — sample data only.</b> Synthetic records marked <code>"SINTETIK"</code>.</div>
+    </div>
+
+    <div class="filter-bar">
+      <input class="f" id="q" type="search" placeholder="Search name, phone, email, area…" style="min-width:230px">
+      <select class="f" id="fRole"><option value="All">All roles</option></select>
+      <select class="f" id="fStatus"><option value="All">All statuses</option></select>
+      <select class="f" id="fTag"><option value="All">All tags</option></select>
+      <select class="f" id="fConsent">
+        <option value="All">Consent: all</option>
+        <option value="No consent only">No consent only</option>
+        <option value="Consented only">Consented only</option>
+      </select>
+      <span id="count" style="font-size:11.5px;color:#9fb0c4;margin-left:auto"></span>
+    </div>
+
+    <div class="card" style="padding:0">
+      <div class="card-table">
+        <table class="tbl responsive">
+          <thead><tr>
+            <th>Name</th><th>Roles</th><th>Phone</th><th>Email</th><th>Area</th>
+            <th>Status</th><th>Tags</th><th>Follow-up</th><th>Consent</th><th>Action</th>
+          </tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="empty" style="display:none">No contacts match these filters.</div>
+    </div>
+
+    <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:14px">
+      <button class="btn">Export CSV</button>
+      <a class="btn ghost" href="import-export.html">Import contacts</a>
+      <a class="btn ghost" href="duplicates.html">Review duplicates</a>
+    </div>
+  </main>
+</div>
+<script src="assets/contact-data.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

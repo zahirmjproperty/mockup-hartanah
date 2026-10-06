@@ -1,0 +1,2 @@
+/* ZENTRA Reach — theme boot */
+(function(){var t=window.location.search.indexOf('theme=light')>-1?'light':localStorage.getItem('zr-theme')||'dark';if(t==='light')document.documentElement.classList.add('theme-light');})();

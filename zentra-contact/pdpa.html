@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ZENTRA Contact — PDPA &amp; consent</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<link rel="stylesheet" href="assets/contact.css">
+<script src="assets/theme-boot.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar"><div id="znav"></div></aside>
+  <main id="content">
+    <div class="phead">
+      <div>
+        <h1>PDPA &amp; consent</h1>
+        <p>Consent status, lawful basis and the duties that come with holding personal data.</p>
+      </div>
+      <button class="btn">Export consent register</button>
+    </div>
+
+    <div class="demo-banner">
+      <span>⚠️</span>
+      <div><b>Prototype — sample data only.</b> Records shown are synthetic. This page is a technical
+      design, not legal advice.</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v" data-pdpa="total">–</div><div class="l">Total records</div></div>
+      <div class="stat"><div class="v" data-pdpa="noConsent">–</div><div class="l">Missing consent</div></div>
+      <div class="stat"><div class="v" data-pdpa="active">–</div><div class="l">Active engagements</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Records without recorded consent</h2>
+      <p style="font-size:12px;color:#9fb0c4;margin:0 0 12px">These records must not be used for marketing
+      until consent is recorded. They remain visible for the purpose they were collected for (an enquiry
+      the person initiated).</p>
+      <div class="card-table">
+        <table class="tbl responsive">
+          <thead><tr><th>Name</th><th>Source</th><th>Created</th><th>Action</th></tr></thead>
+          <tbody id="noConsentList"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>What the live system enforces</h2>
+      <div class="card-table">
+        <table class="tbl responsive">
+          <thead><tr><th>Duty</th><th>How the system enforces it</th></tr></thead>
+          <tbody>
+            <tr><td data-l="Duty">Consent on record</td>
+                <td data-l="Enforcement">Consent flag + date + purpose + evidence document per contact; the
+                marketing send path checks it and blocks records without consent.</td></tr>
+            <tr><td data-l="Duty">Notice &amp; purpose limitation</td>
+                <td data-l="Enforcement">Purpose is stored per record; fields collected beyond the purpose
+                are flagged in the design review.</td></tr>
+            <tr><td data-l="Duty">Access &amp; correction (data subject rights)</td>
+                <td data-l="Enforcement">One-person export answers an access request; edits are logged with
+                actor and time.</td></tr>
+            <tr><td data-l="Duty">Deletion / anonymisation</td>
+                <td data-l="Enforcement">Soft-delete then anonymise: identifying fields are overwritten and
+                the audit row is retained (the log itself carries no personal data).</td></tr>
+            <tr><td data-l="Duty">Security</td>
+                <td data-l="Enforcement">HTTPS, hashed passwords (Argon2/bcrypt), IC and TIN encrypted at
+                the application layer with the key outside the database, role-based access, masked for
+                non-admins, audit log on every sensitive view.</td></tr>
+            <tr><td data-l="Duty">Breach notification (s.12B)</td>
+                <td data-l="Enforcement">Audit trail + encrypted backups make an incident provable, so the
+                Commissioner and affected people can be notified within the required time.</td></tr>
+            <tr><td data-l="Duty">Cross-border transfer</td>
+                <td data-l="Enforcement">Production must run in Malaysia. The white-list was removed by the
+                Amendment Act, so a transfer assessment is needed if data leaves the country.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Scale check</h2>
+      <p style="font-size:12.5px;color:#c9d6e4;line-height:1.6;margin:0">
+        The Data Protection Officer requirement applies above roughly <b>20,000 data subjects</b>. At 106
+        contacts we are far below that — so no DPO appointment is required today. The system is nonetheless
+        designed so the threshold can be met later without a rebuild (per-purpose consent, an audit trail
+        and a breach-response path are the parts that are expensive to add after the fact).</p>
+    </div>
+  </main>
+</div>
+<script src="assets/contact-data.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

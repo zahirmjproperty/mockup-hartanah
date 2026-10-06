@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ZENTRA Contact — Import / export</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<link rel="stylesheet" href="assets/contact.css">
+<script src="assets/theme-boot.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar"><div id="znav"></div></aside>
+  <main id="content">
+    <div class="phead">
+      <div>
+        <h1>Import / export</h1>
+        <p>Bring in existing contacts, or take a copy out.</p>
+      </div>
+    </div>
+
+    <div class="demo-banner">
+      <span>⚠️</span>
+      <div><b>Prototype — no file is read or written.</b> Buttons show what the live system would do.</div>
+    </div>
+
+    <div class="card">
+      <h2>Import contacts</h2>
+      <p style="font-size:12.5px;color:#c9d6e4;line-height:1.6;margin:0 0 12px">
+        Supported: CSV and vCard (.vcf). The live system maps columns, normalises phone numbers, then
+        <b>previews the result before committing</b> — including which rows look like duplicates of
+        existing contacts.</p>
+      <div class="actions-row" style="margin-top:0;border-top:0;padding-top:0">
+        <button class="btn primary">Upload CSV</button>
+        <button class="btn">Upload vCard</button>
+        <button class="btn ghost">Import from Google Contacts</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Export</h2>
+      <div class="actions-row" style="margin-top:0;border-top:0;padding-top:0">
+        <button class="btn">Export all (CSV)</button>
+        <button class="btn ghost">Export current filter</button>
+        <button class="btn ghost">Export vCard</button>
+      </div>
+      <p style="font-size:11.5px;color:#9fb0c4;margin:12px 0 0">Exports are logged in the audit trail.
+      A PDPA access request is answered with the same export, scoped to one person.</p>
+    </div>
+
+    <div class="card">
+      <h2>Existing data to migrate</h2>
+      <div class="card-table">
+        <table class="tbl responsive">
+          <thead><tr><th>Source</th><th>Records</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td data-l="Source">ZM contact database</td><td data-l="Records">80</td>
+                <td data-l="Notes">23 columns; already de-duplicated on phone/email</td></tr>
+            <tr><td data-l="Source">Mr Tanah contact database</td><td data-l="Records">26</td>
+                <td data-l="Notes">COA agents; separate owner (Fadilah scope)</td></tr>
+            <tr><td data-l="Source">Google Contacts</td><td data-l="Records">mirror</td>
+                <td data-l="Notes">Currently synced — becomes a mirror, not the master</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:11.5px;color:#9fb0c4;margin:12px 0 0">Total to migrate: <b>106 live contacts</b>.
+      Verified from the live sheets, 6 Oct 2026.</p>
+    </div>
+  </main>
+</div>
+<script src="assets/contact-data.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

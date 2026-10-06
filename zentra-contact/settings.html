@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ZENTRA Contact — Settings</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<link rel="stylesheet" href="assets/contact.css">
+<script src="assets/theme-boot.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar"><div id="znav"></div></aside>
+  <main id="content">
+    <div class="phead">
+      <div>
+        <h1>Settings</h1>
+        <p>Roles, tags, custom fields and integrations.</p>
+      </div>
+      <button class="btn primary">Save settings</button>
+    </div>
+
+    <div class="demo-banner">
+      <span>⚠️</span>
+      <div><b>Prototype — nothing is saved.</b> This page shows which settings the live system exposes.</div>
+    </div>
+
+    <div class="card">
+      <h2>Users &amp; roles</h2>
+      <div class="card-table">
+        <table class="tbl responsive">
+          <thead><tr><th>User</th><th>Role</th><th>Scope</th><th>Sees IC / TIN</th></tr></thead>
+          <tbody>
+            <tr><td data-l="User">Zahir</td><td data-l="Role">Admin</td><td data-l="Scope">All contacts</td><td data-l="Sees IC / TIN"><span class="flag ok">Yes</span></td></tr>
+            <tr><td data-l="User">Fadilah</td><td data-l="Role">Staff</td><td data-l="Scope">Mr Tanah contacts only</td><td data-l="Sees IC / TIN"><span class="flag no">No</span></td></tr>
+            <tr><td data-l="User">Read-only account</td><td data-l="Role">Read-only</td><td data-l="Scope">All contacts</td><td data-l="Sees IC / TIN"><span class="flag no">No</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:11.5px;color:#9fb0c4;margin:12px 0 0">Role scope mirrors how work is actually split
+      today: Mr Tanah contacts stay inside Fadilah's scope, and the IC/TIN fields are admin-only.</p>
+    </div>
+
+    <div class="card">
+      <h2>Tags &amp; statuses</h2>
+      <div class="fgrid">
+        <div class="fld">
+          <label>Pipeline stages</label>
+          <textarea>New, Contacted, Qualified, Viewing, Negotiation, Closed – Won, Closed – Lost, Nurture</textarea>
+          <span class="hint">Editable in the live system — no code change needed.</span>
+        </div>
+        <div class="fld">
+          <label>Tags</label>
+          <textarea>VIP, Investor, First-time buyer, Cash buyer, Land, Commercial, Repeat client, Urgent, Needs follow-up</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Custom fields</h2>
+      <p style="font-size:12.5px;color:#c9d6e4;line-height:1.6;margin:0 0 12px">Add a field without a
+      developer: name, type (text / number / date / select), and which section it appears in. This is what
+      stops "one more column" from turning into a code change every time.</p>
+      <button class="btn">+ Add custom field</button>
+    </div>
+
+    <div class="card">
+      <h2>Integrations</h2>
+      <div class="card-table">
+        <table class="tbl responsive">
+          <thead><tr><th>System</th><th>Direction</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td data-l="System">Google Sheets (ZM + Mr Tanah contact databases)</td><td data-l="Direction">Mirror out</td><td data-l="Status"><span class="flag ok">Planned</span></td></tr>
+            <tr><td data-l="System">Notion (Mr Tanah listing database)</td><td data-l="Direction">Mirror out</td><td data-l="Status"><span class="flag ok">Planned</span></td></tr>
+            <tr><td data-l="System">Google Contacts</td><td data-l="Direction">Mirror out</td><td data-l="Status"><span class="flag ok">Planned</span></td></tr>
+            <tr><td data-l="System">Telegram (idle-card alerts)</td><td data-l="Direction">Notify</td><td data-l="Status"><span class="flag ok">Existing</span></td></tr>
+            <tr><td data-l="System">WhatsApp / email send</td><td data-l="Direction">Action + log</td><td data-l="Status"><span class="flag due">Later phase</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Backup &amp; retention</h2>
+      <p style="font-size:12.5px;color:#c9d6e4;line-height:1.6;margin:0">
+        Nightly encrypted database dump, restore tested monthly, and a documented retention period per data
+        category. Backup is not a nice-to-have here: it is what makes the breach-notification duty provable
+        and what lets a mistaken merge be undone.</p>
+    </div>
+  </main>
+</div>
+<script src="assets/contact-data.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

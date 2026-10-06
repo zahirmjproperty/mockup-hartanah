@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ZENTRA Contact — Profile</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<link rel="stylesheet" href="assets/contact.css">
+<script src="assets/theme-boot.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar"><div id="znav"></div></aside>
+  <main id="content">
+    <div class="phead">
+      <div>
+        <h1>Contact profile</h1>
+        <p>Full 360° view of one record.</p>
+      </div>
+      <a class="btn ghost" href="contacts.html">← Back to list</a>
+    </div>
+
+    <div class="demo-banner">
+      <span>⚠️</span>
+      <div><b>Prototype — sample data only.</b> IC and TIN are shown masked exactly as a non-admin user
+      would see them. No real personal data is present.</div>
+    </div>
+
+    <div class="card" id="profile">
+      <div class="prof-head">
+        <div class="avatar" id="pAvatar">–</div>
+        <div style="flex:1;min-width:220px">
+          <div class="pn" id="pName">–</div>
+          <div class="pm" id="pMeta"></div>
+          <div style="margin-top:8px" id="pTags"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px" id="pActions"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab on" data-t="overview">Overview</button>
+      <button class="tab" data-t="timeline">Timeline</button>
+      <button class="tab" data-t="documents">Documents</button>
+      <button class="tab" data-t="audit">Audit trail</button>
+    </div>
+
+    <div class="tabpane on" id="tab-overview">
+      <div class="card">
+        <h2>Details</h2>
+        <dl class="kv-list" id="pKv"></dl>
+      </div>
+    </div>
+
+    <div class="tabpane" id="tab-timeline">
+      <div class="card">
+        <h2>Interaction timeline</h2>
+        <div class="timeline" id="timeline"></div>
+        <button class="btn small">+ Log interaction</button>
+      </div>
+    </div>
+
+    <div class="tabpane" id="tab-documents">
+      <div class="card">
+        <h2>Documents</h2>
+        <div id="docs"></div>
+        <p style="margin:12px 0 0"><button class="btn small">Upload document</button></p>
+        <p style="font-size:11.5px;color:#9fb0c4;margin:12px 0 0">Documents are stored encrypted and are
+        visible only to the record owner and admins. Under the PDPA, retention must be justified and
+        deletion honoured on request.</p>
+      </div>
+    </div>
+
+    <div class="tabpane" id="tab-audit">
+      <div class="card">
+        <h2>Audit trail (this record)</h2>
+        <div class="card-table">
+          <table class="tbl responsive">
+            <thead><tr><th>Time</th><th>Actor</th><th>Action</th></tr></thead>
+            <tbody id="auditRows"></tbody>
+          </table>
+        </div>
+        <p style="font-size:11.5px;color:#9fb0c4;margin:12px 0 0">Every view or change of a sensitive field
+        is logged. This is what makes the IC/TIN fields defensible.</p>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/contact-data.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tab');
+  Array.prototype.forEach.call(tabs, function (t) {
+    t.onclick = function () {
+      Array.prototype.forEach.call(tabs, function (x) { x.classList.remove('on'); });
+      t.classList.add('on');
+      Array.prototype.forEach.call(document.querySelectorAll('.tabpane'), function (p) { p.classList.remove('on'); });
+      document.getElementById('tab-' + t.dataset.t).classList.add('on');
+    };
+  });
+})();
+</script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

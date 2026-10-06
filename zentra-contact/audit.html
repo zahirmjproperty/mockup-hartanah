@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ZENTRA Contact — Audit trail</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<link rel="stylesheet" href="assets/contact.css">
+<script src="assets/theme-boot.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar"><div id="znav"></div></aside>
+  <main id="content">
+    <div class="phead">
+      <div>
+        <h1>Audit trail</h1>
+        <p>Who looked at or changed a sensitive field, and when.</p>
+      </div>
+      <button class="btn">Export log</button>
+    </div>
+
+    <div class="demo-banner">
+      <span>⚠️</span>
+      <div><b>Prototype — sample data only.</b> The entries below are illustrative.</div>
+    </div>
+
+    <div class="filter-bar">
+      <select class="f"><option>Actor: all</option><option>Zahir (ZM)</option><option>Fadilah (MT)</option><option>System</option></select>
+      <select class="f"><option>Action: all</option><option>Viewed sensitive field</option><option>Updated</option><option>Exported</option><option>Deleted</option></select>
+      <input class="f" type="date" value="2026-10-06">
+    </div>
+
+    <div class="card" style="padding:0">
+      <div class="card-table">
+        <table class="tbl responsive">
+          <thead><tr><th>Time</th><th>Actor</th><th>Contact</th><th>Action</th><th>Field</th></tr></thead>
+          <tbody>
+            <tr><td data-l="Time">2026-10-06 09:12</td><td data-l="Actor">Zahir (ZM)</td>
+                <td data-l="Contact">ZC-0001</td><td data-l="Action">Viewed</td><td data-l="Field">IC (masked)</td></tr>
+            <tr><td data-l="Time">2026-10-06 09:05</td><td data-l="Actor">Zahir (ZM)</td>
+                <td data-l="Contact">ZC-0001</td><td data-l="Action">Added interaction</td><td data-l="Field">Timeline</td></tr>
+            <tr><td data-l="Time">2026-10-05 17:31</td><td data-l="Actor">Zahir (ZM)</td>
+                <td data-l="Contact">—</td><td data-l="Action">Exported</td><td data-l="Field">CSV (24 rows)</td></tr>
+            <tr><td data-l="Time">2026-10-05 11:02</td><td data-l="Actor">Fadilah (MT)</td>
+                <td data-l="Contact">ZC-0012</td><td data-l="Action">Updated</td><td data-l="Field">Phone</td></tr>
+            <tr><td data-l="Time">2026-10-04 08:00</td><td data-l="Actor">System</td>
+                <td data-l="Contact">—</td><td data-l="Action">Backup</td><td data-l="Field">Encrypted dump</td></tr>
+            <tr><td data-l="Time">2026-10-03 16:44</td><td data-l="Actor">Zahir (ZM)</td>
+                <td data-l="Contact">ZC-0007</td><td data-l="Action">Viewed</td><td data-l="Field">TIN (masked)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Rules the log follows</h2>
+      <p style="font-size:12.5px;color:#c9d6e4;line-height:1.6;margin:0">
+        The log is <b>append-only</b> — entries are never edited or deleted, including when a contact is
+        anonymised. It records the actor, the time, the action and which field was touched, but stores no
+        personal data itself, so it can be kept after the record it describes has been erased.</p>
+    </div>
+  </main>
+</div>
+<script src="assets/contact-data.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

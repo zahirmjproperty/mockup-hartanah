@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ZENTRA Contact — Pipeline</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<link rel="stylesheet" href="assets/contact.css">
+<script src="assets/theme-boot.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar"><div id="znav"></div></aside>
+  <main id="content">
+    <div class="phead">
+      <div>
+        <h1>Kanban pipeline</h1>
+        <p>Contacts by stage. Drag-and-drop is shown in the live system.</p>
+      </div>
+      <a class="btn primary" href="new-contact.html">+ New contact</a>
+    </div>
+
+    <div class="demo-banner">
+      <span>⚠️</span>
+      <div><b>Prototype — sample data only.</b> Clicking a card shows the demo action message.
+      Dragging is disabled in the prototype.</div>
+    </div>
+
+    <p class="scroll-hint">Swipe sideways to see the other stages &rarr;</p>
+    <div class="kanban" id="kanban"></div>
+
+    <div class="card" style="margin-top:6px">
+      <h2>How this replaces the current CRM board</h2>
+      <p style="font-size:12.5px;color:#c9d6e4;line-height:1.6;margin:0">
+        Today the pipeline lives in a Google Sheet (<code>Pipeline</code> tab, cards <code>PL-####</code>).
+        In ZENTRA Contact the same stages become rows in PostgreSQL, so a card can link to the contact
+        record, documents, consent and audit trail — instead of being a row that only references a name.
+        The Sheet can stay as a read-only mirror during the twin period.</p>
+    </div>
+  </main>
+</div>
+<script src="assets/contact-data.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ZENTRA Contact — Add contact</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<link rel="stylesheet" href="assets/contact.css">
+<script src="assets/theme-boot.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar"><div id="znav"></div></aside>
+  <main id="content">
+    <div class="phead">
+      <div>
+        <h1 id="formTitle">Add contact</h1>
+        <p>Create a new person or organisation record.</p>
+      </div>
+      <a class="btn ghost" href="contacts.html">← Back to list</a>
+    </div>
+
+    <div class="demo-banner">
+      <span>⚠️</span>
+      <div><b>Prototype — nothing is saved.</b> This form shows the real field set and validation rules.
+      Submitting shows a demo message only.</div>
+    </div>
+
+    <form id="cform" novalidate>
+      <div class="card">
+        <h2>Identity</h2>
+        <div class="fgrid">
+          <div class="fld">
+            <label for="kind">Record type <span class="req">*</span></label>
+            <select id="kind" name="kind">
+              <option value="person">Person</option>
+              <option value="organization">Organisation</option>
+            </select>
+          </div>
+          <div class="fld">
+            <label for="title">Title</label>
+            <input id="title" name="title" placeholder="Dato' / Mr / Ms">
+          </div>
+          <div class="fld">
+            <label for="fullName">Full name <span class="req">*</span></label>
+            <input id="fullName" name="fullName" required placeholder="As per NRIC / SSM">
+            <span class="hint">Required. Names alone never merge records.</span>
+          </div>
+          <div class="fld">
+            <label for="nickname">Preferred name</label>
+            <input id="nickname" name="nickname" placeholder="What they like to be called">
+          </div>
+          <div class="fld">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender"><option value="">—</option><option>M</option><option>F</option></select>
+          </div>
+          <div class="fld">
+            <label for="birthDate">Date of birth</label>
+            <input id="birthDate" name="birthDate" type="date">
+            <span class="hint">Used for birthday reminders.</span>
+          </div>
+          <div class="fld">
+            <label for="ic">IC / passport no.</label>
+            <input id="ic" name="ic" placeholder="000000-00-0000">
+            <span class="hint">Encrypted at rest; masked for non-admin roles.</span>
+          </div>
+          <div class="fld">
+            <label for="tin">Tax ID (TIN)</label>
+            <input id="tin" name="tin" placeholder="IG…">
+            <span class="hint">Encrypted at rest; admin only.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Communication</h2>
+        <div class="fgrid">
+          <div class="fld">
+            <label for="phone1">Mobile phone <span class="req">*</span></label>
+            <input id="phone1" name="phone1" required placeholder="012-345 6789">
+            <span class="hint">Normalised to +60… — the primary duplicate key.</span>
+          </div>
+          <div class="fld">
+            <label for="phone2">Second phone</label>
+            <input id="phone2" name="phone2" placeholder="Office / home">
+          </div>
+          <div class="fld">
+            <label for="email1">Email</label>
+            <input id="email1" name="email1" type="email" placeholder="name@example.com">
+          </div>
+          <div class="fld">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" placeholder="Street, city, postcode, state"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Professional &amp; role</h2>
+        <div class="fgrid">
+          <div class="fld">
+            <label for="company">Company</label>
+            <input id="company" name="company">
+          </div>
+          <div class="fld">
+            <label for="jobTitle">Job title</label>
+            <input id="jobTitle" name="jobTitle">
+          </div>
+          <div class="fld">
+            <label for="renNumber">REN number</label>
+            <input id="renNumber" name="renNumber" placeholder="REN 12345">
+            <span class="hint">For COA agents — BOVAEP registration.</span>
+          </div>
+          <div class="fld">
+            <label for="roles">Roles</label>
+            <select id="roles" name="roles" multiple size="5" style="min-height:112px">
+              <option>Buyer / Lead</option><option>Seller</option><option>Tenant</option>
+              <option>Landlord</option><option>COA Agent</option><option>Partner</option>
+              <option>Contractor</option><option>Valuer</option><option>Investor</option>
+            </select>
+            <span class="hint">One contact can hold several roles.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Property interest</h2>
+        <div class="fgrid">
+          <div class="fld">
+            <label for="budgetMin">Budget from (RM)</label>
+            <input id="budgetMin" name="budgetMin" type="number" min="0" step="1000" placeholder="0">
+          </div>
+          <div class="fld">
+            <label for="budgetMax">Budget to (RM)</label>
+            <input id="budgetMax" name="budgetMax" type="number" min="0" step="1000" placeholder="0">
+            <span class="hint">If both are set, "from" must not exceed "to".</span>
+          </div>
+          <div class="fld">
+            <label for="area">Preferred area</label>
+            <input id="area" name="area" placeholder="Bangi, Kajang, Putrajaya">
+          </div>
+          <div class="fld">
+            <label for="source">Source <span class="req">*</span></label>
+            <select id="source" name="source" required>
+              <option value="">— select —</option>
+              <option>Facebook Page</option><option>WhatsApp</option><option>Referral</option>
+              <option>Walk-in</option><option>Website Form</option><option>Property Portal</option>
+              <option>Event / Expo</option><option>COA Network</option>
+            </select>
+          </div>
+          <div class="fld">
+            <label for="agent">Owner (agent) <span class="req">*</span></label>
+            <select id="agent" name="agent" required>
+              <option value="">— select —</option>
+              <option>Zahir (ZM)</option><option>Fadilah (MT)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>PDPA &amp; consent</h2>
+        <div class="fgrid">
+          <div class="fld">
+            <label for="consent">Consent to process personal data <span class="req">*</span></label>
+            <select id="consent" name="consent" required>
+              <option value="">— select —</option>
+              <option value="yes">Yes — consent recorded</option>
+              <option value="no">No — do not contact for marketing</option>
+            </select>
+            <span class="hint">Without consent the record is flagged and marketing contact is blocked.</span>
+          </div>
+          <div class="fld">
+            <label for="consentPurpose">Purpose</label>
+            <input id="consentPurpose" name="consentPurpose" placeholder="Property enquiry &amp; follow-up">
+          </div>
+          <div class="fld">
+            <label for="consentDate">Date recorded</label>
+            <input id="consentDate" name="consentDate" type="date">
+          </div>
+        </div>
+        <p style="font-size:11.5px;color:#9fb0c4;margin:12px 0 0">The live system also records <em>how</em>
+        consent was obtained (form, WhatsApp, verbal) and keeps the evidence document. Under the PDPA
+        (Amendment) Act 2024, a data controller must be able to show consent on request.</p>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn primary" type="submit">Save contact</button>
+        <button class="btn ghost" type="reset">Clear form</button>
+        <a class="btn ghost" href="contacts.html">Cancel</a>
+      </div>
+      <div id="formMsg" style="margin-top:14px;font-size:12.5px"></div>
+    </form>
+  </main>
+</div>
+<script src="assets/contact-data.js"></script>
+<script>
+/* Pengesahan sebenar pada submit — bukan sekadar kosmetik. */
+(function () {
+  var f = document.getElementById('cform'), msg = document.getElementById('formMsg');
+  function setErr(id, text) {
+    var el = document.getElementById(id); if (!el) return;
+    el.style.borderColor = text ? '#efa0a0' : '';
+  }
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var errs = [];
+    var req = [['fullName', 'Full name'], ['phone1', 'Mobile phone'], ['source', 'Source'],
+               ['agent', 'Owner (agent)'], ['consent', 'PDPA consent']];
+    req.forEach(function (r) {
+      var v = (document.getElementById(r[0]).value || '').trim();
+      var bad = !v;
+      setErr(r[0], bad);
+      if (bad) errs.push(r[1] + ' is required');
+    });
+    var tel = (document.getElementById('phone1').value || '').replace(/[^0-9]/g, '');
+    if (tel && (tel.length < 9 || tel.length > 12)) {
+      setErr('phone1', 1); errs.push('Mobile phone must be 9–12 digits');
+    }
+    var em = document.getElementById('email1').value.trim();
+    if (em && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { setErr('email1', 1); errs.push('Email looks invalid'); }
+    var bmin = +document.getElementById('budgetMin').value || 0;
+    var bmax = +document.getElementById('budgetMax').value || 0;
+    if (bmin && bmax && bmin > bmax) { setErr('budgetMax', 1); errs.push('Budget "from" must not exceed "to"'); }
+    if (errs.length) {
+      msg.innerHTML = '<span style="color:#efa0a0">✕ ' + errs.length + ' field(s) need attention: ' +
+        errs.map(function (x) { return '<b>' + x + '</b>'; }).join(' · ') + '</span>';
+      var first = document.querySelector('input[style*="efa0a0"], select[style*="efa0a0"]');
+      if (first) first.focus();
+      return;
+    }
+    msg.innerHTML = '<span style="color:#96e0b4">✓ Validation passed.</span> ' +
+      '<span style="color:#9fb0c4">In the live system this would save the record, normalise the phone number, ' +
+      'check it against existing contacts for duplicates, and write an audit entry. ' +
+      'This is a prototype — nothing was saved.</span>';
+  });
+  f.addEventListener('reset', function () { msg.innerHTML = ''; ['fullName','phone1','source','agent','consent','email1','budgetMax'].forEach(function (i) { setErr(i, 0); }); });
+})();
+</script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

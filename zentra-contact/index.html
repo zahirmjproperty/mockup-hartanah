@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ZENTRA Contact — Dashboard</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<link rel="stylesheet" href="assets/contact.css">
+<script src="assets/theme-boot.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar"><div id="znav"></div></aside>
+  <main id="content">
+    <div class="phead">
+      <div>
+        <h1>Dashboard</h1>
+        <p>Contacts, pipeline health and follow-ups at a glance.</p>
+      </div>
+      <a class="btn primary" href="new-contact.html">+ New contact</a>
+    </div>
+
+    <div class="demo-banner">
+      <span>⚠️</span>
+      <div><b>Prototype — sample data only.</b> Every record on this site is synthetic and marked
+      <code>"SINTETIK"</code>. No real contact data is used. Buttons show what the live system would do;
+      no real change is made.</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v" data-kpi="total">–</div><div class="l">Total contacts</div></div>
+      <div class="stat"><div class="v" data-kpi="people">–</div><div class="l">People</div></div>
+      <div class="stat"><div class="v" data-kpi="orgs">–</div><div class="l">Organisations</div></div>
+      <div class="stat"><div class="v" data-kpi="newThisWeek">–</div><div class="l">New this week</div></div>
+      <div class="stat warn"><div class="v" data-kpi="dueToday">–</div><div class="l">Follow-ups due / overdue</div></div>
+      <div class="stat warn"><div class="v" data-kpi="noConsent">–</div><div class="l">Missing PDPA consent</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Pipeline by stage</h2>
+      <div id="pipeChart"></div>
+      <p style="font-size:11.5px;color:#9fb0c4;margin:12px 0 0">Counts are computed from the same fixture as
+      every other page — the dashboard can never disagree with the contact list.</p>
+    </div>
+
+    <div class="card">
+      <h2>Recently added</h2>
+      <div class="card-table">
+        <table class="tbl responsive">
+          <thead><tr><th>Name</th><th>Status</th><th>Owner</th><th>Created</th></tr></thead>
+          <tbody id="recent"></tbody>
+        </table>
+      </div>
+      <p style="margin:12px 0 0"><a class="btn small ghost" href="contacts.html">View all contacts →</a></p>
+    </div>
+
+    <div class="card">
+      <h2>Follow-ups due</h2>
+      <div class="card-table">
+        <table class="tbl responsive">
+          <thead><tr><th>Name</th><th>Due</th><th>Status</th></tr></thead>
+          <tbody id="dueList"></tbody>
+        </table>
+      </div>
+      <p style="margin:12px 0 0"><a class="btn small ghost" href="reminders.html">Open reminders →</a></p>
+    </div>
+  </main>
+</div>
+<script src="assets/contact-data.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ZENTRA Contact — Duplicates</title>
+<link rel="stylesheet" href="assets/zentra.css">
+<link rel="stylesheet" href="assets/contact.css">
+<script src="assets/theme-boot.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar"><div id="znav"></div></aside>
+  <main id="content">
+    <div class="phead">
+      <div>
+        <h1>Duplicate review</h1>
+        <p>Possible matches that need a human decision before merge.</p>
+      </div>
+      <button class="btn">Run duplicate scan</button>
+    </div>
+
+    <div class="demo-banner">
+      <span>⚠️</span>
+      <div><b>Prototype — sample data only.</b> The pair below is synthetic. Merge buttons show a demo
+      message; no records are changed.</div>
+    </div>
+
+    <div id="dups"></div>
+
+    <div class="card">
+      <h2>How matching works in the live system</h2>
+      <p style="font-size:12.5px;color:#c9d6e4;line-height:1.6;margin:0">
+        Phone (normalised to <code>+60</code>), email (lower-cased) and IC are compared — <b>never name
+        alone</b>, because two different people can share a name and the same person is often stored with
+        a different spelling. A merge keeps the chosen primary record, moves the children (phones, emails,
+        interactions, documents) across, and archives the loser instead of deleting it, so the merge can be
+        undone. The current contact database already de-duplicates on phone and email — that rule is
+        carried over rather than reinvented.</p>
+    </div>
+  </main>
+</div>
+<script src="assets/contact-data.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/nav.js"></script>
+</body>
+</html>
