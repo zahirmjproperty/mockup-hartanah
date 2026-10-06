@@ -25,7 +25,7 @@
 .nav .ic { width: 17px; height: 17px; flex-shrink: 0; }
 .pill-live { font-size: 9px; padding: 1px 5px; border-radius: 999px; margin-left: auto;
   background: rgba(201,162,39,.18); color: #e8ce86; border: 1px solid rgba(201,162,39,.3); }
-.foot { padding: 14px 16px 20px; font-size: 10.5px; color: #7d8fa6; line-height: 1.5; }
+.foot { padding: 14px 16px 20px; font-size: 10.5px; color: #9fb0c4; line-height: 1.5; }
 
 /* ---- Page header ---- */
 .phead { display: flex; align-items: flex-start; justify-content: space-between;
@@ -146,7 +146,8 @@ table.tbl a:hover { text-decoration: underline; }
 .kcard { background: rgba(255,255,255,.05); border: 1px solid rgba(201,162,39,.16); border-radius: 9px;
   padding: 10px; margin-bottom: 8px; cursor: grab; }
 .kcard:hover { border-color: rgba(201,162,39,.4); }
-.kcard .kn { font-size: 12.5px; font-weight: 600; color: #f2e6c4; }
+.kcard .kn { font-size: 12.5px; font-weight: 600; color: #f2e6c4;
+  overflow-wrap: anywhere; word-break: break-word; line-height: 1.35; }
 .kcard .km { font-size: 10.5px; color: #9fb0c4; margin-top: 3px; }
 .kcard .kv { font-size: 11px; color: #8fd4a8; margin-top: 5px; font-weight: 600; }
 .theme-light .kcol { background: #f7f9fc; }

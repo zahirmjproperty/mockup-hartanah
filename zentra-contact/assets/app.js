@@ -114,7 +114,7 @@
       return '<div class="kcol"><h3>' + esc(st) + '<span>' + list.length + '</span></h3>' +
         list.map(function (c) {
           var budget = c.budgetMax ? 'RM ' + (c.budgetMax / 1000).toFixed(0) + 'k' : '';
-          return '<div class="kcard"><div class="kn">' + esc(c.fullName) + '</div>' +
+          return '<div class="kcard" title="' + esc(c.fullName) + '"><div class="kn">' + esc(c.fullName) + '</div>' +
             '<div class="km">' + esc((c.roles || []).join(', ')) + '</div>' +
             (budget ? '<div class="kv">' + budget + '</div>' : '') +
             '<div class="km">' + esc(c.agent || '') + '</div></div>';
