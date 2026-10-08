@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Zentra Launch — POC generator (English US).
+"""Zentra Project — POC generator (English US).
 Brand: ZAFA Property Group (client-facing) / Mr Tanah (admin, internal)
-Output: ~/mockup-hartanah/zentra-launch-poc/  (noindex preview)
+Output: ~/mockup-hartanah/zentra-project-poc/  (noindex preview)
 """
 import os
 
-OUT = "/home/ubuntu/mockup-hartanah/zentra-launch-poc"
+OUT = "/home/ubuntu/mockup-hartanah/zentra-project-poc"
 os.makedirs(OUT, exist_ok=True)
 
 # ── Jenama = TETAPAN (dikonfirmasi Zahir 15/9/2026: Zentra Property Group)
 BRAND = "Zentra Property Group"
-SUITE = "Zentra Launch"
+SUITE = "Zentra Project"
 BANNER = ("PROOF OF CONCEPT / PREVIEW — not the live system. "
           "Sample structure where noted; project facts are real (Avalon @ Cybersouth). Noindex.")
 
@@ -744,8 +744,8 @@ def stub(dirpath, target, label):
         '<p>This preview has moved.</p>'
         '<p><a href="%s">Continue →</a></p></body></html>' % target)
 
-stub("/home/ubuntu/mockup-hartanah/sjpb-poc", "../zentra-launch-poc/index.html", "Zentra Launch preview")
-stub("/home/ubuntu/mockup-hartanah/zafa-sales-suite", "../zentra-launch-poc/index.html", "Zentra Launch preview")
+stub("/home/ubuntu/mockup-hartanah/sjpb-poc", "../zentra-project-poc/index.html", "Zentra Project preview")
+stub("/home/ubuntu/mockup-hartanah/zafa-sales-suite", "../zentra-project-poc/index.html", "Zentra Project preview")
 
 open(os.path.join(OUT, "suite.css"), 'w', encoding='utf-8').write(CSS)
 print("Done:", sorted(os.listdir(OUT)))

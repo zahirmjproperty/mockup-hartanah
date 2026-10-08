@@ -26,8 +26,8 @@
   var SISTEM = [
     { host: 'asset.zentrapropertygroup.com',  nama: 'Zentra Asset',
       nota: 'Managed portfolio operations', href: 'https://asset.zentrapropertygroup.com/' },
-    { host: 'launch.zentrapropertygroup.com', nama: 'Zentra Launch',
-      nota: 'New project sales',            href: 'https://launch.zentrapropertygroup.com/' },
+    { host: 'project.zentrapropertygroup.com', nama: 'Zentra Project',
+      nota: 'New project sales',            href: 'https://project.zentrapropertygroup.com/' },
     { host: 'push.zentrapropertygroup.com',   nama: 'Zentra Push',
       nota: 'Listing distribution',         href: 'https://push.zentrapropertygroup.com/' },
     { host: 'realty.zentrapropertygroup.com', nama: 'Zentra Realty',

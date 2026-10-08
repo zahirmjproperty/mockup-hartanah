@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""F1 — Halaman projek Zentra Launch v3 (PRATONTON) + borang EOI RM0.
+"""F1 — Halaman projek Zentra Project v3 (PRATONTON) + borang EOI RM0.
 Sumber fakta: ~/mrtanah-site/data/projek-baharu.json (Notion 'Projek Baharu MT').
 Hantar ke: ~/mockup-hartanah/f1-projek-v3/ (noindex, pratonton untuk kelulusan Zahir).
 Borang EOI → webhook portal MT (aksi form=eoi) → Sheet 'EOI Projek Baharu MT'.
@@ -127,7 +127,7 @@ def page(p, indeks):
     body = """<!doctype html><html lang="en-US"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>__NAMA__ — Zentra Launch (preview)</title><style>__CSS__</style></head><body>
+<title>__NAMA__ — Zentra Project (preview)</title><style>__CSS__</style></head><body>
 <div class="pv">PRATONTON FASA 1 — noindex · data permit sebenar · borang EOI berfungsi (ujian) · belum diterbitkan ke mrtanah.com</div>
 <header><div class="b">ZENTRA <span>LAUNCH</span></div>
 <div><a href="index.html">All projects</a> · <a href="https://wa.me/__WA__" target="_blank" rel="noopener">WhatsApp</a></div></header>
