@@ -1,0 +1,64 @@
+/* ZENTRA Search — extension layer over the apex base.css.
+   Only deltas. Base tokens: --bg --bg-soft --panel --cyan --gold --text --muted --border --radius --wrap. */
+
+.zs-hero { padding: 88px 0 40px; }
+.zs-hero h1 { font-size: clamp(30px, 4.4vw, 52px); line-height: 1.06; margin: 14px 0 16px; }
+.zs-hero h1 em { font-style: normal; background: var(--grad-gold, linear-gradient(135deg,#e8ce86,#c9a227 45%,#9a7a2e)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.zs-hero .lead { max-width: 62ch; color: var(--muted); font-size: 17px; }
+.zs-pill { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; }
+.zs-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+
+/* search console */
+.zs-console { margin: 26px 0 10px; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; position: relative; overflow: hidden; }
+.zs-console::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; background: var(--grad-gold, linear-gradient(135deg,#e8ce86,#c9a227 45%,#9a7a2e)); }
+.zs-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.zs-input { flex: 1 1 320px; min-width: 0; background: #061322; border: 1px solid var(--border); border-radius: 10px; color: var(--text); padding: 13px 16px; font: inherit; font-size: 15px; }
+.zs-input:focus { outline: 2px solid rgba(38,216,245,.5); outline-offset: 1px; }
+.zs-go { flex: 0 0 auto; border: 0; border-radius: 10px; padding: 13px 26px; font: inherit; font-weight: 700; color: #06131f; background: linear-gradient(135deg,#e8ce86,#c9a227 45%,#9a7a2e); cursor: pointer; }
+.zs-go:hover { filter: brightness(1.08); }
+.zs-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.zs-chip { border: 1px solid var(--border); background: transparent; color: var(--muted); border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 13px; cursor: pointer; }
+.zs-chip[aria-pressed="true"] { color: #06131f; background: linear-gradient(135deg,#e8ce86,#c9a227 45%,#9a7a2e); border-color: transparent; font-weight: 600; }
+.zs-meta { margin-top: 12px; font-size: 12.5px; color: var(--muted); }
+
+/* results */
+.zs-results { margin-top: 22px; display: grid; gap: 12px; }
+.zs-card { background: var(--bg-soft); border: 1px solid var(--border-soft, var(--border)); border-left: 3px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.zs-card:hover { border-left-color: var(--gold); }
+.zs-card-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+.zs-src { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; }
+.zs-src.threads { color: #cbb6ff; } .zs-src.instagram { color: #ff9ec4; }
+.zs-src.facebook { color: #8ab4ff; } .zs-src.linkedin { color: #7fd4ff; }
+.zs-src.tiktok { color: #7ce8e0; }   .zs-src.x { color: #d6dbe4; }
+.zs-author { font-weight: 600; font-size: 13.5px; }
+.zs-when { font-size: 12px; color: var(--muted); margin-left: auto; }
+.zs-text { font-size: 14.5px; line-height: 1.55; color: var(--text); }
+.zs-tag { font-size: 11px; border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; color: var(--muted); }
+.zs-empty { color: var(--muted); font-size: 14px; padding: 18px 0; }
+
+/* coverage matrix */
+.zs-matrix { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13.5px; }
+.zs-matrix th, .zs-matrix td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--border-soft, var(--border)); vertical-align: top; }
+.zs-matrix th { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.zs-matrix td:first-child { font-weight: 600; white-space: nowrap; }
+.zs-matrix .ok { color: #6ee7a8; } .zs-matrix .no { color: #ff8f8f; }
+.zs-scroll { overflow-x: auto; }
+
+/* steps / fallback chain */
+.zs-steps { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin-top: 16px; }
+.zs-step { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.zs-step b { display: block; font-size: 13px; color: var(--cyan); margin-bottom: 6px; letter-spacing: .04em; }
+.zs-step p { margin: 0; font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+.zs-num { display: inline-flex; width: 24px; height: 24px; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--border); color: var(--gold); font-size: 12px; font-weight: 700; margin-right: 8px; }
+
+/* compliance band */
+.zs-band { margin-top: 14px; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; background: var(--bg-soft); }
+.zs-band h3 { margin: 0 0 10px; font-size: 15px; color: var(--gold); }
+.zs-band ul { margin: 0; padding-left: 18px; }
+.zs-band li { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+.zs-note { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+
+@media (max-width: 640px) {
+  .zs-hero { padding: 56px 0 24px; }
+  .zs-when { margin-left: 0; width: 100%; }
+}

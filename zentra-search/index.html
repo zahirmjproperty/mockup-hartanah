@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#061322">
+<title>ZENTRA Search — Public Social Intelligence</title>
+<meta name="description" content="ZENTRA Search: find public information across Threads, Facebook, Instagram, LinkedIn, TikTok and X without an account. Public data only.">
+<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/zs.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="nav wrap">
+    <a class="brand" href="#top" aria-label="ZENTRA Search — home">
+      <img src="assets/brand/logo-horizontal-plate.png" width="1448" height="605" alt="ZENTRA Property Group">
+    </a>
+    <nav id="navigation" aria-label="Main">
+      <a href="#console">Search</a>
+      <a href="#coverage">Coverage</a>
+      <a href="#how">How it works</a>
+      <a href="#compliance">Compliance</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="zs-hero wrap" id="top">
+    <span class="zs-pill"><i></i> DESIGN PREVIEW — synthetic data</span>
+    <h1>ZENTRA <em>Search</em></h1>
+    <p class="lead">Find public information across Threads, Facebook, Instagram, LinkedIn, TikTok and X — no account, no login. Sentiment, listings, competitor ads and hiring signals from open posts, matched to the right retrieval method per platform.</p>
+  </section>
+
+  <section class="wrap" id="console">
+    <form class="zs-console" id="zs-form" role="search">
+      <div class="zs-row">
+        <input class="zs-input" id="zs-q" type="search" placeholder="e.g. tanah untuk dijual melaka" aria-label="Search public social posts" autocomplete="off">
+        <button class="zs-go" type="submit">Search</button>
+      </div>
+      <div class="zs-chips" id="zs-chips" role="group" aria-label="Platform filter">
+        <button class="zs-chip" type="button" data-p="all" aria-pressed="true">All platforms</button>
+        <button class="zs-chip" type="button" data-p="threads" aria-pressed="false">Threads</button>
+        <button class="zs-chip" type="button" data-p="facebook" aria-pressed="false">Facebook</button>
+        <button class="zs-chip" type="button" data-p="instagram" aria-pressed="false">Instagram</button>
+        <button class="zs-chip" type="button" data-p="linkedin" aria-pressed="false">LinkedIn</button>
+        <button class="zs-chip" type="button" data-p="tiktok" aria-pressed="false">TikTok</button>
+        <button class="zs-chip" type="button" data-p="x" aria-pressed="false">X</button>
+      </div>
+      <p class="zs-meta" id="zs-meta">Showing sample of 10 public posts (synthetic). No login required.</p>
+    </form>
+
+    <div class="zs-results" id="zs-results" aria-live="polite"></div>
+  </section>
+
+  <section class="wrap" id="coverage" style="margin-top:56px">
+    <div class="section-heading">
+      <p class="eyebrow">What is reachable without login</p>
+      <h2>Coverage by platform</h2>
+      <p class="section-sub">Each platform has a different open door. Matching the method to the platform is the whole trick.</p>
+    </div>
+    <div class="zs-scroll">
+      <table class="zs-matrix">
+        <thead><tr><th>Platform</th><th>Works logged-out</th><th>Blocked without login</th><th>Method</th></tr></thead>
+        <tbody>
+          <tr><td>Threads</td><td class="ok">Keyword search, public posts &amp; profiles</td><td class="no">Private accounts, DMs</td><td>Headless browser render (JS page)</td></tr>
+          <tr><td>Facebook</td><td class="ok">Public Pages, Meta Ad Library</td><td class="no">Groups, Marketplace, personal profiles</td><td>Browser + Ad Library</td></tr>
+          <tr><td>Instagram</td><td class="ok">Public posts &amp; profiles</td><td class="no">Hashtag feed when rate-limited, stories, DMs</td><td>Browser render (server IP gets 429)</td></tr>
+          <tr><td>LinkedIn</td><td class="ok">Company pages, public posts, job search</td><td class="no">People search, full profiles</td><td>Browser + page extraction</td></tr>
+          <tr><td>TikTok</td><td class="ok">Keyword &amp; hashtag search, public videos</td><td class="no">Private accounts, DMs</td><td>Browser render</td></tr>
+          <tr><td>X (Twitter)</td><td class="ok">Single public post by ID</td><td class="no">Keyword search, timelines</td><td>Syndication / oEmbed API</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="zs-note">Plus a web-search fallback (<code>site:threads.com "keyword"</code>) that reaches indexed public posts across all six at once. Logged-out results are a <strong>sample</strong> (~20–30 posts per query), not the full population.</p>
+  </section>
+
+  <section class="wrap" id="how" style="margin-top:56px">
+    <div class="section-heading">
+      <p class="eyebrow">Retrieval chain</p>
+      <h2>How a query is answered</h2>
+      <p class="section-sub">Cheapest method first; the browser render only when the platform needs JavaScript.</p>
+    </div>
+    <div class="zs-steps">
+      <div class="zs-step"><b><span class="zs-num">1</span>Web search</b><p>Indexed public posts, cheapest. Returns real post URLs plus snippets.</p></div>
+      <div class="zs-step"><b><span class="zs-num">2</span>Page extract</b><p>Reads the returned URLs. Works for LinkedIn, Facebook, Instagram, X.</p></div>
+      <div class="zs-step"><b><span class="zs-num">3</span>Headless render</b><p>The only reliable path for Threads and TikTok, and Instagram when rate-limited.</p></div>
+      <div class="zs-step"><b><span class="zs-num">4</span>Embed API</b><p>Structured single item: X syndication / oEmbed, TikTok oEmbed.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="compliance" style="margin-top:56px">
+    <div class="section-heading">
+      <p class="eyebrow">Boundaries</p>
+      <h2>Public data only</h2>
+    </div>
+    <div class="zs-band">
+      <h3>Rules this module enforces</h3>
+      <ul>
+        <li>Never logs in, never uses a user session — that is the fastest route to a restricted account.</li>
+        <li>No personal contact lists. Names, jobs and photos are personal data even when public; PDPA applies to commercial use.</li>
+        <li>Scoped to companies, Pages, hashtags, ads and job posts — not people.</li>
+        <li>Official APIs preferred for long-term use: Meta Threads API, X API v2, Meta Ad Library API.</li>
+        <li>Every result is labelled with its platform, and any gap is stated. A sample is never presented as the whole population.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap about" id="about" style="margin-top:56px">
+    <p class="eyebrow">ZENTRA Property Group</p>
+    <h2>Built for your business.<br>Ready for what&rsquo;s next.</h2>
+    <p>ZENTRA Search is the public-intelligence module: what the market is saying, before anyone reports it.</p>
+    <a class="button" href="https://www.zentrapropertygroup.com/">Explore the Ecosystem <span aria-hidden="true">&#8599;</span></a>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <a class="brand" href="#top" aria-label="ZENTRA Property Group — back to top">
+      <img src="assets/brand/logo-horizontal-plate.png" width="1448" height="605" alt="ZENTRA Property Group">
+    </a>
+    <p class="footer-tag">Enterprise SaaS for Property &amp; Beyond</p>
+    <a class="footer-site" href="https://www.zentrapropertygroup.com/">www.zentrapropertygroup.com</a>
+  </div>
+</footer>
+
+<script src="assets/zs-data.js"></script>
+<script src="assets/zs.js"></script>
+</body>
+</html>
